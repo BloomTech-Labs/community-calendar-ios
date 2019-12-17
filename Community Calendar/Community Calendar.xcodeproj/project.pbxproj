@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,7 +37,7 @@
 		0EB19D5E23A82C5B00640A40 /* Community_Calendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5C23A82C5B00640A40 /* Community_Calendar.xcdatamodeld */; };
 		0EB19D6023A82C6200640A40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D5F23A82C6200640A40 /* Assets.xcassets */; };
 		0EB19D6323A82C6200640A40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */; };
-		B97AC89CA6FA5E887808C417 /* Pods_Community_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */; };
+		0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B97AC89CA6FA5E887808C417 /* Pods_Community_Calendar.framework in Frameworks */,
+				0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,7 +168,6 @@
 				697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */,
 				81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

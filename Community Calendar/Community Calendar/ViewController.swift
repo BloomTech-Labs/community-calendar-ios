@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Auth0
 
 let dateFormatter: DateFormatter = {
     let df = DateFormatter()
