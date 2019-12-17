@@ -26,6 +26,8 @@
 		0E9FDD7023A8366F00FD75A0 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5E23A8366E00FD75A0 /* Poppins-Bold.ttf */; };
 		0E9FDD7123A8366F00FD75A0 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5F23A8366F00FD75A0 /* Poppins-Regular.ttf */; };
 		0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */; };
+		0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */; };
+		0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */; };
 		0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5323A82C5B00640A40 /* AppDelegate.swift */; };
 		0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5523A82C5B00640A40 /* SceneDelegate.swift */; };
 		0EB19D5823A82C5B00640A40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5723A82C5B00640A40 /* ViewController.swift */; };
@@ -55,6 +57,8 @@
 		0E9FDD5E23A8366E00FD75A0 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		0E9FDD5F23A8366F00FD75A0 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCollectionViewCell.swift; sourceTree = "<group>"; };
+		0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCollectionViewCell.swift; sourceTree = "<group>"; };
 		0EB19D5023A82C5B00640A40 /* Community Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Community Calendar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB19D5323A82C5B00640A40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0EB19D5523A82C5B00640A40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +129,8 @@
 				0EB19D5323A82C5B00640A40 /* AppDelegate.swift */,
 				0EB19D5523A82C5B00640A40 /* SceneDelegate.swift */,
 				0EB19D5723A82C5B00640A40 /* ViewController.swift */,
+				0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */,
+				0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */,
 				0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */,
 				0EB19D5923A82C5B00640A40 /* Main.storyboard */,
 				0EB19D5F23A82C6200640A40 /* Assets.xcassets */,
@@ -225,7 +231,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EB19D5823A82C5B00640A40 /* ViewController.swift in Sources */,
+				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
 				0EB19D5E23A82C5B00640A40 /* Community_Calendar.xcdatamodeld in Sources */,
+				0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */,
 				0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */,
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
