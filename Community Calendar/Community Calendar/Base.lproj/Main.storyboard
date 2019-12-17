@@ -302,6 +302,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="165" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="J8p-eO-Q3h"/>
+                                                        <constraint firstAttribute="width" constant="165" id="wr3-Os-5dI"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SDP-bM-QWG">
@@ -357,10 +358,9 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="MV6-rn-3N5" secondAttribute="trailing" id="TiN-Kx-4lX"/>
                                                 <constraint firstItem="SDP-bM-QWG" firstAttribute="top" secondItem="MV6-rn-3N5" secondAttribute="bottom" constant="10" id="cxf-u9-oDG"/>
-                                                <constraint firstItem="MV6-rn-3N5" firstAttribute="top" secondItem="rW9-rs-U9U" secondAttribute="top" id="iNP-jQ-RQi"/>
-                                                <constraint firstItem="MV6-rn-3N5" firstAttribute="leading" secondItem="rW9-rs-U9U" secondAttribute="leading" id="izH-47-1rH"/>
+                                                <constraint firstItem="MV6-rn-3N5" firstAttribute="centerX" secondItem="rW9-rs-U9U" secondAttribute="centerX" id="g7k-Gu-9D9"/>
+                                                <constraint firstItem="MV6-rn-3N5" firstAttribute="top" secondItem="rW9-rs-U9U" secondAttribute="top" id="mGf-v7-7C7"/>
                                                 <constraint firstItem="SDP-bM-QWG" firstAttribute="leading" secondItem="rW9-rs-U9U" secondAttribute="leading" id="pqi-xT-Yrj"/>
                                             </constraints>
                                         </collectionViewCellContentView>

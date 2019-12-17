@@ -29,9 +29,10 @@ class EventTableViewCell: UITableViewCell {
     func updateViews() {
         guard let event = event else { return }
         eventImageView.image = UIImage(named: event.image)
+        eventImageView.layer.cornerRadius = 3
         eventTitleLabel.text = event.title
         districtNameLabel.text = event.description
-        timeLabel.text = ""
+        timeLabel.text = "\(dateFormatter.string(from: event.startDate)) - \(dateFormatter.string(from: event.endDate))"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

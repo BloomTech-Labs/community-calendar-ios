@@ -26,6 +26,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         eventCollectionView.dataSource = self
         
 //        eventTableView.rowHeight = 76
+        eventTableView.separatorColor = UIColor.clear;
         
         tableViewButtonTapped(0)
     }
