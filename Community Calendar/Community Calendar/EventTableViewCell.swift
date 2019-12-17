@@ -32,7 +32,7 @@ class EventTableViewCell: UITableViewCell {
         eventImageView.layer.cornerRadius = 3
         eventTitleLabel.text = event.title
         districtNameLabel.text = event.description
-        timeLabel.text = "\(dateFormatter.string(from: event.startDate)) - \(dateFormatter.string(from: event.endDate))"
+        timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) - \(cellDateFormatter.string(from: event.endDate))"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

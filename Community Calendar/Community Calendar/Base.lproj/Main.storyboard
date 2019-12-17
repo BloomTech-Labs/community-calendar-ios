@@ -65,15 +65,6 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ok6-5K-PrO">
-                                <rect key="frame" x="16" y="344" width="382" height="32"/>
-                                <segments>
-                                    <segment title="Today"/>
-                                    <segment title="Tomorrow"/>
-                                    <segment title="This weekend"/>
-                                    <segment title="All upcoming"/>
-                                </segments>
-                            </segmentedControl>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="i5q-B4-DVp">
                                 <rect key="frame" x="344.5" y="310.5" width="53.5" height="22"/>
                                 <subviews>
@@ -104,7 +95,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4O-xw-GzV">
-                                <rect key="frame" x="16" y="387" width="188.5" height="16.5"/>
+                                <rect key="frame" x="16" y="389" width="188.5" height="16.5"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Thursday, December 12, 2019">
                                         <attributes>
@@ -115,18 +106,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mbc-pE-p2h">
-                                <rect key="frame" x="16" y="159" width="398" height="136"/>
+                                <rect key="frame" x="0.0" y="159" width="414" height="136"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BgC-wl-Vyb">
                                     <size key="itemSize" width="100" height="136"/>
                                     <size key="estimatedItemSize" width="100" height="136"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="16" height="0.0"/>
+                                    <size key="footerReferenceSize" width="16" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FeaturedCell" id="Elh-0U-pbO" customClass="FeaturedCollectionViewCell" customModule="Community_Calendar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="136"/>
+                                        <rect key="frame" x="16" y="0.0" width="100" height="136"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Jrh-q6-pUw">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="136"/>
@@ -150,6 +141,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="This is an event with a rly long title">
                                                                     <attributes>
+                                                                        <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <font key="NSFont" size="10" name="Poppins-SemiBold"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -157,7 +149,6 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="56" id="Wcp-JU-iGQ"/>
                                                         <constraint firstAttribute="bottom" secondItem="eMo-30-ZUa" secondAttribute="bottom" constant="5" id="cWt-7e-OY0"/>
@@ -183,9 +174,17 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9wU-hT-z1y">
+                                    <rect key="frame" x="0.0" y="0.0" width="16" height="136"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bdL-yj-ybk">
+                                    <rect key="frame" x="116" y="0.0" width="16" height="136"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z3C-88-WYf">
-                                <rect key="frame" x="0.0" y="419.5" width="414" height="393.5"/>
+                                <rect key="frame" x="0.0" y="421.5" width="414" height="391.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EventTableViewCell" rowHeight="76" id="qd0-e9-zc1" customClass="EventTableViewCell" customModule="Community_Calendar" customModuleProvider="target">
@@ -290,7 +289,7 @@
                                 </prototypes>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pEp-ul-WoK">
-                                <rect key="frame" x="16" y="419.5" width="382" height="393.5"/>
+                                <rect key="frame" x="16" y="421.5" width="382" height="391.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="piF-CX-VNB">
                                     <size key="itemSize" width="165" height="165"/>
@@ -388,6 +387,7 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="See all">
                                             <attributes>
+                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.50478916952054798" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="14" name="Poppins-Light"/>
                                             </attributes>
                                         </fragment>
@@ -397,24 +397,98 @@
                                     <action selector="seeAllTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e7J-KK-qif"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="lTs-qn-ZIT">
+                                <rect key="frame" x="16" y="348.5" width="382" height="28.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kgx-Vz-e36">
+                                        <rect key="frame" x="0.0" y="0.0" width="45" height="28.5"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Today">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.49579944349315069" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="Poppins-SemiBold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="todayTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2nR-Rr-EFh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BTs-h6-mew">
+                                        <rect key="frame" x="62" y="0.0" width="75" height="28.5"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Tomorrow">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.49579944349315069" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="Poppins-SemiBold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="tomorrowTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UHE-1h-SBi"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="njH-uJ-scy">
+                                        <rect key="frame" x="154" y="0.0" width="103.5" height="28.5"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="This weekend">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.49579944349315069" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="Poppins-SemiBold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="thisWeekendTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i1c-Y2-EzB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bkW-fH-x7z">
+                                        <rect key="frame" x="274.5" y="0.0" width="107.5" height="28.5"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="All upcoming">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.49579944349315069" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="14" name="Poppins-SemiBold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="allUpcomingTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ywh-Kk-ixa"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="lTs-qn-ZIT" firstAttribute="top" secondItem="i5q-B4-DVp" secondAttribute="bottom" constant="16" id="1al-Sx-8iq"/>
                             <constraint firstItem="pEp-ul-WoK" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="16" id="2Hm-GO-6C6"/>
                             <constraint firstItem="z3C-88-WYf" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="16" id="6zd-2q-HCV"/>
                             <constraint firstItem="CK3-tv-Sqg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="EEO-DJ-KBV"/>
                             <constraint firstItem="pEp-ul-WoK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-16" id="FoG-gl-n4E"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LqL-6o-O1F" secondAttribute="trailing" constant="16" id="Fzv-mg-Gb6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ok6-5K-PrO" secondAttribute="trailing" constant="16" id="GjC-CC-wyP"/>
-                            <constraint firstItem="mbc-pE-p2h" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="IN0-An-KPK"/>
+                            <constraint firstItem="mbc-pE-p2h" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IN0-An-KPK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FIc-R7-2qC" secondAttribute="trailing" constant="16" id="Inw-XD-Abv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="z3C-88-WYf" secondAttribute="bottom" id="JaY-Mg-phg"/>
+                            <constraint firstItem="lTs-qn-ZIT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Jtc-ju-GQa"/>
                             <constraint firstItem="CK3-tv-Sqg" firstAttribute="top" secondItem="mbc-pE-p2h" secondAttribute="bottom" constant="16" id="KAQ-SM-smJ"/>
                             <constraint firstItem="pEp-ul-WoK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ni5-8v-VHo"/>
-                            <constraint firstItem="ok6-5K-PrO" firstAttribute="top" secondItem="CK3-tv-Sqg" secondAttribute="bottom" constant="12" id="OWT-Ba-lri"/>
                             <constraint firstItem="g7Q-b9-lep" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ohd-QX-KeJ"/>
                             <constraint firstItem="g7Q-b9-lep" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-16" id="Qau-mp-sju"/>
                             <constraint firstItem="g7Q-b9-lep" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="50" id="RXC-uj-MrE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lTs-qn-ZIT" secondAttribute="trailing" constant="16" id="WAr-xU-Uhg"/>
                             <constraint firstItem="FIc-R7-2qC" firstAttribute="top" secondItem="g7Q-b9-lep" secondAttribute="bottom" constant="16" id="XCu-iC-aUU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="i5q-B4-DVp" secondAttribute="trailing" constant="16" id="aqv-u5-6k0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mbc-pE-p2h" secondAttribute="trailing" id="bQJ-w9-OBW"/>
@@ -423,32 +497,34 @@
                             <constraint firstItem="FIc-R7-2qC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="ey6-TF-DDP"/>
                             <constraint firstItem="i5q-B4-DVp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CK3-tv-Sqg" secondAttribute="trailing" constant="16" id="fRG-vN-K87"/>
                             <constraint firstItem="LqL-6o-O1F" firstAttribute="centerY" secondItem="FIc-R7-2qC" secondAttribute="centerY" id="gd4-hz-HZP"/>
-                            <constraint firstItem="U4O-xw-GzV" firstAttribute="top" secondItem="ok6-5K-PrO" secondAttribute="bottom" constant="12" id="hdl-Bv-YJu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="z3C-88-WYf" secondAttribute="trailing" id="jPv-FV-HA9"/>
+                            <constraint firstItem="U4O-xw-GzV" firstAttribute="top" secondItem="lTs-qn-ZIT" secondAttribute="bottom" constant="12" id="jhG-Ju-57G"/>
                             <constraint firstItem="mbc-pE-p2h" firstAttribute="top" secondItem="FIc-R7-2qC" secondAttribute="bottom" constant="16" id="k5J-Fv-Zck"/>
                             <constraint firstItem="z3C-88-WYf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="koi-1B-1HE"/>
                             <constraint firstItem="i5q-B4-DVp" firstAttribute="centerY" secondItem="CK3-tv-Sqg" secondAttribute="centerY" id="m3J-Hr-FCa"/>
                             <constraint firstItem="U4O-xw-GzV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="oLU-9E-2YU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U4O-xw-GzV" secondAttribute="trailing" constant="16" id="qck-mh-njH"/>
-                            <constraint firstItem="ok6-5K-PrO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="srR-g0-UF6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" selectedImage="house.fill" catalog="system" id="64c-nn-fjW"/>
                     <connections>
+                        <outlet property="allUpcomingButton" destination="bkW-fH-x7z" id="F2i-dm-Ex9"/>
                         <outlet property="collectionViewButton" destination="GOQ-rn-s0j" id="tJc-3G-Vh4"/>
                         <outlet property="dateLabel" destination="U4O-xw-GzV" id="3Lq-l8-GwU"/>
                         <outlet property="eventCollectionView" destination="pEp-ul-WoK" id="zdp-d2-exV"/>
                         <outlet property="eventTableView" destination="z3C-88-WYf" id="n6l-Nk-lMW"/>
                         <outlet property="featuredCollectionView" destination="mbc-pE-p2h" id="AGT-ct-TTf"/>
-                        <outlet property="filterSegmentedControl" destination="ok6-5K-PrO" id="zSy-b8-ufK"/>
                         <outlet property="searchBar" destination="g7Q-b9-lep" id="qFP-br-D6P"/>
                         <outlet property="tableViewButton" destination="R4Q-Eg-rjg" id="o4E-S0-BTf"/>
+                        <outlet property="thisWeekendButton" destination="njH-uJ-scy" id="7Py-Nu-b35"/>
+                        <outlet property="todayButton" destination="Kgx-Vz-e36" id="zl4-DS-8Cd"/>
+                        <outlet property="tomorrowButton" destination="BTs-h6-mew" id="di1-9u-N61"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-342.02898550724638" y="126.5625"/>
+            <point key="canvasLocation" x="-359" y="127"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="4KD-V7-5pX">

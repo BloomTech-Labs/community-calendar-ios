@@ -8,7 +8,7 @@
 
 import UIKit
 
-let dateFormatter: DateFormatter = {
+let cellDateFormatter: DateFormatter = {
     let df = DateFormatter()
     df.dateFormat = "h:mm a"
     return df
@@ -33,6 +33,6 @@ class EventCollectionViewCell: UICollectionViewCell {
         eventImageView.layer.cornerRadius = 3
         eventTitleLabel.text = event.title
         districtNameLabel.text = event.description
-        timeLabel.text = "\(dateFormatter.string(from: event.startDate)) - \(dateFormatter.string(from: event.endDate))"
+        timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) - \(cellDateFormatter.string(from: event.endDate))"
     }
 }

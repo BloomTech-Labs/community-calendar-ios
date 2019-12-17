@@ -8,6 +8,12 @@
 
 import UIKit
 
+let dateFormatter: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "EEEE, MMMM d, yyyy"
+    return df
+}()
+
 class ViewController: UIViewController {
     let events = [
         Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
@@ -25,12 +31,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var eventTableView: UITableView!
     @IBOutlet weak var tableViewButton: UIButton!
     @IBOutlet weak var collectionViewButton: UIButton!
-    @IBOutlet weak var filterSegmentedControl: UISegmentedControl!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var todayButton: UIButton!
+    @IBOutlet weak var tomorrowButton: UIButton!
+    @IBOutlet weak var thisWeekendButton: UIButton!
+    @IBOutlet weak var allUpcomingButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUp()
+        dateLabel.text = dateFormatter.string(from: Date())
+        eventTableView.separatorColor = UIColor.clear;
+    }
+    
+    private func setUp() {
         eventTableView.delegate = self
         eventTableView.dataSource = self
         eventCollectionView.delegate = self
@@ -39,10 +54,6 @@ class ViewController: UIViewController {
         featuredCollectionView.delegate = self
         featuredCollectionView.dataSource = self
         featuredCollectionView.showsHorizontalScrollIndicator = false
-        
-//        eventTableView.rowHeight = 76
-        eventTableView.separatorColor = UIColor.clear;
-        
         tableViewButtonTapped(0)
     }
     
@@ -60,8 +71,36 @@ class ViewController: UIViewController {
         collectionViewButton.tintColor = .selectedButton
     }
     
-    @IBAction func seeAllTapped(_ sender: Any) {
+    @IBAction func seeAllTapped(_ sender: UIButton) {
         
+    }
+    
+    @IBAction func todayTapped(_ sender: UIButton) {
+        todayButton.setTitleColor(.selectedButton, for: .normal)
+        tomorrowButton.setTitleColor(.unselectedDayButton, for: .normal)
+        thisWeekendButton.setTitleColor(.unselectedDayButton, for: .normal)
+        allUpcomingButton.setTitleColor(.unselectedDayButton, for: .normal)
+    }
+    
+    @IBAction func tomorrowTapped(_ sender: UIButton) {
+        todayButton.setTitleColor(.unselectedDayButton, for: .normal)
+        tomorrowButton.setTitleColor(.selectedButton, for: .normal)
+        thisWeekendButton.setTitleColor(.unselectedDayButton, for: .normal)
+        allUpcomingButton.setTitleColor(.unselectedDayButton, for: .normal)
+    }
+    
+    @IBAction func thisWeekendTapped(_ sender: UIButton) {
+        todayButton.setTitleColor(.unselectedDayButton, for: .normal)
+        tomorrowButton.setTitleColor(.unselectedDayButton, for: .normal)
+        thisWeekendButton.setTitleColor(.selectedButton, for: .normal)
+        allUpcomingButton.setTitleColor(.unselectedDayButton, for: .normal)
+    }
+    
+    @IBAction func allUpcomingTapped(_ sender: UIButton) {
+        todayButton.setTitleColor(.unselectedDayButton, for: .normal)
+        tomorrowButton.setTitleColor(.unselectedDayButton, for: .normal)
+        thisWeekendButton.setTitleColor(.unselectedDayButton, for: .normal)
+        allUpcomingButton.setTitleColor(.selectedButton, for: .normal)
     }
 }
 
