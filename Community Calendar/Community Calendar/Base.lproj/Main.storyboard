@@ -81,6 +81,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="21" height="22"/>
                                         <color key="tintColor" red="0.76862745098039209" green="0.76862745098039209" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="list.bullet" catalog="system"/>
+                                        <connections>
+                                            <action selector="tableViewButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lI2-Ea-vLb"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQr-3f-pwc">
                                         <rect key="frame" x="27" y="1" width="1" height="20"/>
@@ -94,13 +97,21 @@
                                         <rect key="frame" x="34" y="0.0" width="19.5" height="22"/>
                                         <color key="tintColor" red="0.76862745098039209" green="0.76862745098039209" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="square.grid.2x2.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="collectionViewButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nVk-9D-6R9"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thursday, December 12, 2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4O-xw-GzV">
-                                <rect key="frame" x="16" y="387" width="192.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4O-xw-GzV">
+                                <rect key="frame" x="16" y="387" width="188.5" height="16.5"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Thursday, December 12, 2019">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mbc-pE-p2h">
@@ -165,7 +176,7 @@
                                 </cells>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z3C-88-WYf">
-                                <rect key="frame" x="0.0" y="420" width="414" height="393"/>
+                                <rect key="frame" x="0.0" y="419.5" width="414" height="393.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EventTableViewCell" rowHeight="76" id="qd0-e9-zc1" customClass="EventTableViewCell" customModule="Community_Calendar" customModuleProvider="target">
@@ -264,12 +275,13 @@
                                             <outlet property="eventImageView" destination="h9a-zr-7NP" id="9Vg-Bz-pOC"/>
                                             <outlet property="eventTitleLabel" destination="jsS-Ey-a4M" id="wkO-tK-AD0"/>
                                             <outlet property="timeLabel" destination="AjB-wx-ogU" id="E7I-uw-2E1"/>
+                                            <segue destination="09q-bK-qwk" kind="show" id="4fj-x7-QtZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pEp-ul-WoK">
-                                <rect key="frame" x="16" y="420" width="382" height="393"/>
+                                <rect key="frame" x="16" y="419.5" width="382" height="393.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="piF-CX-VNB">
                                     <size key="itemSize" width="165" height="165"/>
@@ -397,10 +409,34 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" selectedImage="house.fill" catalog="system" id="64c-nn-fjW"/>
+                    <connections>
+                        <outlet property="collectionViewButton" destination="GOQ-rn-s0j" id="tJc-3G-Vh4"/>
+                        <outlet property="eventCollectionView" destination="pEp-ul-WoK" id="zdp-d2-exV"/>
+                        <outlet property="eventTableView" destination="z3C-88-WYf" id="n6l-Nk-lMW"/>
+                        <outlet property="featuredCollectionView" destination="mbc-pE-p2h" id="AGT-ct-TTf"/>
+                        <outlet property="filterSegmentedControl" destination="ok6-5K-PrO" id="zSy-b8-ufK"/>
+                        <outlet property="tableViewButton" destination="R4Q-Eg-rjg" id="o4E-S0-BTf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-342.02898550724638" y="126.5625"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="4KD-V7-5pX">
+            <objects>
+                <viewController id="09q-bK-qwk" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UpA-g0-200">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Mbj-Sf-v79"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Om6-S4-gMi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xo8-wj-Rbx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="490" y="127"/>
         </scene>
     </scenes>
     <resources>

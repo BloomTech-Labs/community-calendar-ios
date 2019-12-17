@@ -28,6 +28,8 @@
 		0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */; };
 		0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */; };
 		0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */; };
+		0E9FDD7923A8600700FD75A0 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7823A8600700FD75A0 /* Colors.swift */; };
+		0E9FDD7B23A8627500FD75A0 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7A23A8627500FD75A0 /* Event.swift */; };
 		0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5323A82C5B00640A40 /* AppDelegate.swift */; };
 		0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5523A82C5B00640A40 /* SceneDelegate.swift */; };
 		0EB19D5823A82C5B00640A40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5723A82C5B00640A40 /* ViewController.swift */; };
@@ -59,6 +61,8 @@
 		0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCollectionViewCell.swift; sourceTree = "<group>"; };
 		0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCollectionViewCell.swift; sourceTree = "<group>"; };
+		0E9FDD7823A8600700FD75A0 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		0E9FDD7A23A8627500FD75A0 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0EB19D5023A82C5B00640A40 /* Community Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Community Calendar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB19D5323A82C5B00640A40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0EB19D5523A82C5B00640A40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +141,8 @@
 				0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */,
 				0EB19D6423A82C6200640A40 /* Info.plist */,
 				0EB19D5C23A82C5B00640A40 /* Community_Calendar.xcdatamodeld */,
+				0E9FDD7823A8600700FD75A0 /* Colors.swift */,
+				0E9FDD7A23A8627500FD75A0 /* Event.swift */,
 			);
 			path = "Community Calendar";
 			sourceTree = "<group>";
@@ -231,6 +237,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EB19D5823A82C5B00640A40 /* ViewController.swift in Sources */,
+				0E9FDD7B23A8627500FD75A0 /* Event.swift in Sources */,
+				0E9FDD7923A8600700FD75A0 /* Colors.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
 				0EB19D5E23A82C5B00640A40 /* Community_Calendar.xcdatamodeld in Sources */,
 				0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */,
