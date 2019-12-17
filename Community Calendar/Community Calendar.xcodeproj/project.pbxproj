@@ -14,6 +14,8 @@
 		0EB19D5E23A82C5B00640A40 /* Community_Calendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5C23A82C5B00640A40 /* Community_Calendar.xcdatamodeld */; };
 		0EB19D6023A82C6200640A40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D5F23A82C6200640A40 /* Assets.xcassets */; };
 		0EB19D6323A82C6200640A40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */; };
+		EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF51CC4A23A83E4300FF4E62 /* Login.storyboard */; };
+		EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		0EB19D5F23A82C6200640A40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0EB19D6223A82C6200640A40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0EB19D6423A82C6200640A40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF51CC4A23A83E4300FF4E62 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +66,12 @@
 				0EB19D5523A82C5B00640A40 /* SceneDelegate.swift */,
 				0EB19D5723A82C5B00640A40 /* ViewController.swift */,
 				0EB19D5923A82C5B00640A40 /* Main.storyboard */,
+				EF51CC4A23A83E4300FF4E62 /* Login.storyboard */,
 				0EB19D5F23A82C6200640A40 /* Assets.xcassets */,
 				0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */,
 				0EB19D6423A82C6200640A40 /* Info.plist */,
 				0EB19D5C23A82C5B00640A40 /* Community_Calendar.xcdatamodeld */,
+				EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */,
 			);
 			path = "Community Calendar";
 			sourceTree = "<group>";
@@ -128,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */,
 				0EB19D6323A82C6200640A40 /* LaunchScreen.storyboard in Resources */,
 				0EB19D6023A82C6200640A40 /* Assets.xcassets in Resources */,
 				0EB19D5B23A82C5B00640A40 /* Main.storyboard in Resources */,
@@ -144,6 +151,7 @@
 				0EB19D5823A82C5B00640A40 /* ViewController.swift in Sources */,
 				0EB19D5E23A82C5B00640A40 /* Community_Calendar.xcdatamodeld in Sources */,
 				0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */,
+				EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,7 +297,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HFR8F4BT7E;
+				DEVELOPMENT_TEAM = 7V775U4648;
 				INFOPLIST_FILE = "Community Calendar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -307,7 +315,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HFR8F4BT7E;
+				DEVELOPMENT_TEAM = 7V775U4648;
 				INFOPLIST_FILE = "Community Calendar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
