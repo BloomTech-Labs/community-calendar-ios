@@ -9,6 +9,13 @@
 import UIKit
 
 class EventTableViewCell: UITableViewCell {
+    
+    var event: Event? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     @IBOutlet weak var districtNameLabel: UILabel!
     @IBOutlet weak var eventTitleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -17,6 +24,14 @@ class EventTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+    }
+    
+    func updateViews() {
+        guard let event = event else { return }
+        eventImageView.image = UIImage(named: event.image)
+        eventTitleLabel.text = event.title
+        districtNameLabel.text = event.description
+        timeLabel.text = ""
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -9,5 +9,9 @@
 import Foundation
 
 struct Event {
-    
+    let title: String
+    let description: String
+    let image: String
+    let startDate: Date
+    let endDate: Date
 }
