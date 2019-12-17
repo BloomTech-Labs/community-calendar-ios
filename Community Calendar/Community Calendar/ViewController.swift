@@ -8,8 +8,17 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
-    let events = [Event(title: "Eating Cheetos", description: "Come and eat cheetos", image: "Cheetos", startDate: Date(), endDate: Date()), Event(title: "Eating Cheetos", description: "Come and eat cheetos", image: "Cheetos", startDate: Date(), endDate: Date()), Event(title: "Eating Cheetos", description: "Come and eat cheetos", image: "Cheetos", startDate: Date(), endDate: Date())]
+class ViewController: UIViewController {
+    let events = [
+        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date())
+    ]
     
     @IBOutlet weak var featuredCollectionView: UICollectionView!
     @IBOutlet weak var eventCollectionView: UICollectionView!
@@ -17,42 +26,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tableViewButton: UIButton!
     @IBOutlet weak var collectionViewButton: UIButton!
     @IBOutlet weak var filterSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         eventTableView.delegate = self
-        eventCollectionView.delegate = self
         eventTableView.dataSource = self
+        eventCollectionView.delegate = self
         eventCollectionView.dataSource = self
+        eventCollectionView.showsVerticalScrollIndicator = false
+        featuredCollectionView.delegate = self
+        featuredCollectionView.dataSource = self
+        featuredCollectionView.showsHorizontalScrollIndicator = false
         
 //        eventTableView.rowHeight = 76
         eventTableView.separatorColor = UIColor.clear;
         
         tableViewButtonTapped(0)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell else { return UITableViewCell() }
-        
-        cell.event = events[indexPath.row]
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return events.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = eventCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell else { return UICollectionViewCell() }
-        
-        cell.event = events[indexPath.row]
-        
-        return cell
     }
     
     @IBAction func tableViewButtonTapped(_ sender: Any) {
@@ -68,5 +59,46 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableViewButton.tintColor = .unselectedButton
         collectionViewButton.tintColor = .selectedButton
     }
+    
+    @IBAction func seeAllTapped(_ sender: Any) {
+        
+    }
 }
 
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell else { return UITableViewCell() }
+            
+            cell.event = events[indexPath.row]
+            
+            return cell
+    }
+}
+
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return events.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == eventCollectionView {
+            guard let cell = eventCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.event = events[indexPath.row]
+            
+            return cell
+            
+        } else if collectionView == featuredCollectionView {
+            guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.event = events[indexPath.row]
+            
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+}
