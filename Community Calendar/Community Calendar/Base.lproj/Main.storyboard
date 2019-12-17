@@ -171,6 +171,7 @@
                                             <outlet property="eventImageView" destination="Z5K-eO-UUV" id="oX9-t9-ufz"/>
                                             <outlet property="eventTitleLabel" destination="eMo-30-ZUa" id="eJC-EU-t4Q"/>
                                             <outlet property="fadeView" destination="Dmh-7E-JQa" id="m1a-1e-y5g"/>
+                                            <segue destination="09q-bK-qwk" kind="show" id="cN3-bE-Cpz"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -183,7 +184,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z3C-88-WYf">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z3C-88-WYf">
                                 <rect key="frame" x="0.0" y="421.5" width="414" height="391.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -377,6 +378,7 @@
                                             <outlet property="eventImageView" destination="MV6-rn-3N5" id="6hH-40-uIx"/>
                                             <outlet property="eventTitleLabel" destination="SzE-qt-akg" id="pwn-Xb-0d1"/>
                                             <outlet property="timeLabel" destination="7gP-lV-XDv" id="DLV-EZ-Zl1"/>
+                                            <segue destination="09q-bK-qwk" kind="show" id="O1f-Yl-tsg"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -548,4 +550,7 @@
         <image name="list.bullet" catalog="system" width="64" height="44"/>
         <image name="square.grid.2x2.fill" catalog="system" width="64" height="56"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="4fj-x7-QtZ"/>
+    </inferredMetricsTieBreakers>
 </document>

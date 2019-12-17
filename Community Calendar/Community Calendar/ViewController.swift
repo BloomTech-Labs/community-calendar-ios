@@ -48,6 +48,7 @@ class ViewController: UIViewController {
     private func setUp() {
         eventTableView.delegate = self
         eventTableView.dataSource = self
+        eventTableView.showsVerticalScrollIndicator = false
         eventCollectionView.delegate = self
         eventCollectionView.dataSource = self
         eventCollectionView.showsVerticalScrollIndicator = false
@@ -76,6 +77,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func todayTapped(_ sender: UIButton) {
+        todayButton.titleLabel?.textColor = UIColor.selectedButton
         todayButton.setTitleColor(.selectedButton, for: .normal)
         tomorrowButton.setTitleColor(.unselectedDayButton, for: .normal)
         thisWeekendButton.setTitleColor(.unselectedDayButton, for: .normal)
