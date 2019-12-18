@@ -509,7 +509,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" selectedImage="house.fill" catalog="system" id="64c-nn-fjW"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" selectedImage="house.fill" id="64c-nn-fjW"/>
                     <connections>
                         <outlet property="allUpcomingButton" destination="bkW-fH-x7z" id="F2i-dm-Ex9"/>
                         <outlet property="collectionViewButton" destination="GOQ-rn-s0j" id="tJc-3G-Vh4"/>

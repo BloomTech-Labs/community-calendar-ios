@@ -56,6 +56,13 @@ class ViewController: UIViewController {
         featuredCollectionView.dataSource = self
         featuredCollectionView.showsHorizontalScrollIndicator = false
         tableViewButtonTapped(0)
+        todayTapped(UIButton())
+    }
+    
+    private func createAttrText(with title: String, color: UIColor) -> NSAttributedString {
+        let textColor = NSAttributedString(string: title,
+        attributes: [NSAttributedString.Key.foregroundColor: color])
+        return textColor
     }
     
     @IBAction func tableViewButtonTapped(_ sender: Any) {
@@ -77,32 +84,31 @@ class ViewController: UIViewController {
     }
     
     @IBAction func todayTapped(_ sender: UIButton) {
-        todayButton.titleLabel?.textColor = UIColor.selectedButton
-        todayButton.setTitleColor(.selectedButton, for: .normal)
-        tomorrowButton.setTitleColor(.unselectedDayButton, for: .normal)
-        thisWeekendButton.setTitleColor(.unselectedDayButton, for: .normal)
-        allUpcomingButton.setTitleColor(.unselectedDayButton, for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .selectedButton), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton), for: .normal)
     }
     
     @IBAction func tomorrowTapped(_ sender: UIButton) {
-        todayButton.setTitleColor(.unselectedDayButton, for: .normal)
-        tomorrowButton.setTitleColor(.selectedButton, for: .normal)
-        thisWeekendButton.setTitleColor(.unselectedDayButton, for: .normal)
-        allUpcomingButton.setTitleColor(.unselectedDayButton, for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .selectedButton), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton), for: .normal)
     }
     
     @IBAction func thisWeekendTapped(_ sender: UIButton) {
-        todayButton.setTitleColor(.unselectedDayButton, for: .normal)
-        tomorrowButton.setTitleColor(.unselectedDayButton, for: .normal)
-        thisWeekendButton.setTitleColor(.selectedButton, for: .normal)
-        allUpcomingButton.setTitleColor(.unselectedDayButton, for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .selectedButton), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton), for: .normal)
     }
     
     @IBAction func allUpcomingTapped(_ sender: UIButton) {
-        todayButton.setTitleColor(.unselectedDayButton, for: .normal)
-        tomorrowButton.setTitleColor(.unselectedDayButton, for: .normal)
-        thisWeekendButton.setTitleColor(.unselectedDayButton, for: .normal)
-        allUpcomingButton.setTitleColor(.selectedButton, for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton), for: .normal)
     }
 }
 
