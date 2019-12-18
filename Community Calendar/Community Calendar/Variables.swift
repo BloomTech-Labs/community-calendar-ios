@@ -9,12 +9,30 @@
 import UIKit
 import CoreData
 
+//extension NSManagedObjectContext {
+//    static let mainContext = CoreDataStack.shared.mainContext
+//}
+
 extension UIColor {
     static let selectedButton = UIColor.black
     static let unselectedButton = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 1.0)
     static let unselectedDayButton = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
 }
 
-//extension NSManagedObjectContext {
-//    static let mainContext = CoreDataStack.shared.mainContext
-//}
+let todayDateFormatter: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "EEEE, MMMM d, yyyy"
+    return df
+}()
+
+let cellDateFormatter: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "h:mm a"
+    return df
+}()
+
+let dateFormatter: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    return df
+}()

@@ -8,21 +8,15 @@
 
 import UIKit
 
-let dateFormatter: DateFormatter = {
-    let df = DateFormatter()
-    df.dateFormat = "EEEE, MMMM d, yyyy"
-    return df
-}()
-
 class ViewController: UIViewController {
     let events = [
         Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Watching TV", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Watch a Movie", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Watch a Play", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Talking While Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Getting a Masage", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Singing While Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
         Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date())
     ]
     
@@ -37,11 +31,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var tomorrowButton: UIButton!
     @IBOutlet weak var thisWeekendButton: UIButton!
     @IBOutlet weak var allUpcomingButton: UIButton!
+    @IBOutlet weak var seperatorView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        dateLabel.text = dateFormatter.string(from: Date())
+        dateLabel.text = todayDateFormatter.string(from: Date())
         eventTableView.separatorColor = UIColor.clear;
     }
     
@@ -55,8 +50,39 @@ class ViewController: UIViewController {
         featuredCollectionView.delegate = self
         featuredCollectionView.dataSource = self
         featuredCollectionView.showsHorizontalScrollIndicator = false
+        updateViews()
+        
         tableViewButtonTapped(0)
         todayTapped(UIButton())
+    }
+    
+    private func updateViews() {
+        searchBar.backgroundColor = .white
+        searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+        searchBar.setImage(UIImage(), for: .search, state: .normal)
+        searchBar.isTranslucent = true
+        searchBar.searchTextField.backgroundColor = .clear
+        searchBar.layer.cornerRadius = 6
+        searchBar.layer.shadowColor = UIColor.lightGray.cgColor
+        searchBar.layer.shadowOpacity = 1.0
+        searchBar.layer.shadowRadius = 2
+        searchBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        searchBar.searchTextField.placeholder = ""
+        if let font = UIFont(name: "Poppins-Medium", size: 14.0) {
+            searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+            searchBar.searchTextField.font = font
+        } else {
+            searchBar.searchTextField.placeholder = "Search"
+            
+        }
+        
+        
+        self.tabBarController?.tabBar.layer.shadowColor = UIColor.gray.cgColor
+        self.tabBarController?.tabBar.layer.shadowOpacity = 1.0
+        self.tabBarController?.tabBar.layer.shadowRadius = 5
+        self.tabBarController?.tabBar.layer.shadowOffset = CGSize(width: 0, height: 1)
+        
+        seperatorView.layer.cornerRadius = 3
     }
     
     private func createAttrText(with title: String, color: UIColor) -> NSAttributedString {

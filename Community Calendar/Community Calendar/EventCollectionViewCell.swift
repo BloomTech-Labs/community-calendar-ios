@@ -8,12 +8,6 @@
 
 import UIKit
 
-let cellDateFormatter: DateFormatter = {
-    let df = DateFormatter()
-    df.dateFormat = "h:mm a"
-    return df
-}()
-
 class EventCollectionViewCell: UICollectionViewCell {
     var event: Event? {
         didSet {
