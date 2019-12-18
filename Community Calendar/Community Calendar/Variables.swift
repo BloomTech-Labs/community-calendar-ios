@@ -14,7 +14,7 @@ import CoreData
 //}
 
 extension UIColor {
-    static let selectedButton = UIColor.black
+    static let selectedButton = UIColor(red: 0.13, green: 0.14, blue: 0.17, alpha: 1.0)
     static let unselectedButton = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 1.0)
     static let unselectedDayButton = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
 }

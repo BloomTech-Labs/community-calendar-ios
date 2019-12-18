@@ -22,16 +22,16 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var featuredCollectionView: UICollectionView!
     @IBOutlet weak var eventCollectionView: UICollectionView!
-    @IBOutlet weak var eventTableView: UITableView!
-    @IBOutlet weak var tableViewButton: UIButton!
     @IBOutlet weak var collectionViewButton: UIButton!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var todayButton: UIButton!
-    @IBOutlet weak var tomorrowButton: UIButton!
+    @IBOutlet weak var eventTableView: UITableView!
     @IBOutlet weak var thisWeekendButton: UIButton!
     @IBOutlet weak var allUpcomingButton: UIButton!
+    @IBOutlet weak var tableViewButton: UIButton!
+    @IBOutlet weak var tomorrowButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var todayButton: UIButton!
     @IBOutlet weak var seperatorView: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +44,15 @@ class ViewController: UIViewController {
         eventTableView.delegate = self
         eventTableView.dataSource = self
         eventTableView.showsVerticalScrollIndicator = false
+        
         eventCollectionView.delegate = self
         eventCollectionView.dataSource = self
         eventCollectionView.showsVerticalScrollIndicator = false
+        
         featuredCollectionView.delegate = self
         featuredCollectionView.dataSource = self
         featuredCollectionView.showsHorizontalScrollIndicator = false
+        
         updateViews()
         
         tableViewButtonTapped(0)
@@ -69,18 +72,20 @@ class ViewController: UIViewController {
         searchBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         searchBar.searchTextField.placeholder = ""
         if let font = UIFont(name: "Poppins-Medium", size: 14.0) {
-            searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+            searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [
+                NSAttributedString.Key.font: font,
+                NSAttributedString.Key.foregroundColor: UIColor.lightGray
+            ])
             searchBar.searchTextField.font = font
         } else {
             searchBar.searchTextField.placeholder = "Search"
-            
         }
-        
         
         self.tabBarController?.tabBar.layer.shadowColor = UIColor.gray.cgColor
         self.tabBarController?.tabBar.layer.shadowOpacity = 1.0
         self.tabBarController?.tabBar.layer.shadowRadius = 5
         self.tabBarController?.tabBar.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.tabBarController?.tabBar.tintColor = UIColor.selectedButton
         
         seperatorView.layer.cornerRadius = 3
     }
@@ -146,9 +151,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell else { return UITableViewCell() }
             
-            cell.event = events[indexPath.row]
+        cell.event = events[indexPath.row]
             
-            return cell
+        return cell
     }
 }
 

@@ -19,11 +19,31 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="0Ja-Wf-79f"/>
+                        <segue destination="TP3-bY-GEG" kind="relationship" relationship="viewControllers" id="5x2-KO-55s"/>
+                        <segue destination="9IY-x8-SLF" kind="relationship" relationship="viewControllers" id="CMm-hs-7D9"/>
+                        <segue destination="AlL-BH-7YZ" kind="relationship" relationship="viewControllers" id="Zyg-Cg-6Dd"/>
+                        <segue destination="MYd-dx-Mxe" kind="relationship" relationship="viewControllers" id="AGL-HL-Pu1"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MgH-o5-fKh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1203" y="127"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="teN-gc-Obm">
+            <objects>
+                <viewController id="MYd-dx-Mxe" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Z6-vO-kTf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="L8z-Lk-HAz"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person" id="B97-b6-Hbf"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mrF-Up-5yE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-359" y="-591"/>
         </scene>
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
@@ -512,7 +532,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" selectedImage="house.fill" id="64c-nn-fjW"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home" selectedImage="home" id="64c-nn-fjW"/>
                     <connections>
                         <outlet property="allUpcomingButton" destination="bkW-fH-x7z" id="F2i-dm-Ex9"/>
                         <outlet property="collectionViewButton" destination="GOQ-rn-s0j" id="tJc-3G-Vh4"/>
@@ -532,6 +552,54 @@
             </objects>
             <point key="canvasLocation" x="-359" y="127"/>
         </scene>
+        <!--Saved-->
+        <scene sceneID="cbH-68-Rfx">
+            <objects>
+                <viewController id="AlL-BH-7YZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LjN-WI-gnY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="W6U-Is-oY6"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Saved" image="heart" id="ekn-l7-4zw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Om-J3-oDl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2155" y="886"/>
+        </scene>
+        <!--Events-->
+        <scene sceneID="SQf-uR-0OJ">
+            <objects>
+                <viewController id="9IY-x8-SLF" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="psL-sQ-1b6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="68n-7R-wZB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Events" image="book" id="3lG-Ba-PsE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="06b-ON-hsR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1204" y="886"/>
+        </scene>
+        <!--Notifications-->
+        <scene sceneID="H7n-qt-iH8">
+            <objects>
+                <viewController id="TP3-bY-GEG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EHN-Dm-j2B">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="VNX-JQ-U0f"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Notifications" image="bell" id="TZV-vV-qEu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l8u-2g-vcg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-359" y="886"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="4KD-V7-5pX">
             <objects>
@@ -550,8 +618,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="house.fill" catalog="system" width="64" height="52"/>
+        <image name="bell" width="24" height="24"/>
+        <image name="book" width="24" height="24"/>
+        <image name="heart" width="24" height="24"/>
+        <image name="home" width="24" height="24"/>
         <image name="list.bullet" catalog="system" width="64" height="44"/>
+        <image name="person" width="23" height="24"/>
         <image name="square.grid.2x2.fill" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
