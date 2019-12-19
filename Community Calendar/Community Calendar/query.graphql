@@ -1,0 +1,6 @@
+
+query findUsers {
+  events {
+    title
+  }
+}
