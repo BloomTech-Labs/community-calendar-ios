@@ -53,6 +53,8 @@ class ViewController: UIViewController {
         featuredCollectionView.dataSource = self
         featuredCollectionView.showsHorizontalScrollIndicator = false
         
+        searchBar.delegate = self
+        
         updateViews()
         
         tableViewButtonTapped(0)
@@ -87,6 +89,11 @@ class ViewController: UIViewController {
         self.tabBarController?.tabBar.layer.shadowOffset = CGSize(width: 0, height: 1)
         self.tabBarController?.tabBar.tintColor = UIColor.selectedButton
         
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .selected)
+
+        
+        
         seperatorView.layer.cornerRadius = 3
     }
     
@@ -99,15 +106,16 @@ class ViewController: UIViewController {
     @IBAction func tableViewButtonTapped(_ sender: Any) {
         eventCollectionView.isHidden = true
         eventTableView.isHidden = false
-        tableViewButton.tintColor = .selectedButton
-        collectionViewButton.tintColor = .unselectedButton
+        tableViewButton.imageView?.image = UIImage(named: "list-selected")
+        collectionViewButton.imageView?.image = UIImage(named: "grid")
     }
     
     @IBAction func collectionViewButtonTapped(_ sender: Any) {
         eventCollectionView.isHidden = false
         eventTableView.isHidden = true
-        tableViewButton.tintColor = .unselectedButton
-        collectionViewButton.tintColor = .selectedButton
+        tableViewButton.imageView?.image = UIImage(named: "list")
+        collectionViewButton.imageView?.image = UIImage(named: "grid-selected")
+        
     }
     
     @IBAction func seeAllTapped(_ sender: UIButton) {
@@ -141,6 +149,10 @@ class ViewController: UIViewController {
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton), for: .normal)
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        searchBar.endEditing(true)
+    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -154,6 +166,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.event = events[indexPath.row]
             
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        eventTableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -178,5 +194,14 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             return cell
         }
         return UICollectionViewCell()
+    }
+}
+
+extension ViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
 }

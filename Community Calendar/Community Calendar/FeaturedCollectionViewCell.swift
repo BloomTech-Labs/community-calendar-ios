@@ -26,12 +26,11 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
         eventTitleLabel.text = event.title
 
         fadeLayer = CAGradientLayer()
-
+        fadeLayer.frame = fadeView.bounds
         fadeLayer.colors = [
-            UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor,
-            UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor
         ]
-
-        fadeView.layer.addSublayer(fadeLayer)
+        fadeView.layer.insertSublayer(fadeLayer, at: 0)
     }
 }
