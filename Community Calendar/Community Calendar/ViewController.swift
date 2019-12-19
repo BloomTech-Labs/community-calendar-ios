@@ -9,15 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController {
-    let events = [
+    var events = [
         Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Watching TV", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Watching TV", description: "Come and sit", image: "watchingAPerformance", startDate: Date(), endDate: Date()),
         Event(title: "Watch a Movie", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Watch a Play", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Watch a Play", description: "Come and sit", image: "watchingAPerformance", startDate: Date(), endDate: Date()),
         Event(title: "Talking While Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Getting a Masage", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
+        Event(title: "Getting a Masage", description: "Come and sit", image: "watchingAPerformance", startDate: Date(), endDate: Date()),
         Event(title: "Singing While Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date())
+        Event(title: "Sitting", description: "Come and sit", image: "watchingAPerformance", startDate: Date(), endDate: Date())
     ]
     
     @IBOutlet weak var featuredCollectionView: UICollectionView!
@@ -97,10 +97,11 @@ class ViewController: UIViewController {
         seperatorView.layer.cornerRadius = 3
     }
     
-    private func createAttrText(with title: String, color: UIColor) -> NSAttributedString {
-        let textColor = NSAttributedString(string: title,
-        attributes: [NSAttributedString.Key.foregroundColor: color])
-        return textColor
+    private func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
+        let font = UIFont(name: fontName, size: 14)
+        let attrString = NSAttributedString(string: title,
+                                            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font ?? UIFont()])
+        return attrString
     }
     
     @IBAction func tableViewButtonTapped(_ sender: Any) {
@@ -123,31 +124,31 @@ class ViewController: UIViewController {
     }
     
     @IBAction func todayTapped(_ sender: UIButton) {
-        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .selectedButton), for: .normal)
-        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton), for: .normal)
-        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton), for: .normal)
-        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton), for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
     }
     
     @IBAction func tomorrowTapped(_ sender: UIButton) {
-        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton), for: .normal)
-        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .selectedButton), for: .normal)
-        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton), for: .normal)
-        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton), for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
     }
     
     @IBAction func thisWeekendTapped(_ sender: UIButton) {
-        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton), for: .normal)
-        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton), for: .normal)
-        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .selectedButton), for: .normal)
-        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton), for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
     }
     
     @IBAction func allUpcomingTapped(_ sender: UIButton) {
-        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton), for: .normal)
-        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton), for: .normal)
-        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton), for: .normal)
-        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton), for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Regular"), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -170,6 +171,31 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         eventTableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let favoriteAction = UIContextualAction(style: .normal, title: "Favorite") { (action, view, handler) in
+            print("Favorite tapped")
+            // TODO: Add event to favorites
+        }
+        favoriteAction.backgroundColor = UIColor.systemPink
+        let configuration = UISwipeActionsConfiguration(actions: [favoriteAction])
+        return configuration
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let hideAction = UIContextualAction(style: .destructive, title: "Hide") { (action, view, handler) in
+            print("Hide tapped")
+            self.events.remove(at: indexPath.row)// TODO: Remove datasource at indexpath
+            self.eventTableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        hideAction.backgroundColor = UIColor.blue
+        let configuration = UISwipeActionsConfiguration(actions: [hideAction])
+        return configuration
     }
 }
 

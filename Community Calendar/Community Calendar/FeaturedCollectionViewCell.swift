@@ -29,8 +29,9 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
         fadeLayer.frame = fadeView.bounds
         fadeLayer.colors = [
             UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
-            UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0.9).cgColor
         ]
+        fadeLayer.cornerRadius = 6
         fadeView.layer.insertSublayer(fadeLayer, at: 0)
     }
 }

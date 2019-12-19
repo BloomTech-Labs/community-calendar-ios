@@ -430,11 +430,11 @@
                                     <action selector="seeAllTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e7J-KK-qif"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="lTs-qn-ZIT">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="lTs-qn-ZIT">
                                 <rect key="frame" x="16" y="333.5" width="382" height="28.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kgx-Vz-e36">
-                                        <rect key="frame" x="0.0" y="0.0" width="45" height="28.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="38" height="28.5"/>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Today">
@@ -451,7 +451,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BTs-h6-mew">
-                                        <rect key="frame" x="62" y="0.0" width="75" height="28.5"/>
+                                        <rect key="frame" x="75.5" y="0.0" width="63" height="28.5"/>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Tomorrow">
@@ -468,7 +468,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="njH-uJ-scy">
-                                        <rect key="frame" x="154" y="0.0" width="103.5" height="28.5"/>
+                                        <rect key="frame" x="175.5" y="0.0" width="87" height="28.5"/>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="This weekend">
@@ -485,7 +485,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bkW-fH-x7z">
-                                        <rect key="frame" x="274.5" y="0.0" width="107.5" height="28.5"/>
+                                        <rect key="frame" x="300" y="0.0" width="82" height="28.5"/>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="All upcoming">
@@ -626,13 +626,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bell" width="24" height="24"/>
-        <image name="book" width="24" height="24"/>
-        <image name="grid-selected" width="24" height="24"/>
-        <image name="heart" width="24" height="24"/>
-        <image name="home" width="24" height="24"/>
-        <image name="list-selected" width="25" height="23"/>
-        <image name="person" width="23" height="24"/>
+        <image name="bell" width="18" height="18"/>
+        <image name="book" width="18" height="18"/>
+        <image name="grid-selected" width="18" height="18"/>
+        <image name="heart" width="18" height="18"/>
+        <image name="home" width="18" height="18"/>
+        <image name="list-selected" width="19" height="18"/>
+        <image name="person" width="18" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="4fj-x7-QtZ"/>
