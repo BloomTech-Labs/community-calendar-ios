@@ -1,0 +1,14 @@
+query getEvents {
+  events {
+    title
+    description
+    start
+    end
+    event_images {
+      url
+    }
+    urls {
+      url
+    }
+  }
+}
