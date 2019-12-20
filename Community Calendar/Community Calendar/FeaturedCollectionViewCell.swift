@@ -13,17 +13,23 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
         didSet { updateViews() }
     }
     
+    
+    
     var fadeLayer: CAGradientLayer!
     
     @IBOutlet weak var eventImageView: UIImageView!
     @IBOutlet weak var fadeView: UIView!
     @IBOutlet weak var eventTitleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
     func updateViews() {
         guard let event = event else { return }
         eventImageView.image = UIImage(named: event.image)
         eventImageView.layer.cornerRadius = 6
         eventTitleLabel.text = event.title
+        dateLabel.text = featuredEventDateFormatter.string(from: event.startDate)
+        timeLabel.text = "\(cellDateFormatter.string(from: event.startDate).lowercased()) - \(cellDateFormatter.string(from: event.endDate).lowercased())"
 
         fadeLayer = CAGradientLayer()
         fadeLayer.frame = fadeView.bounds

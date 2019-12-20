@@ -17,6 +17,7 @@ extension UIColor {
     static let selectedButton = UIColor(red: 0.13, green: 0.14, blue: 0.17, alpha: 1.0)
     static let unselectedButton = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 1.0)
     static let unselectedDayButton = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+    static let tabBarTint = UIColor(red: 1.0, green: 0.4, blue: 0.41, alpha: 1.0)
 }
 
 let todayDateFormatter: DateFormatter = {
@@ -25,9 +26,15 @@ let todayDateFormatter: DateFormatter = {
     return df
 }()
 
+let featuredEventDateFormatter: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "MMMM d, EEEE"
+    return df
+}()
+
 let cellDateFormatter: DateFormatter = {
     let df = DateFormatter()
-    df.dateFormat = "h:mm a"
+    df.dateFormat = "h:mma"
     return df
 }()
 
