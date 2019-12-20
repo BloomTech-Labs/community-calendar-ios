@@ -7,18 +7,43 @@
 //
 
 import UIKit
+import Auth0
 
 class LoginViewController: UIViewController {
+    
+    var onAuth: ((Result<Credentials>) -> ())!
 
     // MARK: - IBOutlets
     @IBOutlet weak var loginView: UIView!
+    @IBOutlet weak var signUpButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        signUpWithGoogle()
+    
         or()
         lines()
+        signUpButton.layer.cornerRadius = 12
+        signUpButton.layer.maskedCorners = [.layerMinXMinYCorner]
+        loginView.addSubview(signUpButton)
+        
+        self.onAuth = { [weak self] in
+            switch $0 {
+            case .failure(let cause):
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Auth Failed!", message: "\(cause)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                }
+            case .success(let credentials):
+                DispatchQueue.main.async {
+                    let token = credentials.accessToken ?? credentials.idToken
+                    let alert = UIAlertController(title: "Auth Success!", message: "Authorized and got a token \(String(describing: token))", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                }
+            }
+            print($0)
+        }
 
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
            backgroundImage.image = UIImage(named: "BG")
@@ -27,29 +52,6 @@ class LoginViewController: UIViewController {
     
         loginView.layer.cornerRadius = 12
     }
-    
-//    func signUpWithGoogle() {
-//        let view = UIButton()
-//        view.frame = CGRect(x: 0, y: 0, width: 145, height: 21)
-//        view.backgroundColor = .white
-//
-//        view.setTitle("Sign up with Google ", for: .normal)
-//        view.setTitleColor(UIColor(red: 112/255, green: 112/255, blue: 112/255, alpha: 1), for: .normal)
-//        view.layer.cornerRadius = 6
-//        view.titleLabel?.font = UIFont(name: "Poppins-Regular", size: 14)
-//
-//        // Line height: 21 pt
-//        // (identical to box height)
-//
-//
-//        let parent = self.loginView!
-//        parent.addSubview(view)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.widthAnchor.constraint(equalToConstant: 145).isActive = true
-//        view.heightAnchor.constraint(equalToConstant: 21).isActive = true
-//        view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 7).isActive = true
-//        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 50).isActive = true
-//    }
     
     func lines() {
         let view = UILabel()
@@ -90,7 +92,16 @@ class LoginViewController: UIViewController {
         view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 54).isActive = true
     }
     
-
+    // MARK: - IBAction
+    
+    @IBAction func signInWithGoogle(_ sender: Any) {
+        Auth0.webAuth()
+        .logging(enabled: true)
+        .connection("google-oauth2")
+        .responseType([.token])
+        .start(onAuth)
+    }
+    
     /*
     // MARK: - Navigation
 
