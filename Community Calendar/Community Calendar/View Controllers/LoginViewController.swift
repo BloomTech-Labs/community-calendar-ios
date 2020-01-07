@@ -16,15 +16,21 @@ class LoginViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        or()
-        lines()
         signUpButton.layer.cornerRadius = 12
         signUpButton.layer.maskedCorners = [.layerMinXMinYCorner]
         loginView.addSubview(signUpButton)
+        firstNameBorder()
+        lastNameBorder()
+        emailBorder()
+        passwordBorder()
         
         self.onAuth = { [weak self] in
             switch $0 {
@@ -53,48 +59,54 @@ class LoginViewController: UIViewController {
         loginView.layer.cornerRadius = 12
     }
     
-    func lines() {
-        let view = UILabel()
-        view.frame = CGRect(x: 0, y: 0, width: 141.3, height: 1)
-        view.backgroundColor = .white
-
-        view.layer.backgroundColor = UIColor.black.cgColor
-        view.layer.cornerRadius = 6
-
-        let parent = self.loginView!
-        parent.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: 141.3).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 28).isActive = true
-        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 119).isActive = true
+    // MARK: - TextField Border Colors
+    
+    func firstNameBorder() {
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: firstNameTextField.frame.height - 1, width: firstNameTextField.frame.width, height: 1)
+        bottomLine.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1).cgColor
+        firstNameTextField.borderStyle = .none
+        firstNameTextField.layer.addSublayer(bottomLine)
     }
     
-    func or() {
-        let view = UILabel()
-        view.frame = CGRect(x: 0, y: 0, width: 15, height: 21)
-        view.backgroundColor = .white
-
-        view.text = "or"
-        view.textColor = UIColor(red: 0.112, green: 0.112, blue: 0.112, alpha: 1)
-        view.font = UIFont(name: "Poppins-Regular", size: 14)
-
-        // Line height: 21 pt
-        // (identical to box height)
-
-
-        let parent = self.loginView!
-        parent.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: 17).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 21).isActive = true
-        view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 170).isActive = true
-        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 54).isActive = true
+    func lastNameBorder() {
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: lastNameTextField.frame.height - 1, width: lastNameTextField.frame.width, height: 1)
+        bottomLine.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1).cgColor
+        lastNameTextField.borderStyle = .none
+        lastNameTextField.layer.addSublayer(bottomLine)
+    }
+    
+    func emailBorder() {
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: emailTextField.frame.height - 1, width: emailTextField.frame.width, height: 1)
+        bottomLine.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1).cgColor
+        emailTextField.borderStyle = .none
+        emailTextField.layer.addSublayer(bottomLine)
+    }
+    
+    func passwordBorder() {
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: passwordTextField.frame.height - 1, width: passwordTextField.frame.width, height: 1)
+        bottomLine.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1).cgColor
+        passwordTextField.borderStyle = .none
+        passwordTextField.layer.addSublayer(bottomLine)
     }
     
     // MARK: - IBAction
     
     @IBAction func signInWithGoogle(_ sender: Any) {
+//        Auth0.webAuth()
+//        .audience("https://communitycalendar-staging.auth0.com/userinfo")
+//        .start { result in
+//            switch result {
+//            case .success(let credentials):
+//                print("Obtained credentials: \(credentials)")
+//            case .failure(let error):
+//                print("Failed with \(error)")
+//            }
+//        }
+        
         Auth0.webAuth()
         .logging(enabled: true)
         .connection("google-oauth2")
