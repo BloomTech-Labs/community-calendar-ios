@@ -36,7 +36,26 @@
                     <view key="view" contentMode="scaleToFill" id="1Z6-vO-kTf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIL-jg-Z43">
+                                <rect key="frame" x="188" y="105" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <segue destination="yN9-Lq-TfV" kind="show" id="poG-Wu-7vV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grV-4f-sBv">
+                                <rect key="frame" x="181" y="187" width="52" height="30"/>
+                                <state key="normal" title="Log out"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="grV-4f-sBv" firstAttribute="centerX" secondItem="1Z6-vO-kTf" secondAttribute="centerX" id="Fvk-Ut-jCE"/>
+                            <constraint firstItem="KIL-jg-Z43" firstAttribute="centerX" secondItem="1Z6-vO-kTf" secondAttribute="centerX" id="aAb-Fl-5Gy"/>
+                            <constraint firstItem="KIL-jg-Z43" firstAttribute="top" secondItem="L8z-Lk-HAz" secondAttribute="top" constant="61" id="eQQ-Ha-GRN"/>
+                            <constraint firstItem="grV-4f-sBv" firstAttribute="top" secondItem="KIL-jg-Z43" secondAttribute="bottom" constant="52" id="rSl-tb-KNx"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="L8z-Lk-HAz"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="person" id="B97-b6-Hbf"/>
@@ -44,6 +63,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mrF-Up-5yE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-359" y="-591"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="Ram-Ef-Bak">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Login" id="yN9-Lq-TfV" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="j40-YH-bss"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iF4-Go-5zb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="387" y="-603"/>
         </scene>
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
@@ -132,7 +161,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Thursday, December 12, 2019">
                                         <attributes>
-                                            <font key="NSFont" metaFont="system" size="14"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -286,7 +315,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="DISTRICT NAME">
                                                                     <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="10"/>
+                                                                        <font key="NSFont" size="10" name="Poppins-Light"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -333,7 +362,7 @@
                                                         <attributedString key="attributedTitle">
                                                             <fragment content="View">
                                                                 <attributes>
-                                                                    <font key="NSFont" metaFont="system" size="14"/>
+                                                                    <font key="NSFont" metaFont="menu" size="14"/>
                                                                 </attributes>
                                                             </fragment>
                                                         </attributedString>
@@ -465,7 +494,7 @@
                                         <fragment content="See all">
                                             <attributes>
                                                 <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.50478916952054798" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" metaFont="system" size="14"/>
+                                                <font key="NSFont" metaFont="menu" size="14"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -484,7 +513,7 @@
                                                 <fragment content="Today">
                                                     <attributes>
                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.49579944349315069" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" metaFont="system" size="14"/>
+                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -501,7 +530,7 @@
                                                 <fragment content="Tomorrow">
                                                     <attributes>
                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.49579944349315069" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" metaFont="system" size="14"/>
+                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -518,7 +547,7 @@
                                                 <fragment content="This weekend">
                                                     <attributes>
                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.49579944349315069" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" metaFont="system" size="14"/>
+                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -535,7 +564,7 @@
                                                 <fragment content="All upcoming">
                                                     <attributes>
                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.49579944349315069" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" metaFont="system" size="14"/>
+                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
