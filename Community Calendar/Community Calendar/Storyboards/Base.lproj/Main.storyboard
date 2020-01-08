@@ -94,12 +94,12 @@
                                 </scopeButtonTitles>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIc-R7-2qC">
-                                <rect key="frame" x="16" y="108" width="71.666666666666671" height="21"/>
+                                <rect key="frame" x="16" y="108" width="72.333333333333329" height="21.666666666666657"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Featured">
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="18" name="Butler-Bold"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -107,7 +107,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CK3-tv-Sqg">
-                                <rect key="frame" x="15.999999999999996" y="353" width="54.666666666666657" height="21"/>
+                                <rect key="frame" x="16.000000000000004" y="353.66666666666669" width="54.333333333333343" height="21.666666666666686"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Events">
                                         <attributes>
@@ -120,7 +120,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="i5q-B4-DVp">
-                                <rect key="frame" x="361" y="353.66666666666669" width="37" height="20"/>
+                                <rect key="frame" x="361" y="354.66666666666669" width="37" height="20"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4Q-Eg-rjg">
                                         <rect key="frame" x="0.0" y="4" width="12" height="12"/>
@@ -168,7 +168,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mbc-pE-p2h">
-                                <rect key="frame" x="0.0" y="145" width="414" height="192"/>
+                                <rect key="frame" x="0.0" y="145.66666666666666" width="414" height="191.99999999999997"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="192" id="pIj-kf-BuS"/>
@@ -199,10 +199,10 @@
                                                     <rect key="frame" x="0.0" y="102" width="145" height="90"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="auq-oB-1LG">
-                                                            <rect key="frame" x="11.999999999999998" y="39" width="26.333333333333329" height="39"/>
+                                                            <rect key="frame" x="11.999999999999998" y="39" width="28.333333333333329" height="39"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JRB-l7-Lpp">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="26.333333333333332" height="11"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="28.333333333333332" height="11"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="11" id="t0C-6P-7Ly"/>
                                                                     </constraints>
@@ -210,7 +210,7 @@
                                                                         <fragment content="Date">
                                                                             <attributes>
                                                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                <font key="NSFont" size="8" name="Poppins-Light"/>
+                                                                                <font key="NSFont" metaFont="system" size="8"/>
                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                             </attributes>
                                                                         </fragment>
@@ -218,7 +218,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ld-g9-wJP">
-                                                                    <rect key="frame" x="0.0" y="11" width="26.333333333333332" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="11" width="28.333333333333332" height="16"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="16" id="b9r-do-3xt"/>
                                                                     </constraints>
@@ -226,7 +226,7 @@
                                                                         <fragment content="Title">
                                                                             <attributes>
                                                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                <font key="NSFont" size="14" name="Butler-Bold"/>
+                                                                                <font key="NSFont" metaFont="system" size="14"/>
                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                             </attributes>
                                                                         </fragment>
@@ -234,7 +234,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mz-iR-gwj">
-                                                                    <rect key="frame" x="0.0" y="27" width="26.333333333333332" height="12"/>
+                                                                    <rect key="frame" x="0.0" y="27" width="28.333333333333332" height="12"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="12" id="S5O-g0-As5"/>
                                                                     </constraints>
@@ -242,7 +242,7 @@
                                                                         <fragment content="Time">
                                                                             <attributes>
                                                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                <font key="NSFont" size="8" name="Poppins-Light"/>
+                                                                                <font key="NSFont" metaFont="system" size="8"/>
                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                             </attributes>
                                                                         </fragment>
@@ -279,11 +279,11 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="FeaturedHeader" id="9wU-hT-z1y">
-                                    <rect key="frame" x="0.0" y="0.0" width="16" height="192"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="16" height="191.99999999999997"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="FeaturedFooter" id="bdL-yj-ybk">
-                                    <rect key="frame" x="161" y="0.0" width="16" height="192"/>
+                                    <rect key="frame" x="161" y="0.0" width="16" height="191.99999999999997"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
@@ -305,10 +305,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="L98-J9-Ros">
-                                                    <rect key="frame" x="102" y="11" width="99.666666666666686" height="54"/>
+                                                    <rect key="frame" x="102" y="11" width="106.33333333333331" height="54"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ic3-z1-4KI">
-                                                            <rect key="frame" x="0.0" y="0.0" width="99.666666666666671" height="15"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="106.33333333333333" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="dHD-Tf-gUR"/>
                                                             </constraints>
@@ -323,7 +323,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsS-Ey-a4M">
-                                                            <rect key="frame" x="0.0" y="15" width="99.666666666666671" height="21"/>
+                                                            <rect key="frame" x="0.0" y="15" width="106.33333333333333" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="Hfu-hF-01j"/>
                                                             </constraints>
@@ -338,7 +338,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AjB-wx-ogU">
-                                                            <rect key="frame" x="0.0" y="36" width="99.666666666666671" height="18"/>
+                                                            <rect key="frame" x="0.0" y="36" width="106.33333333333333" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="RZv-TN-DTi"/>
                                                             </constraints>
@@ -418,17 +418,17 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SDP-bM-QWG">
-                                                    <rect key="frame" x="0.0" y="110" width="99.666666666666671" height="54"/>
+                                                    <rect key="frame" x="0.0" y="110" width="106.33333333333333" height="54"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BeL-Oa-hjZ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="99.666666666666671" height="15"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="106.33333333333333" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="PSk-hc-Kdy"/>
                                                             </constraints>
                                                             <attributedString key="attributedText">
                                                                 <fragment content="DISTRICT NAME">
                                                                     <attributes>
-                                                                        <font key="NSFont" size="8" name="Poppins-Light"/>
+                                                                        <font key="NSFont" metaFont="system" size="8"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -436,7 +436,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SzE-qt-akg">
-                                                            <rect key="frame" x="0.0" y="15" width="99.666666666666671" height="21"/>
+                                                            <rect key="frame" x="0.0" y="15" width="106.33333333333333" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="1BX-SJ-aDU"/>
                                                             </constraints>
@@ -452,7 +452,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gP-lV-XDv">
-                                                            <rect key="frame" x="0.0" y="36" width="99.666666666666671" height="18"/>
+                                                            <rect key="frame" x="0.0" y="36" width="106.33333333333333" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="709-m1-JrU"/>
                                                             </constraints>
