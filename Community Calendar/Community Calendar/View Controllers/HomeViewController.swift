@@ -34,6 +34,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     
     override func viewDidLoad() {
+        let eventController = EventController()
+        eventController.getEvents()
         super.viewDidLoad()
         setUp()
         dateLabel.text = todayDateFormatter.string(from: Date())

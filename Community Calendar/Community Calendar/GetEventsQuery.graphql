@@ -4,11 +4,38 @@ query getEvents {
     description
     start
     end
+    creator {
+      first_name
+      last_name
+    }
     event_images {
       url
     }
+    rsvps {
+      first_name
+      last_name
+    }
     urls {
       url
+    }
+    locations {
+      latitude
+      longitude
+      name
+      state
+      city
+      street_address
+      street_address_2
+      zipcode
+      neighborhood {
+        geo_json {
+          geo_json
+        }
+      }
+    }
+    tags {
+      title
+      id
     }
   }
 }
