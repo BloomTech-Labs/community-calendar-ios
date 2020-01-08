@@ -35,7 +35,7 @@ There is a disconnect between event organizers and community members. From the p
 
 The app is divided into three different tabs: home, where you can find events tailored for you and search for specific events by name, distance, interest, category, and more; events, where you will see your RSVP'd events along with a full list of events in your area; and profile, where you are able to log in or sign up, view your favorited events, set a profile picture, and edit your information like name, email, etc.
 
-![](header_1.png)  ![](header_2.png) ![](header_3.png)
+<img src="header_1.png" alt="" width="250" />  <img src="header_2.png" alt="" width="250" />  <img src="header_3.png" alt="" width="250" />
 
 ### Features
 
