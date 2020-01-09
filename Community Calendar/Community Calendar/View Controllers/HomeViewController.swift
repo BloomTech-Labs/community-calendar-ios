@@ -9,16 +9,9 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    var events = [
-        Event(title: "Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Watching TV", description: "Come and sit", image: "watchingAPerformance", startDate: Date(), endDate: Date()),
-        Event(title: "Watch a Movie", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Watch a Play", description: "Come and sit", image: "watchingAPerformance", startDate: Date(), endDate: Date()),
-        Event(title: "Talking While Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Getting a Masage", description: "Come and sit", image: "watchingAPerformance", startDate: Date(), endDate: Date()),
-        Event(title: "Singing While Sitting", description: "Come and sit", image: "peopleSitting", startDate: Date(), endDate: Date()),
-        Event(title: "Sitting", description: "Come and sit", image: "watchingAPerformance", startDate: Date(), endDate: Date())
-    ]
+    
+    let eventController = EventController()
+    let events = [Event]()
     
     @IBOutlet weak var featuredCollectionView: UICollectionView!
     @IBOutlet weak var eventCollectionView: UICollectionView!
@@ -34,8 +27,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     
     override func viewDidLoad() {
-        let eventController = EventController()
-        eventController.getEvents()
+//        eventController.getEvents
         super.viewDidLoad()
         setUp()
         dateLabel.text = todayDateFormatter.string(from: Date())

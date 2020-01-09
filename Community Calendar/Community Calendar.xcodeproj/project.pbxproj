@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E64400223C63DC800A56B22 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E64400123C63DC800A56B22 /* EventController.swift */; };
+		0E73088F23C69147006B5326 /* Community_Calendar_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E73088E23C69147006B5326 /* Community_Calendar_Tests.swift */; };
 		0E86D5F523AC176E00CF7012 /* GetEventsQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */; };
 		0E86D5F723AC1C7900CF7012 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E86D5F623AC1C7800CF7012 /* API.swift */; };
 		0E9FDD6023A8366F00FD75A0 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD4E23A8366D00FD75A0 /* Poppins-Light.ttf */; };
@@ -54,8 +55,21 @@
 		EFD4D3B023A98E6B00DDE283 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0E73089123C69147006B5326 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EB19D4823A82C5B00640A40 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0EB19D4F23A82C5B00640A40;
+			remoteInfo = "Community Calendar";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0E64400123C63DC800A56B22 /* EventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
+		0E73088C23C69147006B5326 /* Community Calendar Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Community Calendar Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E73088E23C69147006B5326 /* Community_Calendar_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Community_Calendar_Tests.swift; sourceTree = "<group>"; };
+		0E73089023C69147006B5326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetEventsQuery.graphql; sourceTree = "<group>"; };
 		0E86D5F623AC1C7800CF7012 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0E9FDD4E23A8366D00FD75A0 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
@@ -97,7 +111,7 @@
 		0EE3078D23AC320C0045EFD1 /* Butler_Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Black.otf; sourceTree = "<group>"; };
 		0EE3078E23AC320C0045EFD1 /* Butler_Ultra_Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Ultra_Light.otf; sourceTree = "<group>"; };
 		0EE307A623AC53470045EFD1 /* Community_Calendar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Community_Calendar.xcdatamodel; sourceTree = "<group>"; };
-		0EE307A723AC53470045EFD1 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = ../Event.swift; sourceTree = "<group>"; };
+		0EE307A723AC53470045EFD1 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.release.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Community_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +121,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0E73088923C69147006B5326 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0EB19D4D23A82C5B00640A40 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -118,6 +139,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E73088D23C69147006B5326 /* Community Calendar Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0E73088E23C69147006B5326 /* Community_Calendar_Tests.swift */,
+				0E73089023C69147006B5326 /* Info.plist */,
+			);
+			path = "Community Calendar Tests";
+			sourceTree = "<group>";
+		};
+		0E73089623C69BB0006B5326 /* Model Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0E64400123C63DC800A56B22 /* EventController.swift */,
+			);
+			path = "Model Controller";
+			sourceTree = "<group>";
+		};
 		0E9FDD4D23A8363B00FD75A0 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				0EB19D5223A82C5B00640A40 /* Community Calendar */,
+				0E73088D23C69147006B5326 /* Community Calendar Tests */,
 				0EB19D5123A82C5B00640A40 /* Products */,
 				AF02A3BECBE0CFBDE342171D /* Pods */,
 				4B1C6C772E89C0E95EBE07DE /* Frameworks */,
@@ -141,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				0EB19D5023A82C5B00640A40 /* Community Calendar.app */,
+				0E73088C23C69147006B5326 /* Community Calendar Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,12 +194,12 @@
 				0EE3079F23AC528D0045EFD1 /* Views */,
 				0EE307A023AC52B60045EFD1 /* Storyboards */,
 				0EE307AA23AC534A0045EFD1 /* Models */,
+				0E73089623C69BB0006B5326 /* Model Controller */,
 				0EE307AB23AC53680045EFD1 /* Helpers */,
 				EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */,
 				0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */,
 				0E86D5F623AC1C7800CF7012 /* API.swift */,
 				0ED2657323AC0FB000278980 /* schema.json */,
-				0E64400123C63DC800A56B22 /* EventController.swift */,
 			);
 			path = "Community Calendar";
 			sourceTree = "<group>";
@@ -280,6 +320,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0E73088B23C69147006B5326 /* Community Calendar Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E73089523C69147006B5326 /* Build configuration list for PBXNativeTarget "Community Calendar Tests" */;
+			buildPhases = (
+				0E73088823C69147006B5326 /* Sources */,
+				0E73088923C69147006B5326 /* Frameworks */,
+				0E73088A23C69147006B5326 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E73089223C69147006B5326 /* PBXTargetDependency */,
+			);
+			name = "Community Calendar Tests";
+			productName = "Community Calendar Tests";
+			productReference = 0E73088C23C69147006B5326 /* Community Calendar Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		0EB19D4F23A82C5B00640A40 /* Community Calendar */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0EB19D6723A82C6200640A40 /* Build configuration list for PBXNativeTarget "Community Calendar" */;
@@ -310,6 +368,10 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Mazjap Co";
 				TargetAttributes = {
+					0E73088B23C69147006B5326 = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 0EB19D4F23A82C5B00640A40;
+					};
 					0EB19D4F23A82C5B00640A40 = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -329,11 +391,19 @@
 			projectRoot = "";
 			targets = (
 				0EB19D4F23A82C5B00640A40 /* Community Calendar */,
+				0E73088B23C69147006B5326 /* Community Calendar Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0E73088A23C69147006B5326 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0EB19D4E23A82C5B00640A40 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -436,6 +506,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0E73088823C69147006B5326 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E73088F23C69147006B5326 /* Community_Calendar_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0EB19D4C23A82C5B00640A40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -457,6 +535,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0E73089223C69147006B5326 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0EB19D4F23A82C5B00640A40 /* Community Calendar */;
+			targetProxy = 0E73089123C69147006B5326 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		0EB19D5923A82C5B00640A40 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -477,6 +563,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0E73089323C69147006B5326 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HFR8F4BT7E;
+				INFOPLIST_FILE = "Community Calendar Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Community Calendar.app/Community Calendar";
+			};
+			name = Debug;
+		};
+		0E73089423C69147006B5326 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HFR8F4BT7E;
+				INFOPLIST_FILE = "Community Calendar Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Community Calendar.app/Community Calendar";
+			};
+			name = Release;
+		};
 		0EB19D6523A82C6200640A40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -632,6 +758,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0E73089523C69147006B5326 /* Build configuration list for PBXNativeTarget "Community Calendar Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E73089323C69147006B5326 /* Debug */,
+				0E73089423C69147006B5326 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0EB19D4B23A82C5B00640A40 /* Build configuration list for PBXProject "Community Calendar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
