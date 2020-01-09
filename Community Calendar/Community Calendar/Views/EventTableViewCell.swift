@@ -23,21 +23,19 @@ class EventTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
     
     func updateViews() {
         guard let event = event else { return }
-        eventImageView.image = UIImage(named: event.image)
         eventImageView.layer.cornerRadius = 3
         eventTitleLabel.text = event.title
-        districtNameLabel.text = event.description.uppercased()
-        timeLabel.text = "\(cellDateFormatter.string(from: event.startDate).lowercased()) - \(cellDateFormatter.string(from: event.endDate).lowercased())"
+        districtNameLabel.text = event.locations.first?.city.uppercased()
+        guard let startDate = event.startDate, let endDate = event.endDate else { return }
+        timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
 
     @IBAction func viewTapped(_ sender: Any) {
