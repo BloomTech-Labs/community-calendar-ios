@@ -10,8 +10,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    let eventController = EventController()
-    var events: [Event]? {
+    private let eventController = EventController()
+    private var events: [Event]? {
         didSet {
             updateLists()
         }
@@ -97,7 +97,7 @@ class HomeViewController: UIViewController {
         seperatorView.layer.cornerRadius = 3
     }
     
-    func updateLists() {
+    private func updateLists() {
         eventTableView.reloadData()
         eventCollectionView.reloadData()
         featuredCollectionView.reloadData()
@@ -172,7 +172,20 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let events = events else { return UITableViewCell() }
             
         cell.event = events[indexPath.row]
-            
+        
+        if let imageURL = events[indexPath.row].images.first {
+            eventController.loadImage(for: imageURL) { result in
+                switch result {
+                case .failure:
+                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
+                case .success(let image):
+                    DispatchQueue.main.async {
+                        cell.eventImageView.image = image
+                    }
+                }
+            }
+        }
+        
         return cell
     }
     
@@ -197,7 +210,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let hideAction = UIContextualAction(style: .destructive, title: "Hide") { (action, view, handler) in
             print("Hide tapped")
-//            self.events.remove(at: indexPath.row) // TODO: Remove datasource at indexpath
+            self.events?.remove(at: indexPath.row)
             self.eventTableView.deleteRows(at: [indexPath], with: .fade)
         }
         hideAction.backgroundColor = UIColor.blue
@@ -213,16 +226,44 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == eventCollectionView {
-            guard let cell = eventCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = eventCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell,
+            let events = events else { return UICollectionViewCell() }
             
-            cell.event = events?[indexPath.row]
+            cell.event = events[indexPath.row]
+            
+            if let imageURL = events[indexPath.row].images.first {
+                eventController.loadImage(for: imageURL) { result in
+                    switch result {
+                    case .failure:
+                        NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
+                    case .success(let image):
+                        DispatchQueue.main.async {
+                            cell.eventImageView.image = image
+                        }
+                    }
+                }
+            }
             
             return cell
             
         } else if collectionView == featuredCollectionView {
-            guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell,
+            let events = events else { return UICollectionViewCell() }
             
-            cell.event = events?[indexPath.row]
+            cell.event = events[indexPath.row]
+            
+            if let imageURL = events[indexPath.row].images.first {
+                eventController.loadImage(for: imageURL) { result in
+                    switch result {
+                    case .failure:
+                        NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
+                    case .success(let image):
+                        DispatchQueue.main.async {
+                            cell.eventImageView.image = image
+                        }
+                    }
+                }
+            }
             
             return cell
         }

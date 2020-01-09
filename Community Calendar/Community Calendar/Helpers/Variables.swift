@@ -38,7 +38,7 @@ let cellDateFormatter: DateFormatter = {
     return df
 }()
 
-let dateFormatter: DateFormatter = {
+let backendDateFormatter: DateFormatter = {
     let df = DateFormatter()
     df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
     return df

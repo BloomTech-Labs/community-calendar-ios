@@ -25,7 +25,6 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     
     func updateViews() {
         guard let event = event else { return }
-//        eventImageView.image = UIImage(named: event.image)
         eventImageView.layer.cornerRadius = 6
         eventTitleLabel.text = event.title
 

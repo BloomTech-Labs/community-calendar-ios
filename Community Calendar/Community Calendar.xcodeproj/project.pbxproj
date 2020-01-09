@@ -11,6 +11,7 @@
 		0E73088F23C69147006B5326 /* Community_Calendar_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E73088E23C69147006B5326 /* Community_Calendar_Tests.swift */; };
 		0E86D5F523AC176E00CF7012 /* GetEventsQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */; };
 		0E86D5F723AC1C7900CF7012 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E86D5F623AC1C7800CF7012 /* API.swift */; };
+		0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E974A1D23C7D96900CEE05D /* Cache.swift */; };
 		0E9FDD6023A8366F00FD75A0 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD4E23A8366D00FD75A0 /* Poppins-Light.ttf */; };
 		0E9FDD6123A8366F00FD75A0 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD4F23A8366D00FD75A0 /* Poppins-Italic.ttf */; };
 		0E9FDD6223A8366F00FD75A0 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5023A8366D00FD75A0 /* Poppins-Thin.ttf */; };
@@ -72,6 +73,7 @@
 		0E73089023C69147006B5326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetEventsQuery.graphql; sourceTree = "<group>"; };
 		0E86D5F623AC1C7800CF7012 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		0E974A1D23C7D96900CEE05D /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		0E9FDD4E23A8366D00FD75A0 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		0E9FDD4F23A8366D00FD75A0 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		0E9FDD5023A8366D00FD75A0 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				0E64400123C63DC800A56B22 /* EventController.swift */,
+				0E974A1D23C7D96900CEE05D /* Cache.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
 				0E86D5F723AC1C7900CF7012 /* API.swift in Sources */,
+				0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */,
 				0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */,
 				0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */,
 				EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */,

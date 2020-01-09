@@ -12,8 +12,8 @@ struct Event: Codable {
     init(event: GetEventsQuery.Data.Event) {
         self.title = event.title
         self.description = event.description
-        self.startDate = dateFormatter.date(from: event.start)
-        self.endDate = dateFormatter.date(from: event.end)
+        self.startDate = backendDateFormatter.date(from: event.start)
+        self.endDate = backendDateFormatter.date(from: event.end)
         self.creator = "\(event.creator?.firstName ?? "") \(event.creator?.lastName ?? "")"
         self.urls = [String]()
         self.images = [String]()
