@@ -471,7 +471,6 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="SDP-bM-QWG" firstAttribute="top" secondItem="MV6-rn-3N5" secondAttribute="bottom" constant="10" id="cxf-u9-oDG"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SDP-bM-QWG" secondAttribute="trailing" id="fWt-Fu-NfS"/>
                                                 <constraint firstItem="MV6-rn-3N5" firstAttribute="centerX" secondItem="rW9-rs-U9U" secondAttribute="centerX" id="g7k-Gu-9D9"/>
                                                 <constraint firstItem="MV6-rn-3N5" firstAttribute="top" secondItem="rW9-rs-U9U" secondAttribute="top" id="mGf-v7-7C7"/>
                                                 <constraint firstItem="SDP-bM-QWG" firstAttribute="leading" secondItem="rW9-rs-U9U" secondAttribute="leading" id="pqi-xT-Yrj"/>
