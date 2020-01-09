@@ -1,0 +1,26 @@
+PODS:
+  - Apollo (0.21.0):
+    - Apollo/Core (= 0.21.0)
+  - Apollo/Core (0.21.0)
+  - Auth0 (1.20.0):
+    - SimpleKeychain
+  - SimpleKeychain (0.9.0)
+
+DEPENDENCIES:
+  - Apollo
+  - Auth0 (~> 1.19)
+
+SPEC REPOS:
+  trunk:
+    - Apollo
+    - Auth0
+    - SimpleKeychain
+
+SPEC CHECKSUMS:
+  Apollo: 56a0aa81b744bf2810a8277e705f155c91ac9055
+  Auth0: 4a49703c66dfb2fc5445aa93296711dd0004fabf
+  SimpleKeychain: 3be49072fd2d82de8fa83d847ef1e548622f8fc5
+
+PODFILE CHECKSUM: abbebd9f76846e3266423af57afe0f7f6329600c
+
+COCOAPODS: 1.8.3

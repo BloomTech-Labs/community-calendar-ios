@@ -3,29 +3,107 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E64400223C63DC800A56B22 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E64400123C63DC800A56B22 /* EventController.swift */; };
+		0E86D5F523AC176E00CF7012 /* GetEventsQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */; };
+		0E86D5F723AC1C7900CF7012 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E86D5F623AC1C7800CF7012 /* API.swift */; };
+		0E9FDD6023A8366F00FD75A0 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD4E23A8366D00FD75A0 /* Poppins-Light.ttf */; };
+		0E9FDD6123A8366F00FD75A0 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD4F23A8366D00FD75A0 /* Poppins-Italic.ttf */; };
+		0E9FDD6223A8366F00FD75A0 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5023A8366D00FD75A0 /* Poppins-Thin.ttf */; };
+		0E9FDD6323A8366F00FD75A0 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5123A8366D00FD75A0 /* Poppins-SemiBold.ttf */; };
+		0E9FDD6423A8366F00FD75A0 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5223A8366D00FD75A0 /* Poppins-ThinItalic.ttf */; };
+		0E9FDD6523A8366F00FD75A0 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5323A8366D00FD75A0 /* Poppins-ExtraLightItalic.ttf */; };
+		0E9FDD6623A8366F00FD75A0 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5423A8366D00FD75A0 /* Poppins-MediumItalic.ttf */; };
+		0E9FDD6723A8366F00FD75A0 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5523A8366E00FD75A0 /* Poppins-LightItalic.ttf */; };
+		0E9FDD6823A8366F00FD75A0 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5623A8366E00FD75A0 /* Poppins-BlackItalic.ttf */; };
+		0E9FDD6923A8366F00FD75A0 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5723A8366E00FD75A0 /* Poppins-Black.ttf */; };
+		0E9FDD6A23A8366F00FD75A0 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5823A8366E00FD75A0 /* Poppins-SemiBoldItalic.ttf */; };
+		0E9FDD6B23A8366F00FD75A0 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5923A8366E00FD75A0 /* Poppins-BoldItalic.ttf */; };
+		0E9FDD6C23A8366F00FD75A0 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5A23A8366E00FD75A0 /* Poppins-ExtraBold.ttf */; };
+		0E9FDD6D23A8366F00FD75A0 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5B23A8366E00FD75A0 /* Poppins-ExtraBoldItalic.ttf */; };
+		0E9FDD6E23A8366F00FD75A0 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5C23A8366E00FD75A0 /* Poppins-ExtraLight.ttf */; };
+		0E9FDD6F23A8366F00FD75A0 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5D23A8366E00FD75A0 /* Poppins-Medium.ttf */; };
+		0E9FDD7023A8366F00FD75A0 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5E23A8366E00FD75A0 /* Poppins-Bold.ttf */; };
+		0E9FDD7123A8366F00FD75A0 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5F23A8366F00FD75A0 /* Poppins-Regular.ttf */; };
+		0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */; };
+		0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */; };
+		0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */; };
+		0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDD7823A8600700FD75A0 /* Variables.swift */; };
 		0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5323A82C5B00640A40 /* AppDelegate.swift */; };
 		0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5523A82C5B00640A40 /* SceneDelegate.swift */; };
-		0EB19D5823A82C5B00640A40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5723A82C5B00640A40 /* ViewController.swift */; };
+		0EB19D5823A82C5B00640A40 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5723A82C5B00640A40 /* HomeViewController.swift */; };
 		0EB19D5B23A82C5B00640A40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D5923A82C5B00640A40 /* Main.storyboard */; };
-		0EB19D5E23A82C5B00640A40 /* Community_Calendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EB19D5C23A82C5B00640A40 /* Community_Calendar.xcdatamodeld */; };
 		0EB19D6023A82C6200640A40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D5F23A82C6200640A40 /* Assets.xcassets */; };
 		0EB19D6323A82C6200640A40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */; };
+		0ED2657523AC0FBB00278980 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ED2657323AC0FB000278980 /* schema.json */; };
+		0EE3079623AC47080045EFD1 /* Butler_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078A23AC320C0045EFD1 /* Butler_Regular.otf */; };
+		0EE3079723AC47080045EFD1 /* Butler_Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078923AC320C0045EFD1 /* Butler_Medium.otf */; };
+		0EE3079823AC47080045EFD1 /* Butler_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078C23AC320C0045EFD1 /* Butler_Bold.otf */; };
+		0EE3079923AC47080045EFD1 /* Butler_ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078B23AC320C0045EFD1 /* Butler_ExtraBold.otf */; };
+		0EE3079A23AC47080045EFD1 /* Butler_Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078D23AC320C0045EFD1 /* Butler_Black.otf */; };
+		0EE3079B23AC47080045EFD1 /* Butler_Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078823AC320C0045EFD1 /* Butler_Light.otf */; };
+		0EE3079C23AC47080045EFD1 /* Butler_Ultra_Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078E23AC320C0045EFD1 /* Butler_Ultra_Light.otf */; };
+		0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */; };
+		0EE307A923AC53470045EFD1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A723AC53470045EFD1 /* Event.swift */; };
+		0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */; };
+		EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF51CC4A23A83E4300FF4E62 /* Login.storyboard */; };
+		EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */; };
+		EFD4D3B023A98E6B00DDE283 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E64400123C63DC800A56B22 /* EventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
+		0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetEventsQuery.graphql; sourceTree = "<group>"; };
+		0E86D5F623AC1C7800CF7012 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		0E9FDD4E23A8366D00FD75A0 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
+		0E9FDD4F23A8366D00FD75A0 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
+		0E9FDD5023A8366D00FD75A0 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		0E9FDD5123A8366D00FD75A0 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		0E9FDD5223A8366D00FD75A0 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
+		0E9FDD5323A8366D00FD75A0 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		0E9FDD5423A8366D00FD75A0 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		0E9FDD5523A8366E00FD75A0 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
+		0E9FDD5623A8366E00FD75A0 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
+		0E9FDD5723A8366E00FD75A0 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
+		0E9FDD5823A8366E00FD75A0 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		0E9FDD5923A8366E00FD75A0 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
+		0E9FDD5A23A8366E00FD75A0 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		0E9FDD5B23A8366E00FD75A0 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		0E9FDD5C23A8366E00FD75A0 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		0E9FDD5D23A8366E00FD75A0 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		0E9FDD5E23A8366E00FD75A0 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		0E9FDD5F23A8366F00FD75A0 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCollectionViewCell.swift; sourceTree = "<group>"; };
+		0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCollectionViewCell.swift; sourceTree = "<group>"; };
+		0E9FDD7823A8600700FD75A0 /* Variables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
 		0EB19D5023A82C5B00640A40 /* Community Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Community Calendar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB19D5323A82C5B00640A40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0EB19D5523A82C5B00640A40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0EB19D5723A82C5B00640A40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0EB19D5723A82C5B00640A40 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0EB19D5A23A82C5B00640A40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0EB19D5D23A82C5B00640A40 /* Community_Calendar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Community_Calendar.xcdatamodel; sourceTree = "<group>"; };
 		0EB19D5F23A82C6200640A40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0EB19D6223A82C6200640A40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0EB19D6423A82C6200640A40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0ED2657323AC0FB000278980 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		0EE3078823AC320C0045EFD1 /* Butler_Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Light.otf; sourceTree = "<group>"; };
+		0EE3078923AC320C0045EFD1 /* Butler_Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Medium.otf; sourceTree = "<group>"; };
+		0EE3078A23AC320C0045EFD1 /* Butler_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Regular.otf; sourceTree = "<group>"; };
+		0EE3078B23AC320C0045EFD1 /* Butler_ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_ExtraBold.otf; sourceTree = "<group>"; };
+		0EE3078C23AC320C0045EFD1 /* Butler_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Bold.otf; sourceTree = "<group>"; };
+		0EE3078D23AC320C0045EFD1 /* Butler_Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Black.otf; sourceTree = "<group>"; };
+		0EE3078E23AC320C0045EFD1 /* Butler_Ultra_Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Ultra_Light.otf; sourceTree = "<group>"; };
+		0EE307A623AC53470045EFD1 /* Community_Calendar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Community_Calendar.xcdatamodel; sourceTree = "<group>"; };
+		0EE307A723AC53470045EFD1 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = ../Event.swift; sourceTree = "<group>"; };
+		697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.debug.xcconfig"; sourceTree = "<group>"; };
+		81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.release.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.release.xcconfig"; sourceTree = "<group>"; };
+		97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Community_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF51CC4A23A83E4300FF4E62 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +111,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E9FDD4D23A8363B00FD75A0 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0EE3078323AC31710045EFD1 /* Butler */,
+				0EE3078223AC31450045EFD1 /* Poppins */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		0EB19D4723A82C5B00640A40 = {
 			isa = PBXGroup;
 			children = (
 				0EB19D5223A82C5B00640A40 /* Community Calendar */,
 				0EB19D5123A82C5B00640A40 /* Products */,
+				AF02A3BECBE0CFBDE342171D /* Pods */,
+				4B1C6C772E89C0E95EBE07DE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,16 +148,133 @@
 		0EB19D5223A82C5B00640A40 /* Community Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				0EB19D5323A82C5B00640A40 /* AppDelegate.swift */,
-				0EB19D5523A82C5B00640A40 /* SceneDelegate.swift */,
-				0EB19D5723A82C5B00640A40 /* ViewController.swift */,
-				0EB19D5923A82C5B00640A40 /* Main.storyboard */,
-				0EB19D5F23A82C6200640A40 /* Assets.xcassets */,
-				0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */,
-				0EB19D6423A82C6200640A40 /* Info.plist */,
-				0EB19D5C23A82C5B00640A40 /* Community_Calendar.xcdatamodeld */,
+				0E9FDD4D23A8363B00FD75A0 /* Fonts */,
+				0EE3079D23AC52320045EFD1 /* Resources */,
+				0EE3079E23AC527E0045EFD1 /* View Controllers */,
+				0EE3079F23AC528D0045EFD1 /* Views */,
+				0EE307A023AC52B60045EFD1 /* Storyboards */,
+				0EE307AA23AC534A0045EFD1 /* Models */,
+				0EE307AB23AC53680045EFD1 /* Helpers */,
+				EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */,
+				0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */,
+				0E86D5F623AC1C7800CF7012 /* API.swift */,
+				0ED2657323AC0FB000278980 /* schema.json */,
+				0E64400123C63DC800A56B22 /* EventController.swift */,
 			);
 			path = "Community Calendar";
+			sourceTree = "<group>";
+		};
+		0EE3078223AC31450045EFD1 /* Poppins */ = {
+			isa = PBXGroup;
+			children = (
+				0E9FDD5723A8366E00FD75A0 /* Poppins-Black.ttf */,
+				0E9FDD5623A8366E00FD75A0 /* Poppins-BlackItalic.ttf */,
+				0E9FDD5E23A8366E00FD75A0 /* Poppins-Bold.ttf */,
+				0E9FDD5923A8366E00FD75A0 /* Poppins-BoldItalic.ttf */,
+				0E9FDD5A23A8366E00FD75A0 /* Poppins-ExtraBold.ttf */,
+				0E9FDD5B23A8366E00FD75A0 /* Poppins-ExtraBoldItalic.ttf */,
+				0E9FDD5C23A8366E00FD75A0 /* Poppins-ExtraLight.ttf */,
+				0E9FDD5323A8366D00FD75A0 /* Poppins-ExtraLightItalic.ttf */,
+				0E9FDD4F23A8366D00FD75A0 /* Poppins-Italic.ttf */,
+				0E9FDD4E23A8366D00FD75A0 /* Poppins-Light.ttf */,
+				0E9FDD5523A8366E00FD75A0 /* Poppins-LightItalic.ttf */,
+				0E9FDD5D23A8366E00FD75A0 /* Poppins-Medium.ttf */,
+				0E9FDD5423A8366D00FD75A0 /* Poppins-MediumItalic.ttf */,
+				0E9FDD5F23A8366F00FD75A0 /* Poppins-Regular.ttf */,
+				0E9FDD5123A8366D00FD75A0 /* Poppins-SemiBold.ttf */,
+				0E9FDD5823A8366E00FD75A0 /* Poppins-SemiBoldItalic.ttf */,
+				0E9FDD5023A8366D00FD75A0 /* Poppins-Thin.ttf */,
+				0E9FDD5223A8366D00FD75A0 /* Poppins-ThinItalic.ttf */,
+			);
+			path = Poppins;
+			sourceTree = "<group>";
+		};
+		0EE3078323AC31710045EFD1 /* Butler */ = {
+			isa = PBXGroup;
+			children = (
+				0EE3078A23AC320C0045EFD1 /* Butler_Regular.otf */,
+				0EE3078923AC320C0045EFD1 /* Butler_Medium.otf */,
+				0EE3078C23AC320C0045EFD1 /* Butler_Bold.otf */,
+				0EE3078B23AC320C0045EFD1 /* Butler_ExtraBold.otf */,
+				0EE3078D23AC320C0045EFD1 /* Butler_Black.otf */,
+				0EE3078823AC320C0045EFD1 /* Butler_Light.otf */,
+				0EE3078E23AC320C0045EFD1 /* Butler_Ultra_Light.otf */,
+			);
+			path = Butler;
+			sourceTree = "<group>";
+		};
+		0EE3079D23AC52320045EFD1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0EB19D5523A82C5B00640A40 /* SceneDelegate.swift */,
+				0EB19D5323A82C5B00640A40 /* AppDelegate.swift */,
+				0EB19D5F23A82C6200640A40 /* Assets.xcassets */,
+				0EB19D6423A82C6200640A40 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0EE3079E23AC527E0045EFD1 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0EB19D5723A82C5B00640A40 /* HomeViewController.swift */,
+				EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		0EE3079F23AC528D0045EFD1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */,
+				0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */,
+				0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0EE307A023AC52B60045EFD1 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				0EB19D5923A82C5B00640A40 /* Main.storyboard */,
+				EF51CC4A23A83E4300FF4E62 /* Login.storyboard */,
+				0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		0EE307AA23AC534A0045EFD1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */,
+				0EE307A723AC53470045EFD1 /* Event.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0EE307AB23AC53680045EFD1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0E9FDD7823A8600700FD75A0 /* Variables.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4B1C6C772E89C0E95EBE07DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AF02A3BECBE0CFBDE342171D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */,
+				81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +284,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0EB19D6723A82C6200640A40 /* Build configuration list for PBXNativeTarget "Community Calendar" */;
 			buildPhases = (
+				CEF666C48F8201A5AA28069C /* [CP] Check Pods Manifest.lock */,
+				0E0F277723AC08DD00151365 /* GraphQL Script */,
 				0EB19D4C23A82C5B00640A40 /* Sources */,
 				0EB19D4D23A82C5B00640A40 /* Frameworks */,
 				0EB19D4E23A82C5B00640A40 /* Resources */,
+				FA21C7BAA215A9B4C3B0E048 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -128,22 +338,119 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */,
+				EFD4D3B023A98E6B00DDE283 /* Auth0.plist in Resources */,
 				0EB19D6323A82C6200640A40 /* LaunchScreen.storyboard in Resources */,
+				0E9FDD6423A8366F00FD75A0 /* Poppins-ThinItalic.ttf in Resources */,
+				0E9FDD6323A8366F00FD75A0 /* Poppins-SemiBold.ttf in Resources */,
+				0E9FDD6A23A8366F00FD75A0 /* Poppins-SemiBoldItalic.ttf in Resources */,
+				0EE3079B23AC47080045EFD1 /* Butler_Light.otf in Resources */,
+				0E86D5F523AC176E00CF7012 /* GetEventsQuery.graphql in Resources */,
+				0EE3079A23AC47080045EFD1 /* Butler_Black.otf in Resources */,
+				0EE3079923AC47080045EFD1 /* Butler_ExtraBold.otf in Resources */,
+				0E9FDD6923A8366F00FD75A0 /* Poppins-Black.ttf in Resources */,
+				0EE3079C23AC47080045EFD1 /* Butler_Ultra_Light.otf in Resources */,
+				0EE3079723AC47080045EFD1 /* Butler_Medium.otf in Resources */,
+				0E9FDD6523A8366F00FD75A0 /* Poppins-ExtraLightItalic.ttf in Resources */,
+				0ED2657523AC0FBB00278980 /* schema.json in Resources */,
+				0EE3079623AC47080045EFD1 /* Butler_Regular.otf in Resources */,
+				0EE3079823AC47080045EFD1 /* Butler_Bold.otf in Resources */,
+				0E9FDD6823A8366F00FD75A0 /* Poppins-BlackItalic.ttf in Resources */,
+				0E9FDD7023A8366F00FD75A0 /* Poppins-Bold.ttf in Resources */,
 				0EB19D6023A82C6200640A40 /* Assets.xcassets in Resources */,
+				0E9FDD7123A8366F00FD75A0 /* Poppins-Regular.ttf in Resources */,
 				0EB19D5B23A82C5B00640A40 /* Main.storyboard in Resources */,
+				0E9FDD6B23A8366F00FD75A0 /* Poppins-BoldItalic.ttf in Resources */,
+				0E9FDD6223A8366F00FD75A0 /* Poppins-Thin.ttf in Resources */,
+				0E9FDD6123A8366F00FD75A0 /* Poppins-Italic.ttf in Resources */,
+				0E9FDD6E23A8366F00FD75A0 /* Poppins-ExtraLight.ttf in Resources */,
+				0E9FDD6C23A8366F00FD75A0 /* Poppins-ExtraBold.ttf in Resources */,
+				0E9FDD6F23A8366F00FD75A0 /* Poppins-Medium.ttf in Resources */,
+				0E9FDD6023A8366F00FD75A0 /* Poppins-Light.ttf in Resources */,
+				0E9FDD6623A8366F00FD75A0 /* Poppins-MediumItalic.ttf in Resources */,
+				0E9FDD6723A8366F00FD75A0 /* Poppins-LightItalic.ttf in Resources */,
+				0E9FDD6D23A8366F00FD75A0 /* Poppins-ExtraBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0E0F277723AC08DD00151365 /* GraphQL Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "GraphQL Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SCRIPT_PATH=\"${PODS_ROOT}/Apollo/scripts\"\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n";
+		};
+		CEF666C48F8201A5AA28069C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Community Calendar-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA21C7BAA215A9B4C3B0E048 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Community Calendar/Pods-Community Calendar-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Community Calendar/Pods-Community Calendar-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Community Calendar/Pods-Community Calendar-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0EB19D4C23A82C5B00640A40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EB19D5823A82C5B00640A40 /* ViewController.swift in Sources */,
-				0EB19D5E23A82C5B00640A40 /* Community_Calendar.xcdatamodeld in Sources */,
+				0EB19D5823A82C5B00640A40 /* HomeViewController.swift in Sources */,
+				0EE307A923AC53470045EFD1 /* Event.swift in Sources */,
+				0E64400223C63DC800A56B22 /* EventController.swift in Sources */,
+				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
+				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
+				0E86D5F723AC1C7900CF7012 /* API.swift in Sources */,
+				0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */,
 				0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */,
+				EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */,
+				0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */,
+				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,11 +593,12 @@
 		};
 		0EB19D6823A82C6200640A40 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HFR8F4BT7E;
-				INFOPLIST_FILE = "Community Calendar/Info.plist";
+				DEVELOPMENT_TEAM = VXUQXR6S56;
+				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,11 +612,12 @@
 		};
 		0EB19D6923A82C6200640A40 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HFR8F4BT7E;
-				INFOPLIST_FILE = "Community Calendar/Info.plist";
+				DEVELOPMENT_TEAM = VXUQXR6S56;
+				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -344,12 +653,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		0EB19D5C23A82C5B00640A40 /* Community_Calendar.xcdatamodeld */ = {
+		0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				0EB19D5D23A82C5B00640A40 /* Community_Calendar.xcdatamodel */,
+				0EE307A623AC53470045EFD1 /* Community_Calendar.xcdatamodel */,
 			);
-			currentVersion = 0EB19D5D23A82C5B00640A40 /* Community_Calendar.xcdatamodel */;
+			currentVersion = 0EE307A623AC53470045EFD1 /* Community_Calendar.xcdatamodel */;
 			path = Community_Calendar.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

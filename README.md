@@ -1,7 +1,3 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.
-
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by.  Make sure to delete the numbers by the end of Labs.
-
 🚫 Each student has a required minimum number of meaningful PRs each week per the rubric.  Contributing to docs does NOT count as a PR to meet your weekly requirements.
 
 # Community Calendar
@@ -16,12 +12,9 @@ You can find the deployed project at [Github](https://github.com/Lambda-School-L
 |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Hayden32)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/mazjap)             |
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/hayden-hastings/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jordan-a-christensen/) |
 
-🚫 Optional examples of using badges with links for your tech stack, make sure to change these to fit your project
-
 [![Swift Version][swift-image]][swift-url]
 [![Build Status][travis-image]][travis-url]
 [![License][license-image]][license-url]
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/EZSwiftExtensions.svg)](https://img.shields.io/cocoapods/v/LFAlertController.svg)  
 [![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)](http://cocoapods.org/pods/LFAlertController)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
@@ -30,21 +23,19 @@ You can find the deployed project at [Github](https://github.com/Lambda-School-L
 
 ## Project Overview
 
-You can find the deployed project on the [App Store (incorrect link)](https://apps.apple.com/us/app/youtube-watch-listen-stream/id544007664).
+You can find the deployed project on the [App Store (Test flight for now)](https://google.com/).
 
 [Trello Board](https://trello.com/b/itLFz188/labs19-community-calendar)
 
-[Product Canvas (incorrect link)](https://google.com/)
+[Product Canvas](https://www.notion.so/06de41bdd6124a459140e0b943b648a1?v=a0986751fe6e4fcdaa6782c5f827871d)
 
 [UX Design files](https://www.figma.com/file/rMUTr0Y5UBkm7AhAVCMrfW/Community-Calendar%2C-Nora-Barazanchi%2C-Jan-Patrick-Eliares?node-id=380%3A303)
 
-🚫 One to two paragraph statement about your product and what it does.
+There is a disconnect between event organizers and community members. From the perspective of organizers, it can be difficult to get the word out about an event to each of the members of a community, and from the perspective of community members, it can be challenging to find out about all the events going on in your neighborhood. Community Calendar was created to bridge that gap. Now anyone with a mobile phone can be alerted of events going on in their area.
 
-Quis hendrerit dolor magna eget. Pretium quam vulputate dignissim suspendisse. Ut aliquam purus sit amet luctus venenatis lectus magna fringilla. Orci dapibus ultrices in iaculis nunc sed augue. Euismod in pellentesque massa placerat duis ultricies. Bibendum at varius vel pharetra vel turpis nunc eget lorem. Lectus quam id leo in vitae. Purus sit amet luctus venenatis lectus magna fringilla urna porttitor.
+The app is divided into three different tabs: home, where you can find events tailored for you and search for specific events by name, distance, interest, category, and more; events, where you will see your RSVP'd events along with a full list of events in your area; and profile, where you are able to log in or sign up, view your favorited events, set a profile picture, and edit your information like name, email, etc.
 
-Pharetra vel turpis nunc eget lorem dolor sed viverra ipsum. Donec et odio pellentesque diam volutpat. Id diam maecenas ultricies mi eget mauris. Est pellentesque elit ullamcorper dignissim. Orci dapibus ultrices in iaculis nunc.
-
-![](header.png)
+<img src="header_1.png" alt="" width="250" />  <img src="header_2.png" alt="" width="250" />  <img src="header_3.png" alt="" width="250" />
 
 ### Features
 
@@ -54,11 +45,9 @@ Pharetra vel turpis nunc eget lorem dolor sed viverra ipsum. Donec et odio pelle
 -    Feature 4
 -    Feature 5
 
-### Authentication API here
+### Auth0
 
-🚫Replace text below with a description of the API
-
-Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do things A little happy sunlight shining through there. Let all these little things happen. Don't fight them. Learn to use them. Even the worst thing we can do here is good.
+[Auth0](https://auth0.com/) is used to log in and sign up using your email, or google/facebook/apple.
 
 ### Payment API here
 
@@ -66,11 +55,9 @@ Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do
 
 This is the way you take out your frustrations. Get away from those little Christmas tree things we used to make in school. Isn't it fantastic that you can change your mind and create all these happy things? Everything's not great in life, but we can still find beauty in it.
 
-### Misc API here
+### Apollo
 
-🚫Replace text below with a description of the API
-
-You can do anything your heart can imagine. In life you need colors. This is where you take out all your hostilities and frustrations. It's better than kicking the puppy dog around and all that so. I'm sort of a softy, I couldn't shoot Bambi except with a camera. Trees get lonely too, so we'll give him a little friend. We'll lay all these little funky little things in there.
+We integrated Apollo to query our [GraphQL backend](https://ccstaging.herokuapp.com/). See [GetEventsQuery.graphql](./Community\ Calendar/)
 
 ### Misc API here
 
@@ -86,25 +73,15 @@ Volunteering your time; it pays you and your whole community fantastic dividends
 
 ## Requirements
 
-🚫 These are examples, make sure this matches your project's requirements
-
 -   iOS 12.0+
 -   Xcode 11
--   Carthage
+-   Cocoapods
 
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
 Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
-
-### Issue/Bug Request
-
-    ## Contributing
-
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
-
-Please note we have a [code of conduct](./code_of_conduct.md). Please follow it in all your interactions with the project.
 
 ### Issue/Bug Request
 
@@ -139,7 +116,11 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Backend Documentation](https://github.com/Lambda-School-Labs/community-calendar-be) for details on the backend of our project.
+See [Backend Documentation](https://github.com/Lambda-School-Labs/community-calendar-be) for details on the backend side of our project.
+
+See [Frontend Documentation](https://github.com/Lambda-School-Labs/community-calendar-fe) for details on the frontend side of our project.
+
+See [Android Documentation](https://github.com/Lambda-School-Labs/community-calendar-android) for details on the android side of our project.
 
 
 [swift-image]: https://img.shields.io/badge/swift-3.0-orange.svg
