@@ -95,6 +95,18 @@ class HomeViewController: UIViewController {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .selected)
 
         seperatorView.layer.cornerRadius = 3
+        
+        
+//        // To test if fonts were added correctly: (Common mistakes: Incorrect/no target membership, not listed in info.plist)
+//        for family in UIFont.familyNames {
+//
+//            let sName: String = family as String
+//            print("family: \(sName)")
+//
+//            for name in UIFont.fontNames(forFamilyName: sName) {
+//                print("name: \(name as String)")
+//            }
+//        }
     }
     
     private func updateLists() {

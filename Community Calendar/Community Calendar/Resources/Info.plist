@@ -40,6 +40,13 @@
 		<string>Poppins-SemiBoldItalic.ttf</string>
 		<string>Poppins-Thin.ttf</string>
 		<string>Poppins-ThinItalic.ttf</string>
+		<string>Butler-Bold.ttf</string>
+		<string>Butler-Black.ttf</string>
+		<string>Butler-ExtraBold.ttf</string>
+		<string>Butler-Light.ttf</string>
+		<string>Butler-Medium.ttf</string>
+		<string>Butler-Regular.ttf</string>
+		<string>Butler-Ultra-Light.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
