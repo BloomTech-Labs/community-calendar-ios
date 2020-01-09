@@ -27,6 +27,7 @@ class EventCollectionViewCell: UICollectionViewCell {
         eventImageView.layer.cornerRadius = 3
         eventTitleLabel.text = event.title
         districtNameLabel.text = event.description.uppercased()
-        timeLabel.text = "\(cellDateFormatter.string(from: event.startDate).lowercased()) - \(cellDateFormatter.string(from: event.endDate).lowercased())"
+        guard let startDate = event.startDate, let endDate = event.endDate else { return }
+        timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
     }
 }

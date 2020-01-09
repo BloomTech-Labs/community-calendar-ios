@@ -9,82 +9,78 @@
 import Foundation
 
 struct Event: Codable {
-    enum EventKeys: String, CodingKey {
-        case title
-        case description
-        case images = "event_images"
-        case startDate = "start"
-        case endDate = "end"
-        case creator
-        case rsvps
-        case urls
-        case locations
-        case tags
+    init(event: GetEventsQuery.Data.Event) {
+        self.title = event.title
+        self.description = event.description
+        self.startDate = dateFormatter.date(from: event.start)
+        self.endDate = dateFormatter.date(from: event.end)
+        self.creator = "\(event.creator?.firstName ?? "") \(event.creator?.lastName ?? "")"
+        self.urls = [String]()
+        self.images = [String]()
+        self.rsvps = [String]()
+        self.locations = [Location]()
+        self.tags = [Tag]()
+        
+        for url in event.urls ?? [] {
+            self.urls.append(url.url)
+        }
+        for rsvp in event.rsvps ?? [] {
+            self.rsvps.append("\(rsvp.firstName ?? "") \(rsvp.lastName ?? "")")
+        }
+        for image in event.eventImages ?? [] {
+            self.images.append(image.url)
+        }
+        for location in event.locations ?? [] {
+            self.locations.append(Location(location: location))
+        }
+        for tag in event.tags ?? [] {
+            self.tags.append(Tag(tag: tag))
+        }
     }
     
     let title: String
     let description: String
-    let images: [Image]
-    let startDate: Date
-    let endDate: Date
-    let creator: Creator
-    let rsvps: [Rsvp]
-    let urls: [Url]
-    let locations: [Location]
-    let tags: [Tag]
+    var images: [String]
+    let startDate: Date?
+    let endDate: Date?
+    let creator: String
+    var rsvps: [String]
+    var urls: [String]
+    var locations: [Location]
+    var tags: [Tag]
 }
 
 struct Location: Codable {
-    enum LocationKeys: String, CodingKey {
-        case longitude
-        case latitude
-        case name
-        case state
-        case city
-        case streetAddress = "street_address"
-        case streetAddress2 = "street_address_2"
-        case zipcode
+    init(location: GetEventsQuery.Data.Event.Location) {
+        self.latitude = nil
+        self.longitude = nil
+        if let longString = location.longitude { self.longitude = Double(longString) }
+        if let latString = location.latitude { self.latitude = Double(latString) }
+        self.name = location.name
+        self.state = location.state
+        self.city = location.city
+        self.streetAddress = location.streetAddress
+        self.streetAddress2 = location.streetAddress_2
+        self.zipcode = location.zipcode
     }
     
-    let longitude: Double
-    let latitude: Double
+    var longitude: Double?
+    var latitude: Double?
     let name: String
     let state: String
     let city: String
     let streetAddress: String
-    let streetAddress2: String
+    let streetAddress2: String?
     let zipcode: Int
 }
 
-struct Creator: Codable {
-    enum CreatorKeys: String, CodingKey {
-        case firstName = "first_name"
-        case lastName = "last_name"
-    }
-    
-    let firstName: String
-    let lastName: String
-}
-
-struct Image: Codable {
-    let url: String
-}
-
-struct Rsvp: Codable {
-    enum RsvpKeys: String, CodingKey {
-        case firstName = "first_name"
-        case lastName = "last_name"
-    }
-    
-    let firstName: String
-    let lastName: String
-}
-
-struct Url: Codable {
-    let url: String
-}
-
 struct Tag: Codable {
-    let name: String
-    let id: Int
+    init(tag: GetEventsQuery.Data.Event.Tag) {
+        self.title = tag.title
+//        self.id = tag.id // Custom type, will implement later
+        self.id = nil
+    }
+    
+    let title: String
+    let id: Int?
 }
