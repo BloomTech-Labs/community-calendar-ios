@@ -13,7 +13,7 @@ import Apollo
 class EventController {
     let graphQLClient = ApolloClient(url: URL(string: "https://ccstaging.herokuapp.com/graphql")!)
     
-    func getEvents(completion: @escaping @escaping (Result<[Event], NetworkError>) -> Void) {
+    func getEvents(completion: @escaping (Result<[Event], NetworkError>) -> Void) {
         graphQLClient.fetch(query: GetEventsQuery()) { result in
             switch result {
             case .failure(let error):
