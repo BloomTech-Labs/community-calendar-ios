@@ -32,6 +32,15 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setUp()
+        dateLabel.text = todayDateFormatter.string(from: Date())
+        eventTableView.separatorColor = UIColor.clear;
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         eventController.getEvents { result in
             switch result {
             case .success(let eventList):
@@ -40,10 +49,6 @@ class HomeViewController: UIViewController {
                 NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
             }
         }
-        
-        setUp()
-        dateLabel.text = todayDateFormatter.string(from: Date())
-        eventTableView.separatorColor = UIColor.clear;
     }
     
     private func setUp() {
@@ -186,7 +191,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.event = events[indexPath.row]
         
         if let imageURL = events[indexPath.row].images.first {
-            eventController.loadImage(for: imageURL) { result in
+            eventController.loadImage(for: imageURL, cache: nil) { result in
                 switch result {
                 case .failure:
                     NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
@@ -263,7 +268,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.event = events[indexPath.row]
             
             if let imageURL = events[indexPath.row].images.first {
-                eventController.loadImage(for: imageURL) { result in
+                eventController.loadImage(for: imageURL, cache: nil) { result in
                     switch result {
                     case .failure:
                         NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
@@ -284,7 +289,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.event = events[indexPath.row]
             
             if let imageURL = events[indexPath.row].images.first {
-                eventController.loadImage(for: imageURL) { result in
+                eventController.loadImage(for: imageURL, cache: nil) { result in
                     switch result {
                     case .failure:
                         NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
