@@ -36,12 +36,15 @@ The app is divided into three different tabs: home, where you can find events ta
 - Auth0 authentication
     - Sign up/in with Google
     - Sign up/in with Facebook
+- Open in maps
+- Add event to calendar
 - Table view to list events
 - Collection view to list events
 - Featured section to list events
 - Apollo graphql implementation
     - Real data and images pulled from backend
 - UX's UI design
+- Unit tests
 
 ### Auth0
 
