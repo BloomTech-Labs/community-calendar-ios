@@ -31,6 +31,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         eventController.getEvents { result in
             switch result {
             case .success(let eventList):
@@ -40,7 +41,6 @@ class HomeViewController: UIViewController {
             }
         }
         
-        super.viewDidLoad()
         setUp()
         dateLabel.text = todayDateFormatter.string(from: Date())
         eventTableView.separatorColor = UIColor.clear;
@@ -229,6 +229,25 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let configuration = UISwipeActionsConfiguration(actions: [hideAction])
         return configuration
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let detailVC = segue.destination as? EventDetailViewController else { return }
+        if segue.identifier == "ShowFeaturedDetailSegue" {
+            guard let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
+                let events = events else { return }
+            detailVC.event = events[indexPath.row]
+        } else if segue.identifier == "ShowEventsTableDetailSegue" {
+            guard let indexPath = eventTableView.indexPathForSelectedRow,
+                let events = events else { return }
+            detailVC.event = events[indexPath.row]
+        } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
+            guard let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
+                let events = events else { return }
+            detailVC.event = events[indexPath.row]
+        }
+    }
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {

@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0E64400223C63DC800A56B22 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E64400123C63DC800A56B22 /* EventController.swift */; };
-		0E73088F23C69147006B5326 /* Community_Calendar_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E73088E23C69147006B5326 /* Community_Calendar_Tests.swift */; };
+		0E73088F23C69147006B5326 /* EventControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E73088E23C69147006B5326 /* EventControllerTests.swift */; };
+		0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7DD80823C8E844009843BE /* EventDetailViewController.swift */; };
 		0E86D5F523AC176E00CF7012 /* GetEventsQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */; };
 		0E86D5F723AC1C7900CF7012 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E86D5F623AC1C7800CF7012 /* API.swift */; };
 		0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E974A1D23C7D96900CEE05D /* Cache.swift */; };
@@ -69,8 +70,9 @@
 /* Begin PBXFileReference section */
 		0E64400123C63DC800A56B22 /* EventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		0E73088C23C69147006B5326 /* Community Calendar Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Community Calendar Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E73088E23C69147006B5326 /* Community_Calendar_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Community_Calendar_Tests.swift; sourceTree = "<group>"; };
+		0E73088E23C69147006B5326 /* EventControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventControllerTests.swift; sourceTree = "<group>"; };
 		0E73089023C69147006B5326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E7DD80823C8E844009843BE /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetEventsQuery.graphql; sourceTree = "<group>"; };
 		0E86D5F623AC1C7800CF7012 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0E974A1D23C7D96900CEE05D /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
@@ -144,7 +146,7 @@
 		0E73088D23C69147006B5326 /* Community Calendar Tests */ = {
 			isa = PBXGroup;
 			children = (
-				0E73088E23C69147006B5326 /* Community_Calendar_Tests.swift */,
+				0E73088E23C69147006B5326 /* EventControllerTests.swift */,
 				0E73089023C69147006B5326 /* Info.plist */,
 			);
 			path = "Community Calendar Tests";
@@ -261,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				0EB19D5723A82C5B00640A40 /* HomeViewController.swift */,
+				0E7DD80823C8E844009843BE /* EventDetailViewController.swift */,
 				EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */,
 			);
 			path = "View Controllers";
@@ -513,7 +516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E73088F23C69147006B5326 /* Community_Calendar_Tests.swift in Sources */,
+				0E73088F23C69147006B5326 /* EventControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +536,7 @@
 				EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */,
 				0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */,
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
+				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

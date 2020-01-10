@@ -40,7 +40,10 @@ let cellDateFormatter: DateFormatter = {
 
 let backendDateFormatter: DateFormatter = {
     let df = DateFormatter()
-    df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+//                  "2020-01-11T02:50:09.+0800Z" Dateformatter returns
+//                  "2019-12-22T17:00:00.000Z" Backend returns
+// po backendDateFormatter.string(from: Date())
     return df
 }()
 
