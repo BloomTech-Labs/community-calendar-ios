@@ -20,57 +20,23 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="0Ja-Wf-79f"/>
                         <segue destination="9IY-x8-SLF" kind="relationship" relationship="viewControllers" id="CMm-hs-7D9"/>
-                        <segue destination="MYd-dx-Mxe" kind="relationship" relationship="viewControllers" id="AGL-HL-Pu1"/>
+                        <segue destination="yN9-Lq-TfV" kind="relationship" relationship="viewControllers" id="FnT-ii-kgk"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MgH-o5-fKh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1203" y="127"/>
         </scene>
-        <!--Profile-->
-        <scene sceneID="teN-gc-Obm">
-            <objects>
-                <viewController id="MYd-dx-Mxe" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1Z6-vO-kTf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIL-jg-Z43">
-                                <rect key="frame" x="188" y="105" width="38" height="30"/>
-                                <state key="normal" title="Login"/>
-                                <connections>
-                                    <segue destination="yN9-Lq-TfV" kind="show" id="poG-Wu-7vV"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grV-4f-sBv">
-                                <rect key="frame" x="181" y="187" width="52" height="30"/>
-                                <state key="normal" title="Log out"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="grV-4f-sBv" firstAttribute="centerX" secondItem="1Z6-vO-kTf" secondAttribute="centerX" id="Fvk-Ut-jCE"/>
-                            <constraint firstItem="KIL-jg-Z43" firstAttribute="centerX" secondItem="1Z6-vO-kTf" secondAttribute="centerX" id="aAb-Fl-5Gy"/>
-                            <constraint firstItem="KIL-jg-Z43" firstAttribute="top" secondItem="L8z-Lk-HAz" secondAttribute="top" constant="61" id="eQQ-Ha-GRN"/>
-                            <constraint firstItem="grV-4f-sBv" firstAttribute="top" secondItem="KIL-jg-Z43" secondAttribute="bottom" constant="52" id="rSl-tb-KNx"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="L8z-Lk-HAz"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="person" id="B97-b6-Hbf"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mrF-Up-5yE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-359" y="-591"/>
-        </scene>
         <!--Login-->
         <scene sceneID="Ram-Ef-Bak">
             <objects>
                 <viewControllerPlaceholder storyboardName="Login" id="yN9-Lq-TfV" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="I5F-Ld-WAK"/>
                     <navigationItem key="navigationItem" id="j40-YH-bss"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iF4-Go-5zb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="386" y="-591"/>
+            <point key="canvasLocation" x="-430" y="-597"/>
         </scene>
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
@@ -96,7 +62,6 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Featured">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="18" name="Butler-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -109,7 +74,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Events">
                                         <attributes>
-                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="18" name="Butler-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -118,13 +83,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="i5q-B4-DVp">
-                                <rect key="frame" x="361" y="353.66666666666669" width="37" height="20"/>
+                                <rect key="frame" x="360" y="353.66666666666669" width="38" height="20"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4Q-Eg-rjg">
-                                        <rect key="frame" x="0.0" y="4" width="12" height="12"/>
+                                        <rect key="frame" x="0.0" y="4" width="13" height="12"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="12" id="bKk-Nc-ppU"/>
-                                            <constraint firstAttribute="width" constant="12" id="ctq-Oo-dgu"/>
+                                            <constraint firstAttribute="width" constant="13" id="ctq-Oo-dgu"/>
                                         </constraints>
                                         <color key="tintColor" red="0.76862745098039209" green="0.76862745098039209" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="list-selected"/>
@@ -133,7 +98,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQr-3f-pwc">
-                                        <rect key="frame" x="18" y="0.0" width="1" height="20"/>
+                                        <rect key="frame" x="19" y="0.0" width="1" height="20"/>
                                         <color key="backgroundColor" red="0.76862745098039209" green="0.76862745098039209" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="1" id="3m9-fb-wFu"/>
@@ -141,7 +106,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOQ-rn-s0j">
-                                        <rect key="frame" x="25" y="4" width="12" height="12"/>
+                                        <rect key="frame" x="26" y="4" width="12" height="12"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="12" id="D2v-cF-6x8"/>
                                             <constraint firstAttribute="height" constant="12" id="Vkg-ek-MXg"/>
@@ -272,7 +237,7 @@
                                             <outlet property="eventTitleLabel" destination="0Ld-g9-wJP" id="UpF-BA-HKt"/>
                                             <outlet property="fadeView" destination="Dmh-7E-JQa" id="m1a-1e-y5g"/>
                                             <outlet property="timeLabel" destination="3Mz-iR-gwj" id="uPl-cV-9JV"/>
-                                            <segue destination="09q-bK-qwk" kind="show" id="cN3-bE-Cpz"/>
+                                            <segue destination="09q-bK-qwk" kind="show" identifier="ShowFeaturedDetailSegue" id="cN3-bE-Cpz"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -386,7 +351,7 @@
                                             <outlet property="eventImageView" destination="h9a-zr-7NP" id="9Vg-Bz-pOC"/>
                                             <outlet property="eventTitleLabel" destination="jsS-Ey-a4M" id="wkO-tK-AD0"/>
                                             <outlet property="timeLabel" destination="AjB-wx-ogU" id="E7I-uw-2E1"/>
-                                            <segue destination="09q-bK-qwk" kind="show" id="4fj-x7-QtZ"/>
+                                            <segue destination="09q-bK-qwk" kind="show" identifier="ShowEventsTableDetailSegue" id="4fj-x7-QtZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -481,7 +446,7 @@
                                             <outlet property="eventImageView" destination="MV6-rn-3N5" id="6hH-40-uIx"/>
                                             <outlet property="eventTitleLabel" destination="SzE-qt-akg" id="pwn-Xb-0d1"/>
                                             <outlet property="timeLabel" destination="7gP-lV-XDv" id="DLV-EZ-Zl1"/>
-                                            <segue destination="09q-bK-qwk" kind="show" id="O1f-Yl-tsg"/>
+                                            <segue destination="09q-bK-qwk" kind="show" identifier="ShowEventsCollectionDetailSegue" id="O1f-Yl-tsg"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -647,14 +612,36 @@
             </objects>
             <point key="canvasLocation" x="-359" y="889"/>
         </scene>
-        <!--View Controller-->
+        <!--Event Detail View Controller-->
         <scene sceneID="4KD-V7-5pX">
             <objects>
-                <viewController id="09q-bK-qwk" sceneMemberID="viewController">
+                <viewController id="09q-bK-qwk" customClass="EventDetailViewController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UpA-g0-200">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lNE-gx-jMA">
+                                <rect key="frame" x="159" y="195" width="96" height="30"/>
+                                <state key="normal" title="Show in maps"/>
+                                <connections>
+                                    <action selector="showInMaps:" destination="09q-bK-qwk" eventType="touchUpInside" id="TPd-ob-0q6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQc-yw-CA1">
+                                <rect key="frame" x="152.66666666666666" y="275" width="108.99999999999997" height="30"/>
+                                <state key="normal" title="Add to calendar"/>
+                                <connections>
+                                    <action selector="showInCalendar:" destination="09q-bK-qwk" eventType="touchUpInside" id="b3X-GA-NKg"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mQc-yw-CA1" firstAttribute="centerX" secondItem="UpA-g0-200" secondAttribute="centerX" id="K6q-b5-ndP"/>
+                            <constraint firstItem="mQc-yw-CA1" firstAttribute="top" secondItem="lNE-gx-jMA" secondAttribute="bottom" constant="50" id="Otx-gE-HhZ"/>
+                            <constraint firstItem="lNE-gx-jMA" firstAttribute="centerX" secondItem="UpA-g0-200" secondAttribute="centerX" id="mAG-ut-jBM"/>
+                            <constraint firstItem="lNE-gx-jMA" firstAttribute="top" secondItem="Mbj-Sf-v79" secondAttribute="top" constant="195" id="wWs-Fs-xMR"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Mbj-Sf-v79"/>
                     </view>
                     <navigationItem key="navigationItem" id="Om6-S4-gMi"/>
@@ -669,9 +656,8 @@
         <image name="grid-selected" width="24" height="24"/>
         <image name="home" width="24" height="24"/>
         <image name="list-selected" width="26" height="24"/>
-        <image name="person" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4fj-x7-QtZ"/>
+        <segue reference="O1f-Yl-tsg"/>
     </inferredMetricsTieBreakers>
 </document>

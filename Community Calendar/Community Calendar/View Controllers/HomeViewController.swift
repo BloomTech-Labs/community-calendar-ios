@@ -31,6 +31,16 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setUp()
+        dateLabel.text = todayDateFormatter.string(from: Date())
+        eventTableView.separatorColor = UIColor.clear;
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         eventController.getEvents { result in
             switch result {
             case .success(let eventList):
@@ -39,11 +49,6 @@ class HomeViewController: UIViewController {
                 NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
             }
         }
-        
-        super.viewDidLoad()
-        setUp()
-        dateLabel.text = todayDateFormatter.string(from: Date())
-        eventTableView.separatorColor = UIColor.clear;
     }
     
     private func setUp() {
@@ -95,6 +100,18 @@ class HomeViewController: UIViewController {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .selected)
 
         seperatorView.layer.cornerRadius = 3
+        
+        
+//        // To test if fonts were added correctly: (Common mistakes: Incorrect/no target membership, not listed in info.plist)
+//        for family in UIFont.familyNames {
+//
+//            let sName: String = family as String
+//            print("family: \(sName)")
+//
+//            for name in UIFont.fontNames(forFamilyName: sName) {
+//                print("name: \(name as String)")
+//            }
+//        }
     }
     
     private func updateLists() {
@@ -174,7 +191,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.event = events[indexPath.row]
         
         if let imageURL = events[indexPath.row].images.first {
-            eventController.loadImage(for: imageURL) { result in
+            eventController.loadImage(for: imageURL, cache: nil) { result in
                 switch result {
                 case .failure:
                     NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
@@ -217,6 +234,25 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let configuration = UISwipeActionsConfiguration(actions: [hideAction])
         return configuration
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let detailVC = segue.destination as? EventDetailViewController else { return }
+        if segue.identifier == "ShowFeaturedDetailSegue" {
+            guard let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
+                let events = events else { return }
+            detailVC.event = events[indexPath.row]
+        } else if segue.identifier == "ShowEventsTableDetailSegue" {
+            guard let indexPath = eventTableView.indexPathForSelectedRow,
+                let events = events else { return }
+            detailVC.event = events[indexPath.row]
+        } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
+            guard let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
+                let events = events else { return }
+            detailVC.event = events[indexPath.row]
+        }
+    }
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -232,7 +268,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.event = events[indexPath.row]
             
             if let imageURL = events[indexPath.row].images.first {
-                eventController.loadImage(for: imageURL) { result in
+                eventController.loadImage(for: imageURL, cache: nil) { result in
                     switch result {
                     case .failure:
                         NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
@@ -253,7 +289,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.event = events[indexPath.row]
             
             if let imageURL = events[indexPath.row].images.first {
-                eventController.loadImage(for: imageURL) { result in
+                eventController.loadImage(for: imageURL, cache: nil) { result in
                     switch result {
                     case .failure:
                         NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")

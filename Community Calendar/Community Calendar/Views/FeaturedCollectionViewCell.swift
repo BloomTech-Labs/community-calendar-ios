@@ -42,7 +42,10 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
             isFadeLayerSet = true
         }
         
-        guard let startDate = event.startDate, let endDate = event.endDate else { return }
+        guard let startDate = event.startDate, let endDate = event.endDate else {
+            NSLog("\(#file):L\(#line): startDate: \(String(describing: event.startDate)) and/or endDate: \(String(describing: event.endDate)) is nil! Check \(#function)")
+            return
+        }
         dateLabel.text = featuredEventDateFormatter.string(from: startDate)
         timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
     }

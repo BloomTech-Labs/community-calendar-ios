@@ -32,8 +32,8 @@ class EventController {
         }
     }
     
-    func loadImage(for key: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        if let image = cache.fetch(key: key) {
+    func loadImage(for key: String, cache: Cache<String, UIImage>?, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        if let cache = cache, let image = cache.fetch(key: key) {
             completion(.success(image))
             return
         }
@@ -53,8 +53,13 @@ class EventController {
             }
             
             if let image = UIImage(data: data) {
-                self.cache.imageDict[key] = image
-                completion(.success(image))
+                if let cache = cache {
+                    cache.imageDict[key] = image
+                    completion(.success(image))
+                } else {
+                    self.cache.imageDict[key] = image
+                    completion(.success(image))
+                }
             }
         }.resume()
     }
