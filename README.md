@@ -1,5 +1,3 @@
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric.  Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
 # Community Calendar
 
 You can find the deployed project at [Github](https://github.com/Lambda-School-Labs/community-calendar-ios).
@@ -19,8 +17,6 @@ You can find the deployed project at [Github](https://github.com/Lambda-School-L
 [![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)](http://cocoapods.org/pods/LFAlertController)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-🚫 more info on using badges [here](https://github.com/badges/shields)
-
 ## Project Overview
 
 You can find the deployed project on the [App Store (Test flight for now)](https://google.com/).
@@ -39,37 +35,27 @@ The app is divided into three different tabs: home, where you can find events ta
 
 ### Features
 
--    Feature 1
--    Feature 2
--    Feature 3
--    Feature 4
--    Feature 5
+- Auth0 authentication
+    - Sign up/in with Google
+    - Sign up/in with Facebook
+- Table view to list events
+- Collection view to list events
+- Featured section to list events
+- Apollo graphql implementation
+    - Real data and images pulled from backend
+- UX's UI design
 
 ### Auth0
 
 [Auth0](https://auth0.com/) is used to log in and sign up using your email, or google/facebook/apple.
 
-### Payment API here
-
-🚫Replace text below with a description of the API
+### 🚫 Payment API here
 
 This is the way you take out your frustrations. Get away from those little Christmas tree things we used to make in school. Isn't it fantastic that you can change your mind and create all these happy things? Everything's not great in life, but we can still find beauty in it.
 
 ### Apollo
 
-We integrated Apollo to query our [GraphQL backend](https://ccstaging.herokuapp.com/). See [GetEventsQuery.graphql](./Community\ Calendar/)
-
-### Misc API here
-
-🚫Replace text below with a description of the API
-
-When you do it your way you can go anywhere you choose. Let your heart take you to wherever you want to be. If I paint something, I don't want to have to explain what it is. A tree needs to be your friend if you're going to paint him. That's a son of a gun of a cloud. Even the worst thing we can do here is good.
-
-### Misc API here
-
-🚫Replace text below with a description of the API
-
-Volunteering your time; it pays you and your whole community fantastic dividends. Maybe there's a happy little waterfall happening over here. You can spend all day playing with mountains. We don't have to be committed. We are just playing here. You have freedom here. The only guide is your heart. It's cold, but it's beautiful.
+We integrated Apollo to query our [GraphQL backend](https://ccstaging.herokuapp.com/). See [GetEventsQuery.graphql](Community%20Calendar/Community%20Calendar/GetEventsQuery.graphql) to view the query made.
 
 ## Requirements
 
@@ -109,10 +95,6 @@ Remember that this project is licensed under the MIT license, and by submitting 
 - Include the relevant issue number, if applicable.
 - You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
 
-### Attribution
-
-These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
-
 
 ## Documentation
 
@@ -121,6 +103,10 @@ See [Backend Documentation](https://github.com/Lambda-School-Labs/community-cale
 See [Frontend Documentation](https://github.com/Lambda-School-Labs/community-calendar-fe) for details on the frontend side of our project.
 
 See [Android Documentation](https://github.com/Lambda-School-Labs/community-calendar-android) for details on the android side of our project.
+
+### Attribution
+
+These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
 
 
 [swift-image]: https://img.shields.io/badge/swift-3.0-orange.svg
