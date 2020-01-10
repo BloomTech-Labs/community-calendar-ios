@@ -628,8 +628,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQc-yw-CA1">
-                                <rect key="frame" x="148.66666666666666" y="275" width="116.99999999999997" height="30"/>
-                                <state key="normal" title="Show in calendar"/>
+                                <rect key="frame" x="152.66666666666666" y="275" width="108.99999999999997" height="30"/>
+                                <state key="normal" title="Add to calendar"/>
                                 <connections>
                                     <action selector="showInCalendar:" destination="09q-bK-qwk" eventType="touchUpInside" id="b3X-GA-NKg"/>
                                 </connections>
