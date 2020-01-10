@@ -19,7 +19,7 @@ There is a disconnect between event organizers and community members. From the p
 
 ## Project Overview
 
-You can find the deployed project on the [App Store (Test flight for now)](https://google.com/).
+You can find the deployed project on [Test flight](https://testflight.apple.com/join/rrBz0v5r) (click link on mobile to install).
 
 [Trello Board](https://trello.com/b/itLFz188/labs19-community-calendar)
 
