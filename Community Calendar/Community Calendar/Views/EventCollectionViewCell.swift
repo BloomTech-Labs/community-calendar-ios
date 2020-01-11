@@ -45,7 +45,7 @@ class EventCollectionViewCell: UICollectionViewCell {
             eventController?.loadImage(for: imageURL)
         } else {
             if let indexPath = indexPath {
-                eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 8)")
+                eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 7)")
             } else {
                 eventImageView.image = UIImage(named: "lambda")
             }
