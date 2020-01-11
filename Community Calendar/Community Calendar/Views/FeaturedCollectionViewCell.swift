@@ -12,22 +12,69 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     var event: Event? {
         didSet { updateViews() }
     }
+    var eventController: EventController?
     
     var isFadeLayerSet = false
     
     var fadeLayer: CAGradientLayer!
     
     @IBOutlet weak var eventImageView: UIImageView!
-    @IBOutlet weak var fadeView: UIView!
-    @IBOutlet weak var eventTitleLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet private weak var fadeView: UIView!
+    @IBOutlet private weak var eventTitleLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var timeLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        updateViews()
+        observeImage()
+    }
     
     func updateViews() {
-        guard let event = event else { return }
+        guard let event = event, let _ = eventController else { return }
         eventImageView.layer.cornerRadius = 6
         eventTitleLabel.text = event.title
-
+        setImage()
+        setDate()
+        if !(isFadeLayerSet) { setFade() }
+    }
+    
+    private func setImage() {
+        if let imageURL = event?.images.first, !imageURL.isEmpty {
+            eventController?.loadImage(for: imageURL)
+        } else {
+            eventImageView.image = UIImage(named: "lambda")
+        }
+    }
+    
+    @objc
+    func dotheimagestuff(_ notification: Notification) {
+        guard let imageNot = notification.object as? ImageNotification else {
+            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
+            return
+        }
+        if let eventImageUrl = event?.images.first, imageNot.url == eventImageUrl {
+            DispatchQueue.main.async {
+                self.eventImageView.image = imageNot.image
+            }
+        }
+    }
+    
+    private func setDate() {
+        guard let startDate = event?.startDate else {
+            NSLog("\(#file):L\(#line): startDate: \(String(describing: event?.startDate)) is nil! Check \(#function)")
+            return
+        }
+        dateLabel.text = featuredEventDateFormatter.string(from: startDate)
+        
+        if let endDate = event?.endDate {
+            timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
+        } else {
+            timeLabel.text = cellDateFormatter.string(from: startDate).lowercased()
+        }
+    }
+    
+    private func setFade() {
         fadeLayer = CAGradientLayer()
         fadeLayer.frame = fadeView.bounds
         fadeLayer.colors = [
@@ -35,18 +82,13 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
             UIColor(red: 0, green: 0, blue: 0, alpha: 0.9).cgColor
         ]
         fadeLayer.cornerRadius = 6
-        if !(isFadeLayerSet) {
-            fadeView.layer.insertSublayer(fadeLayer, at: 0)
-            fadeView.layer.insertSublayer(fadeLayer, at: 0)
-            fadeView.layer.insertSublayer(fadeLayer, at: 0)
-            isFadeLayerSet = true
-        }
-        
-        guard let startDate = event.startDate, let endDate = event.endDate else {
-            NSLog("\(#file):L\(#line): startDate: \(String(describing: event.startDate)) and/or endDate: \(String(describing: event.endDate)) is nil! Check \(#function)")
-            return
-        }
-        dateLabel.text = featuredEventDateFormatter.string(from: startDate)
-        timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
+        fadeView.layer.insertSublayer(fadeLayer, at: 0)
+        fadeView.layer.insertSublayer(fadeLayer, at: 0)
+        fadeView.layer.insertSublayer(fadeLayer, at: 0)
+        isFadeLayerSet = true
+    }
+    
+    func observeImage() {
+        NotificationCenter.default.addObserver(self, selector: #selector(dotheimagestuff(_:)), name: .imageWasLoaded, object: nil)
     }
 }

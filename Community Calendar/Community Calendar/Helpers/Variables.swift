@@ -20,6 +20,12 @@ extension UIColor {
     static let tabBarTint = UIColor(red: 1.0, green: 0.4, blue: 0.41, alpha: 1.0)
 }
 
+extension Notification.Name {
+    static var imageWasLoaded: Notification.Name {
+        .init(rawValue: "EventController.imageWasLoaded")
+    }
+}
+
 let todayDateFormatter: DateFormatter = {
     let df = DateFormatter()
     df.dateFormat = "EEEE, MMMM d, yyyy"

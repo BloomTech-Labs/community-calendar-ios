@@ -45,6 +45,7 @@ class HomeViewController: UIViewController {
         setUp()
         dateLabel.text = todayDateFormatter.string(from: Date())
         eventTableView.separatorColor = UIColor.clear;
+//        printFonts()
     }
     
     private func setUp() {
@@ -69,6 +70,16 @@ class HomeViewController: UIViewController {
     }
     
     private func updateViews() {
+        setUpSearchBar()
+        self.tabBarController?.tabBar.tintColor = .tabBarTint
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .selected)
+
+        seperatorView.layer.cornerRadius = 3
+    }
+    
+    private func setUpSearchBar() {
         searchBar.backgroundColor = .white
         searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         searchBar.setImage(UIImage(), for: .search, state: .normal)
@@ -89,31 +100,23 @@ class HomeViewController: UIViewController {
         } else {
             searchBar.searchTextField.placeholder = "Search"
         }
-        
-        self.tabBarController?.tabBar.tintColor = .tabBarTint
-        
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .selected)
-
-        seperatorView.layer.cornerRadius = 3
-        
-        
-//        // To test if fonts were added correctly: (Common mistakes: Incorrect/no target membership, not listed in info.plist)
-//        for family in UIFont.familyNames {
-//
-//            let sName: String = family as String
-//            print("family: \(sName)")
-//
-//            for name in UIFont.fontNames(forFamilyName: sName) {
-//                print("name: \(name as String)")
-//            }
-//        }
     }
     
-    private func updateLists() {
+    private func updateLists() { // Refresh all three lists in one function
         eventTableView.reloadData()
         eventCollectionView.reloadData()
         featuredCollectionView.reloadData()
+    }
+    
+    private func printFonts() {
+        // To test if fonts were added correctly: (Common mistakes: Incorrect/no target membership, not listed in info.plist)
+        for family in UIFont.familyNames {
+            let sName: String = family as String
+            print("Family: \(sName)")
+            for name in UIFont.fontNames(forFamilyName: sName) {
+                print("Name: \(name as String)")
+            }
+        }
     }
     
     private func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
@@ -170,8 +173,22 @@ class HomeViewController: UIViewController {
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        searchBar.endEditing(true)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard let detailVC = segue.destination as? EventDetailViewController else { return }
+        if segue.identifier == "ShowFeaturedDetailSegue" {
+            guard let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
+                let events = events else { return }
+            detailVC.event = events[indexPath.row]
+        } else if segue.identifier == "ShowEventsTableDetailSegue" {
+            guard let indexPath = eventTableView.indexPathForSelectedRow,
+                let events = events else { return }
+            detailVC.event = events[indexPath.row]
+        } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
+            guard let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
+                let events = events else { return }
+            detailVC.event = events[indexPath.row]
+        }
     }
 }
 
@@ -183,21 +200,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell,
         let events = events else { return UITableViewCell() }
-            
-        cell.event = events[indexPath.row]
         
-        if let imageURL = events[indexPath.row].images.first {
-            eventController.loadImage(for: imageURL, cache: nil) { result in
-                switch result {
-                case .failure:
-                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
-                case .success(let image):
-                    DispatchQueue.main.async {
-                        cell.eventImageView.image = image
-                    }
-                }
-            }
-        }
+        cell.eventController = eventController
+        cell.event = events[indexPath.row]
         
         return cell
     }
@@ -230,25 +235,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let configuration = UISwipeActionsConfiguration(actions: [hideAction])
         return configuration
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let detailVC = segue.destination as? EventDetailViewController else { return }
-        if segue.identifier == "ShowFeaturedDetailSegue" {
-            guard let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
-                let events = events else { return }
-            detailVC.event = events[indexPath.row]
-        } else if segue.identifier == "ShowEventsTableDetailSegue" {
-            guard let indexPath = eventTableView.indexPathForSelectedRow,
-                let events = events else { return }
-            detailVC.event = events[indexPath.row]
-        } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
-            guard let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
-                let events = events else { return }
-            detailVC.event = events[indexPath.row]
-        }
-    }
-    
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -261,20 +247,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = eventCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell,
             let events = events else { return UICollectionViewCell() }
             
+            cell.eventController = eventController
             cell.event = events[indexPath.row]
-            
-            if let imageURL = events[indexPath.row].images.first {
-                eventController.loadImage(for: imageURL, cache: nil) { result in
-                    switch result {
-                    case .failure:
-                        NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
-                    case .success(let image):
-                        DispatchQueue.main.async {
-                            cell.eventImageView.image = image
-                        }
-                    }
-                }
-            }
             
             return cell
             
@@ -282,20 +256,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell,
             let events = events else { return UICollectionViewCell() }
             
+            cell.eventController = eventController
             cell.event = events[indexPath.row]
-            
-            if let imageURL = events[indexPath.row].images.first {
-                eventController.loadImage(for: imageURL, cache: nil) { result in
-                    switch result {
-                    case .failure:
-                        NSLog("\(#file):L\(#line): Configuration failed inside \(#function)")
-                    case .success(let image):
-                        DispatchQueue.main.async {
-                            cell.eventImageView.image = image
-                        }
-                    }
-                }
-            }
             
             return cell
         }
@@ -308,6 +270,10 @@ extension HomeViewController: UISearchBarDelegate {
         searchBar.endEditing(true)
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         searchBar.endEditing(true)
     }
 }

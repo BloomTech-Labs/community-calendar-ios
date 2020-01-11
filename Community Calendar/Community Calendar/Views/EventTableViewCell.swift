@@ -15,6 +15,7 @@ class EventTableViewCell: UITableViewCell {
             updateViews()
         }
     }
+    var eventController: EventController?
     
     @IBOutlet weak var districtNameLabel: UILabel!
     @IBOutlet weak var eventTitleLabel: UILabel!
@@ -23,22 +24,65 @@ class EventTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        updateViews()
+        observeImage()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
     }
     
     func updateViews() {
-        guard let event = event else { return }
+        guard let event = event, let _ = eventController else { return }
         eventImageView.layer.cornerRadius = 3
         eventTitleLabel.text = event.title
+        setImage()
         districtNameLabel.text = event.locations.first?.city.uppercased()
-        guard let startDate = event.startDate, let endDate = event.endDate else { return }
-        timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
+        setDate()
+//        guard let startDate = event.startDate, let endDate = event.endDate else { return }
+//        timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    
+    private func setImage() {
+        if let imageURL = event?.images.first, !imageURL.isEmpty {
+            eventController?.loadImage(for: imageURL)
+        } else {
+            eventImageView.image = UIImage(named: "lambda")
+        }
+    }
+    
+    @objc
+    func dotheimagestuff(_ notification: Notification) {
+        guard let imageNot = notification.object as? ImageNotification else {
+            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
+            return
+        }
+        if let eventImageUrl = event?.images.first, imageNot.url == eventImageUrl {
+            DispatchQueue.main.async {
+                self.eventImageView.image = imageNot.image
+            }
+        }
+    }
+    
+    private func setDate() {
+        guard let startDate = event?.startDate else {
+            NSLog("\(#file):L\(#line): startDate: \(String(describing: event?.startDate)) is nil! Check \(#function)")
+            return
+        }
+        timeLabel.text = featuredEventDateFormatter.string(from: startDate)
+        
+        if let endDate = event?.endDate {
+            timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
+        } else {
+            timeLabel.text = cellDateFormatter.string(from: startDate).lowercased()
+        }
     }
 
     @IBAction func viewTapped(_ sender: Any) {
         
+    }
+    
+    func observeImage() {
+        NotificationCenter.default.addObserver(self, selector: #selector(dotheimagestuff(_:)), name: .imageWasLoaded, object: nil)
     }
 }

@@ -30,7 +30,7 @@ class EventControllerTests: XCTestCase {
     }
     
     func testDownloadingImage() {
-        eventController.loadImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", cache: nil) { result in
+        eventController.loadImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500") { result in
             switch result {
             case .success(let image):
                 DispatchQueue.main.async {
@@ -43,8 +43,9 @@ class EventControllerTests: XCTestCase {
     }
     
     func testFetchingImageFromCache() {
-        let cache = Cache<String, UIImage>()
-        eventController.loadImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500", cache: cache) { result in
+        let cache = eventController.cache
+        
+        eventController.loadImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500") { result in
             switch result {
             case .success(let image):
                 DispatchQueue.main.async {

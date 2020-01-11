@@ -32,18 +32,7 @@ class EventDetailViewController: UIViewController {
         if let event = event, let address = event.locations.first?.streetAddress, let zip = event.locations.first?.zipcode {
             let baseURL = URL(string: "http://maps.apple.com/")!
             var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
-            var addressNoSpaces = ""
-            var isFirstSpace = true
-            for letter in address {
-                if letter != " " {
-                    addressNoSpaces = "\(addressNoSpaces)\(letter)"
-                } else if isFirstSpace {
-                    isFirstSpace = false
-                    addressNoSpaces = "\(addressNoSpaces),"
-                }
-            }
-            
-            let addressQuery = URLQueryItem(name: "address", value: "\(addressNoSpaces),\(zip)")
+            let addressQuery = URLQueryItem(name: "address", value: "\(address), \(zip)")
             components?.queryItems = [addressQuery]
             UIApplication.shared.open(components?.url ?? baseURL)
         } else if event?.locations.first == nil {
@@ -86,7 +75,7 @@ class EventDetailViewController: UIViewController {
     }
     
     func openCalendar(with date: Date) {
-        let alert = UIAlertController(title: "Open Calendar?", message: "The event has been added successfully. Would you like to view it in the Calendar?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Open Calendar", message: "The event has been added successfully. Would you like to view it in the Calendar?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "No", style: .cancel))
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
