@@ -84,7 +84,9 @@ public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDe
   ///   - networkTransport: The network transport which received the error
   ///   - errors: The received GraphQL errors
   ///   - retryHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
-  func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedGraphQLErrors errors: [GraphQLError], retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
+  func networkTransport(_ networkTransport: HTTPNetworkTransport,
+                        receivedGraphQLErrors errors: [GraphQLError],
+                        retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
 }
 
 // MARK: -
@@ -132,7 +134,10 @@ public class HTTPNetworkTransport {
     self.requestCreator = requestCreator
   }
   
-  private func send<Operation>(operation: Operation, isPersistedQueryRetry: Bool, files: [GraphQLFile]?, completionHandler: @escaping (_ results: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
+  private func send<Operation>(operation: Operation,
+                               isPersistedQueryRetry: Bool,
+                               files: [GraphQLFile]?,
+                               completionHandler: @escaping (_ results: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
     let request: URLRequest
     do {
       request = try self.createRequest(for: operation,
@@ -332,7 +337,9 @@ public class HTTPNetworkTransport {
                                   error: error)
   }
   
-  private func createRequest<Operation: GraphQLOperation>(for operation: Operation, isPersistedQueryRetry: Bool, files: [GraphQLFile]?) throws -> URLRequest {
+  private func createRequest<Operation: GraphQLOperation>(for operation: Operation,
+                                                          isPersistedQueryRetry: Bool,
+                                                          files: [GraphQLFile]?) throws -> URLRequest {
     let useGetMethod: Bool
     let sendQueryDocument: Bool
     let autoPersistQueries: Bool
@@ -370,8 +377,7 @@ public class HTTPNetworkTransport {
                                                sendQueryDocument: sendQueryDocument,
                                                autoPersistQuery: autoPersistQueries)
     var request = URLRequest(url: self.url)
-    request.setValue(self.clientName, forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientName)
-    request.setValue(self.clientVersion, forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientVersion)
+    self.addApolloClientHeaders(to: &request)
     
     // We default to json, but this can be changed below if needed.
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -446,7 +452,9 @@ extension HTTPNetworkTransport: NetworkTransport {
 
 extension HTTPNetworkTransport: UploadingNetworkTransport {
   
-  public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
+  public func upload<Operation>(operation: Operation,
+                                files: [GraphQLFile],
+                                completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
     return send(operation: operation,
                 isPersistedQueryRetry: false,
                 files: files,

@@ -7,8 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E64400223C63DC800A56B22 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E64400123C63DC800A56B22 /* EventController.swift */; };
+		0E73088F23C69147006B5326 /* EventControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E73088E23C69147006B5326 /* EventControllerTests.swift */; };
+		0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7DD80823C8E844009843BE /* EventDetailViewController.swift */; };
 		0E86D5F523AC176E00CF7012 /* GetEventsQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */; };
 		0E86D5F723AC1C7900CF7012 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E86D5F623AC1C7800CF7012 /* API.swift */; };
+		0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E974A1D23C7D96900CEE05D /* Cache.swift */; };
+		0E974A2E23C7EE6200CEE05D /* Butler-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A2D23C7EE6200CEE05D /* Butler-Bold.ttf */; };
+		0E974A3023C7EE8D00CEE05D /* Butler-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A2F23C7EE8D00CEE05D /* Butler-Black.ttf */; };
+		0E974A3223C7EEB000CEE05D /* Butler-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A3123C7EEB000CEE05D /* Butler-ExtraBold.ttf */; };
+		0E974A3723C7EF4000CEE05D /* Butler-Ultra-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A3323C7EF0700CEE05D /* Butler-Ultra-Light.ttf */; };
+		0E974A3823C7EF4000CEE05D /* Butler-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A3423C7EF1E00CEE05D /* Butler-Light.ttf */; };
+		0E974A3923C7EF4000CEE05D /* Butler-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A3523C7EF3100CEE05D /* Butler-Regular.ttf */; };
+		0E974A3A23C7EF4000CEE05D /* Butler-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A3623C7EF4000CEE05D /* Butler-Medium.ttf */; };
 		0E9FDD6023A8366F00FD75A0 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD4E23A8366D00FD75A0 /* Poppins-Light.ttf */; };
 		0E9FDD6123A8366F00FD75A0 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD4F23A8366D00FD75A0 /* Poppins-Italic.ttf */; };
 		0E9FDD6223A8366F00FD75A0 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E9FDD5023A8366D00FD75A0 /* Poppins-Thin.ttf */; };
@@ -38,13 +49,6 @@
 		0EB19D6023A82C6200640A40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D5F23A82C6200640A40 /* Assets.xcassets */; };
 		0EB19D6323A82C6200640A40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */; };
 		0ED2657523AC0FBB00278980 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ED2657323AC0FB000278980 /* schema.json */; };
-		0EE3079623AC47080045EFD1 /* Butler_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078A23AC320C0045EFD1 /* Butler_Regular.otf */; };
-		0EE3079723AC47080045EFD1 /* Butler_Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078923AC320C0045EFD1 /* Butler_Medium.otf */; };
-		0EE3079823AC47080045EFD1 /* Butler_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078C23AC320C0045EFD1 /* Butler_Bold.otf */; };
-		0EE3079923AC47080045EFD1 /* Butler_ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078B23AC320C0045EFD1 /* Butler_ExtraBold.otf */; };
-		0EE3079A23AC47080045EFD1 /* Butler_Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078D23AC320C0045EFD1 /* Butler_Black.otf */; };
-		0EE3079B23AC47080045EFD1 /* Butler_Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078823AC320C0045EFD1 /* Butler_Light.otf */; };
-		0EE3079C23AC47080045EFD1 /* Butler_Ultra_Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0EE3078E23AC320C0045EFD1 /* Butler_Ultra_Light.otf */; };
 		0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */; };
 		0EE307A923AC53470045EFD1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A723AC53470045EFD1 /* Event.swift */; };
 		0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */; };
@@ -53,9 +57,32 @@
 		EFD4D3B023A98E6B00DDE283 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0E73089123C69147006B5326 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EB19D4823A82C5B00640A40 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0EB19D4F23A82C5B00640A40;
+			remoteInfo = "Community Calendar";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		0E64400123C63DC800A56B22 /* EventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
+		0E73088C23C69147006B5326 /* Community Calendar Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Community Calendar Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E73088E23C69147006B5326 /* EventControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventControllerTests.swift; sourceTree = "<group>"; };
+		0E73089023C69147006B5326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E7DD80823C8E844009843BE /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetEventsQuery.graphql; sourceTree = "<group>"; };
 		0E86D5F623AC1C7800CF7012 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		0E974A1D23C7D96900CEE05D /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		0E974A2D23C7EE6200CEE05D /* Butler-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-Bold.ttf"; sourceTree = "<group>"; };
+		0E974A2F23C7EE8D00CEE05D /* Butler-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-Black.ttf"; sourceTree = "<group>"; };
+		0E974A3123C7EEB000CEE05D /* Butler-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-ExtraBold.ttf"; sourceTree = "<group>"; };
+		0E974A3323C7EF0700CEE05D /* Butler-Ultra-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-Ultra-Light.ttf"; sourceTree = "<group>"; };
+		0E974A3423C7EF1E00CEE05D /* Butler-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-Light.ttf"; sourceTree = "<group>"; };
+		0E974A3523C7EF3100CEE05D /* Butler-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-Regular.ttf"; sourceTree = "<group>"; };
+		0E974A3623C7EF4000CEE05D /* Butler-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-Medium.ttf"; sourceTree = "<group>"; };
 		0E9FDD4E23A8366D00FD75A0 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		0E9FDD4F23A8366D00FD75A0 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		0E9FDD5023A8366D00FD75A0 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
@@ -87,15 +114,8 @@
 		0EB19D6223A82C6200640A40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0EB19D6423A82C6200640A40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ED2657323AC0FB000278980 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
-		0EE3078823AC320C0045EFD1 /* Butler_Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Light.otf; sourceTree = "<group>"; };
-		0EE3078923AC320C0045EFD1 /* Butler_Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Medium.otf; sourceTree = "<group>"; };
-		0EE3078A23AC320C0045EFD1 /* Butler_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Regular.otf; sourceTree = "<group>"; };
-		0EE3078B23AC320C0045EFD1 /* Butler_ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_ExtraBold.otf; sourceTree = "<group>"; };
-		0EE3078C23AC320C0045EFD1 /* Butler_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Bold.otf; sourceTree = "<group>"; };
-		0EE3078D23AC320C0045EFD1 /* Butler_Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Black.otf; sourceTree = "<group>"; };
-		0EE3078E23AC320C0045EFD1 /* Butler_Ultra_Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Butler_Ultra_Light.otf; sourceTree = "<group>"; };
 		0EE307A623AC53470045EFD1 /* Community_Calendar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Community_Calendar.xcdatamodel; sourceTree = "<group>"; };
-		0EE307A723AC53470045EFD1 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = ../Event.swift; sourceTree = "<group>"; };
+		0EE307A723AC53470045EFD1 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.release.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Community_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +125,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0E73088923C69147006B5326 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0EB19D4D23A82C5B00640A40 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -116,6 +143,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E73088D23C69147006B5326 /* Community Calendar Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0E73088E23C69147006B5326 /* EventControllerTests.swift */,
+				0E73089023C69147006B5326 /* Info.plist */,
+			);
+			path = "Community Calendar Tests";
+			sourceTree = "<group>";
+		};
+		0E73089623C69BB0006B5326 /* Model Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0E64400123C63DC800A56B22 /* EventController.swift */,
+				0E974A1D23C7D96900CEE05D /* Cache.swift */,
+			);
+			path = "Model Controller";
+			sourceTree = "<group>";
+		};
 		0E9FDD4D23A8363B00FD75A0 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				0EB19D5223A82C5B00640A40 /* Community Calendar */,
+				0E73088D23C69147006B5326 /* Community Calendar Tests */,
 				0EB19D5123A82C5B00640A40 /* Products */,
 				AF02A3BECBE0CFBDE342171D /* Pods */,
 				4B1C6C772E89C0E95EBE07DE /* Frameworks */,
@@ -139,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				0EB19D5023A82C5B00640A40 /* Community Calendar.app */,
+				0E73088C23C69147006B5326 /* Community Calendar Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,6 +199,7 @@
 				0EE3079F23AC528D0045EFD1 /* Views */,
 				0EE307A023AC52B60045EFD1 /* Storyboards */,
 				0EE307AA23AC534A0045EFD1 /* Models */,
+				0E73089623C69BB0006B5326 /* Model Controller */,
 				0EE307AB23AC53680045EFD1 /* Helpers */,
 				EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */,
 				0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */,
@@ -189,13 +237,13 @@
 		0EE3078323AC31710045EFD1 /* Butler */ = {
 			isa = PBXGroup;
 			children = (
-				0EE3078A23AC320C0045EFD1 /* Butler_Regular.otf */,
-				0EE3078923AC320C0045EFD1 /* Butler_Medium.otf */,
-				0EE3078C23AC320C0045EFD1 /* Butler_Bold.otf */,
-				0EE3078B23AC320C0045EFD1 /* Butler_ExtraBold.otf */,
-				0EE3078D23AC320C0045EFD1 /* Butler_Black.otf */,
-				0EE3078823AC320C0045EFD1 /* Butler_Light.otf */,
-				0EE3078E23AC320C0045EFD1 /* Butler_Ultra_Light.otf */,
+				0E974A2F23C7EE8D00CEE05D /* Butler-Black.ttf */,
+				0E974A2D23C7EE6200CEE05D /* Butler-Bold.ttf */,
+				0E974A3123C7EEB000CEE05D /* Butler-ExtraBold.ttf */,
+				0E974A3423C7EF1E00CEE05D /* Butler-Light.ttf */,
+				0E974A3623C7EF4000CEE05D /* Butler-Medium.ttf */,
+				0E974A3523C7EF3100CEE05D /* Butler-Regular.ttf */,
+				0E974A3323C7EF0700CEE05D /* Butler-Ultra-Light.ttf */,
 			);
 			path = Butler;
 			sourceTree = "<group>";
@@ -215,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				0EB19D5723A82C5B00640A40 /* HomeViewController.swift */,
+				0E7DD80823C8E844009843BE /* EventDetailViewController.swift */,
 				EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */,
 			);
 			path = "View Controllers";
@@ -277,6 +326,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0E73088B23C69147006B5326 /* Community Calendar Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E73089523C69147006B5326 /* Build configuration list for PBXNativeTarget "Community Calendar Tests" */;
+			buildPhases = (
+				0E73088823C69147006B5326 /* Sources */,
+				0E73088923C69147006B5326 /* Frameworks */,
+				0E73088A23C69147006B5326 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E73089223C69147006B5326 /* PBXTargetDependency */,
+			);
+			name = "Community Calendar Tests";
+			productName = "Community Calendar Tests";
+			productReference = 0E73088C23C69147006B5326 /* Community Calendar Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		0EB19D4F23A82C5B00640A40 /* Community Calendar */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0EB19D6723A82C6200640A40 /* Build configuration list for PBXNativeTarget "Community Calendar" */;
@@ -307,6 +374,10 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Mazjap Co";
 				TargetAttributes = {
+					0E73088B23C69147006B5326 = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 0EB19D4F23A82C5B00640A40;
+					};
 					0EB19D4F23A82C5B00640A40 = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -326,11 +397,19 @@
 			projectRoot = "";
 			targets = (
 				0EB19D4F23A82C5B00640A40 /* Community Calendar */,
+				0E73088B23C69147006B5326 /* Community Calendar Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0E73088A23C69147006B5326 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0EB19D4E23A82C5B00640A40 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -341,17 +420,12 @@
 				0E9FDD6423A8366F00FD75A0 /* Poppins-ThinItalic.ttf in Resources */,
 				0E9FDD6323A8366F00FD75A0 /* Poppins-SemiBold.ttf in Resources */,
 				0E9FDD6A23A8366F00FD75A0 /* Poppins-SemiBoldItalic.ttf in Resources */,
-				0EE3079B23AC47080045EFD1 /* Butler_Light.otf in Resources */,
+				0E974A2E23C7EE6200CEE05D /* Butler-Bold.ttf in Resources */,
 				0E86D5F523AC176E00CF7012 /* GetEventsQuery.graphql in Resources */,
-				0EE3079A23AC47080045EFD1 /* Butler_Black.otf in Resources */,
-				0EE3079923AC47080045EFD1 /* Butler_ExtraBold.otf in Resources */,
+				0E974A3223C7EEB000CEE05D /* Butler-ExtraBold.ttf in Resources */,
 				0E9FDD6923A8366F00FD75A0 /* Poppins-Black.ttf in Resources */,
-				0EE3079C23AC47080045EFD1 /* Butler_Ultra_Light.otf in Resources */,
-				0EE3079723AC47080045EFD1 /* Butler_Medium.otf in Resources */,
 				0E9FDD6523A8366F00FD75A0 /* Poppins-ExtraLightItalic.ttf in Resources */,
 				0ED2657523AC0FBB00278980 /* schema.json in Resources */,
-				0EE3079623AC47080045EFD1 /* Butler_Regular.otf in Resources */,
-				0EE3079823AC47080045EFD1 /* Butler_Bold.otf in Resources */,
 				0E9FDD6823A8366F00FD75A0 /* Poppins-BlackItalic.ttf in Resources */,
 				0E9FDD7023A8366F00FD75A0 /* Poppins-Bold.ttf in Resources */,
 				0EB19D6023A82C6200640A40 /* Assets.xcassets in Resources */,
@@ -360,10 +434,15 @@
 				0E9FDD6B23A8366F00FD75A0 /* Poppins-BoldItalic.ttf in Resources */,
 				0E9FDD6223A8366F00FD75A0 /* Poppins-Thin.ttf in Resources */,
 				0E9FDD6123A8366F00FD75A0 /* Poppins-Italic.ttf in Resources */,
+				0E974A3723C7EF4000CEE05D /* Butler-Ultra-Light.ttf in Resources */,
+				0E974A3823C7EF4000CEE05D /* Butler-Light.ttf in Resources */,
+				0E974A3023C7EE8D00CEE05D /* Butler-Black.ttf in Resources */,
 				0E9FDD6E23A8366F00FD75A0 /* Poppins-ExtraLight.ttf in Resources */,
 				0E9FDD6C23A8366F00FD75A0 /* Poppins-ExtraBold.ttf in Resources */,
 				0E9FDD6F23A8366F00FD75A0 /* Poppins-Medium.ttf in Resources */,
 				0E9FDD6023A8366F00FD75A0 /* Poppins-Light.ttf in Resources */,
+				0E974A3A23C7EF4000CEE05D /* Butler-Medium.ttf in Resources */,
+				0E974A3923C7EF4000CEE05D /* Butler-Regular.ttf in Resources */,
 				0E9FDD6623A8366F00FD75A0 /* Poppins-MediumItalic.ttf in Resources */,
 				0E9FDD6723A8366F00FD75A0 /* Poppins-LightItalic.ttf in Resources */,
 				0E9FDD6D23A8366F00FD75A0 /* Poppins-ExtraBoldItalic.ttf in Resources */,
@@ -433,25 +512,44 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0E73088823C69147006B5326 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E73088F23C69147006B5326 /* EventControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0EB19D4C23A82C5B00640A40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0EB19D5823A82C5B00640A40 /* HomeViewController.swift in Sources */,
 				0EE307A923AC53470045EFD1 /* Event.swift in Sources */,
+				0E64400223C63DC800A56B22 /* EventController.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
 				0E86D5F723AC1C7900CF7012 /* API.swift in Sources */,
+				0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */,
 				0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */,
 				0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */,
 				EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */,
 				0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */,
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
+				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0E73089223C69147006B5326 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0EB19D4F23A82C5B00640A40 /* Community Calendar */;
+			targetProxy = 0E73089123C69147006B5326 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0EB19D5923A82C5B00640A40 /* Main.storyboard */ = {
@@ -473,6 +571,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0E73089323C69147006B5326 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HFR8F4BT7E;
+				INFOPLIST_FILE = "Community Calendar Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Community Calendar.app/Community Calendar";
+			};
+			name = Debug;
+		};
+		0E73089423C69147006B5326 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HFR8F4BT7E;
+				INFOPLIST_FILE = "Community Calendar Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Community Calendar.app/Community Calendar";
+			};
+			name = Release;
+		};
 		0EB19D6523A82C6200640A40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -593,6 +731,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -612,6 +751,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -628,6 +768,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0E73089523C69147006B5326 /* Build configuration list for PBXNativeTarget "Community Calendar Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E73089323C69147006B5326 /* Debug */,
+				0E73089423C69147006B5326 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0EB19D4B23A82C5B00640A40 /* Build configuration list for PBXProject "Community Calendar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
