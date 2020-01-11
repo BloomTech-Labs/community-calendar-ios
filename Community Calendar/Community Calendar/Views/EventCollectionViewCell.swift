@@ -9,6 +9,8 @@
 import UIKit
 
 class EventCollectionViewCell: UICollectionViewCell {
+    
+    var indexPath: IndexPath? // To be removed
     var event: Event? {
         didSet {
             updateViews()
@@ -42,7 +44,11 @@ class EventCollectionViewCell: UICollectionViewCell {
         if let imageURL = event?.images.first, !imageURL.isEmpty {
             eventController?.loadImage(for: imageURL)
         } else {
-            eventImageView.image = UIImage(named: "lambda")
+            if let indexPath = indexPath {
+                eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 8)")
+            } else {
+                eventImageView.image = UIImage(named: "lambda")
+            }
         }
     }
     

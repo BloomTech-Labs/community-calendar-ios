@@ -201,6 +201,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell,
         let events = events else { return UITableViewCell() }
         
+        cell.indexPath = indexPath
         cell.eventController = eventController
         cell.event = events[indexPath.row]
         
@@ -247,6 +248,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = eventCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell,
             let events = events else { return UICollectionViewCell() }
             
+            cell.indexPath = indexPath
             cell.eventController = eventController
             cell.event = events[indexPath.row]
             
@@ -256,6 +258,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell,
             let events = events else { return UICollectionViewCell() }
             
+            cell.indexPath = indexPath
             cell.eventController = eventController
             cell.event = events[indexPath.row]
             
