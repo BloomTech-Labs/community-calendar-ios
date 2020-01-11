@@ -48,7 +48,7 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     }
     
     @objc
-    func dotheimagestuff(_ notification: Notification) {
+    func receiveImage(_ notification: Notification) {
         guard let imageNot = notification.object as? ImageNotification else {
             assertionFailure("Object type could not be inferred: \(notification.object as Any)")
             return
@@ -89,6 +89,6 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     }
     
     func observeImage() {
-        NotificationCenter.default.addObserver(self, selector: #selector(dotheimagestuff(_:)), name: .imageWasLoaded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
     }
 }

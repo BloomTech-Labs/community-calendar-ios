@@ -30,31 +30,41 @@ class EventControllerTests: XCTestCase {
     }
     
     func testDownloadingImage() {
-        eventController.loadImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500") { result in
-            switch result {
-            case .success(let image):
-                DispatchQueue.main.async {
-                    XCTAssertNotNil(image)
-                }
-            case .failure:
-                XCTFail("Could not fetch image")
+        NotificationCenter.default.addObserver(self, selector: #selector(testDownloadingImageHelper), name: .imageWasLoaded, object: nil)
+        
+        eventController.loadImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+    }
+    
+    @objc
+    func testDownloadingImageHelper(_ notification: Notification) {
+        guard let imageNotification = notification.object as? ImageNotification else {
+            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
+            return
+        }
+        if imageNotification.url == "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" {
+            DispatchQueue.main.async {
+                XCTAssertNotNil(imageNotification.image)
             }
+        } else {
+            XCTFail("Image returned was nil")
         }
     }
     
     func testFetchingImageFromCache() {
-        let cache = eventController.cache
+        NotificationCenter.default.addObserver(self, selector: #selector(testFetchingImageFromCacheHelper), name: .imageWasLoaded, object: nil)
         
-        eventController.loadImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500") { result in
-            switch result {
-            case .success(let image):
-                DispatchQueue.main.async {
-                    XCTAssertNotNil(image)
-                }
-                XCTAssertNotNil(cache.fetch(key: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"))
-            case .failure:
-                XCTFail("Could not fetch image")
-            }
+        eventController.loadImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+    }
+    
+    @objc
+    func testFetchingImageFromCacheHelper(_ notification: Notification) {
+        let cache = eventController.cache
+        guard let _ = notification.object as? ImageNotification else {
+            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
+            return
         }
+        
+        let image = cache.fetch(key: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+        XCTAssertNotNil(image)
     }
 }
