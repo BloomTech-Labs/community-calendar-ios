@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ggv-GU-thE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ma7-Lx-nbk">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
@@ -42,7 +42,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lFR-Mm-pzB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Login" image="person" id="Or6-dB-kbm"/>
+                    <tabBarItem key="tabBarItem" title="Login" image="person" id="uDP-r0-Uu3"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="LoginButton" destination="GuB-HZ-ADK" id="D6p-8K-zBQ"/>
                         <outlet property="logOutButton" destination="g98-tm-y3h" id="LTH-ur-vys"/>
@@ -52,25 +53,8 @@
             </objects>
             <point key="canvasLocation" x="-1252" y="-516"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="Sgd-cy-3De">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tv9-La-AkS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tabBarController id="Ggv-GU-thE" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="v7H-XX-vpC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="Ma7-Lx-nbk" kind="relationship" relationship="viewControllers" id="UOV-oB-h4r"/>
-                    </connections>
-                </tabBarController>
-            </objects>
-            <point key="canvasLocation" x="-2029" y="-516"/>
-        </scene>
     </scenes>
     <resources>
-        <image name="person" width="18" height="18"/>
+        <image name="person" width="24" height="24"/>
     </resources>
 </document>
