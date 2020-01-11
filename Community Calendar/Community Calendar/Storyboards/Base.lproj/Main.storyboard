@@ -342,7 +342,7 @@
                                                 <constraint firstItem="UdL-gv-cEn" firstAttribute="centerY" secondItem="h9a-zr-7NP" secondAttribute="centerY" id="SiV-CP-AP6"/>
                                                 <constraint firstAttribute="bottom" secondItem="h9a-zr-7NP" secondAttribute="bottom" constant="3" id="Trd-KV-L4t"/>
                                                 <constraint firstItem="h9a-zr-7NP" firstAttribute="leading" secondItem="4pr-ZW-sh0" secondAttribute="leading" constant="16" id="axg-za-M6O"/>
-                                                <constraint firstItem="UdL-gv-cEn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L98-J9-Ros" secondAttribute="trailing" constant="8" id="d1Z-2H-XsD"/>
+                                                <constraint firstItem="UdL-gv-cEn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L98-J9-Ros" secondAttribute="trailing" constant="16" id="d1Z-2H-XsD"/>
                                                 <constraint firstItem="L98-J9-Ros" firstAttribute="leading" secondItem="h9a-zr-7NP" secondAttribute="trailing" constant="16" id="tDB-6g-M3i"/>
                                             </constraints>
                                         </tableViewCellContentView>
