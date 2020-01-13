@@ -16,34 +16,40 @@ class EventDetailViewController: UIViewController {
             updateViews()
         }
     }
-
+    var eventController: EventController?
+    var indexPath: IndexPath?
+    let eventStore = EKEventStore()
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var eventImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        observeImage()
         updateViews()
     }
     
     private func updateViews() {
         guard isViewLoaded, let event = event else { return }
-        title = event.title
+        titleLabel.text = event.title
+        
+        if let eventController = eventController, let imageUrl = event.images.first {
+            eventController.loadImage(for: imageUrl)
+        } else {
+            if let indexPath = indexPath {
+                eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
+            } else {
+                eventImageView.image = UIImage(named: "lambda")
+            }
+        }
     }
     
     @IBAction func showInMaps(_ sender: UIButton) {
         if let event = event, let address = event.locations.first?.streetAddress, let zip = event.locations.first?.zipcode {
             let baseURL = URL(string: "http://maps.apple.com/")!
             var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
-            var addressNoSpaces = ""
-            var isFirstSpace = true
-            for letter in address {
-                if letter != " " {
-                    addressNoSpaces = "\(addressNoSpaces)\(letter)"
-                } else if isFirstSpace {
-                    isFirstSpace = false
-                    addressNoSpaces = "\(addressNoSpaces),"
-                }
-            }
-            
-            let addressQuery = URLQueryItem(name: "address", value: "\(addressNoSpaces),\(zip)")
+            let addressQuery = URLQueryItem(name: "address", value: "\(address), \(zip)")
             components?.queryItems = [addressQuery]
             UIApplication.shared.open(components?.url ?? baseURL)
         } else if event?.locations.first == nil {
@@ -52,7 +58,6 @@ class EventDetailViewController: UIViewController {
     }
     
     @IBAction func showInCalendar(_ sender: Any) {
-        let eventStore = EKEventStore()
         eventStore.requestAccess(to: .event) { (granted, error) in
             if let error = error {
                 NSLog("\(#file):L\(#line): Unable to request access to calendar in \(#function) with error: \(error)")
@@ -60,33 +65,59 @@ class EventDetailViewController: UIViewController {
             }
 
             if granted {
-                guard let event = self.event else { return }
-                
-                let calendarEvent = EKEvent(eventStore: eventStore)
-
-                calendarEvent.title = event.title
-                calendarEvent.startDate = event.startDate
-                calendarEvent.endDate = event.endDate
-                calendarEvent.notes = event.description
-                calendarEvent.calendar = eventStore.defaultCalendarForNewEvents
-                do {
-                    try eventStore.save(calendarEvent, span: .thisEvent)
-                } catch let error {
-                    print("Failed to save event with error: \(error)")
+                guard let event = self.event, let startDate = event.startDate, let endDate = event.endDate else {
+                    var message = ""
+                    if self.event?.startDate == nil && self.event?.endDate == nil {
+                        message = "\(self.event?.title ?? "Event") has no start or end dates. It cannot be added to the calendar"
+                    } else if self.event?.startDate == nil && self.event?.endDate != nil {
+                        message = "\(self.event?.title ?? "Event") has no start date. It cannot be added to the calendar"
+                    } else if self.event?.endDate == nil && self.event?.startDate != nil {
+                        message = "\(self.event?.title ?? "Event") has no end date. It cannot be added to the calendar"
+                    }
+                    let alert = UIAlertController(title: "Unable to add to calendar", message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    
                     return
                 }
-                DispatchQueue.main.async {
-                    self.openCalendar(with: calendarEvent.startDate)
+                if startDate > endDate {
+                    let alert = UIAlertController(title: "Unable to add event to calendar", message: "The event's start date is after it's endDate. Would you like to add it to calendar with the start and end dates switched?", preferredStyle: .alert)
+                    let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
+                        self.addToCalendar(event: event, startDate: endDate, endDate: startDate)
+                    }
+                    alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
+                    alert.addAction(yesAction)
+                    DispatchQueue.main.sync {
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 }
-            }
-            else {
+                self.addToCalendar(event: event, startDate: startDate, endDate: endDate)
+            } else {
                 print("Access to calendar is not granted on device!") // TODO: Alert user and link to settings to change permissions
             }
         }
     }
     
+    func addToCalendar(event: Event, startDate: Date, endDate: Date?) {
+        let calendarEvent = EKEvent(eventStore: eventStore)
+
+        calendarEvent.title = event.title
+        calendarEvent.startDate = startDate
+        calendarEvent.endDate = endDate
+        calendarEvent.notes = event.description
+        calendarEvent.calendar = eventStore.defaultCalendarForNewEvents
+        do {
+            try eventStore.save(calendarEvent, span: .thisEvent)
+        } catch let error {
+            print("Failed to save event with error: \(error)")
+            return
+        }
+        DispatchQueue.main.async {
+            self.openCalendar(with: calendarEvent.startDate)
+        }
+    }
+    
     func openCalendar(with date: Date) {
-        let alert = UIAlertController(title: "Open Calendar?", message: "The event has been added successfully. Would you like to view it in the Calendar?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Open Calendar", message: "The event has been added successfully. Would you like to view it in the Calendar?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "No", style: .cancel))
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
@@ -95,5 +126,22 @@ class EventDetailViewController: UIViewController {
             UIApplication.shared.open(url)
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc
+    func receiveImage(_ notification: Notification) {
+        guard let imageNot = notification.object as? ImageNotification else {
+            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
+            return
+        }
+        if let eventImageUrl = event?.images.first, imageNot.url == eventImageUrl {
+            DispatchQueue.main.async {
+                self.eventImageView.image = imageNot.image
+            }
+        }
+    }
+    
+    func observeImage() {
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
     }
 }
