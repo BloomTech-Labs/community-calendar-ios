@@ -8,11 +8,14 @@
 
 import UIKit
 import Auth0
+import SafariServices
 
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var LoginButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
+    
+    var homeController = HomeViewController()
     
     var onAuth: ((Result<Credentials>) -> ())!
     var credential: Credentials? {
@@ -29,26 +32,34 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         logOutButton.isHidden = true
+        LoginButton.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if credential == nil {
+            loginOrSignUpButtonPressed(0)
+        } else {
+            print("Already signed in")
+        }
+    }
+    
+    func logoutAlertController() {
+        let alert = UIAlertController(title: "Success", message: "You have successfully logged out", preferredStyle: .alert)
         
-//        self.onAuth = { [weak self] in
-//            switch $0 {
-//            case .failure(let cause):
-//                DispatchQueue.main.async {
-//                    let alert = UIAlertController(title: "Auth Failed!", message: "\(cause)", preferredStyle: .alert)
-//                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//                    self?.present(alert, animated: true, completion: nil)
-//                }
-//            case .success(let credentials):
-//                DispatchQueue.main.async {
-//                    let token = credentials.accessToken ?? credentials.idToken
-//                    let alert = UIAlertController(title: "Auth Success!", message: "Authorized and got a token \(String(describing: token))", preferredStyle: .alert)
-//                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//                    self?.present(alert, animated: true, completion: nil)
-//                }
-//            }
-//            print($0)
-//        }
-        loginOrSignUpButtonPressed(0)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default) { _ in
+            DispatchQueue.main.async {
+                self.tabBarController?.selectedIndex = 0
+            }
+        })
+        
+        DispatchQueue.main.async{
+            self.presentedViewController?.dismiss(animated: false) {
+                OperationQueue.main.addOperation {
+                    self.present(alert, animated: true)
+                }
+            }
+        }
     }
     
     // MARK: - IBAction
@@ -83,10 +94,11 @@ class LoginViewController: UIViewController {
             .clearSession(federated:false) {
                 switch $0 {
                 case true:
-                    self.LoginButton.isHidden = false
+                    //                    self.LoginButton.isHidden = false
                     self.logOutButton.isHidden = true
                     self.credential = nil
                     self.tabBarItem.title = "Login"
+                    self.logoutAlertController()
                 case false:
                     print("User was not able to log out.")
                 }
