@@ -18,6 +18,7 @@ class EventDetailViewController: UIViewController {
     }
     var eventController: EventController?
     var indexPath: IndexPath?
+    let eventStore = EKEventStore()
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var eventImageView: UIImageView!
@@ -57,7 +58,6 @@ class EventDetailViewController: UIViewController {
     }
     
     @IBAction func showInCalendar(_ sender: Any) {
-        let eventStore = EKEventStore()
         eventStore.requestAccess(to: .event) { (granted, error) in
             if let error = error {
                 NSLog("\(#file):L\(#line): Unable to request access to calendar in \(#function) with error: \(error)")
@@ -65,55 +65,54 @@ class EventDetailViewController: UIViewController {
             }
 
             if granted {
-                guard let event = self.event, let startDate = event.startDate, let endDate = event.endDate else { return }
-                
+                guard let event = self.event, let startDate = event.startDate, let endDate = event.endDate else {
+                    var message = ""
+                    if self.event?.startDate == nil && self.event?.endDate == nil {
+                        message = "\(self.event?.title ?? "Event") has no start or end dates. It cannot be added to the calendar"
+                    } else if self.event?.startDate == nil && self.event?.endDate != nil {
+                        message = "\(self.event?.title ?? "Event") has no start date. It cannot be added to the calendar"
+                    } else if self.event?.endDate == nil && self.event?.startDate != nil {
+                        message = "\(self.event?.title ?? "Event") has no end date. It cannot be added to the calendar"
+                    }
+                    let alert = UIAlertController(title: "Unable to add to calendar", message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    
+                    return
+                }
                 if startDate > endDate {
                     let alert = UIAlertController(title: "Unable to add event to calendar", message: "The event's start date is after it's endDate. Would you like to add it to calendar with the start and end dates switched?", preferredStyle: .alert)
                     let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
-                        let calendarEvent = EKEvent(eventStore: eventStore)
-
-                        calendarEvent.title = event.title
-                        calendarEvent.startDate = event.endDate
-                        calendarEvent.endDate = event.startDate
-                        calendarEvent.notes = event.description
-                        calendarEvent.calendar = eventStore.defaultCalendarForNewEvents
-                        do {
-                            try eventStore.save(calendarEvent, span: .thisEvent)
-                        } catch let error {
-                            print("Failed to save event with error: \(error)")
-                            return
-                        }
-                        DispatchQueue.main.async {
-                            self.openCalendar(with: calendarEvent.startDate)
-                        }
+                        self.addToCalendar(event: event, startDate: endDate, endDate: startDate)
                     }
-                    let noAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
-                    alert.addAction(noAction)
+                    alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
                     alert.addAction(yesAction)
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.sync {
                         self.present(alert, animated: true, completion: nil)
                     }
-                } else {
-                    let calendarEvent = EKEvent(eventStore: eventStore)
-
-                    calendarEvent.title = event.title
-                    calendarEvent.startDate = event.startDate
-                    calendarEvent.endDate = event.endDate
-                    calendarEvent.notes = event.description
-                    calendarEvent.calendar = eventStore.defaultCalendarForNewEvents
-                    do {
-                        try eventStore.save(calendarEvent, span: .thisEvent)
-                    } catch let error {
-                        print("Failed to save event with error: \(error)")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self.openCalendar(with: calendarEvent.startDate)
-                    }
                 }
+                self.addToCalendar(event: event, startDate: startDate, endDate: endDate)
             } else {
                 print("Access to calendar is not granted on device!") // TODO: Alert user and link to settings to change permissions
             }
+        }
+    }
+    
+    func addToCalendar(event: Event, startDate: Date, endDate: Date?) {
+        let calendarEvent = EKEvent(eventStore: eventStore)
+
+        calendarEvent.title = event.title
+        calendarEvent.startDate = startDate
+        calendarEvent.endDate = endDate
+        calendarEvent.notes = event.description
+        calendarEvent.calendar = eventStore.defaultCalendarForNewEvents
+        do {
+            try eventStore.save(calendarEvent, span: .thisEvent)
+        } catch let error {
+            print("Failed to save event with error: \(error)")
+            return
+        }
+        DispatchQueue.main.async {
+            self.openCalendar(with: calendarEvent.startDate)
         }
     }
     
