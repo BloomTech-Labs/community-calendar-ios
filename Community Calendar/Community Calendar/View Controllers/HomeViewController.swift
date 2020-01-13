@@ -174,19 +174,23 @@ class HomeViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         guard let detailVC = segue.destination as? EventDetailViewController else { return }
+        detailVC.eventController = eventController
+        
         if segue.identifier == "ShowFeaturedDetailSegue" {
             guard let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
                 let events = events else { return }
+            detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "ShowEventsTableDetailSegue" {
             guard let indexPath = eventTableView.indexPathForSelectedRow,
                 let events = events else { return }
+            detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
             guard let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
                 let events = events else { return }
+            detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         }
     }
