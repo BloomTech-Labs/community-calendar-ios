@@ -389,8 +389,8 @@ public final class GetEventsQuery: GraphQLQuery {
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("latitude", type: .scalar(String.self)),
-          GraphQLField("longitude", type: .scalar(String.self)),
+          GraphQLField("latitude", type: .scalar(Double.self)),
+          GraphQLField("longitude", type: .scalar(Double.self)),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
           GraphQLField("state", type: .nonNull(.scalar(String.self))),
           GraphQLField("city", type: .nonNull(.scalar(String.self))),
@@ -406,7 +406,7 @@ public final class GetEventsQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(latitude: String? = nil, longitude: String? = nil, name: String, state: String, city: String, streetAddress: String, streetAddress_2: String? = nil, zipcode: Int, neighborhood: Neighborhood? = nil) {
+        public init(latitude: Double? = nil, longitude: Double? = nil, name: String, state: String, city: String, streetAddress: String, streetAddress_2: String? = nil, zipcode: Int, neighborhood: Neighborhood? = nil) {
           self.init(unsafeResultMap: ["__typename": "Location", "latitude": latitude, "longitude": longitude, "name": name, "state": state, "city": city, "street_address": streetAddress, "street_address_2": streetAddress_2, "zipcode": zipcode, "neighborhood": neighborhood.flatMap { (value: Neighborhood) -> ResultMap in value.resultMap }])
         }
 
@@ -419,18 +419,18 @@ public final class GetEventsQuery: GraphQLQuery {
           }
         }
 
-        public var latitude: String? {
+        public var latitude: Double? {
           get {
-            return resultMap["latitude"] as? String
+            return resultMap["latitude"] as? Double
           }
           set {
             resultMap.updateValue(newValue, forKey: "latitude")
           }
         }
 
-        public var longitude: String? {
+        public var longitude: Double? {
           get {
-            return resultMap["longitude"] as? String
+            return resultMap["longitude"] as? Double
           }
           set {
             resultMap.updateValue(newValue, forKey: "longitude")
