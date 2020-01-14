@@ -30,6 +30,13 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var seperatorView: UIView!
     @IBOutlet weak var dateLabel: UILabel!
     
+    // MARK: - IBOutles for Search
+    @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var nearbyButton: UIButton!
+    @IBOutlet weak var nearbyLabel: UILabel!
+    @IBOutlet weak var recentSearchesLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +53,8 @@ class HomeViewController: UIViewController {
         dateLabel.text = todayDateFormatter.string(from: Date())
         eventTableView.separatorColor = UIColor.clear;
 //        printFonts()
+        
+        searchBorderDesigns()
     }
     
     private func setUp() {
@@ -126,6 +135,28 @@ class HomeViewController: UIViewController {
         return attrString
     }
     
+    // MARK: - Search Functions
+    
+    func searchBorderDesigns() {
+        // MARK: - Filter Button Border
+        filterButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
+        filterButton.layer.cornerRadius = 29 / 1.6
+        filterButton.layer.borderWidth = 1
+        filterButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
+        
+        // MARK: - Nearby Button Border
+        nearbyButton.layer.backgroundColor = UIColor(red: 0.842, green: 0.842, blue: 0.842, alpha: 1).cgColor
+        nearbyButton.layer.cornerRadius = 5
+        nearbyButton.layer.borderWidth = 1
+        nearbyButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
+        
+        // MARK: - Nearby Label color
+        nearbyLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+        
+        // MARK: - Recent Searches Label Color
+        recentSearchesLabel.textColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
+    }
+    
     @IBAction func tableViewButtonTapped(_ sender: Any) {
         eventCollectionView.isHidden = true
         eventTableView.isHidden = false
@@ -171,6 +202,15 @@ class HomeViewController: UIViewController {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
+    }
+    
+    // MARK: - IBAction for Search
+    @IBAction func filterButtonTapped(_ sender: Any) {
+        
+    }
+    
+    @IBAction func nearByButtonTapped(_ sender: Any) {
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
