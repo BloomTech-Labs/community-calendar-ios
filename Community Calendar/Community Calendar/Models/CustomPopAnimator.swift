@@ -18,7 +18,7 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     let navView: UIView // Used as a UIViewController size reference
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.35 // Setting duration of animation
+        return 0.35 // Set duration of animation
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -27,40 +27,30 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             let toViewController = transitionContext.viewController(forKey: .to),
             let toView = toViewController.view, let fromView = fromViewController.view else { return }
         transitionContext.containerView.insertSubview(toView, belowSubview: fromView)
-        toView.layer.cornerRadius = viewControllerBorderRadius
-        fromView.layer.cornerRadius = viewControllerBorderRadius
-        
-        if let viewWithFadeTag = toView.viewWithTag(fadeViewTag) {
-            viewWithFadeTag.isHidden = true
-        }
+        toView.layer.cornerRadius = foregroundViewCornerRad
+        fromView.layer.cornerRadius = backgroundViewCornerRad
         
         // Turn off translatesAutoresizingMaskIntoConstraints to be able to set custom constraints programmatically
-        fromView.translatesAutoresizingMaskIntoConstraints = false
         
         let duration = self.transitionDuration(using: transitionContext)
         toView.frame = vcFrameRect(from: navView)
         toView.superview?.layoutIfNeeded()
-        // Set fromView's constraint's to be the same as the navView, aside from the top which needs to be 41px lower
-        constraint(firstView: fromView, to: self.navView).first?.isActive = false
-        let topConst = NSLayoutConstraint(item: fromView, attribute: .top, relatedBy: .equal, toItem: navView, attribute: .top, multiplier: 1, constant: 47); topConst.isActive = true
-        fromView.superview?.layoutIfNeeded()
-        topConst.isActive = false
+        fromView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.minY + 47, width: self.navView.frame.size.width, height: self.navView.frame.size.height - 47)
         
-        let topToBotConst = NSLayoutConstraint(item: fromView, attribute: .top, relatedBy: .equal, toItem: navView, attribute: .bottom, multiplier: 1, constant: 0); topToBotConst.isActive = true
-        
-        let leftConst = NSLayoutConstraint(item: fromView, attribute: .left, relatedBy: .equal, toItem: navView, attribute: .left, multiplier: 1, constant: 0); leftConst.isActive = true
-        let rightConst = NSLayoutConstraint(item: fromView, attribute: .right, relatedBy: .equal, toItem: navView, attribute: .right, multiplier: 1, constant: 0); rightConst.isActive = true
-        toView.superview?.layoutIfNeeded()
-        
-        let botConst = NSLayoutConstraint(item: fromView, attribute: .bottom, relatedBy: .equal, toItem: navView, attribute: .bottom, multiplier: 1, constant: 0)
-        
-        NSLayoutConstraint.activate([topToBotConst, botConst, rightConst, leftConst])
+        var fadeView: UIView?
         UIView.animate(withDuration: duration, animations: {
-            fromView.superview?.layoutIfNeeded()
+            fromView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.maxY, width: self.navView.frame.width, height: self.navView.frame.height - 47)
             toView.frame = self.navView.frame
-//            toView.
+            if let viewWithFadeTag = toView.viewWithTag(fadeViewTag) {
+                viewWithFadeTag.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+                fadeView = viewWithFadeTag
+            
+                toView.layer.cornerRadius = returnRadius
+            }
         }, completion: { _ in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            fadeView?.isHidden = true
+            toView.layer.cornerRadius = 0
         })
     }
 }

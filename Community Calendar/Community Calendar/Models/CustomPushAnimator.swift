@@ -26,44 +26,32 @@
             let toViewController = transitionContext.viewController(forKey: .to),
             let toView = toViewController.view, let fromView = fromViewController.view else { return }
         transitionContext.containerView.addSubview(toView)
-        toView.layer.cornerRadius = viewControllerBorderRadius
-        fromView.layer.cornerRadius = viewControllerBorderRadius
+        toView.layer.cornerRadius = backgroundViewCornerRad
+        fromView.layer.cornerRadius = foregroundViewCornerRad
         
-        toView.translatesAutoresizingMaskIntoConstraints = false
         let fadeView: UIView
         if let viewWithFadeTag = fromView.viewWithTag(fadeViewTag) {
             viewWithFadeTag.isHidden = false
-            viewWithFadeTag.backgroundColor = .transparentLightGrey
             viewWithFadeTag.frame = toView.frame
             fadeView = viewWithFadeTag
         } else {
             let tempFadeView = UIView()
             tempFadeView.tag = fadeViewTag
             fromView.addSubview(tempFadeView)
-            tempFadeView.backgroundColor = .transparentLightGrey
             tempFadeView.frame = toView.frame
-            tempFadeView.layer.cornerRadius = viewControllerBorderRadius
+            tempFadeView.layer.cornerRadius = backgroundViewCornerRad
             fadeView = tempFadeView
         }
-    
-        let topToBotConst = NSLayoutConstraint(item: toView, attribute: .top, relatedBy: .equal, toItem: navView, attribute: .bottom, multiplier: 1, constant: 0); topToBotConst.isActive = true
-        
-        let leftConst = NSLayoutConstraint(item: toView, attribute: .left, relatedBy: .equal, toItem: navView, attribute: .left, multiplier: 1, constant: 0); leftConst.isActive = true
-        let rightConst = NSLayoutConstraint(item: toView, attribute: .right, relatedBy: .equal, toItem: navView, attribute: .right, multiplier: 1, constant: 0); rightConst.isActive = true
-        toView.superview?.layoutIfNeeded()
-        
-        let botConst = NSLayoutConstraint(item: toView, attribute: .bottom, relatedBy: .equal, toItem: navView, attribute: .bottom, multiplier: 1, constant: 0)
-        constraint(firstView: fromView, to: self.navView)
-        let topConst = NSLayoutConstraint(item: toView, attribute: .top, relatedBy: .equal, toItem: navView, attribute: .top, multiplier: 1, constant: 47)
-        
-        NSLayoutConstraint.activate([topConst, botConst, rightConst, leftConst])
+        toView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.maxY, width: self.navView.frame.width, height: self.navView.frame.height - 47)
         
         let duration = self.transitionDuration(using: transitionContext)
         UIView.animate(withDuration: duration, animations: {
             fromView.frame = vcFrameRect(from: self.navView)
             fadeView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: fromView.frame.size)
+            fadeView.backgroundColor = .transparentLightGrey
             toView.superview?.layoutIfNeeded()
             fromView.superview?.layoutIfNeeded()
+            toView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.minY + 47, width: self.navView.frame.size.width, height: self.navView.frame.size.height - 47)
         }, completion: { _ in
             // Mark transition as complete unless cancelled and allow user input once again
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
