@@ -18,6 +18,7 @@ extension UIColor {
     static let unselectedButton = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 1.0)
     static let unselectedDayButton = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     static let tabBarTint = UIColor(red: 1.0, green: 0.4, blue: 0.41, alpha: 1.0)
+    static let transparentLightGrey = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.3)
 }
 
 extension Notification.Name {
@@ -47,11 +48,16 @@ let cellDateFormatter: DateFormatter = {
 let backendDateFormatter: DateFormatter = {
     let df = DateFormatter()
     df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-//                  "2020-01-11T02:50:09.+0800Z" Dateformatter returns
-//                  "2019-12-22T17:00:00.000Z" Backend returns
-// po backendDateFormatter.string(from: Date())
     return df
 }()
+
+let fadeViewTag = 123
+
+let viewControllerBorderRadius: CGFloat = 20.0
+
+func vcFrameRect(from navView: UIView) -> CGRect {
+    return CGRect(x: navView.frame.maxX * 0.025, y: navView.frame.maxY * 0.04, width: navView.frame.size.width * 0.95, height: navView.frame.size.height * 0.9)
+}
 
 enum NetworkError: Error {
     case encodingError
@@ -60,4 +66,41 @@ enum NetworkError: Error {
     case badDecode
     case noToken // No bearer token
     case otherError(Error)
+}
+
+@discardableResult func constraint(firstView: UIView, to secondView: UIView, top: NSLayoutConstraint? = nil, bot: NSLayoutConstraint? = nil, left: NSLayoutConstraint? = nil, right: NSLayoutConstraint? = nil) -> [NSLayoutConstraint] {
+    let topConst: NSLayoutConstraint
+    let botConst: NSLayoutConstraint
+    let leftConst: NSLayoutConstraint
+    let rightConst: NSLayoutConstraint
+    
+    if let top = top {
+        topConst = top
+    } else {
+        topConst = NSLayoutConstraint(item: firstView, attribute: .top, relatedBy: .equal, toItem: secondView, attribute: .top, multiplier: 1, constant: 0)
+    }
+    
+    if let left = left {
+        leftConst = left
+    } else {
+        leftConst = NSLayoutConstraint(item: firstView, attribute: .left, relatedBy: .equal, toItem: secondView, attribute: .left, multiplier: 1, constant: 0)
+    }
+    
+    if let right = right {
+        rightConst = right
+    } else {
+        rightConst = NSLayoutConstraint(item: firstView, attribute: .right, relatedBy: .equal, toItem: secondView, attribute: .right, multiplier: 1, constant: 0)
+    }
+    
+    if let bot = bot {
+        botConst = bot
+    } else {
+        botConst = NSLayoutConstraint(item: firstView, attribute: .bottom, relatedBy: .equal, toItem: secondView, attribute: .bottom, multiplier: 1, constant: 0)
+    }
+    
+    let constArr = [topConst, leftConst, rightConst, botConst]
+    NSLayoutConstraint.activate(constArr)
+    
+    firstView.superview?.layoutIfNeeded()
+    return constArr
 }

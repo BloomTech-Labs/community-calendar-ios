@@ -51,6 +51,9 @@
 		0EB19D6323A82C6200640A40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */; };
 		0ED2657523AC0FBB00278980 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ED2657323AC0FB000278980 /* schema.json */; };
 		0EE2AC2323CE3B6C002B3EB4 /* Filter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE2AC2223CE3B6C002B3EB4 /* Filter.storyboard */; };
+		0EE2AC2523CE7133002B3EB4 /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2AC2423CE7133002B3EB4 /* CustomPushAnimator.swift */; };
+		0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2AC2623CE7233002B3EB4 /* CustomPopAnimator.swift */; };
+		0EE2AC2923CF5142002B3EB4 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2AC2823CF5142002B3EB4 /* FilterViewController.swift */; };
 		0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */; };
 		0EE307A923AC53470045EFD1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A723AC53470045EFD1 /* Event.swift */; };
 		0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */; };
@@ -118,6 +121,9 @@
 		0EB19D6423A82C6200640A40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ED2657323AC0FB000278980 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		0EE2AC2223CE3B6C002B3EB4 /* Filter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Filter.storyboard; path = "Community Calendar/Storyboards/Filter.storyboard"; sourceTree = SOURCE_ROOT; };
+		0EE2AC2423CE7133002B3EB4 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
+		0EE2AC2623CE7233002B3EB4 /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
+		0EE2AC2823CF5142002B3EB4 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		0EE307A623AC53470045EFD1 /* Community_Calendar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Community_Calendar.xcdatamodel; sourceTree = "<group>"; };
 		0EE307A723AC53470045EFD1 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.debug.xcconfig"; sourceTree = "<group>"; };
@@ -266,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				0EB19D5723A82C5B00640A40 /* HomeViewController.swift */,
+				0EE2AC2823CF5142002B3EB4 /* FilterViewController.swift */,
 				0E7DD80823C8E844009843BE /* EventDetailViewController.swift */,
 				EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */,
 			);
@@ -300,6 +307,8 @@
 				0EE307A723AC53470045EFD1 /* Event.swift */,
 				0E7DD81D23CA4BAC009843BE /* ImageNotification.swift */,
 				0E974A1D23C7D96900CEE05D /* Cache.swift */,
+				0EE2AC2423CE7133002B3EB4 /* CustomPushAnimator.swift */,
+				0EE2AC2623CE7233002B3EB4 /* CustomPopAnimator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -539,11 +548,14 @@
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
 				0E86D5F723AC1C7900CF7012 /* API.swift in Sources */,
 				0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */,
+				0EE2AC2523CE7133002B3EB4 /* CustomPushAnimator.swift in Sources */,
 				0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */,
 				0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */,
 				EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */,
+				0EE2AC2923CF5142002B3EB4 /* FilterViewController.swift in Sources */,
 				0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */,
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
+				0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
 			);
