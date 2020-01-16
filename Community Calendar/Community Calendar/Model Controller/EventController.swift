@@ -58,7 +58,7 @@ class EventController {
             }
             
             if let image = UIImage(data: data) {
-                self.cache.imageDict[key] = image
+                self.cache.cache(value: image, for: key)
                 NotificationCenter.default.post(name: .imageWasLoaded, object: ImageNotification(image: image, url: key))
             }
         }.resume()

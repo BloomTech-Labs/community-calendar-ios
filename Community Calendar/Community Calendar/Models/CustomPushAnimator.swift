@@ -1,16 +1,16 @@
- //
- //  CustomPushAnimator.swift
- //  Community Calendar
- //
- //  Created by Jordan Christensen on 1/15/20.
- //  Copyright © 2020 Mazjap Co. All rights reserved.
- //
- 
- import Foundation
- import UIKit
- 
- // This class creates a custom animation when a push segue is used in tandem with a navigation controller
- class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+//
+//  CustomPushAnimator.swift
+//  Community Calendar
+//
+//  Created by Jordan Christensen on 1/15/20.
+//  Copyright © 2020 Mazjap Co. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+// This class creates a custom animation when a push segue is used in tandem with a navigation controller
+class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     init(view: UIView) {
         self.navView = view
     }
@@ -51,6 +51,8 @@
             fadeView.backgroundColor = .transparentLightGrey
             toView.superview?.layoutIfNeeded()
             fromView.superview?.layoutIfNeeded()
+//            fromView.transform = CGAffineTransform(scaleX: 0.925, y: 0.9)
+            
             toView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.minY + 47, width: self.navView.frame.size.width, height: self.navView.frame.size.height - 47)
         }, completion: { _ in
             // Mark transition as complete unless cancelled and allow user input once again
@@ -60,6 +62,8 @@
             UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.insertSubview(fromView, at: 0)
             
             fromView.frame = vcFrameRect(from: self.navView)
+//            fromView.transform = CGAffineTransform(scaleX: 0.925, y: 0.9)
+            fromView.superview?.layoutIfNeeded()
         })
     }
- }
+}

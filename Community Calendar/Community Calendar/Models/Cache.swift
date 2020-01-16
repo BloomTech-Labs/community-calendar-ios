@@ -9,19 +9,24 @@
 import Foundation
 
 class Cache<Key, Value> where Key : Hashable {
-    private let queue = DispatchQueue(label: "General Cache Queue")
-    
-    var imageDict: [Key: Value] = [:]
+    private let queue = DispatchQueue(label: "com.mazjap.Community-Calendar.cache")
+    private var cache = [Key : Value]()
     
     func cache(value: Value, for key: Key) {
         queue.async {
-            self.imageDict[key] = value
+            self.cache[key] = value
         }
     }
     
     func fetch(key: Key) -> Value? {
         return queue.sync {
-            imageDict[key]
+            cache[key]
+        }
+    }
+    
+    func clear() {
+        queue.async {
+            self.cache.removeAll()
         }
     }
 }
