@@ -15,27 +15,11 @@ struct Event: Codable {
         self.startDate = backendDateFormatter.date(from: event.start)
         self.endDate = backendDateFormatter.date(from: event.end)
         self.creator = "\(event.creator?.firstName ?? "") \(event.creator?.lastName ?? "")"
-        self.urls = [String]()
-        self.images = [String]()
-        self.rsvps = [String]()
-        self.locations = [Location]()
-        self.tags = [Tag]()
-        
-        for url in event.urls ?? [] {
-            self.urls.append(url.url)
-        }
-        for rsvp in event.rsvps ?? [] {
-            self.rsvps.append("\(rsvp.firstName ?? "") \(rsvp.lastName ?? "")")
-        }
-        for image in event.eventImages ?? [] {
-            self.images.append(image.url)
-        }
-        for location in event.locations ?? [] {
-            self.locations.append(Location(location: location))
-        }
-        for tag in event.tags ?? [] {
-            self.tags.append(Tag(tag: tag))
-        }
+        self.urls = event.urls?.map( { ($0.url) } ) ?? []
+        self.images = event.eventImages?.map( { ($0.url) } ) ?? []
+        self.rsvps = event.rsvps?.map( { ("\($0.firstName ?? "") \($0.lastName ?? "")") } ) ?? []
+        self.locations = event.locations?.map( { (Location(location: $0)) } ) ?? []
+        self.tags = event.tags?.map( { (Tag(tag: $0)) } ) ?? []
     }
     
     let title: String
