@@ -33,9 +33,6 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         // Turn off translatesAutoresizingMaskIntoConstraints to be able to set custom constraints programmatically
         
         let duration = self.transitionDuration(using: transitionContext)
-//        toView.transform = CGAffineTransform(scaleX: 1, y: 1)
-//        toView.transform = CGAffineTransform(scaleX: 0.925, y: 0.9)
-//        toView.frame.origin = navView.frame.origin
         toView.transform = CGAffineTransform(scaleX: 0.925, y: 0.9)
         toView.superview?.layoutIfNeeded()
         fromView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.minY + 47, width: self.navView.frame.size.width, height: self.navView.frame.size.height - 47)
@@ -43,15 +40,12 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         var fadeView: UIView?
         UIView.animate(withDuration: duration, animations: {
             fromView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.maxY, width: self.navView.frame.width, height: self.navView.frame.height - 47)
-//            toView.frame = self.navView.frame
-            
+
             toView.transform = CGAffineTransform(scaleX: 1, y: 1)
             if let viewWithFadeTag = toView.viewWithTag(fadeViewTag) {
-                viewWithFadeTag.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+                viewWithFadeTag.backgroundColor = .clear
                 fadeView = viewWithFadeTag
-                
                 toView.layer.cornerRadius = returnRadius
-                toView.superview?.layoutIfNeeded()
             }
         }, completion: { _ in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)

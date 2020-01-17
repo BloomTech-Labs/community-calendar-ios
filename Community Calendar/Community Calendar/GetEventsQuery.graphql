@@ -5,15 +5,15 @@ query getEvents {
     start
     end
     creator {
-      first_name
-      last_name
+      firstName
+      lastName
     }
-    event_images {
+    eventImages {
       url
     }
     rsvps {
-      first_name
-      last_name
+      firstName
+      lastName
     }
     urls {
       url
@@ -24,12 +24,12 @@ query getEvents {
       name
       state
       city
-      street_address
-      street_address_2
+      streetAddress
+      streetAddress2
       zipcode
       neighborhood {
-        geo_json {
-          geo_json
+        geoJson {
+          geoJson
         }
       }
     }

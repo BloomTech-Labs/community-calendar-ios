@@ -51,7 +51,6 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             fadeView.backgroundColor = .transparentLightGrey
             toView.superview?.layoutIfNeeded()
             fromView.superview?.layoutIfNeeded()
-//            fromView.transform = CGAffineTransform(scaleX: 0.925, y: 0.9)
             
             toView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.minY + 47, width: self.navView.frame.size.width, height: self.navView.frame.size.height - 47)
         }, completion: { _ in
@@ -62,7 +61,6 @@ class CustomPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.insertSubview(fromView, at: 0)
             
             fromView.frame = vcFrameRect(from: self.navView)
-//            fromView.transform = CGAffineTransform(scaleX: 0.925, y: 0.9)
             fromView.superview?.layoutIfNeeded()
         })
     }

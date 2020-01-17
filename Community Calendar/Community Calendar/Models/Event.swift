@@ -60,7 +60,7 @@ struct Location: Codable {
         self.state = location.state
         self.city = location.city
         self.streetAddress = location.streetAddress
-        self.streetAddress2 = location.streetAddress_2
+        self.streetAddress2 = location.streetAddress2
         self.zipcode = location.zipcode
     }
     
