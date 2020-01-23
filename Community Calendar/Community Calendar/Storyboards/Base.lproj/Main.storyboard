@@ -475,7 +475,6 @@
                                 </state>
                                 <connections>
                                     <action selector="seeAllTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e7J-KK-qif"/>
-                                    <segue destination="KkW-Js-76C" kind="show" identifier="CustomShowFilterSegue" id="sp9-hg-Weo"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="lTs-qn-ZIT">
@@ -566,6 +565,7 @@
                                         </state>
                                         <connections>
                                             <action selector="filterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tn6-5C-O9I"/>
+                                            <segue destination="KkW-Js-76C" kind="show" identifier="CustomShowFilterSegue" id="FEy-j1-h1K"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arP-BM-8UQ">
@@ -677,17 +677,34 @@
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2BF-34-zMR" secondAttribute="trailing" constant="16" id="zDC-do-ljo"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cbf-KY-KLb">
+                                <rect key="frame" x="414" y="57.000000000000007" width="44" height="28.333333333333336"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Cancel">
+                                            <attributes>
+                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="searchBarCancelButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nnn-RW-PEC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="pEp-ul-WoK" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="16" id="2Hm-GO-6C6"/>
-                            <constraint firstItem="Mow-Pn-qDL" firstAttribute="top" secondItem="g7Q-b9-lep" secondAttribute="bottom" constant="3" id="6Q2-Rk-dMR"/>
                             <constraint firstItem="z3C-88-WYf" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="16" id="6zd-2q-HCV"/>
                             <constraint firstItem="Mow-Pn-qDL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="E2j-cI-Fam"/>
                             <constraint firstItem="CK3-tv-Sqg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="EEO-DJ-KBV"/>
                             <constraint firstItem="pEp-ul-WoK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-16" id="FoG-gl-n4E"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LqL-6o-O1F" secondAttribute="trailing" constant="16" id="Fzv-mg-Gb6"/>
+                            <constraint firstItem="Cbf-KY-KLb" firstAttribute="centerY" secondItem="g7Q-b9-lep" secondAttribute="centerY" id="GIR-sJ-6zA"/>
                             <constraint firstItem="mbc-pE-p2h" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IN0-An-KPK"/>
+                            <constraint firstItem="Cbf-KY-KLb" firstAttribute="leading" secondItem="g7Q-b9-lep" secondAttribute="trailing" constant="16" id="InZ-aA-7P2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FIc-R7-2qC" secondAttribute="trailing" constant="16" id="Inw-XD-Abv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="z3C-88-WYf" secondAttribute="bottom" id="JaY-Mg-phg"/>
                             <constraint firstItem="lTs-qn-ZIT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Jtc-ju-GQa"/>
@@ -714,6 +731,7 @@
                             <constraint firstItem="i5q-B4-DVp" firstAttribute="centerY" secondItem="CK3-tv-Sqg" secondAttribute="centerY" id="m3J-Hr-FCa"/>
                             <constraint firstItem="U4O-xw-GzV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="oLU-9E-2YU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U4O-xw-GzV" secondAttribute="trailing" constant="16" id="qck-mh-njH"/>
+                            <constraint firstItem="Mow-Pn-qDL" firstAttribute="top" secondItem="g7Q-b9-lep" secondAttribute="bottom" constant="3" id="u8L-Ww-dNL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -725,7 +743,15 @@
                         <outlet property="eventCollectionView" destination="pEp-ul-WoK" id="zdp-d2-exV"/>
                         <outlet property="eventTableView" destination="z3C-88-WYf" id="n6l-Nk-lMW"/>
                         <outlet property="featuredCollectionView" destination="mbc-pE-p2h" id="AGT-ct-TTf"/>
+                        <outlet property="filterButton" destination="aAx-yW-aF5" id="Kpn-iZ-FFI"/>
+                        <outlet property="nearbyButton" destination="arP-BM-8UQ" id="f9w-JJ-zYb"/>
+                        <outlet property="nearbyLabel" destination="bus-3w-XhM" id="jRK-sD-9GB"/>
+                        <outlet property="recentSearchesLabel" destination="2BF-34-zMR" id="PCs-O4-dha"/>
                         <outlet property="searchBar" destination="g7Q-b9-lep" id="qFP-br-D6P"/>
+                        <outlet property="searchBarCancelButton" destination="Cbf-KY-KLb" id="Iqp-Rn-LXF"/>
+                        <outlet property="searchBarTrailingConstraint" destination="Qau-mp-sju" id="MoP-9N-g4S"/>
+                        <outlet property="searchView" destination="Mow-Pn-qDL" id="nbH-Ex-FCa"/>
+                        <outlet property="searchViewTopConstraint" destination="u8L-Ww-dNL" id="Tvn-g1-OsW"/>
                         <outlet property="seperatorView" destination="sQr-3f-pwc" id="IYo-es-5ZK"/>
                         <outlet property="tableViewButton" destination="R4Q-Eg-rjg" id="o4E-S0-BTf"/>
                         <outlet property="thisWeekendButton" destination="njH-uJ-scy" id="7Py-Nu-b35"/>
@@ -735,7 +761,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="474" y="127"/>
+            <point key="canvasLocation" x="473.91304347826093" y="126.5625"/>
         </scene>
         <!--Events-->
         <scene sceneID="SQf-uR-0OJ">

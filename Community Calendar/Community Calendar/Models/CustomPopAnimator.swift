@@ -24,20 +24,20 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         // Create a reference to the view controller that was being displayed and the view controller that will be displayed
         guard let fromViewController = transitionContext.viewController(forKey: .from),
-            let toViewController = transitionContext.viewController(forKey: .to),
+            let toViewController = transitionContext.viewController(forKey: .to) as? HomeViewController,
             let toView = toViewController.view, let fromView = fromViewController.view else { return }
+        toViewController.shouldDismissFilterScreen = false
         transitionContext.containerView.insertSubview(toView, belowSubview: fromView)
         toView.layer.cornerRadius = foregroundViewCornerRad
         fromView.layer.cornerRadius = backgroundViewCornerRad
         
-        // Turn off translatesAutoresizingMaskIntoConstraints to be able to set custom constraints programmatically
         
-        let duration = self.transitionDuration(using: transitionContext)
         toView.transform = CGAffineTransform(scaleX: 0.925, y: 0.9)
         toView.superview?.layoutIfNeeded()
         fromView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.minY + 47, width: self.navView.frame.size.width, height: self.navView.frame.size.height - 47)
         
         var fadeView: UIView?
+        let duration = self.transitionDuration(using: transitionContext)
         UIView.animate(withDuration: duration, animations: {
             fromView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.maxY, width: self.navView.frame.width, height: self.navView.frame.height - 47)
             toView.transform = CGAffineTransform(scaleX: 1, y: 1)

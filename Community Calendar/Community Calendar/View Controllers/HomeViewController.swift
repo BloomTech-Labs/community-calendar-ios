@@ -16,48 +16,48 @@ class HomeViewController: UIViewController {
             updateLists()
         }
     }
+    var shouldDismissFilterScreen = true
     
-    @IBOutlet weak var featuredCollectionView: UICollectionView!
-    @IBOutlet weak var eventCollectionView: UICollectionView!
-    @IBOutlet weak var collectionViewButton: UIButton!
-    @IBOutlet weak var eventTableView: UITableView!
-    @IBOutlet weak var thisWeekendButton: UIButton!
-    @IBOutlet weak var allUpcomingButton: UIButton!
-    @IBOutlet weak var tableViewButton: UIButton!
-    @IBOutlet weak var tomorrowButton: UIButton!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var todayButton: UIButton!
-    @IBOutlet weak var seperatorView: UIView!
-    @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet private weak var featuredCollectionView: UICollectionView!
+    @IBOutlet private weak var eventCollectionView: UICollectionView!
+    @IBOutlet private weak var eventTableView: UITableView!
+
+    @IBOutlet private weak var thisWeekendButton: UIButton!
+    @IBOutlet private weak var allUpcomingButton: UIButton!
+    @IBOutlet private weak var tomorrowButton: UIButton!
+    @IBOutlet private weak var todayButton: UIButton!
+    
+    @IBOutlet private weak var collectionViewButton: UIButton!
+    @IBOutlet private weak var tableViewButton: UIButton!
+    @IBOutlet private weak var seperatorView: UIView!
+    
+    @IBOutlet private weak var dateLabel: UILabel!
     
     // MARK: - IBOutles for Search
-    @IBOutlet weak var filterButton: UIButton!
-    @IBOutlet weak var nearbyButton: UIButton!
-    @IBOutlet weak var nearbyLabel: UILabel!
-    @IBOutlet weak var recentSearchesLabel: UILabel!
-    
+    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet private weak var filterButton: UIButton!
+    @IBOutlet private weak var nearbyButton: UIButton!
+    @IBOutlet private weak var nearbyLabel: UILabel!
+    @IBOutlet private weak var recentSearchesLabel: UILabel!
+    @IBOutlet private weak var searchView: UIView!
+    @IBOutlet private weak var searchBarCancelButton: UIButton!
+    @IBOutlet private weak var searchBarTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private var searchViewTopConstraint: NSLayoutConstraint! // Strong reference so that it wont be deallocated when setting new value
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        eventController.getEvents { result in
-            switch result {
-            case .success(let eventList):
-                self.events = eventList
-            case .failure(let error):
-                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-            }
-        }
-        
+        fetchEvents()
         setUp()
-        dateLabel.text = todayDateFormatter.string(from: Date())
-        eventTableView.separatorColor = UIColor.clear;
 //        printFonts()
-        
-        searchBorderDesigns()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchEvents()
     }
     
     private func setUp() {
+        // Table and collection view set up
         eventTableView.delegate = self
         eventTableView.dataSource = self
         eventTableView.showsVerticalScrollIndicator = false
@@ -70,19 +70,25 @@ class HomeViewController: UIViewController {
         featuredCollectionView.dataSource = self
         featuredCollectionView.showsHorizontalScrollIndicator = false
         
+        tableViewButtonTapped(0)
+        
+        
+        // Searchbar/search set up
         searchBar.delegate = self
         self.navigationController?.delegate = self
+        searchView.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        shouldShowSearchView(false, shouldAnimate: false)
         
-        updateViews()
         
-        
-        tableViewButtonTapped(0)
+        // Filter buttons set up
         todayTapped(UIButton())
-        
         todayButton.titleLabel?.adjustsFontSizeToFitWidth = true
         tomorrowButton.titleLabel?.adjustsFontSizeToFitWidth = true
         thisWeekendButton.titleLabel?.adjustsFontSizeToFitWidth = true
         allUpcomingButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        updateViews()
     }
     
     private func updateViews() {
@@ -93,6 +99,24 @@ class HomeViewController: UIViewController {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .selected)
 
         seperatorView.layer.cornerRadius = 3
+        
+        dateLabel.text = todayDateFormatter.string(from: Date())
+        eventTableView.separatorColor = UIColor.clear
+        
+        searchBorderDesigns()
+    }
+    
+    private func fetchEvents() {
+        eventController.getEvents { result in
+            switch result {
+            case .success(let eventList):
+                if let events = self.events, events != eventList {
+                    self.events = eventList
+                }
+            case .failure(let error):
+                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+            }
+        }
     }
     
     private func setUpSearchBar() {
@@ -107,6 +131,7 @@ class HomeViewController: UIViewController {
         searchBar.layer.shadowRadius = 2
         searchBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         searchBar.searchTextField.placeholder = ""
+        
         if let font = UIFont(name: "Poppins-Medium", size: 14.0) {
             searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [
                 NSAttributedString.Key.font: font,
@@ -143,6 +168,25 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Search Functions
+    
+    func shouldShowSearchView(_ bool: Bool, shouldAnimate: Bool = true) {
+        searchViewTopConstraint.isActive = false
+        if bool {
+            searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: searchBar, attribute: .bottom, multiplier: 1, constant: 3)
+            
+        } else {
+            searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+//            searchView.isHidden = true
+        }
+        searchViewTopConstraint.isActive = true
+        if shouldAnimate {
+            UIView.animate(withDuration: 0.5) {
+                self.searchView.layoutIfNeeded()
+            }
+        } else {
+            self.searchView.layoutIfNeeded()
+        }
+    }
     
     func searchBorderDesigns() {
         // MARK: - Filter Button Border
@@ -212,12 +256,16 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - IBAction for Search
-    @IBAction func filterButtonTapped(_ sender: Any) {
+    @IBAction func filterButtonTapped(_ sender: UIButton) {
         
     }
     
-    @IBAction func nearByButtonTapped(_ sender: Any) {
+    @IBAction func nearByButtonTapped(_ sender: UIButton) {
         
+    }
+    
+    @IBAction func searchBarCancelButtonTapped(_ sender: UIButton) {
+        searchBarSearchButtonClicked(searchBar)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -243,11 +291,14 @@ class HomeViewController: UIViewController {
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "CustomShowFilterSegue" {
+            shouldDismissFilterScreen = false
             guard let filterVC = segue.destination as? FilterViewController else { return }
             filterVC.delegate = self
         }
     }
 }
+
+// MARK: - Extensions
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -326,15 +377,36 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension HomeViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        if shouldDismissFilterScreen {
+            shouldShowSearchView(true)
+            searchBarTrailingConstraint.constant = -searchBarCancelButton.frame.width - 32
+            UIView.animate(withDuration: 0.25) {
+                searchBar.layoutIfNeeded()
+                searchBar.superview?.layoutIfNeeded()
+            }
+        }
+        shouldDismissFilterScreen = true
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        searchBar.endEditing(true)
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if shouldDismissFilterScreen {
+            searchBar.setShowsCancelButton(false, animated: true)
+            shouldShowSearchView(false)
+            searchBarTrailingConstraint.constant = -16
+            UIView.animate(withDuration: 0.25) {
+                searchBar.layoutIfNeeded()
+                searchBar.superview?.layoutIfNeeded()
+            }
+        }
     }
 }
 
