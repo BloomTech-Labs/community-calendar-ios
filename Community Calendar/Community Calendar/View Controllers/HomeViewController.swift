@@ -71,11 +71,18 @@ class HomeViewController: UIViewController {
         featuredCollectionView.showsHorizontalScrollIndicator = false
         
         searchBar.delegate = self
+        self.navigationController?.delegate = self
         
         updateViews()
         
+        
         tableViewButtonTapped(0)
         todayTapped(UIButton())
+        
+        todayButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        tomorrowButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        thisWeekendButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        allUpcomingButton.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
     private func updateViews() {
@@ -131,7 +138,7 @@ class HomeViewController: UIViewController {
     private func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
         let font = UIFont(name: fontName, size: 14)
         let attrString = NSAttributedString(string: title,
-                                            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font ?? UIFont()])
+            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font ?? UIFont()])
         return attrString
     }
     
@@ -214,24 +221,30 @@ class HomeViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let detailVC = segue.destination as? EventDetailViewController else { return }
-        detailVC.eventController = eventController
-        
         if segue.identifier == "ShowFeaturedDetailSegue" {
-            guard let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
+            guard let detailVC = segue.destination as? EventDetailViewController,
+                let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
                 let events = events else { return }
+            detailVC.eventController = eventController
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "ShowEventsTableDetailSegue" {
-            guard let indexPath = eventTableView.indexPathForSelectedRow,
-                let events = events else { return }
+            guard let detailVC = segue.destination as? EventDetailViewController,
+            let indexPath = eventTableView.indexPathForSelectedRow,
+            let events = events else { return }
+            detailVC.eventController = eventController
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
-            guard let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
-                let events = events else { return }
+            guard let detailVC = segue.destination as? EventDetailViewController,
+            let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
+            let events = events else { return }
+            detailVC.eventController = eventController
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
+        } else if segue.identifier == "CustomShowFilterSegue" {
+            guard let filterVC = segue.destination as? FilterViewController else { return }
+            filterVC.delegate = self
         }
     }
 }
@@ -322,5 +335,32 @@ extension HomeViewController: UISearchBarDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         searchBar.endEditing(true)
+    }
+}
+
+
+extension HomeViewController: UINavigationControllerDelegate {
+
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard let view = self.navigationController?.view else { return nil }
+        
+        switch operation {
+        case .push:
+            if let _ = toVC as? FilterViewController {
+                return CustomPushAnimator(view: view)
+            } else {
+                return nil
+            }
+        case .pop:
+            return CustomPopAnimator(view: view)
+        default:
+            return nil
+        }
+    }
+}
+
+extension HomeViewController: FilterDelegate {
+    func receive(filters: [Tag]) {
+        _ = filters.map({ print($0.title) })
     }
 }
