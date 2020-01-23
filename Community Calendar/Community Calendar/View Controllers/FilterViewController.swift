@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FilterDelegate {
-    func receive(filters: [String])
+    func receive(filters: [Tag])
 }
 
 class FilterViewController: UIViewController {
@@ -22,8 +22,8 @@ class FilterViewController: UIViewController {
     
     var delegate: FilterDelegate?
     
-    var selectedFilters = [String]()
-    var suggestedFilters = [String]()
+    var selectedFilters = [Tag]()
+    var suggestedFilters = [Tag]()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -39,6 +39,8 @@ class FilterViewController: UIViewController {
         
         suggestedTagsCollectionView.delegate = self
         suggestedTagsCollectionView.dataSource = self
+        suggestedTagsCollectionView.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +51,13 @@ class FilterViewController: UIViewController {
     
     private func updateViews() {
         setUpSearchBar()
+        
         applyButton.layer.cornerRadius = 6
+    }
+    
+    private func reloadCollectionViewsData() {
+        selectedTagsCollectionView.reloadData()
+        suggestedTagsCollectionView.reloadData()
     }
     
     private func setUpSearchBar() {
@@ -75,20 +83,28 @@ class FilterViewController: UIViewController {
     
     private func addSuggestedFilters() {
         // TODO: Get data from back end or show recent or most used filters. Alternatively use CoreML to learn what kind of filters the user likes and suggest new and used ones appropriately.
-        suggestedFilters = ["Cooking", "Tech", "Reading", "Health & Wellness"]
+        suggestedFilters = [Tag(title: "Cooking"), Tag(title: "Tech"), Tag(title: "Reading"), Tag(title: "Health & Wellness")]
     }
     
     @IBAction func exitTapped(_ sender: UIButton) {
+        exitButton.setImage(UIImage(named: "x-light"), for: .normal)
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func clearTags(_ sender: UIButton) {
+        selectedFilters = []
+        addSuggestedFilters()
+        // TODO - remove location zip and data filters
+        reloadCollectionViewsData()
+    }
+    
     @IBAction func applyFilters(_ sender: UIButton) {
-        delegate?.receive(filters: ["hi!"])
+        delegate?.receive(filters: selectedFilters)
         navigationController?.popViewController(animated: true)
     }
 }
 
-extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSource, FilterCellDelegate {
+extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FilterCellDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == selectedTagsCollectionView {
             return selectedFilters.count
@@ -101,13 +117,13 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == selectedTagsCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectedFilterCell", for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
-            cell.tagName = selectedFilters[indexPath.row]
+            cell.filterTag = selectedFilters[indexPath.row]
             cell.isActive = true
             cell.delegate = self
             return cell
         } else if collectionView == suggestedTagsCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SuggestedFilterCell", for: indexPath) as? TagCollectionViewCell else { return UICollectionViewCell() }
-            cell.tagName = suggestedFilters[indexPath.row]
+            cell.filterTag = suggestedFilters[indexPath.row]
             cell.isActive = false
             cell.delegate = self
             return cell
@@ -116,10 +132,11 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func buttonTapped(cell: TagCollectionViewCell) {
+        guard let tag = cell.filterTag else { return }
         if cell.isActive {
             guard let indexPath = selectedTagsCollectionView.indexPath(for: cell) else { return }
             for i in 0..<selectedFilters.count {
-                if selectedFilters[i] == cell.tagName {
+                if selectedFilters[i] == tag {
                     selectedFilters.remove(at: i); break
                 }
             }
@@ -127,12 +144,30 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
         } else {
             guard let indexPath = suggestedTagsCollectionView.indexPath(for: cell) else { return }
             for i in 0..<suggestedFilters.count {
-                if suggestedFilters[i] == cell.tagName {
+                if suggestedFilters[i] == tag {
                     suggestedFilters.remove(at: i); break
                 }
             }
-            selectedFilters.append(cell.tagName ?? "NO NAME")
-            selectedTagsCollectionView.deleteItems(at: [indexPath])
+            selectedFilters.append(tag)
+            suggestedTagsCollectionView.deleteItems(at: [indexPath])
         }
+        reloadCollectionViewsData()
+    }
+}
+
+class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
+
+    override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let layoutAttributesObjects = super.layoutAttributesForElements(in: rect)
+
+        layoutAttributesObjects?.forEach({ layoutAttributes in
+            if layoutAttributes.representedElementCategory == .cell {
+                let indexPath = layoutAttributes.indexPath
+                if let newFrame = layoutAttributesForItem(at: indexPath)?.frame {
+                    layoutAttributes.frame = newFrame
+                }
+            }
+        })
+        return layoutAttributesObjects
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Event: Codable {
+struct Event: Codable, Equatable {
     init(event: GetEventsQuery.Data.Event) {
         self.title = event.title
         self.description = event.description
@@ -34,7 +34,7 @@ struct Event: Codable {
     var tags: [Tag]
 }
 
-struct Location: Codable {
+struct Location: Codable, Equatable {
     init(location: GetEventsQuery.Data.Event.Location) {
         self.latitude = nil
         self.longitude = nil
@@ -58,13 +58,16 @@ struct Location: Codable {
     let zipcode: Int
 }
 
-struct Tag: Codable {
+struct Tag: Codable, Equatable {
     init(tag: GetEventsQuery.Data.Event.Tag) {
-        self.title = tag.title
-//        self.id = tag.id // Custom type, will implement later
-        self.id = nil
+        self.init(title: tag.title, id: tag.id)
+    }
+    
+    init(title: String, id: String? = nil) {
+        self.title = title
+        self.id = id
     }
     
     let title: String
-    let id: Int?
+    let id: String?
 }

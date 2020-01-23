@@ -40,13 +40,13 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         var fadeView: UIView?
         UIView.animate(withDuration: duration, animations: {
             fromView.frame = CGRect(x: self.navView.frame.minX, y: self.navView.frame.maxY, width: self.navView.frame.width, height: self.navView.frame.height - 47)
-
             toView.transform = CGAffineTransform(scaleX: 1, y: 1)
             if let viewWithFadeTag = toView.viewWithTag(fadeViewTag) {
                 viewWithFadeTag.backgroundColor = .clear
                 fadeView = viewWithFadeTag
                 toView.layer.cornerRadius = returnRadius
             }
+            fadeView?.transform = CGAffineTransform(scaleX: 1, y: 1)
         }, completion: { _ in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             fadeView?.isHidden = true
