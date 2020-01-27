@@ -1,5 +1,48 @@
-query getEvents($filters: SearchFilters) {
+query getEventsByFilter($filters: SearchFilters) {
   events(searchFilters: $filters) {
+    title
+    description
+    start
+    end
+    ticketPrice
+    creator {
+      firstName
+      lastName
+    }
+    eventImages {
+      url
+    }
+    rsvps {
+      firstName
+      lastName
+    }
+    urls {
+      url
+    }
+    locations {
+      latitude
+      longitude
+      name
+      state
+      city
+      streetAddress
+      streetAddress2
+      zipcode
+      neighborhood {
+        geoJson {
+          geoJson
+        }
+      }
+    }
+    tags {
+      title
+      id
+    }
+  }
+}
+
+query getEvents {
+  events {
     title
     description
     start

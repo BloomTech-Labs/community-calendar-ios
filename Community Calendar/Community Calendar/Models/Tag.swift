@@ -13,6 +13,10 @@ struct Tag: Codable, Equatable {
         self.init(title: tag.title, id: tag.id)
     }
     
+    init(tag: GetEventsByFilterQuery.Data.Event.Tag) {
+        self.init(title: tag.title, id: tag.id)
+    }
+    
     init(title: String, id: String? = nil) {
         self.title = title
         self.id = id

@@ -9,26 +9,27 @@
 import UIKit
 
 protocol FilterDelegate {
-    func receive(filters: [Tag])
+    func receive(filters: Filter)
 }
 
 class FilterViewController: UIViewController {
-    
-    @IBOutlet weak var exitButton: UIButton!
-    @IBOutlet weak var tagsSearchBar: UISearchBar!
-    @IBOutlet weak var applyButton: UIButton!
-    @IBOutlet weak var selectedTagsCollectionView: UICollectionView!
-    @IBOutlet weak var suggestedTagsCollectionView: UICollectionView!
-    
+    // MARK: - Varibles
     var delegate: FilterDelegate?
-    
     var selectedFilters = [Tag]()
     var suggestedFilters = [Tag]()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
+    
+    // MARK: - IBOutlets
+    @IBOutlet weak var exitButton: UIButton!
+    @IBOutlet weak var tagsSearchBar: UISearchBar!
+    @IBOutlet weak var applyButton: UIButton!
+    @IBOutlet weak var selectedTagsCollectionView: UICollectionView!
+    @IBOutlet weak var suggestedTagsCollectionView: UICollectionView!
 
+    // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,6 +50,7 @@ class FilterViewController: UIViewController {
         addSuggestedFilters()
     }
     
+    // MARK: - Functions
     private func updateViews() {
         setUpSearchBar()
         
@@ -86,6 +88,7 @@ class FilterViewController: UIViewController {
         suggestedFilters = [Tag(title: "Cooking"), Tag(title: "Tech"), Tag(title: "Reading"), Tag(title: "Health & Wellness")]
     }
     
+    // MARK: - IBActions
     @IBAction func exitTapped(_ sender: UIButton) {
         exitButton.setImage(UIImage(named: "x-light"), for: .normal)
         navigationController?.popViewController(animated: true)
@@ -99,11 +102,12 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func applyFilters(_ sender: UIButton) {
-        delegate?.receive(filters: selectedFilters)
+        delegate?.receive(filters: Filter(index: nil, tags: selectedFilters, location: nil, ticketRange: nil, dateRange: nil))
         navigationController?.popViewController(animated: true)
     }
 }
 
+// MARK: - Extensions
 extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FilterCellDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == selectedTagsCollectionView {
@@ -155,6 +159,7 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 }
 
+// MARK: - Flow Layout
 class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
     override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {

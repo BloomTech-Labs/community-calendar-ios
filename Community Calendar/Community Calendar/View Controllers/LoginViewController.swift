@@ -11,10 +11,7 @@ import Auth0
 import SafariServices
 
 class LoginViewController: UIViewController {
-    
-    @IBOutlet weak var LoginButton: UIButton!
-    @IBOutlet weak var logOutButton: UIButton!
-    
+    // MARK: - Variables
     var homeController = HomeViewController()
     
     var onAuth: ((Result<Credentials>) -> ())!
@@ -28,6 +25,11 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // MARK: - IBOutlets
+    @IBOutlet weak var LoginButton: UIButton!
+    @IBOutlet weak var logOutButton: UIButton!
+    
+    // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,6 +46,7 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // MARK: - Functions
     func logoutAlertController() {
         let alert = UIAlertController(title: "Success", message: "You have successfully logged out", preferredStyle: .alert)
         
@@ -83,6 +86,9 @@ class LoginViewController: UIViewController {
                         self.logOutButton.isHidden = false
                     }
                     print("Credentials: \(credentials)")
+                    DispatchQueue.main.async {
+                        self.tabBarController?.selectedIndex = 0
+                    }
                 }
         }
     }

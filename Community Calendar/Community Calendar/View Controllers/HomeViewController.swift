@@ -28,7 +28,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var seperatorView: UIView!
     @IBOutlet private weak var dateLabel: UILabel!
     
-    // MARK: - Filter Button IBOutles
+    // MARK: - Filter Buttons IBOutles
     @IBOutlet private weak var thisWeekendButton: UIButton!
     @IBOutlet private weak var allUpcomingButton: UIButton!
     @IBOutlet private weak var tomorrowButton: UIButton!
@@ -44,12 +44,11 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var searchBarCancelButton: UIButton!
     @IBOutlet private weak var searchBarTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private var searchViewTopConstraint: NSLayoutConstraint! // Strong reference so that it wont be deallocated when setting new value
-    @IBOutlet private var searchViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private var searchViewBottomConstraint: NSLayoutConstraint! // ""
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchEvents()
         setUp()
 //        printFonts()
     }
@@ -300,7 +299,7 @@ class HomeViewController: UIViewController {
     }
 }
 
-// MARK: - Extensions
+// MARK: - Table View Extension
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events?.count ?? 0
@@ -347,6 +346,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - Collection View Extension
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return events?.count ?? 0
@@ -377,6 +377,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
+// MARK: - Search Bar Extension
 extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         if shouldDismissFilterScreen {
@@ -411,7 +412,7 @@ extension HomeViewController: UISearchBarDelegate {
     }
 }
 
-
+// MARK: - Navigation Extension
 extension HomeViewController: UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -432,8 +433,16 @@ extension HomeViewController: UINavigationControllerDelegate {
     }
 }
 
+// MARK: - Filter Extension
 extension HomeViewController: FilterDelegate {
-    func receive(filters: [Tag]) {
-        _ = filters.map({ print($0.title) })
+    func receive(filters: Filter) {
+        eventController.getEvents(by: filters) { result in
+            switch result {
+            case .success(let eventList):
+                print(eventList.count)
+            case .failure(let error):
+                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+            }
+        }
     }
 }

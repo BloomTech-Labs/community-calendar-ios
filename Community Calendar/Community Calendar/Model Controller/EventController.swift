@@ -14,14 +14,43 @@ class EventController {
     public let cache = Cache<String, UIImage>()
     private let graphQLClient = ApolloClient(url: URL(string: "https://ccstaging.herokuapp.com/graphql")!)
     
-    func getEvents(filters: Filter = Filter(), completion: @escaping (Result<[Event], Error>) -> Void) {
-        graphQLClient.fetch(query: GetEventsQuery(filters: filters.searchFilter)) { result in
+    func getEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
+        graphQLClient.fetch(query: GetEventsQuery()) { result in
             switch result {
             case .failure(let error):
-                NSLog("\(#file):L\(#line): Error fetching events inside \(#function) with error: \(error)")
                 completion(.failure(error))
             case .success(let graphQLResult):
-                guard let data = graphQLResult.data?.events else { return }
+                guard let data = graphQLResult.data?.events else {
+                    completion(.failure(NetworkError.noData))
+                    return
+                }
+                
+                var events = [Event]()
+                for event in data {
+                    events.append(Event(event: event))
+                }
+                let sortedEvents = events.sorted { a, b -> Bool in
+                    if let aStartDate = a.startDate, let bStartDate = b.startDate {
+                        return aStartDate < bStartDate
+                    } else {
+                        return a.title.lowercased() < b.title.lowercased()
+                    }
+                }
+                completion(.success(sortedEvents))
+            }
+        }
+    }
+    
+    func getEvents(by filters: Filter, completion: @escaping (Result<[Event], Error>) -> Void) {
+        graphQLClient.fetch(query: GetEventsByFilterQuery(filters: filters.searchFilter)) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                guard let data = graphQLResult.data?.events else {
+                    completion(.failure(NetworkError.noData))
+                    return
+                }
                 
                 var events = [Event]()
                 for event in data {

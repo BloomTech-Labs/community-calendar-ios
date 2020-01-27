@@ -23,7 +23,7 @@ struct Filter {
     let ticketPrice: (Int, Int)?
     let dateRange: (Date, Date)?
     
-    var searchFilter: SearchFilters {
+    var searchFilter: SearchFilters? {
         let locationFilter: LocationSearchInput?
         let dateRangeFilter: DateRangeSearchInput?
         var ticketPriceFilter: [TicketPriceSearchInput]?
@@ -39,6 +39,10 @@ struct Filter {
         if let ticketRange = ticketPrice {
             ticketPriceFilter = [TicketPriceSearchInput(minPrice: ticketRange.0, maxPrice: ticketRange.1)]
         } else { ticketPriceFilter = nil }
+        
+        if index == nil && locationFilter == nil && dateRangeFilter == nil && ticketPriceFilter == nil && (tags == nil || tags?.count == 0) {
+            return nil
+        }
         
         return SearchFilters(index: index, location: locationFilter, tags: self.tags?.map({ $0.title }), ticketPrice: ticketPriceFilter, dateRange: dateRangeFilter)
     }
