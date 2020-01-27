@@ -34,8 +34,11 @@ class EventDetailViewController: UIViewController {
         guard isViewLoaded, let event = event else { return }
         titleLabel.text = event.title
         
-        if let eventController = eventController, let imageUrl = event.images.first {
-            eventController.loadImage(for: imageUrl)
+        if let imageURL = event.images.first, !imageURL.isEmpty {
+            if eventController?.cache.fetch(key: imageURL) == nil {
+                eventImageView.image = nil
+            }
+            eventController?.loadImage(for: imageURL)
         } else {
             if let indexPath = indexPath {
                 eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")

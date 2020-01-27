@@ -9,32 +9,32 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    
+    // MARK: - Varibles
+    var shouldDismissFilterScreen = true
     private let eventController = EventController()
     private var events: [Event]? {
         didSet {
             updateLists()
         }
     }
-    var shouldDismissFilterScreen = true
     
-    
+    // MARK: - Lists IBOutles
     @IBOutlet private weak var featuredCollectionView: UICollectionView!
     @IBOutlet private weak var eventCollectionView: UICollectionView!
     @IBOutlet private weak var eventTableView: UITableView!
-
+    
+    @IBOutlet private weak var collectionViewButton: UIButton!
+    @IBOutlet private weak var tableViewButton: UIButton!
+    @IBOutlet private weak var seperatorView: UIView!
+    @IBOutlet private weak var dateLabel: UILabel!
+    
+    // MARK: - Filter Button IBOutles
     @IBOutlet private weak var thisWeekendButton: UIButton!
     @IBOutlet private weak var allUpcomingButton: UIButton!
     @IBOutlet private weak var tomorrowButton: UIButton!
     @IBOutlet private weak var todayButton: UIButton!
     
-    @IBOutlet private weak var collectionViewButton: UIButton!
-    @IBOutlet private weak var tableViewButton: UIButton!
-    @IBOutlet private weak var seperatorView: UIView!
-    
-    @IBOutlet private weak var dateLabel: UILabel!
-    
-    // MARK: - IBOutles for Search
+    // MARK: - Search IBOutles
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var filterButton: UIButton!
     @IBOutlet private weak var nearbyButton: UIButton!
@@ -45,6 +45,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var searchBarTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private var searchViewTopConstraint: NSLayoutConstraint! // Strong reference so that it wont be deallocated when setting new value
     
+    // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchEvents()
@@ -56,7 +57,8 @@ class HomeViewController: UIViewController {
         fetchEvents()
     }
     
-    private func setUp() {
+    // MARK: - Functions
+    private func setUp() { // Things that only need to be set once
         // Table and collection view set up
         eventTableView.delegate = self
         eventTableView.dataSource = self
@@ -72,7 +74,7 @@ class HomeViewController: UIViewController {
         
         tableViewButtonTapped(0)
         
-        
+
         // Searchbar/search set up
         searchBar.delegate = self
         self.navigationController?.delegate = self
@@ -93,24 +95,24 @@ class HomeViewController: UIViewController {
     
     private func updateViews() {
         setUpSearchBar()
-        self.tabBarController?.tabBar.tintColor = .tabBarTint
-        
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Poppins", size: 10)!], for: .selected)
+        searchBorderDesigns()
 
         seperatorView.layer.cornerRadius = 3
         
         dateLabel.text = todayDateFormatter.string(from: Date())
         eventTableView.separatorColor = UIColor.clear
         
-        searchBorderDesigns()
+        guard let poppinsFont = UIFont(name: "Poppins", size: 10) else { return }
+        self.tabBarController?.tabBar.tintColor = .tabBarTint
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: poppinsFont], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: poppinsFont], for: .selected)
     }
     
     private func fetchEvents() {
         eventController.getEvents { result in
             switch result {
             case .success(let eventList):
-                if let events = self.events, events != eventList {
+                if self.events != eventList {
                     self.events = eventList
                 }
             case .failure(let error):
@@ -151,11 +153,11 @@ class HomeViewController: UIViewController {
     
     private func printFonts() {
         // To test if fonts were added correctly: (Common mistakes: Incorrect/no target membership, not listed in info.plist)
-        for family in UIFont.familyNames {
-            let sName: String = family as String
-            print("Family: \(sName)")
-            for name in UIFont.fontNames(forFamilyName: sName) {
-                print("Name: \(name as String)")
+        for fam in UIFont.familyNames {
+            print("Family: \(fam)")
+            for fontName in UIFont.fontNames(forFamilyName: fam) {
+                print("Name: \(fontName)")
+                // If font is here ^, you can use it in storyboard or code, if not, there is an issue
             }
         }
     }
@@ -168,15 +170,14 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Search Functions
-    
     func shouldShowSearchView(_ bool: Bool, shouldAnimate: Bool = true) {
         searchViewTopConstraint.isActive = false
         if bool {
             searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: searchBar, attribute: .bottom, multiplier: 1, constant: 3)
-            
+            searchView.isHidden = false
         } else {
             searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-//            searchView.isHidden = true
+            searchView.isHidden = true
         }
         searchViewTopConstraint.isActive = true
         if shouldAnimate {
@@ -189,25 +190,24 @@ class HomeViewController: UIViewController {
     }
     
     func searchBorderDesigns() {
-        // MARK: - Filter Button Border
+        // Set filter button's border
         filterButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
         filterButton.layer.cornerRadius = 29 / 1.6
         filterButton.layer.borderWidth = 1
         filterButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
         
-        // MARK: - Nearby Button Border
+        // Set nearby button's boarder
         nearbyButton.layer.backgroundColor = UIColor(red: 0.842, green: 0.842, blue: 0.842, alpha: 1).cgColor
         nearbyButton.layer.cornerRadius = 5
         nearbyButton.layer.borderWidth = 1
         nearbyButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
         
-        // MARK: - Nearby Label color
+        // Change text color
         nearbyLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
-        
-        // MARK: - Recent Searches Label Color
         recentSearchesLabel.textColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
     }
     
+    // MARK: - IBActions
     @IBAction func tableViewButtonTapped(_ sender: Any) {
         eventCollectionView.isHidden = true
         eventTableView.isHidden = false
@@ -227,6 +227,7 @@ class HomeViewController: UIViewController {
         
     }
     
+    // MARK: - Filter Buttons IBActions
     @IBAction func todayTapped(_ sender: UIButton) {
         todayButton.setAttributedTitle(createAttrText(with: "Today", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
@@ -255,7 +256,7 @@ class HomeViewController: UIViewController {
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
     }
     
-    // MARK: - IBAction for Search
+    // MARK: - Search IBActions
     @IBAction func filterButtonTapped(_ sender: UIButton) {
         
     }
@@ -299,7 +300,6 @@ class HomeViewController: UIViewController {
 }
 
 // MARK: - Extensions
-
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events?.count ?? 0
