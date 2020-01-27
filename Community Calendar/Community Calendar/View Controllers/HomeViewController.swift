@@ -44,6 +44,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var searchBarCancelButton: UIButton!
     @IBOutlet private weak var searchBarTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private var searchViewTopConstraint: NSLayoutConstraint! // Strong reference so that it wont be deallocated when setting new value
+    @IBOutlet private var searchViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
@@ -174,10 +175,10 @@ class HomeViewController: UIViewController {
         searchViewTopConstraint.isActive = false
         if bool {
             searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: searchBar, attribute: .bottom, multiplier: 1, constant: 3)
-            searchView.isHidden = false
+            searchViewBottomConstraint.isActive = true
         } else {
             searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-            searchView.isHidden = true
+            searchViewBottomConstraint.isActive = false
         }
         searchViewTopConstraint.isActive = true
         if shouldAnimate {

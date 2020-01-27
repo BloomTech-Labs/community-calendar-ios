@@ -652,8 +652,6 @@
                                         </accessibility>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="5bz-Z1-xET"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="Z7Q-vl-6R0"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="dwt-Pl-Tih"/>
                                             <constraint firstAttribute="width" constant="42" id="lqf-1V-75O"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="14" minY="12" maxX="14" maxY="12"/>
@@ -674,11 +672,11 @@
                                     <constraint firstAttribute="trailing" secondItem="xmU-Od-diR" secondAttribute="trailing" id="GZ3-fI-z1h"/>
                                     <constraint firstItem="xmU-Od-diR" firstAttribute="leading" secondItem="Mow-Pn-qDL" secondAttribute="leading" id="LP4-KZ-exi"/>
                                     <constraint firstItem="wSe-Ij-G4k" firstAttribute="leading" secondItem="HQy-HE-ttx" secondAttribute="trailing" constant="16" id="QbO-TW-wMK"/>
-                                    <constraint firstItem="bus-3w-XhM" firstAttribute="top" secondItem="aAx-yW-aF5" secondAttribute="bottom" constant="27" id="SuA-BO-5C2"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bus-3w-XhM" secondAttribute="trailing" constant="16" id="lf3-HI-xrD"/>
                                     <constraint firstItem="2BF-34-zMR" firstAttribute="leading" secondItem="aAx-yW-aF5" secondAttribute="leading" id="oPW-Oq-OUc"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aAx-yW-aF5" secondAttribute="trailing" constant="16" id="pl7-sZ-uNX"/>
                                     <constraint firstItem="aAx-yW-aF5" firstAttribute="leading" secondItem="Mow-Pn-qDL" secondAttribute="leading" constant="16" id="rMo-Wy-wiz"/>
+                                    <constraint firstItem="bus-3w-XhM" firstAttribute="centerY" secondItem="Bjf-vJ-joZ" secondAttribute="centerY" id="trm-56-egL"/>
                                     <constraint firstItem="Bjf-vJ-joZ" firstAttribute="top" secondItem="aAx-yW-aF5" secondAttribute="bottom" constant="16" id="uE5-XX-1d3"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2BF-34-zMR" secondAttribute="trailing" constant="16" id="zDC-do-ljo"/>
                                 </constraints>
@@ -757,6 +755,7 @@
                         <outlet property="searchBarCancelButton" destination="Cbf-KY-KLb" id="Iqp-Rn-LXF"/>
                         <outlet property="searchBarTrailingConstraint" destination="Qau-mp-sju" id="MoP-9N-g4S"/>
                         <outlet property="searchView" destination="Mow-Pn-qDL" id="nbH-Ex-FCa"/>
+                        <outlet property="searchViewBottomConstraint" destination="EKM-Ik-2QD" id="nAj-YO-Ouz"/>
                         <outlet property="searchViewTopConstraint" destination="u8L-Ww-dNL" id="Tvn-g1-OsW"/>
                         <outlet property="seperatorView" destination="sQr-3f-pwc" id="IYo-es-5ZK"/>
                         <outlet property="tableViewButton" destination="R4Q-Eg-rjg" id="o4E-S0-BTf"/>
