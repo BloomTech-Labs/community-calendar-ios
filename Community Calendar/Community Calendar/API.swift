@@ -3,17 +3,158 @@
 import Apollo
 import Foundation
 
+public struct SearchFilters: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(index: Swift.Optional<String?> = nil, location: Swift.Optional<LocationSearchInput?> = nil, tags: Swift.Optional<[String]?> = nil, ticketPrice: Swift.Optional<[TicketPriceSearchInput]?> = nil, dateRange: Swift.Optional<DateRangeSearchInput?> = nil) {
+    graphQLMap = ["index": index, "location": location, "tags": tags, "ticketPrice": ticketPrice, "dateRange": dateRange]
+  }
+
+  public var index: Swift.Optional<String?> {
+    get {
+      return graphQLMap["index"] as? Swift.Optional<String?> ?? Swift.Optional<String?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "index")
+    }
+  }
+
+  public var location: Swift.Optional<LocationSearchInput?> {
+    get {
+      return graphQLMap["location"] as? Swift.Optional<LocationSearchInput?> ?? Swift.Optional<LocationSearchInput?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "location")
+    }
+  }
+
+  public var tags: Swift.Optional<[String]?> {
+    get {
+      return graphQLMap["tags"] as? Swift.Optional<[String]?> ?? Swift.Optional<[String]?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "tags")
+    }
+  }
+
+  public var ticketPrice: Swift.Optional<[TicketPriceSearchInput]?> {
+    get {
+      return graphQLMap["ticketPrice"] as? Swift.Optional<[TicketPriceSearchInput]?> ?? Swift.Optional<[TicketPriceSearchInput]?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "ticketPrice")
+    }
+  }
+
+  public var dateRange: Swift.Optional<DateRangeSearchInput?> {
+    get {
+      return graphQLMap["dateRange"] as? Swift.Optional<DateRangeSearchInput?> ?? Swift.Optional<DateRangeSearchInput?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "dateRange")
+    }
+  }
+}
+
+public struct LocationSearchInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(userLongitude: Double, userLatitude: Double, radius: Int) {
+    graphQLMap = ["userLongitude": userLongitude, "userLatitude": userLatitude, "radius": radius]
+  }
+
+  public var userLongitude: Double {
+    get {
+      return graphQLMap["userLongitude"] as! Double
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "userLongitude")
+    }
+  }
+
+  public var userLatitude: Double {
+    get {
+      return graphQLMap["userLatitude"] as! Double
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "userLatitude")
+    }
+  }
+
+  public var radius: Int {
+    get {
+      return graphQLMap["radius"] as! Int
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "radius")
+    }
+  }
+}
+
+public struct TicketPriceSearchInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(minPrice: Swift.Optional<Int?> = nil, maxPrice: Swift.Optional<Int?> = nil) {
+    graphQLMap = ["minPrice": minPrice, "maxPrice": maxPrice]
+  }
+
+  public var minPrice: Swift.Optional<Int?> {
+    get {
+      return graphQLMap["minPrice"] as? Swift.Optional<Int?> ?? Swift.Optional<Int?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "minPrice")
+    }
+  }
+
+  public var maxPrice: Swift.Optional<Int?> {
+    get {
+      return graphQLMap["maxPrice"] as? Swift.Optional<Int?> ?? Swift.Optional<Int?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "maxPrice")
+    }
+  }
+}
+
+public struct DateRangeSearchInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(start: String, end: String) {
+    graphQLMap = ["start": start, "end": end]
+  }
+
+  public var start: String {
+    get {
+      return graphQLMap["start"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "start")
+    }
+  }
+
+  public var end: String {
+    get {
+      return graphQLMap["end"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "end")
+    }
+  }
+}
+
 public final class GetEventsQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
-    query getEvents {
-      events {
+    query getEvents($filters: SearchFilters) {
+      events(searchFilters: $filters) {
         __typename
         title
         description
         start
         end
+        ticketPrice
         creator {
           __typename
           firstName
@@ -61,14 +202,21 @@ public final class GetEventsQuery: GraphQLQuery {
 
   public let operationName = "getEvents"
 
-  public init() {
+  public var filters: SearchFilters?
+
+  public init(filters: SearchFilters? = nil) {
+    self.filters = filters
+  }
+
+  public var variables: GraphQLMap? {
+    return ["filters": filters]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("events", type: .list(.nonNull(.object(Event.selections)))),
+      GraphQLField("events", arguments: ["searchFilters": GraphQLVariable("filters")], type: .list(.nonNull(.object(Event.selections)))),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -99,6 +247,7 @@ public final class GetEventsQuery: GraphQLQuery {
         GraphQLField("description", type: .nonNull(.scalar(String.self))),
         GraphQLField("start", type: .nonNull(.scalar(String.self))),
         GraphQLField("end", type: .nonNull(.scalar(String.self))),
+        GraphQLField("ticketPrice", type: .nonNull(.scalar(Double.self))),
         GraphQLField("creator", type: .object(Creator.selections)),
         GraphQLField("eventImages", type: .list(.nonNull(.object(EventImage.selections)))),
         GraphQLField("rsvps", type: .list(.nonNull(.object(Rsvp.selections)))),
@@ -113,8 +262,8 @@ public final class GetEventsQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(title: String, description: String, start: String, end: String, creator: Creator? = nil, eventImages: [EventImage]? = nil, rsvps: [Rsvp]? = nil, urls: [Url]? = nil, locations: [Location]? = nil, tags: [Tag]? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Event", "title": title, "description": description, "start": start, "end": end, "creator": creator.flatMap { (value: Creator) -> ResultMap in value.resultMap }, "eventImages": eventImages.flatMap { (value: [EventImage]) -> [ResultMap] in value.map { (value: EventImage) -> ResultMap in value.resultMap } }, "rsvps": rsvps.flatMap { (value: [Rsvp]) -> [ResultMap] in value.map { (value: Rsvp) -> ResultMap in value.resultMap } }, "urls": urls.flatMap { (value: [Url]) -> [ResultMap] in value.map { (value: Url) -> ResultMap in value.resultMap } }, "locations": locations.flatMap { (value: [Location]) -> [ResultMap] in value.map { (value: Location) -> ResultMap in value.resultMap } }, "tags": tags.flatMap { (value: [Tag]) -> [ResultMap] in value.map { (value: Tag) -> ResultMap in value.resultMap } }])
+      public init(title: String, description: String, start: String, end: String, ticketPrice: Double, creator: Creator? = nil, eventImages: [EventImage]? = nil, rsvps: [Rsvp]? = nil, urls: [Url]? = nil, locations: [Location]? = nil, tags: [Tag]? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Event", "title": title, "description": description, "start": start, "end": end, "ticketPrice": ticketPrice, "creator": creator.flatMap { (value: Creator) -> ResultMap in value.resultMap }, "eventImages": eventImages.flatMap { (value: [EventImage]) -> [ResultMap] in value.map { (value: EventImage) -> ResultMap in value.resultMap } }, "rsvps": rsvps.flatMap { (value: [Rsvp]) -> [ResultMap] in value.map { (value: Rsvp) -> ResultMap in value.resultMap } }, "urls": urls.flatMap { (value: [Url]) -> [ResultMap] in value.map { (value: Url) -> ResultMap in value.resultMap } }, "locations": locations.flatMap { (value: [Location]) -> [ResultMap] in value.map { (value: Location) -> ResultMap in value.resultMap } }, "tags": tags.flatMap { (value: [Tag]) -> [ResultMap] in value.map { (value: Tag) -> ResultMap in value.resultMap } }])
       }
 
       public var __typename: String {
@@ -159,6 +308,15 @@ public final class GetEventsQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "end")
+        }
+      }
+
+      public var ticketPrice: Double {
+        get {
+          return resultMap["ticketPrice"]! as! Double
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "ticketPrice")
         }
       }
 

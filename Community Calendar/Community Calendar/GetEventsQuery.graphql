@@ -1,9 +1,10 @@
-query getEvents {
-  events {
+query getEvents($filters: SearchFilters) {
+  events(searchFilters: $filters) {
     title
     description
     start
     end
+    ticketPrice
     creator {
       firstName
       lastName

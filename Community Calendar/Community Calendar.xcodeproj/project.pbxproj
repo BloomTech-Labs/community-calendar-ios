@@ -62,6 +62,9 @@
 		0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */; };
 		0EE307A923AC53470045EFD1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A723AC53470045EFD1 /* Event.swift */; };
 		0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */; };
+		0EF6DDE423DF479400D8A91B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE323DF479400D8A91B /* Location.swift */; };
+		0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE523DF47AF00D8A91B /* Tag.swift */; };
+		0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE723DF521600D8A91B /* Filter.swift */; };
 		EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF51CC4A23A83E4300FF4E62 /* Login.storyboard */; };
 		EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */; };
 		EFD4D3B023A98E6B00DDE283 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */; };
@@ -136,6 +139,9 @@
 		0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		0EE307A623AC53470045EFD1 /* Community_Calendar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Community_Calendar.xcdatamodel; sourceTree = "<group>"; };
 		0EE307A723AC53470045EFD1 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		0EF6DDE323DF479400D8A91B /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		0EF6DDE523DF47AF00D8A91B /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		0EF6DDE723DF521600D8A91B /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.release.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Community_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -316,6 +322,9 @@
 			children = (
 				0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */,
 				0EE307A723AC53470045EFD1 /* Event.swift */,
+				0EF6DDE323DF479400D8A91B /* Location.swift */,
+				0EF6DDE523DF47AF00D8A91B /* Tag.swift */,
+				0EF6DDE723DF521600D8A91B /* Filter.swift */,
 				0E7DD81D23CA4BAC009843BE /* ImageNotification.swift */,
 				0E974A1D23C7D96900CEE05D /* Cache.swift */,
 				0EE2AC2423CE7133002B3EB4 /* CustomPushAnimator.swift */,
@@ -562,9 +571,11 @@
 				0E64400223C63DC800A56B22 /* EventController.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
 				0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */,
+				0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
 				0E86D5F723AC1C7900CF7012 /* API.swift in Sources */,
 				0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */,
+				0EF6DDE423DF479400D8A91B /* Location.swift in Sources */,
 				0EE2AC2B23CFFA0D002B3EB4 /* UIDevice+Extension.swift in Sources */,
 				0EE2AC2523CE7133002B3EB4 /* CustomPushAnimator.swift in Sources */,
 				0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */,
@@ -576,6 +587,7 @@
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
 				0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
+				0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
 				0EE2AC2D23CFFA4A002B3EB4 /* UIColor+Extension.swift in Sources */,
 			);

@@ -11,11 +11,11 @@ import Apollo
 // Run this command in terminal to generate an updated schema.json:
 // apollo schema:download --endpoint=https://ccstaging.herokuapp.com/schema.graphql schema.json
 class EventController {
-    let cache = Cache<String, UIImage>()
+    public let cache = Cache<String, UIImage>()
     private let graphQLClient = ApolloClient(url: URL(string: "https://ccstaging.herokuapp.com/graphql")!)
     
-    func getEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
-        graphQLClient.fetch(query: GetEventsQuery()) { result in
+    func getEvents(filters: Filter = Filter(), completion: @escaping (Result<[Event], Error>) -> Void) {
+        graphQLClient.fetch(query: GetEventsQuery(filters: filters.searchFilter)) { result in
             switch result {
             case .failure(let error):
                 NSLog("\(#file):L\(#line): Error fetching events inside \(#function) with error: \(error)")
