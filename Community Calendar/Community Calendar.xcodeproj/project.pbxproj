@@ -66,6 +66,7 @@
 		0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE523DF47AF00D8A91B /* Tag.swift */; };
 		0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE723DF521600D8A91B /* Filter.swift */; };
 		0EF6DDED23DFFB7800D8A91B /* DropDownTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */; };
+		0EF6DDEF23E0D94F00D8A91B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */; };
 		EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF51CC4A23A83E4300FF4E62 /* Login.storyboard */; };
 		EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */; };
 		EFD4D3B023A98E6B00DDE283 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */; };
@@ -144,6 +145,7 @@
 		0EF6DDE523DF47AF00D8A91B /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		0EF6DDE723DF521600D8A91B /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownTextField.swift; sourceTree = "<group>"; };
+		0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.release.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Community_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,6 +346,7 @@
 				0EE2AC2E23CFFA71002B3EB4 /* Notification.Name+Extension.swift */,
 				0EE2AC2C23CFFA4A002B3EB4 /* UIColor+Extension.swift */,
 				0EE2AC2A23CFFA0D002B3EB4 /* UIDevice+Extension.swift */,
+				0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
 				0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */,
+				0EF6DDEF23E0D94F00D8A91B /* Date+Extension.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
 				0EE2AC2D23CFFA4A002B3EB4 /* UIColor+Extension.swift in Sources */,
 			);

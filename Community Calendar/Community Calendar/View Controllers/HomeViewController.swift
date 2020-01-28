@@ -60,6 +60,7 @@ class HomeViewController: UIViewController {
         
         nearbyButton.backgroundColor = .clear // Remove and implement
         nearbyLabel.textColor = .clear // Remove and implement
+        nearbyButton.imageView?.image = nil // Remove
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -172,9 +173,9 @@ class HomeViewController: UIViewController {
     }
     
     private func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
-        let font = UIFont(name: fontName, size: 14)
+        guard let font = UIFont(name: fontName, size: 14) else { return NSAttributedString() }
         let attrString = NSAttributedString(string: title,
-            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font ?? UIFont()])
+            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font])
         return attrString
     }
     
@@ -252,8 +253,7 @@ class HomeViewController: UIViewController {
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         events = unfilteredEvents?.filter({
-            var filterDate = Calendar.current.dateComponents([.day, .month, .year], from: Date())
-            filterDate.day = filterDate.day ?? 0 + 1
+            let filterDate = Calendar.current.dateComponents([.day, .month, .year], from: Date().tomorrow)
             return filterDate == Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
         })
         eventTableView.reloadData()
@@ -264,6 +264,14 @@ class HomeViewController: UIViewController {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
+        
+        let arrWeekDays = Date().getWeekDays()
+        events = unfilteredEvents?.filter({
+            let saturdayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.nextWeek[arrWeekDays.nextWeek.count - 2])
+            let sundayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.nextWeek[arrWeekDays.nextWeek.count - 1])
+            return saturdayFilterDate == Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0)) || sundayFilterDate == Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
+        })
+        eventTableView.reloadData()
     }
     
     @IBAction func allUpcomingTapped(_ sender: UIButton) {

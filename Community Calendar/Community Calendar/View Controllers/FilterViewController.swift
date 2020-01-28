@@ -85,6 +85,7 @@ class FilterViewController: UIViewController {
     private func setUp() {
         setUpTextField(districtTextField)
         setUpTextField(zipCodeTextField, false)
+        dateTextField.placeholder = "\(filterDateFormatter.string(from: Date()))"
         setUpTextField(dateTextField)
         
         setDistrictList()
@@ -92,6 +93,10 @@ class FilterViewController: UIViewController {
     }
     
     private func setUpTextField(_ textField: UITextField, _ withoutSelect: Bool = true) {
+        guard let font = UIFont(name: "Poppins-Regular", size: 14), let placeholderText = textField.placeholder else { return }
+        textField.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.font : font])
+        textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.font : font])
+        
         textField.addSubview(UIView(frame: CGRect(x: 0, y: 20, width: textField.frame.width, height: 1)))
         textField.subviews.last?.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 1)
         
