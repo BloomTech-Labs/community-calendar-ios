@@ -19,6 +19,9 @@ class FilterViewController: UIViewController {
     var suggestedFilters = [Tag]()
     var isEditingTag: Bool = false
     
+    var datePickerView = UIPickerView()
+    var districtPickerView = UIPickerView()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
@@ -29,12 +32,16 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var selectedTagsCollectionView: UICollectionView!
     @IBOutlet weak var suggestedTagsCollectionView: UICollectionView!
+    
+    @IBOutlet weak var districtTextField: UITextField!
+    @IBOutlet weak var zipCodeTextField: UITextField!
+    @IBOutlet weak var dateTextField: UITextField!
 
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateViews()
+        setUp()
         
         selectedTagsCollectionView.delegate = self
         selectedTagsCollectionView.dataSource = self
@@ -54,6 +61,7 @@ class FilterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addSuggestedFilters()
+        updateViews()
     }
     
     // MARK: - Functions
@@ -61,6 +69,26 @@ class FilterViewController: UIViewController {
         setUpSearchBar()
         
         applyButton.layer.cornerRadius = 6
+    }
+    
+    private func setUp() {
+        setUpTextField(districtTextField)
+        setUpTextField(zipCodeTextField)
+        setUpTextField(dateTextField)
+        
+        datePickerView.delegate = self
+        datePickerView.dataSource = self
+        
+        districtTextField.delegate = self
+        districtPickerView.dataSource = self
+        
+    }
+    
+    private func setUpTextField(_ textField: UITextField) {
+        textField.addSubview(UIView(frame: CGRect(x: 0, y: 20, width: textField.frame.width, height: 1)))
+        textField.subviews.last?.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 1)
+        
+        textField.delegate = self
     }
     
     private func reloadCollectionViewsData() {
@@ -106,6 +134,8 @@ class FilterViewController: UIViewController {
         // TODO - remove location zip and data filters
         reloadCollectionViewsData()
     }
+    
+    
     
     @IBAction func applyFilters(_ sender: UIButton) {
         delegate?.receive(filters: Filter(index: nil, tags: selectedFilters, location: nil, ticketRange: nil, dateRange: nil))
@@ -210,6 +240,33 @@ extension FilterViewController: UISearchBarDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+}
+
+extension FilterViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == districtTextField {
+            
+        } else if textField == dateTextField {
+            
+        }
+    }
+}
+
+extension FilterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == datePickerView {
+            return 0
+        } else if pickerView == districtTextField {
+            return 0
+        }
+        return 0
+    }
+    
+    
 }
 
 // MARK: - Flow Layout

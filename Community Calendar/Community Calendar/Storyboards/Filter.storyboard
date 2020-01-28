@@ -61,7 +61,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="ys3-Qn-hoA"/>
                                 </constraints>
-                                <state key="normal" title="Search">
+                                <state key="normal" title="Apply">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -300,20 +300,48 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="District" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEj-mQ-86p" customClass="DropDownTextField" customModule="Community_Calendar" customModuleProvider="target">
+                                <rect key="frame" x="238" y="352" width="160" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="OKk-4c-Sk1"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Zip Code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JZj-wt-aUL">
+                                <rect key="frame" x="238" y="385" width="160" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="8hP-qi-rn1"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="12-21-2019" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A6T-bu-S4J" customClass="DropDownTextField" customModule="Community_Calendar" customModuleProvider="target">
+                                <rect key="frame" x="238" y="418" width="160" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="Rub-4Q-lb8"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="A6T-bu-S4J" firstAttribute="centerY" secondItem="XNE-HB-FSP" secondAttribute="centerY" id="16K-Pn-jsS"/>
                             <constraint firstItem="D1b-jN-Lkt" firstAttribute="leading" secondItem="uWe-yY-o6s" secondAttribute="leading" id="1Na-l9-3uy"/>
                             <constraint firstItem="7Ju-zu-PvZ" firstAttribute="centerY" secondItem="8L3-M0-bn2" secondAttribute="centerY" id="4Ls-Jp-h6E"/>
                             <constraint firstItem="Aff-St-oc9" firstAttribute="leading" secondItem="uWe-yY-o6s" secondAttribute="leading" id="4WG-y6-g0A"/>
                             <constraint firstItem="7Ju-zu-PvZ" firstAttribute="centerX" secondItem="8L3-M0-bn2" secondAttribute="centerX" id="4YR-sE-fiB"/>
                             <constraint firstItem="bJi-1j-5Te" firstAttribute="bottom" secondItem="oyr-un-ACC" secondAttribute="bottom" constant="13" id="8XZ-3O-iHQ"/>
+                            <constraint firstItem="bJi-1j-5Te" firstAttribute="trailing" secondItem="dEj-mQ-86p" secondAttribute="trailing" constant="16" id="8ec-TQ-YFh"/>
+                            <constraint firstItem="dEj-mQ-86p" firstAttribute="centerY" secondItem="Aff-St-oc9" secondAttribute="centerY" id="BBB-LW-WWB"/>
                             <constraint firstItem="bJi-1j-5Te" firstAttribute="trailing" secondItem="oyr-un-ACC" secondAttribute="trailing" constant="16" id="DuF-fg-LY2"/>
                             <constraint firstItem="9o6-zC-wQj" firstAttribute="centerY" secondItem="uWe-yY-o6s" secondAttribute="centerY" id="G0n-rb-efc"/>
                             <constraint firstItem="VH2-z4-bgu" firstAttribute="leading" secondItem="uWe-yY-o6s" secondAttribute="leading" id="KCZ-Ie-H6A"/>
                             <constraint firstItem="8L3-M0-bn2" firstAttribute="centerY" secondItem="34U-Er-KwN" secondAttribute="centerY" id="O4n-SX-n53"/>
                             <constraint firstItem="X79-AF-zjk" firstAttribute="top" secondItem="D1b-jN-Lkt" secondAttribute="bottom" constant="16" id="O9v-0Q-gbq"/>
                             <constraint firstItem="D1b-jN-Lkt" firstAttribute="top" secondItem="qGM-uC-bNV" secondAttribute="bottom" constant="12" id="OUL-oD-7n6"/>
+                            <constraint firstItem="JZj-wt-aUL" firstAttribute="centerY" secondItem="VH2-z4-bgu" secondAttribute="centerY" id="Sbr-3d-4Ys"/>
                             <constraint firstItem="X79-AF-zjk" firstAttribute="leading" secondItem="bLr-33-wSW" secondAttribute="leading" id="TBH-w1-S6j"/>
                             <constraint firstItem="34U-Er-KwN" firstAttribute="centerX" secondItem="3Hn-tg-Qhy" secondAttribute="centerX" id="Tbw-Wz-32A"/>
                             <constraint firstItem="bLr-33-wSW" firstAttribute="leading" secondItem="uWe-yY-o6s" secondAttribute="leading" id="WeN-z5-94Q"/>
@@ -333,9 +361,11 @@
                             <constraint firstItem="bJi-1j-5Te" firstAttribute="trailing" secondItem="qGM-uC-bNV" secondAttribute="trailing" id="nld-pk-MMq"/>
                             <constraint firstItem="oyr-un-ACC" firstAttribute="leading" secondItem="bJi-1j-5Te" secondAttribute="leading" constant="16" id="s4y-xF-RBk"/>
                             <constraint firstItem="XNE-HB-FSP" firstAttribute="leading" secondItem="uWe-yY-o6s" secondAttribute="leading" id="sHQ-hn-KBU"/>
+                            <constraint firstItem="bJi-1j-5Te" firstAttribute="trailing" secondItem="JZj-wt-aUL" secondAttribute="trailing" constant="16" id="sIc-VR-kX7"/>
                             <constraint firstItem="VH2-z4-bgu" firstAttribute="top" secondItem="Aff-St-oc9" secondAttribute="bottom" constant="16" id="t0c-N6-juZ"/>
                             <constraint firstItem="bLr-33-wSW" firstAttribute="top" secondItem="uWe-yY-o6s" secondAttribute="bottom" constant="16" id="vta-es-LKh"/>
                             <constraint firstItem="uWe-yY-o6s" firstAttribute="top" secondItem="IeK-UR-n2j" secondAttribute="bottom" constant="21" id="wUv-lt-sCI"/>
+                            <constraint firstItem="bJi-1j-5Te" firstAttribute="trailing" secondItem="A6T-bu-S4J" secondAttribute="trailing" constant="16" id="z6M-bW-C7f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bJi-1j-5Te"/>
                     </view>
@@ -344,10 +374,13 @@
                     <size key="freeformSize" width="414" height="896"/>
                     <connections>
                         <outlet property="applyButton" destination="oyr-un-ACC" id="reu-WR-Hgg"/>
+                        <outlet property="dateTextField" destination="A6T-bu-S4J" id="qzR-BF-7t7"/>
+                        <outlet property="districtTextField" destination="dEj-mQ-86p" id="zuG-t5-k1y"/>
                         <outlet property="exitButton" destination="8L3-M0-bn2" id="ilC-Ao-uU6"/>
                         <outlet property="selectedTagsCollectionView" destination="qGM-uC-bNV" id="fVs-fZ-Wus"/>
                         <outlet property="suggestedTagsCollectionView" destination="X79-AF-zjk" id="MjV-RI-O32"/>
                         <outlet property="tagsSearchBar" destination="bLr-33-wSW" id="OeO-o7-bW5"/>
+                        <outlet property="zipCodeTextField" destination="JZj-wt-aUL" id="fdx-z7-FlS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="94a-sT-o1h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
