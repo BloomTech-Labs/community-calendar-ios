@@ -31,7 +31,7 @@ class TagCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        guard let tagButton = tagButton, let tagBackgroundView = tagBackgroundView, let tagNameLabel = tagNameLabel, let tag = filterTag else { return }
+        guard let tagButton = tagButton, let tag = filterTag else { return }
         
         if !isActive {
             tagButton.transform = CGAffineTransform(rotationAngle: -14.95)

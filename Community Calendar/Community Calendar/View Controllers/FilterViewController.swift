@@ -17,6 +17,7 @@ class FilterViewController: UIViewController {
     var delegate: FilterDelegate?
     var selectedFilters = [Tag]()
     var suggestedFilters = [Tag]()
+    var isEditingTag: Bool = false
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -46,6 +47,8 @@ class FilterViewController: UIViewController {
         layout.minimumLineSpacing = 16
         suggestedTagsCollectionView.collectionViewLayout = layout
         
+        tagsSearchBar.delegate = self
+        tagsSearchBar.returnKeyType = .done
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +92,7 @@ class FilterViewController: UIViewController {
     
     private func addSuggestedFilters() {
         // TODO: Get data from back end or show recent or most used filters. Alternatively use CoreML to learn what kind of filters the user likes and suggest new and used ones appropriately.
-        suggestedFilters = [Tag(title: "Cooking"), Tag(title: "Tech"), Tag(title: "Reading"), Tag(title: "Health & Wellness")]
+        suggestedFilters = [Tag(title: "Cooking"), Tag(title: "Tech"), Tag(title: "Reading"), Tag(title: "Entertainment"), Tag(title: "Music"), Tag(title: "Family")]
     }
     
     // MARK: - IBActions
@@ -162,6 +165,9 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 }
             }
             selectedTagsCollectionView.deleteItems(at: [indexPath])
+            if isEditingTag && cell == selectedTagsCollectionView.visibleCells.first {
+                view.endEditing(true)
+            }
         } else {
             guard let indexPath = suggestedTagsCollectionView.indexPath(for: cell) else { return }
             for i in 0..<suggestedFilters.count {
@@ -169,10 +175,41 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
                     suggestedFilters.remove(at: i); break
                 }
             }
-            selectedFilters.append(tag)
             suggestedTagsCollectionView.deleteItems(at: [indexPath])
+            selectedFilters.append(tag)
+            selectedTagsCollectionView.insertItems(at: [IndexPath(row: selectedFilters.count - 1, section: 0)])
         }
-        reloadCollectionViewsData()
+    }
+}
+
+extension FilterViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        selectedFilters.insert(Tag(title: ""), at: 0)
+        selectedTagsCollectionView.insertItems(at: [IndexPath(row: 0, section: 0)])
+        isEditingTag = true
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        selectedFilters.remove(at: selectedFilters.count - 1)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        isEditingTag = false
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        selectedFilters[0].title = searchText
+        selectedTagsCollectionView.reloadData()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 

@@ -22,6 +22,6 @@ struct Tag: Codable, Equatable {
         self.id = id
     }
     
-    let title: String
+    var title: String
     let id: String?
 }

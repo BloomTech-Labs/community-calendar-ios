@@ -300,8 +300,8 @@
 			children = (
 				0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */,
 				0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */,
-				0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */,
 				0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */,
+				0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
