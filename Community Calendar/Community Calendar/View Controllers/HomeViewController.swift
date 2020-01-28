@@ -12,6 +12,12 @@ class HomeViewController: UIViewController {
     // MARK: - Varibles
     var shouldDismissFilterScreen = true
     private let eventController = EventController()
+    private var unfilteredEvents: [Event]? {
+        didSet {
+            allUpcomingTapped(UIButton())
+            
+        }
+    }
     private var events: [Event]? {
         didSet {
             updateLists()
@@ -112,8 +118,8 @@ class HomeViewController: UIViewController {
         eventController.getEvents { result in
             switch result {
             case .success(let eventList):
-                if self.events != eventList {
-                    self.events = eventList
+                if self.unfilteredEvents != eventList {
+                    self.unfilteredEvents = eventList
                 }
             case .failure(let error):
                 NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
@@ -233,6 +239,8 @@ class HomeViewController: UIViewController {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
+        events = unfilteredEvents?.filter({ Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0)) == Calendar.current.dateComponents([.day, .month, .year], from: Date()) })
+        eventTableView.reloadData()
     }
     
     @IBAction func tomorrowTapped(_ sender: UIButton) {
@@ -240,6 +248,12 @@ class HomeViewController: UIViewController {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
+        events = unfilteredEvents?.filter({
+            var filterDate = Calendar.current.dateComponents([.day, .month, .year], from: Date())
+            filterDate.day = filterDate.day ?? 0 + 1
+            return filterDate == Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
+        })
+        eventTableView.reloadData()
     }
     
     @IBAction func thisWeekendTapped(_ sender: UIButton) {
@@ -254,6 +268,8 @@ class HomeViewController: UIViewController {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
+        events = unfilteredEvents
+        eventTableView.reloadData()
     }
     
     // MARK: - Search IBActions
@@ -420,12 +436,14 @@ extension HomeViewController: UINavigationControllerDelegate {
         
         switch operation {
         case .push:
+            view.endEditing(true)
             if let _ = toVC as? FilterViewController {
                 return CustomPushAnimator(view: view)
             } else {
                 return nil
             }
         case .pop:
+            searchBar.becomeFirstResponder()
             return CustomPopAnimator(view: view)
         default:
             return nil
