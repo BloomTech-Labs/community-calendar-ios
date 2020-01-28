@@ -40,7 +40,11 @@ class FilterViewController: UIViewController {
         
         suggestedTagsCollectionView.delegate = self
         suggestedTagsCollectionView.dataSource = self
-        suggestedTagsCollectionView.collectionViewLayout = LeftAlignedCollectionViewFlowLayout()
+        
+        let layout = LeftAlignedCollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 16
+        layout.minimumLineSpacing = 16
+        suggestedTagsCollectionView.collectionViewLayout = layout
         
     }
     
@@ -135,6 +139,19 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return UICollectionViewCell()
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let null = CGSize()
+        guard let font = UIFont(name: "Poppins-Regular", size: 14) else { return null }
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        if collectionView == selectedTagsCollectionView {
+            return CGSize(width: (selectedFilters[indexPath.row].title as NSString).size(withAttributes: fontAttributes).width + 42, height: 22)
+        } else if collectionView == suggestedTagsCollectionView {
+            return CGSize(width: (suggestedFilters[indexPath.row].title as NSString).size(withAttributes: fontAttributes).width + 42, height: 22)
+        } else {
+            return null
+        }
+    }
+    
     func buttonTapped(cell: TagCollectionViewCell) {
         guard let tag = cell.filterTag else { return }
         if cell.isActive {
@@ -164,7 +181,7 @@ class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
     override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let layoutAttributesObjects = super.layoutAttributesForElements(in: rect)
-
+        
         layoutAttributesObjects?.forEach({ layoutAttributes in
             if layoutAttributes.representedElementCategory == .cell {
                 let indexPath = layoutAttributes.indexPath

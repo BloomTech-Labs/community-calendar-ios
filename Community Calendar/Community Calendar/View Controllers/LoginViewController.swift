@@ -100,7 +100,6 @@ class LoginViewController: UIViewController {
             .clearSession(federated:false) {
                 switch $0 {
                 case true:
-                    //                    self.LoginButton.isHidden = false
                     self.logOutButton.isHidden = true
                     self.credential = nil
                     self.tabBarItem.title = "Login"
