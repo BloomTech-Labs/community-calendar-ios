@@ -57,6 +57,9 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setUp()
 //        printFonts()
+        
+        nearbyButton.backgroundColor = .clear // Remove and implement
+        nearbyLabel.textColor = .clear // Remove and implement
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -437,7 +440,9 @@ extension HomeViewController: UINavigationControllerDelegate {
         switch operation {
         case .push:
             view.endEditing(true)
-            if let _ = toVC as? FilterViewController {
+            if let toVC = toVC as? FilterViewController {
+                toVC.events = unfilteredEvents
+                toVC.eventController = eventController
                 return CustomPushAnimator(view: view)
             } else {
                 return nil

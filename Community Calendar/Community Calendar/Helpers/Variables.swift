@@ -42,6 +42,12 @@ let backendDateFormatter: DateFormatter = {
     return df
 }()
 
+let filterDateFormatter: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "MM-dd-yy"
+    return df
+}()
+
 enum NetworkError: Error {
     case encodingError
     case responseError

@@ -83,3 +83,10 @@ query getEvents {
     }
   }
 }
+
+query getTags {
+  tags {
+    title
+    id
+  }
+}

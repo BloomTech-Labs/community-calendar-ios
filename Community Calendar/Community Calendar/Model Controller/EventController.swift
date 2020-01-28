@@ -92,4 +92,20 @@ class EventController {
             }
         }.resume()
     }
+    
+    func fetchTags(completion: @escaping (Result<[Tag], Error>) -> Void) {
+        graphQLClient.fetch(query: GetTagsQuery()) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let tagData):
+                guard let tagList = tagData.data?.tags else { return }
+                var tags = [Tag]()
+                for tag in tagList {
+                    tags.append(Tag(tag: tag))
+                }
+                completion(.success(tags))
+            }
+        }
+    }
 }

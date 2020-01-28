@@ -31,15 +31,7 @@ class TagCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        guard let tagButton = tagButton, let tag = filterTag else { return }
-        
-        if !isActive {
-            tagButton.transform = CGAffineTransform(rotationAngle: -14.95)
-            tagBackgroundView.backgroundColor = UIColor(red: 0.896, green: 0.896, blue: 0.896, alpha: 1)
-        } else {
-            tagButton.transform = CGAffineTransform(rotationAngle: 0)
-            tagBackgroundView.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
-        }
+        guard let tagNameLabel = tagNameLabel, let tag = filterTag else { return }
         tagBackgroundView.layer.cornerRadius = 11
         tagNameLabel.text = tag.title
     }
