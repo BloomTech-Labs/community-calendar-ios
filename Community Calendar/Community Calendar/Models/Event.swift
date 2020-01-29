@@ -8,79 +8,44 @@
 
 import Foundation
 
-struct Event: Codable {
+struct Event: Codable, Equatable {
     init(event: GetEventsQuery.Data.Event) {
         self.title = event.title
         self.description = event.description
         self.startDate = backendDateFormatter.date(from: event.start)
         self.endDate = backendDateFormatter.date(from: event.end)
         self.creator = "\(event.creator?.firstName ?? "") \(event.creator?.lastName ?? "")"
-        self.urls = [String]()
-        self.images = [String]()
-        self.rsvps = [String]()
-        self.locations = [Location]()
-        self.tags = [Tag]()
-        
-        for url in event.urls ?? [] {
-            self.urls.append(url.url)
-        }
-        for rsvp in event.rsvps ?? [] {
-            self.rsvps.append("\(rsvp.firstName ?? "") \(rsvp.lastName ?? "")")
-        }
-        for image in event.eventImages ?? [] {
-            self.images.append(image.url)
-        }
-        for location in event.locations ?? [] {
-            self.locations.append(Location(location: location))
-        }
-        for tag in event.tags ?? [] {
-            self.tags.append(Tag(tag: tag))
-        }
+        self.urls = event.urls?.map( { ($0.url) } ) ?? []
+        self.images = event.eventImages?.map( { ($0.url) } ) ?? []
+        self.rsvps = event.rsvps?.map( { ("\($0.firstName ?? "") \($0.lastName ?? "")") } ) ?? []
+        self.locations = event.locations?.map( { (Location(location: $0)) } ) ?? []
+        self.tags = event.tags?.map( { (Tag(tag: $0)) } ) ?? []
+        self.ticketPrice = event.ticketPrice
+    }
+    
+    init(event: GetEventsByFilterQuery.Data.Event) {
+        self.title = event.title
+        self.description = event.description
+        self.startDate = backendDateFormatter.date(from: event.start)
+        self.endDate = backendDateFormatter.date(from: event.end)
+        self.creator = "\(event.creator?.firstName ?? "") \(event.creator?.lastName ?? "")"
+        self.urls = event.urls?.map( { ($0.url) } ) ?? []
+        self.images = event.eventImages?.map( { ($0.url) } ) ?? []
+        self.rsvps = event.rsvps?.map( { ("\($0.firstName ?? "") \($0.lastName ?? "")") } ) ?? []
+        self.locations = event.locations?.map( { (Location(location: $0)) } ) ?? []
+        self.tags = event.tags?.map( { (Tag(tag: $0)) } ) ?? []
+        self.ticketPrice = event.ticketPrice
     }
     
     let title: String
     let description: String
-    var images: [String]
+    let images: [String]
     let startDate: Date?
     let endDate: Date?
     let creator: String
-    var rsvps: [String]
-    var urls: [String]
-    var locations: [Location]
-    var tags: [Tag]
-}
-
-struct Location: Codable {
-    init(location: GetEventsQuery.Data.Event.Location) {
-        self.latitude = nil
-        self.longitude = nil
-        if let longString = location.longitude { self.longitude = Double(longString) }
-        if let latString = location.latitude { self.latitude = Double(latString) }
-        self.name = location.name
-        self.state = location.state
-        self.city = location.city
-        self.streetAddress = location.streetAddress
-        self.streetAddress2 = location.streetAddress_2
-        self.zipcode = location.zipcode
-    }
-    
-    var longitude: Double?
-    var latitude: Double?
-    let name: String
-    let state: String
-    let city: String
-    let streetAddress: String
-    let streetAddress2: String?
-    let zipcode: Int
-}
-
-struct Tag: Codable {
-    init(tag: GetEventsQuery.Data.Event.Tag) {
-        self.title = tag.title
-//        self.id = tag.id // Custom type, will implement later
-        self.id = nil
-    }
-    
-    let title: String
-    let id: Int?
+    let rsvps: [String]
+    let urls: [String]
+    let locations: [Location]
+    let tags: [Tag]
+    let ticketPrice: Double
 }
