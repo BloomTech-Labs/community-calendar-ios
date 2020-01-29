@@ -1,19 +1,20 @@
-query getEvents {
-  events {
+query getEventsByFilter($filters: SearchFilters) {
+  events(searchFilters: $filters) {
     title
     description
     start
     end
+    ticketPrice
     creator {
-      first_name
-      last_name
+      firstName
+      lastName
     }
-    event_images {
+    eventImages {
       url
     }
     rsvps {
-      first_name
-      last_name
+      firstName
+      lastName
     }
     urls {
       url
@@ -24,12 +25,12 @@ query getEvents {
       name
       state
       city
-      street_address
-      street_address_2
+      streetAddress
+      streetAddress2
       zipcode
       neighborhood {
-        geo_json {
-          geo_json
+        geoJson {
+          geoJson
         }
       }
     }
@@ -37,5 +38,55 @@ query getEvents {
       title
       id
     }
+  }
+}
+
+query getEvents {
+  events {
+    title
+    description
+    start
+    end
+    ticketPrice
+    creator {
+      firstName
+      lastName
+    }
+    eventImages {
+      url
+    }
+    rsvps {
+      firstName
+      lastName
+    }
+    urls {
+      url
+    }
+    locations {
+      latitude
+      longitude
+      name
+      state
+      city
+      streetAddress
+      streetAddress2
+      zipcode
+      neighborhood {
+        geoJson {
+          geoJson
+        }
+      }
+    }
+    tags {
+      title
+      id
+    }
+  }
+}
+
+query getTags {
+  tags {
+    title
+    id
   }
 }

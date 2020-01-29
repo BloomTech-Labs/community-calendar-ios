@@ -61,15 +61,16 @@
 		6CFE6F4B4B8DD61EBD6E1D6D6F888376 /* Auth0-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0FAFD283E47155348842AB14229BEA37 /* Auth0-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D00DFD985DC4E07318F3C1F00F0C4DF /* GraphQLQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D473F2B36C92E71D567F39DCB5EBC8 /* GraphQLQueryWatcher.swift */; };
 		6D4650855080A554CB1C73BF55A263F1 /* Collection+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC3C38526EC2168637C708E31B7B44 /* Collection+Helpers.swift */; };
+		6EFF0A2E05782FDA0FCC325B826BDEBD /* SimpleKeychain-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A01E00575F26112043D99D8DCF6C65 /* SimpleKeychain-dummy.m */; };
 		70A9E818F795A566FD6597132C1B2E69 /* ResponsePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571F3435EDF858593C929F9CEDCF9CDB /* ResponsePath.swift */; };
 		70B86DA9234F2795C1043D18D06F9673 /* Auth0-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D97F518EEB9459B5A77451C7673E2321 /* Auth0-dummy.m */; };
 		72694AF50FF89B4BA05893F3B37ACAA4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C756D2E725B0B4A9153E453C2B36E7E /* UIKit.framework */; };
+		7840439F2BF3260700A2E730434875D5 /* A0SimpleKeychain+KeyPair.m in Sources */ = {isa = PBXBuildFile; fileRef = E24E386ECD51B83971645648C71124AB /* A0SimpleKeychain+KeyPair.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		7D4E94AC5C2BF1E681CE00EC435F78BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DB5F9B735997980A7C03C5D533FAEEA /* Foundation.framework */; };
 		7FAD7236E00A64CDED91758D9A5CFABE /* SimpleKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0921BC4BA0641AF37B6B875CC337A6A0 /* SimpleKeychain.framework */; };
 		81C7125D57FFF60DDC46AA1BE2B81C86 /* WebAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690E2A4BCEF3BEAB3D80770DF2BBAA86 /* WebAuth.swift */; };
 		8360BE9B85F5B81FFCDEF070059C60E0 /* SilentSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB83A76B818DB829C3E9E62B3B3BF729 /* SilentSafariViewController.swift */; };
 		873DDCBB16DAB4AF183425FD9C1E380A /* NSData+URLSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBEB2E5423AB482A11D530E04733455 /* NSData+URLSafe.swift */; };
-		899C75B736961021454336DF6117ADC4 /* A0SimpleKeychain+KeyPair.m in Sources */ = {isa = PBXBuildFile; fileRef = E24E386ECD51B83971645648C71124AB /* A0SimpleKeychain+KeyPair.m */; };
 		90F9E15804A2E1139DE7B6D1658DAF62 /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7F902B48073BDD594BCBBA7912CC4A /* ResponseType.swift */; };
 		9185731511667A742A966590ADD9DCAF /* _ObjectiveAuthenticationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4AD0F4428F83F864B06363FAFCB2D4 /* _ObjectiveAuthenticationAPI.swift */; };
 		96778B4A6DCEBFB3E5EFFC33E168AE42 /* GraphQLGETTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D60E6A3E668B204E4C912AB341FB960 /* GraphQLGETTransformer.swift */; };
@@ -91,7 +92,6 @@
 		AF51288E159B89125DFF7CC0B8FFD3E6 /* SafariAuthenticationCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B562A880B1EE9AA9A041B061A3DD1D /* SafariAuthenticationCallback.swift */; };
 		AF65BC84C433F6D944C0CF218DC7E0CB /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095316218E961DCC3A4E7A217AE55607 /* Promise.swift */; };
 		B0BCEAB889EACD485D78BB3D0F60AC33 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CDE0F52509C3C6A09EF6676F54A723 /* Profile.swift */; };
-		B4E491D9447E7F4500BCD6F0E1229558 /* SimpleKeychain-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A01E00575F26112043D99D8DCF6C65 /* SimpleKeychain-dummy.m */; };
 		B582B85E3A839FEFDD883FE26BBAEB59 /* GraphQLResponseGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3CC9CAE6E8B3D404EAC053A912FD29 /* GraphQLResponseGenerator.swift */; };
 		B5CDC05313C086DB785D21F949F1F903 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DBB613358F3BCA6F524AD6E07CEDE9 /* Credentials.swift */; };
 		B7B5DC6FFEE0E287A9C29E6F81266F1F /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DBF681207F1DF13B7F02EB12431E85 /* Dictionary+Helpers.swift */; };
@@ -106,6 +106,7 @@
 		CA304EEB11A08C11965D4DF57C69911D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72DEB9BE05FD890DEE30586B61E4F586 /* GraphQLHTTPMethod.swift */; };
 		CA78FC91E6CBB4F50433CD3585294F06 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFE65BC886E9932CD0FC4C497D0C284 /* AsynchronousOperation.swift */; };
 		CB4C539557E8A916C697A538AAD350F0 /* GraphQLSelectionSetMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97155BB35F0593C84191FF25C09398F /* GraphQLSelectionSetMapper.swift */; };
+		D1C994DDD2E9C1E70FC1EF920CDE3F5C /* A0SimpleKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AF663EA1D3468C0592A818D53A97A8 /* A0SimpleKeychain.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D2147D28651D419AB34F35126757B603 /* GraphQLOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47694EDD7F55C0B03991ED32917C417 /* GraphQLOperation.swift */; };
 		D3383878B3DF58DEEAFFD76C84DC5D24 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB353DDEFA7C5E490CC39A79E50D171 /* Cancellable.swift */; };
 		D39A7914804A9A8ABE76F0998A17F694 /* GraphQLHTTPResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2790FD59D9B93CE5D989527194BEF6A2 /* GraphQLHTTPResponseError.swift */; };
@@ -128,7 +129,6 @@
 		F4CA4836F6EC3013621A8FBCD4A6A72F /* Auth0Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A141412ACAD4D76104EE7DDA0D9AB1B /* Auth0Authentication.swift */; };
 		F51B8310D6718869F74739BD01CE0920 /* NSURL+Auth0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA0AACAC04C1A253B79F47B5A6E2D7E /* NSURL+Auth0.swift */; };
 		F737D913C5C0291C7F5A6BF81D64A4CD /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = B813D26A2DE10A8870441E601FE26CDB /* Date.swift */; };
-		FAECA777E29E0C84A4945038A48420B7 /* A0SimpleKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AF663EA1D3468C0592A818D53A97A8 /* A0SimpleKeychain.m */; };
 		FB58A09846CA7820653CF5B6AF72CF8D /* GroupedSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404D76A6D76168FA2A8D70682EA25A3E /* GroupedSequence.swift */; };
 /* End PBXBuildFile section */
 
@@ -242,15 +242,15 @@
 		7ECC679F4C23E41273DA97E9DB323928 /* Logger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Auth0/Logger.swift; sourceTree = "<group>"; };
 		83D92C048B2F3C5A3DB913507C2C13DA /* Record.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Record.swift; path = Sources/Apollo/Record.swift; sourceTree = "<group>"; };
 		89CECCE8A352F48C6EC1F3F5F32E1C2F /* NetworkTransport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkTransport.swift; path = Sources/Apollo/NetworkTransport.swift; sourceTree = "<group>"; };
-		8F1FA46A3C7AA9081BA3650A49BDE9FE /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F1FA46A3C7AA9081BA3650A49BDE9FE /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Apollo.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9029EE50331E97F87F3B314C2A90BD77 /* A0SimpleKeychain+KeyPair.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "A0SimpleKeychain+KeyPair.h"; path = "SimpleKeychain/A0SimpleKeychain+KeyPair.h"; sourceTree = "<group>"; };
 		92F459A087DEAAFEE91466BC75A31F05 /* SimpleKeychain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SimpleKeychain.h; path = SimpleKeychain/SimpleKeychain.h; sourceTree = "<group>"; };
 		994FBCD270E00DBD77768368A665A783 /* GraphQLError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GraphQLError.swift; path = Sources/Apollo/GraphQLError.swift; sourceTree = "<group>"; };
 		998CDB4A58E381F6D65D8749E00CF9F9 /* ApolloClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ApolloClient.swift; path = Sources/Apollo/ApolloClient.swift; sourceTree = "<group>"; };
-		999459C45731F18EC49428C10057EA51 /* Auth0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		999459C45731F18EC49428C10057EA51 /* Auth0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Auth0.framework; path = Auth0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		999C1A3AD6C24FBD35FFFBD869F86D5E /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = InMemoryNormalizedCache.swift; path = Sources/Apollo/InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
 		9D1C2B17DF815DF04653BF738EE4BE57 /* Pods-Community Calendar-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Community Calendar-dummy.m"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E605BA64396388A8F8615859BFEEBD8 /* Management.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Management.swift; path = Auth0/Management.swift; sourceTree = "<group>"; };
 		9EDCACC25FDAAE43D7EDBA4164070D24 /* _ObjectiveWebAuth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = _ObjectiveWebAuth.swift; path = Auth0/_ObjectiveWebAuth.swift; sourceTree = "<group>"; };
 		A311B29FDCB324E54FD0191B8BC487B2 /* SafariWebAuth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SafariWebAuth.swift; path = Auth0/SafariWebAuth.swift; sourceTree = "<group>"; };
@@ -280,7 +280,7 @@
 		C6C6971690EC6C5255F3C9A84F08E11B /* Loggable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Loggable.swift; path = Auth0/Loggable.swift; sourceTree = "<group>"; };
 		C9E9EAC003AE7FC9ABB34A1E3B15FB3F /* Decoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Decoding.swift; path = Sources/Apollo/Decoding.swift; sourceTree = "<group>"; };
 		CB83A76B818DB829C3E9E62B3B3BF729 /* SilentSafariViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SilentSafariViewController.swift; path = Auth0/SilentSafariViewController.swift; sourceTree = "<group>"; };
-		CD3B027EC578E22891ED55C05705F3CD /* SimpleKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD3B027EC578E22891ED55C05705F3CD /* SimpleKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SimpleKeychain.framework; path = SimpleKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE5E766963E507BE04D5240EB4E077F8 /* JSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = Sources/Apollo/JSON.swift; sourceTree = "<group>"; };
 		CFFE65BC886E9932CD0FC4C497D0C284 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AsynchronousOperation.swift; path = Sources/Apollo/AsynchronousOperation.swift; sourceTree = "<group>"; };
 		D4CDE0F52509C3C6A09EF6676F54A723 /* Profile.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Profile.swift; path = Auth0/Profile.swift; sourceTree = "<group>"; };
@@ -306,7 +306,7 @@
 		F661383E290477750C86B82C7C047BE8 /* UserInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UserInfo.swift; path = Auth0/UserInfo.swift; sourceTree = "<group>"; };
 		F6944FBC645A57501CDB77749D8EBE30 /* GraphQLResultNormalizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GraphQLResultNormalizer.swift; path = Sources/Apollo/GraphQLResultNormalizer.swift; sourceTree = "<group>"; };
 		F8CBE33D5582D60B13C3393D049DAD96 /* Apollo-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Apollo-prefix.pch"; sourceTree = "<group>"; };
-		FC8A1D258D1C4AFBBBFB03B2F2F91F1F /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Community_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC8A1D258D1C4AFBBBFB03B2F2F91F1F /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Community_Calendar.framework; path = "Pods-Community Calendar.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE7CFDFD69691719D233529400FCBDEB /* GraphQLResultAccumulator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GraphQLResultAccumulator.swift; path = Sources/Apollo/GraphQLResultAccumulator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -406,6 +406,7 @@
 				E605AEFA7B203DD76C840028B8E25581 /* WebAuthError.swift */,
 				505B8B7719EB722EE3056AE7164D78B5 /* Support Files */,
 			);
+			name = Auth0;
 			path = Auth0;
 			sourceTree = "<group>";
 		};
@@ -491,6 +492,7 @@
 				92F459A087DEAAFEE91466BC75A31F05 /* SimpleKeychain.h */,
 				682F663D7F4127249C4DE9D6CC523892 /* Support Files */,
 			);
+			name = SimpleKeychain;
 			path = SimpleKeychain;
 			sourceTree = "<group>";
 		};
@@ -580,6 +582,7 @@
 				9667623D9965D9429EDDF23C97500741 /* Core */,
 				B20FDE61CF3F982D2F6569EB62195C7B /* Support Files */,
 			);
+			name = Apollo;
 			path = Apollo;
 			sourceTree = "<group>";
 		};
@@ -656,7 +659,7 @@
 			buildConfigurationList = 67083BAF890CF0AEA05062903639551E /* Build configuration list for PBXNativeTarget "SimpleKeychain" */;
 			buildPhases = (
 				66C2FE1F528A6B223F917606155D9E55 /* Headers */,
-				E4CF66A864A962F62A98987F0259EB5B /* Sources */,
+				EBC2261C8872D7A1F39AB5F4AF008C73 /* Sources */,
 				942038DB7D2FCF130280E667178A39BD /* Frameworks */,
 				05D665151D0CAF444AB39145ACC80E89 /* Resources */,
 			);
@@ -742,7 +745,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = A04A4D6018DE8A2D29F7FF93DA221885 /* Products */;
@@ -913,13 +915,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E4CF66A864A962F62A98987F0259EB5B /* Sources */ = {
+		EBC2261C8872D7A1F39AB5F4AF008C73 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				899C75B736961021454336DF6117ADC4 /* A0SimpleKeychain+KeyPair.m in Sources */,
-				FAECA777E29E0C84A4945038A48420B7 /* A0SimpleKeychain.m in Sources */,
-				B4E491D9447E7F4500BCD6F0E1229558 /* SimpleKeychain-dummy.m in Sources */,
+				7840439F2BF3260700A2E730434875D5 /* A0SimpleKeychain+KeyPair.m in Sources */,
+				D1C994DDD2E9C1E70FC1EF920CDE3F5C /* A0SimpleKeychain.m in Sources */,
+				6EFF0A2E05782FDA0FCC325B826BDEBD /* SimpleKeychain-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

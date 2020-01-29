@@ -41,6 +41,9 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     
     private func setImage() {
         if let imageURL = event?.images.first, !imageURL.isEmpty {
+            if eventController?.cache.fetch(key: imageURL) == nil {
+                eventImageView.image = nil
+            }
             eventController?.loadImage(for: imageURL)
         } else {
             if let indexPath = indexPath {

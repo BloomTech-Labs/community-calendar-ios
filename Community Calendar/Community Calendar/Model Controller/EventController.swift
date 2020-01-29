@@ -11,17 +11,46 @@ import Apollo
 // Run this command in terminal to generate an updated schema.json:
 // apollo schema:download --endpoint=https://ccstaging.herokuapp.com/schema.graphql schema.json
 class EventController {
-    let cache = Cache<String, UIImage>()
+    public let cache = Cache<String, UIImage>()
     private let graphQLClient = ApolloClient(url: URL(string: "https://ccstaging.herokuapp.com/graphql")!)
     
     func getEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
         graphQLClient.fetch(query: GetEventsQuery()) { result in
             switch result {
             case .failure(let error):
-                NSLog("\(#file):L\(#line): Error fetching events inside \(#function) with error: \(error)")
                 completion(.failure(error))
             case .success(let graphQLResult):
-                guard let data = graphQLResult.data?.events else { return }
+                guard let data = graphQLResult.data?.events else {
+                    completion(.failure(NetworkError.noData))
+                    return
+                }
+                
+                var events = [Event]()
+                for event in data {
+                    events.append(Event(event: event))
+                }
+                let sortedEvents = events.sorted { a, b -> Bool in
+                    if let aStartDate = a.startDate, let bStartDate = b.startDate {
+                        return aStartDate < bStartDate
+                    } else {
+                        return a.title.lowercased() < b.title.lowercased()
+                    }
+                }
+                completion(.success(sortedEvents))
+            }
+        }
+    }
+    
+    func getEvents(by filters: Filter, completion: @escaping (Result<[Event], Error>) -> Void) {
+        graphQLClient.fetch(query: GetEventsByFilterQuery(filters: filters.searchFilter)) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                guard let data = graphQLResult.data?.events else {
+                    completion(.failure(NetworkError.noData))
+                    return
+                }
                 
                 var events = [Event]()
                 for event in data {
@@ -58,9 +87,25 @@ class EventController {
             }
             
             if let image = UIImage(data: data) {
-                self.cache.imageDict[key] = image
+                self.cache.cache(value: image, for: key)
                 NotificationCenter.default.post(name: .imageWasLoaded, object: ImageNotification(image: image, url: key))
             }
         }.resume()
+    }
+    
+    func fetchTags(completion: @escaping (Result<[Tag], Error>) -> Void) {
+        graphQLClient.fetch(query: GetTagsQuery()) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let tagData):
+                guard let tagList = tagData.data?.tags else { return }
+                var tags = [Tag]()
+                for tag in tagList {
+                    tags.append(Tag(tag: tag))
+                }
+                completion(.success(tags))
+            }
+        }
     }
 }

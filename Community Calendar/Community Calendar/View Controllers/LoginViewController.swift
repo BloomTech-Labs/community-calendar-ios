@@ -11,23 +11,33 @@ import Auth0
 import SafariServices
 
 class LoginViewController: UIViewController {
-    
-    @IBOutlet weak var LoginButton: UIButton!
-    @IBOutlet weak var logOutButton: UIButton!
-    
+    // MARK: - Variables
     var homeController = HomeViewController()
     
     var onAuth: ((Result<Credentials>) -> ())!
-    var credential: Credentials? {
+    var credentials: Credentials? {
         didSet {
-            if self.credential == nil {
-                self.tabBarController?.tabBarItem.title = "Login"
-            } else {
-                self.tabBarController?.tabBarItem.title = "Profile"
+            getUserInfo()
+            DispatchQueue.main.async {
+                if self.credentials == nil {
+                    self.tabBarController?.tabBarItem.title = "Login"
+                } else {
+                    self.tabBarController?.tabBarItem.title = "Profile"
+                }
             }
         }
     }
+    var profile: UserInfo? {
+        didSet {
+            updateViews()
+        }
+    }
     
+    // MARK: - IBOutlets
+    @IBOutlet weak var LoginButton: UIButton!
+    @IBOutlet weak var logOutButton: UIButton!
+    
+    // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,14 +47,15 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        if credential == nil {
+        if credentials == nil {
             loginOrSignUpButtonPressed(0)
         } else {
             print("Already signed in")
         }
     }
     
-    func logoutAlertController() {
+    // MARK: - Functions
+    private func logoutAlertController() {
         let alert = UIAlertController(title: "Success", message: "You have successfully logged out", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Ok", style: .default) { _ in
@@ -62,46 +73,60 @@ class LoginViewController: UIViewController {
         }
     }
     
+    private func getUserInfo() {
+        guard let accessToken = credentials?.accessToken else {
+            NSLog("User is not logged in or access token has expired")
+            return
+        }
+        
+        Auth0.authentication().userInfo(withAccessToken: accessToken).start { result in
+            switch(result) {
+            case .success(let profile):
+                self.profile = profile
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
+    }
+    
+    private func updateViews() {
+        if let profile = profile {
+            print("Email: \(profile.email ?? "No email"), name: \(profile.name ?? "No Name")")
+        }
+    }
+    
     // MARK: - IBAction
     @IBAction func loginOrSignUpButtonPressed(_ sender: Any) {
-        Auth0
-            .webAuth()
-            .scope("openid profile")
-            .audience("https://communitycalendar-staging.auth0.com/userinfo")
-            .start {
-                switch $0 {
-                case .failure(let error):
-                    // Handle the error
-                    print("Error: \(error)")
-                case .success(let credentials):
-                    // Do something with credentials e.g.: save them.
-                    // Auth0 will automatically dismiss the login page
-                    DispatchQueue.main.async {
-                        self.credential = credentials
-                        self.tabBarItem.title = "Profile"
-                        self.LoginButton.isHidden = true
-                        self.logOutButton.isHidden = false
-                    }
-                    print("Credentials: \(credentials)")
+        Auth0.webAuth().scope("openid profile").audience("https://communitycalendar-staging.auth0.com/userinfo").start {
+            switch $0 {
+            case .failure(let error):
+                // Handle the error
+                print("Error: \(error)")
+            case .success(let credentials):
+                self.credentials = credentials
+                print("Credentials: \(credentials)")
+                DispatchQueue.main.async {
+                    self.tabBarItem.title = "Profile"
+                    self.tabBarController?.selectedIndex = 0
+                    self.LoginButton.isHidden = true
+                    self.logOutButton.isHidden = false
                 }
+            }
         }
     }
     
     @IBAction func logoutButtonPressed(_ sender: Any) {
         
-        Auth0
-            .webAuth()
-            .clearSession(federated:false) {
-                switch $0 {
-                case true:
-                    //                    self.LoginButton.isHidden = false
-                    self.logOutButton.isHidden = true
-                    self.credential = nil
-                    self.tabBarItem.title = "Login"
-                    self.logoutAlertController()
-                case false:
-                    print("User was not able to log out.")
-                }
+        Auth0.webAuth().clearSession(federated:false) {
+            switch $0 {
+            case true:
+                self.logOutButton.isHidden = true
+                self.credentials = nil
+                self.tabBarItem.title = "Login"
+                self.logoutAlertController()
+            case false:
+                print("User was not able to log out.")
+            }
         }
     }
 }
