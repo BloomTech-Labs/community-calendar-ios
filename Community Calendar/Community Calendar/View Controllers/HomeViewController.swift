@@ -23,6 +23,11 @@ class HomeViewController: UIViewController {
             updateLists()
         }
     }
+    var currentFilter: Filter? {
+        didSet {
+            updateFilterCount()
+        }
+    }
     
     // MARK: - Lists IBOutles
     @IBOutlet private weak var featuredCollectionView: UICollectionView!
@@ -94,7 +99,7 @@ class HomeViewController: UIViewController {
         
         
         // Filter buttons set up
-        todayTapped(UIButton())
+        allUpcomingTapped(UIButton())
         todayButton.titleLabel?.adjustsFontSizeToFitWidth = true
         tomorrowButton.titleLabel?.adjustsFontSizeToFitWidth = true
         thisWeekendButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -217,6 +222,31 @@ class HomeViewController: UIViewController {
         recentSearchesLabel.textColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
     }
     
+    func updateFilterCount() {
+        guard let currentFilter = currentFilter else {
+            filterButton.setTitle("Filters", for: .normal)
+            return
+        }
+        var filterCount = 0
+        
+        if currentFilter.dateRange != nil {
+            filterCount += 1
+        }
+        if currentFilter.index != nil {
+            filterCount += 1
+        }
+        if currentFilter.location != nil {
+            filterCount += 1
+        }
+        if currentFilter.ticketPrice != nil {
+            filterCount += 1
+        }
+        if currentFilter.tags != nil {
+            filterCount += currentFilter.tags?.count ?? 0
+        }
+        filterButton.setTitle("Filters\(filterCount == 0 ? "" : "(\(filterCount))")", for: .normal)
+    }
+    
     // MARK: - IBActions
     @IBAction func tableViewButtonTapped(_ sender: Any) {
         eventCollectionView.isHidden = true
@@ -322,6 +352,10 @@ class HomeViewController: UIViewController {
             shouldDismissFilterScreen = false
             guard let filterVC = segue.destination as? FilterViewController else { return }
             filterVC.delegate = self
+        } else if segue.identifier == "ShowSearchResultsSegue" {
+            guard let resultsVC = segue.destination as? SearchResultViewController else { return }
+            resultsVC.eventController = eventController
+            resultsVC.filter = currentFilter
         }
     }
 }
@@ -376,7 +410,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - Collection View Extension
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return events?.count ?? 0
+        if collectionView == eventCollectionView {
+            return events?.count ?? 0
+        } else if collectionView == featuredCollectionView {
+            return unfilteredEvents?.count ?? 0
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -392,7 +431,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
         } else if collectionView == featuredCollectionView {
             guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell,
-            let events = events else { return UICollectionViewCell() }
+            let events = unfilteredEvents else { return UICollectionViewCell() }
             
             cell.indexPath = indexPath
             cell.eventController = eventController
@@ -419,6 +458,27 @@ extension HomeViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let currentFilter = currentFilter {
+            performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
+            eventController.getEvents(by: currentFilter) { result in
+                switch result {
+                case .success(let eventList):
+                    print(eventList)
+                    self.currentFilter = nil
+                case .failure(let error):
+                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+                }
+            }
+        } else {
+            eventController.getEvents { result in
+                switch result {
+                case .success(let eventList):
+                    print(eventList.count)
+                case .failure(let error):
+                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+                }
+            }
+        }
         searchBar.endEditing(true)
     }
     
@@ -451,6 +511,9 @@ extension HomeViewController: UINavigationControllerDelegate {
             if let toVC = toVC as? FilterViewController {
                 toVC.events = unfilteredEvents
                 toVC.eventController = eventController
+                if let filter = self.currentFilter {
+                    toVC.filter = filter
+                }
                 return CustomPushAnimator(view: view)
             } else {
                 return nil
@@ -467,13 +530,6 @@ extension HomeViewController: UINavigationControllerDelegate {
 // MARK: - Filter Extension
 extension HomeViewController: FilterDelegate {
     func receive(filters: Filter) {
-        eventController.getEvents(by: filters) { result in
-            switch result {
-            case .success(let eventList):
-                print(eventList.count)
-            case .failure(let error):
-                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-            }
-        }
+        self.currentFilter = filters
     }
 }

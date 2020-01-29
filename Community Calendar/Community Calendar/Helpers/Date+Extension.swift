@@ -42,4 +42,25 @@ extension Date {
         formatter.dateFormat = format
         return formatter.string(from: self)
     }
+    
+    func isEqual(to date: Date) -> Bool {
+        return Calendar.current.dateComponents([.day, .month, .year], from: date) == Calendar.current.dateComponents([.day, .month, .year], from: self)
+    }
+    
+    func isGreaterThan(date: Date) -> Bool? {
+        // Convert date to string and back to get date representented by only day, month, and year so that if two dates are the same day, they'll return false
+        let thisString = filterDateFormatter.string(from: self)
+        let thatString = filterDateFormatter.string(from: date)
+        guard let this = filterDateFormatter.date(from: thisString),
+            let that = filterDateFormatter.date(from: thatString) else { return nil }
+        return this > that
+    }
+    
+    func isLessThan(date: Date) -> Bool? {
+        let thisString = filterDateFormatter.string(from: self)
+        let thatString = filterDateFormatter.string(from: date)
+        guard let this = filterDateFormatter.date(from: thisString),
+            let that = filterDateFormatter.date(from: thatString) else { return nil }
+        return this < that
+    }
 }
