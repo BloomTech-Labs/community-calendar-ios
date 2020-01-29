@@ -49,4 +49,6 @@ struct LocationFilter: Codable, Equatable {
     let longitude: Double
     let latitude: Double
     let radius: Int
+    let name: String
+    let row: Int?
 }

@@ -8,7 +8,6 @@
 
 import UIKit
 import Auth0
-import SafariServices
 
 class LoginViewController: UIViewController {
     // MARK: - Variables

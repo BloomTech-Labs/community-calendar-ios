@@ -17,11 +17,11 @@ struct Filter {
         self.ticketPrice = ticketRange
     }
     
-    let index: String?
-    let tags: [Tag]?
-    let location: LocationFilter?
-    let ticketPrice: (Int, Int)?
-    let dateRange: (Date, Date)?
+    var index: String?
+    var tags: [Tag]?
+    var location: LocationFilter?
+    var ticketPrice: (Int, Int)?
+    var dateRange: (Date, Date)?
     
     var searchFilter: SearchFilters? {
         let locationFilter: LocationSearchInput?
