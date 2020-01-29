@@ -323,7 +323,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func searchBarCancelButtonTapped(_ sender: UIButton) {
-        searchBarSearchButtonClicked(searchBar)
+        searchBarCancelButtonClicked(searchBar)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -495,6 +495,14 @@ extension HomeViewController: UISearchBarDelegate {
                 searchBar.layoutIfNeeded()
                 searchBar.superview?.layoutIfNeeded()
             }
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if currentFilter != nil {
+            self.currentFilter?.index = searchText
+        } else {
+            currentFilter = Filter(index: searchText)
         }
     }
 }

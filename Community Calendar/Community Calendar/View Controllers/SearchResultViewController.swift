@@ -39,12 +39,15 @@ class SearchResultViewController: UIViewController {
         
         eventResultsTableView.delegate = self
         eventResultsTableView.dataSource = self
+        eventResultsTableView.showsVerticalScrollIndicator = false
         
         updateViews()
         eventResultsCollectionView.isHidden = true
     }
     
     private func updateViews() {
+        eventResultsTableView.separatorColor = UIColor.clear
+        
         guard let _ = events, isViewLoaded else { return }
         eventResultsCollectionView.reloadData()
         eventResultsTableView.reloadData()
@@ -64,16 +67,22 @@ class SearchResultViewController: UIViewController {
     
     @IBAction func goBackPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
+        guard let toVC = navigationController?.topViewController as? HomeViewController else { return }
+        toVC.shouldDismissFilterScreen = true
     }
     
     @IBAction func tableViewPressed(_ sender: UIButton) {
-        eventResultsTableView.isHidden = false
         eventResultsCollectionView.isHidden = true
+        eventResultsTableView.isHidden = false
+        tableViewButton.imageView?.image = UIImage(named: "list-selected")
+        collectionViewButton.imageView?.image = UIImage(named: "grid")
     }
     
     @IBAction func collectionViewPressed(_ sender: UIButton) {
         eventResultsTableView.isHidden = true
         eventResultsCollectionView.isHidden = false
+        tableViewButton.imageView?.image = UIImage(named: "list")
+        collectionViewButton.imageView?.image = UIImage(named: "grid-selected")
     }
 }
 
