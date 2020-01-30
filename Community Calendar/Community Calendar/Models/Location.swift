@@ -35,6 +35,17 @@ struct Location: Codable, Equatable {
         self.zipcode = location.zipcode
     }
     
+    init(longitude: Double?, latitude: Double?, name: String, state: String, city: String, streetAddress: String, streetAddress2: String?, zipcode: Int) {
+        self.longitude = longitude
+        self.latitude = latitude
+        self.name = name
+        self.state = state
+        self.city = city
+        self.streetAddress = streetAddress
+        self.streetAddress2 = streetAddress2
+        self.zipcode = zipcode
+    }
+    
     let longitude: Double?
     let latitude: Double?
     let name: String

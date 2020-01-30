@@ -37,6 +37,20 @@ struct Event: Codable, Equatable {
         self.ticketPrice = event.ticketPrice
     }
     
+    init(title: String, description: String, startDate: Date, endDate: Date, creator: String, urls: [String], images: [String], rsvps: [String], locations: [Location], tags: [Tag], ticketPrice: Double) {
+        self.title = title
+        self.description = description
+        self.startDate = startDate
+        self.endDate = endDate
+        self.creator = creator
+        self.urls = urls
+        self.images = images
+        self.rsvps = rsvps
+        self.locations = locations
+        self.tags = tags
+        self.ticketPrice = ticketPrice
+    }
+    
     let title: String
     let description: String
     let images: [String]

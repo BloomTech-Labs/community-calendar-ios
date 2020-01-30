@@ -10,12 +10,13 @@ import UIKit
 
 class HomeViewController: UIViewController {
     // MARK: - Varibles
+    var testing = false // Set this to true if you wish to use the test data located in Variables.swift
+    
     var shouldDismissFilterScreen = true
     private let eventController = EventController()
     private var unfilteredEvents: [Event]? {
         didSet {
             allUpcomingTapped(UIButton())
-            
         }
     }
     private var events: [Event]? {
@@ -69,7 +70,11 @@ class HomeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        fetchEvents()
+        if testing {
+            unfilteredEvents = testData
+        } else {
+            fetchEvents()
+        }
     }
     
     // MARK: - Functions
@@ -129,6 +134,10 @@ class HomeViewController: UIViewController {
             case .success(let eventList):
                 if self.unfilteredEvents != eventList {
                     self.unfilteredEvents = eventList
+                    
+//                    for event in eventList {
+//                        print("Event(title: \"\(event.title)\", description: \"\(event.description)\", startDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.startDate ?? Date()))\") ?? Date(), endDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.endDate ?? Date()))\") ?? Date(), creator: \"\(event.creator)\", urls: \(event.urls), images: \(event.images), rsvps: \(event.rsvps), locations: \(event.locations), tags: \(event.tags), ticketPrice: \(event.ticketPrice))")
+//                    }
                 }
             case .failure(let error):
                 NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
@@ -501,6 +510,8 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if currentFilter != nil {
             self.currentFilter?.index = searchText
+        } else if searchText == "" {
+            currentFilter?.index = nil
         } else {
             currentFilter = Filter(index: searchText)
         }
