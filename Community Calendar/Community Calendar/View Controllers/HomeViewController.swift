@@ -51,7 +51,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var allUpcomingButton: UIButton!
     @IBOutlet private weak var tomorrowButton: UIButton!
     @IBOutlet private weak var todayButton: UIButton!
-    @IBOutlet weak var seeAllButton: UIButton!
+    @IBOutlet private weak var seeAllButton: UIButton!
     
     // MARK: - Search IBOutles
     @IBOutlet private weak var searchBar: UISearchBar!
@@ -59,12 +59,12 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var nearbyButton: UIButton!
     @IBOutlet private weak var nearbyLabel: UILabel!
     @IBOutlet private weak var recentSearchesLabel: UILabel!
+    @IBOutlet private weak var recentSearchesTableView: UITableView!
     @IBOutlet private weak var searchView: UIView!
     @IBOutlet private weak var searchBarCancelButton: UIButton!
     @IBOutlet private weak var searchBarTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private var searchViewTopConstraint: NSLayoutConstraint! // Strong reference so that it wont be deallocated when setting new value
     @IBOutlet private var searchViewBottomConstraint: NSLayoutConstraint! // ^
-    @IBOutlet weak var recentSearchesTableView: UITableView!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
@@ -74,6 +74,7 @@ class HomeViewController: UIViewController {
         
 //        recentFiltersList = searchController.loadFromPersistantStore()
         
+        self.tabBarController?.setViewControllers([tabBarController?.viewControllers?[0] ?? UIViewController(), tabBarController?.viewControllers?[2] ?? UIViewController()], animated: false) // Changed for presentation, please remove
         nearbyButton.isHidden = true // Remove and implement
         nearbyLabel.textColor = .clear // Remove and implement
         seeAllTapped(seeAllButton) // Remove and implement
@@ -343,7 +344,9 @@ class HomeViewController: UIViewController {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
-        events = unfilteredEvents
+        events = unfilteredEvents?.filter {
+            return Date() < $0.endDate ?? Date(timeIntervalSince1970: 0)
+        }
         eventTableView.reloadData()
         dateLabel.text = "\(todayDateFormatter.string(from: Date()))+"
     }
@@ -513,13 +516,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
 //        recentFiltersList = searchController.loadFromPersistantStore()
-        if shouldDismissFilterScreen {
-            shouldShowSearchView(true)
-            searchBarTrailingConstraint.constant = -searchBarCancelButton.frame.width - 32
-            UIView.animate(withDuration: 0.25) {
-                searchBar.layoutIfNeeded()
-                searchBar.superview?.layoutIfNeeded()
-            }
+        shouldShowSearchView(true)
+        searchBarTrailingConstraint.constant = -searchBarCancelButton.frame.width - 32
+        UIView.animate(withDuration: 0.25) {
+            searchBar.layoutIfNeeded()
+            searchBar.superview?.layoutIfNeeded()
         }
         shouldDismissFilterScreen = true
     }
@@ -530,10 +531,12 @@ extension HomeViewController: UISearchBarDelegate {
 //            searchController.save(filteredSearch: currentFilter)
             recentFiltersList.insert(currentFilter, at: 0)
         }
+        shouldDismissFilterScreen = true
         searchBar.endEditing(true)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        shouldDismissFilterScreen = true
         searchBar.endEditing(true)
     }
     
@@ -560,6 +563,10 @@ extension HomeViewController: UISearchBarDelegate {
             currentFilter = Filter(index: searchText)
         }
     }
+    
+    func setSearchBarText(to text: String = "") {
+        searchBar.text = text
+    }
 }
 
 // MARK: - Navigation Extension
@@ -582,8 +589,11 @@ extension HomeViewController: UINavigationControllerDelegate {
                 return nil
             }
         case .pop:
-            searchBar.becomeFirstResponder()
-            return CustomPopAnimator(view: view)
+            if let _ = fromVC as? FilterViewController {
+                searchBar.becomeFirstResponder()
+                return CustomPopAnimator(view: view)
+            }
+            return nil
         default:
             return nil
         }

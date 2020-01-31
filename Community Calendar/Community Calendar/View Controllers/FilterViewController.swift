@@ -90,6 +90,7 @@ class FilterViewController: UIViewController {
         setUpSearchBar()
         
         applyButton.layer.cornerRadius = 6
+        
     }
     
     private func setUp() {
@@ -130,6 +131,7 @@ class FilterViewController: UIViewController {
         guard let font = UIFont(name: "Poppins-Regular", size: 14), let placeholderText = textField.placeholder else { return }
         textField.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.font : font])
         textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.font : font])
+        textField.font = font
         
         textField.addSubview(UIView(frame: CGRect(x: 0, y: 20, width: textField.frame.width, height: 1)))
         textField.subviews.last?.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 1)
@@ -374,6 +376,8 @@ extension FilterViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         if searchBar.text == "" && selectedFilters.count > 0 {
             selectedFilters.remove(at: 0)
+        } else {
+            filter.tags = selectedFilters
         }
         searchBar.text = ""
         isEditingTag = false
@@ -414,7 +418,6 @@ extension FilterViewController: UITextFieldDelegate {
                 filter.dateRange = DateRangeFilter(dateRange: (secondDatePickerView.date, filter.dateRange!.min))
             }
             dateTextField.text = "\(filterDateFormatter.string(from: filter.dateRange!.min)) - \(filterDateFormatter.string(from: filter.dateRange!.max))"
-            dateTextField.font = UIFont(name: "Poppins-Regular", size: 14)
         } else if secondDatePickerView.isHidden {
             filter.dateRange = DateRangeFilter(dateRange: (firstDatePickerView.date, firstDatePickerView.date))
             firstDatePickerView.isHidden = true
@@ -442,7 +445,6 @@ extension FilterViewController: UITextFieldDelegate {
                     return
                 }
                 self.filter.location = LocationFilter(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude, radius: 30, name: self.districtTextField.text!, row: self.districtPickerView.selectedRow(inComponent: 0))
-                self.districtTextField.font = UIFont(name: "Poppins-Regular", size: 14)
             }
         }
     }

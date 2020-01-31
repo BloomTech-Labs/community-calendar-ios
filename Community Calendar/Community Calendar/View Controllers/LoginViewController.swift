@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
         if credentials == nil {
             loginOrSignUpButtonPressed(0)
         } else {
-            print("Already signed in")
+            print("\(#function): User already signed in")
         }
     }
     
@@ -73,17 +73,21 @@ class LoginViewController: UIViewController {
     }
     
     private func getUserInfo() {
-        guard let accessToken = credentials?.accessToken else {
-            NSLog("User is not logged in or access token has expired")
-            return
-        }
-        
-        Auth0.authentication().userInfo(withAccessToken: accessToken).start { result in
-            switch(result) {
-            case .success(let profile):
-                self.profile = profile
-            case .failure(let error):
-                print("Error: \(error)")
+        if credentials == nil {
+            NSLog("User has signed out")
+        } else {
+            guard let accessToken = credentials?.accessToken else {
+                NSLog("User is not logged in or access token has expired")
+                return
+            }
+            
+            Auth0.authentication().userInfo(withAccessToken: accessToken).start { result in
+                switch(result) {
+                case .success(let profile):
+                    self.profile = profile
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
             }
         }
     }

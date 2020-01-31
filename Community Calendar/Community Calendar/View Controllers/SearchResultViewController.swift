@@ -20,6 +20,7 @@ class SearchResultViewController: UIViewController {
             fetchFilteredEvents()
         }
     }
+    var searchBar: UISearchBar?
     
     @IBOutlet private weak var eventResultsCollectionView: UICollectionView!
     @IBOutlet private weak var eventResultsTableView: UITableView!
@@ -38,6 +39,7 @@ class SearchResultViewController: UIViewController {
     }
     
     private func updateViews() {
+        guard isViewLoaded else { return }
         eventResultsTableView.separatorColor = UIColor.clear
         
         guard let _ = events, isViewLoaded else { return }
@@ -104,8 +106,7 @@ class SearchResultViewController: UIViewController {
     @IBAction func goBackPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
         guard let toVC = navigationController?.topViewController as? HomeViewController else { return }
-        toVC.shouldShowSearchView(true, shouldAnimate: false)
-        toVC.shouldDismissFilterScreen = false // Neither this line nor the line above work :(
+        toVC.setSearchBarText()
     }
     
     @IBAction func tableViewPressed(_ sender: UIButton) {

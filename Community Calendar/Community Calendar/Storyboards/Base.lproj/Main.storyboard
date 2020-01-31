@@ -826,7 +826,7 @@
         <scene sceneID="DD4-Zh-fuf">
             <objects>
                 <viewControllerPlaceholder storyboardName="Events" id="rdy-A1-6X3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="book" id="Ct7-Y1-MC3"/>
+                    <tabBarItem key="tabBarItem" title="Events" image="book" id="Ct7-Y1-MC3"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5Q-c0-ety" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

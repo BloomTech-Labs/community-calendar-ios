@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Filter: Codable {
+struct Filter: Codable, Equatable {
     init(index: String? = nil, tags: [Tag]? = nil, location: LocationFilter? = nil, ticketPrice: (Int, Int)? = nil, dateRange: (Date, Date)? = nil) {
         self.index = index
         self.tags = tags
@@ -50,9 +50,26 @@ struct Filter: Codable {
         
         return SearchFilters(index: index, location: locationFilter, tags: self.tags?.map({ $0.title }), ticketPrice: ticketPriceFilter, dateRange: dateRangeFilter)
     }
+    
+    static func == (lhs: Filter, rhs: Filter) -> Bool {
+        return lhs.index == rhs.index &&
+            lhs.location == rhs.location &&
+            lhs.dateRange == rhs.dateRange &&
+            lhs.ticketPrice == rhs.ticketPrice &&
+            lhs.tags == rhs.tags
+    }
+    
+    static func == (lhs: Filter, rhs: Filter?) -> Bool { // To check if object is nil
+        // Object can be initialized, but it will return true if the searchFilter is nil
+        if let rhs = rhs {
+            return lhs == rhs
+        } else {
+            return lhs.searchFilter != nil
+        }
+    }
 }
 
-struct TicketPriceFilter: Codable {
+struct TicketPriceFilter: Codable, Equatable {
     init(ticketFilter: (Int, Int)) {
         self.min = ticketFilter.0
         self.max = ticketFilter.1
@@ -62,7 +79,7 @@ struct TicketPriceFilter: Codable {
     var max: Int
 }
 
-struct DateRangeFilter: Codable {
+struct DateRangeFilter: Codable, Equatable {
     init(dateRange: (Date, Date)) {
         self.min = dateRange.0
         self.max = dateRange.1
