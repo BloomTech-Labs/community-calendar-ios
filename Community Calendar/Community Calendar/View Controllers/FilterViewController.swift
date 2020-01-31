@@ -74,6 +74,8 @@ class FilterViewController: UIViewController {
         
         tagsSearchBar.delegate = self
         tagsSearchBar.returnKeyType = .done
+        
+        zipCodeTextField.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -412,6 +414,7 @@ extension FilterViewController: UITextFieldDelegate {
                 filter.dateRange = DateRangeFilter(dateRange: (secondDatePickerView.date, filter.dateRange!.min))
             }
             dateTextField.text = "\(filterDateFormatter.string(from: filter.dateRange!.min)) - \(filterDateFormatter.string(from: filter.dateRange!.max))"
+            dateTextField.font = UIFont(name: "Poppins-Regular", size: 14)
         } else if secondDatePickerView.isHidden {
             filter.dateRange = DateRangeFilter(dateRange: (firstDatePickerView.date, firstDatePickerView.date))
             firstDatePickerView.isHidden = true
@@ -439,6 +442,7 @@ extension FilterViewController: UITextFieldDelegate {
                     return
                 }
                 self.filter.location = LocationFilter(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude, radius: 30, name: self.districtTextField.text!, row: self.districtPickerView.selectedRow(inComponent: 0))
+                self.districtTextField.font = UIFont(name: "Poppins-Regular", size: 14)
             }
         }
     }

@@ -763,6 +763,7 @@
                         <outlet property="searchView" destination="Mow-Pn-qDL" id="nbH-Ex-FCa"/>
                         <outlet property="searchViewBottomConstraint" destination="EKM-Ik-2QD" id="nAj-YO-Ouz"/>
                         <outlet property="searchViewTopConstraint" destination="u8L-Ww-dNL" id="Tvn-g1-OsW"/>
+                        <outlet property="seeAllButton" destination="LqL-6o-O1F" id="fiZ-XV-IV3"/>
                         <outlet property="seperatorView" destination="sQr-3f-pwc" id="IYo-es-5ZK"/>
                         <outlet property="tableViewButton" destination="R4Q-Eg-rjg" id="o4E-S0-BTf"/>
                         <outlet property="thisWeekendButton" destination="njH-uJ-scy" id="7Py-Nu-b35"/>

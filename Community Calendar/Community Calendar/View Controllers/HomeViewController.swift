@@ -51,6 +51,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var allUpcomingButton: UIButton!
     @IBOutlet private weak var tomorrowButton: UIButton!
     @IBOutlet private weak var todayButton: UIButton!
+    @IBOutlet weak var seeAllButton: UIButton!
     
     // MARK: - Search IBOutles
     @IBOutlet private weak var searchBar: UISearchBar!
@@ -75,6 +76,7 @@ class HomeViewController: UIViewController {
         
         nearbyButton.isHidden = true // Remove and implement
         nearbyLabel.textColor = .clear // Remove and implement
+        seeAllTapped(seeAllButton) // Remove and implement
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -292,7 +294,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func seeAllTapped(_ sender: UIButton) {
-        
+        sender.isHidden = true // TODO: Remove and implement
     }
     
     // MARK: - Filter Buttons IBActions
