@@ -610,10 +610,10 @@
                                                             <state key="normal" image="Time"/>
                                                         </button>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="wSe-Ij-G4k">
-                                                            <rect key="frame" x="74.000000000000014" y="15" width="179.33333333333337" height="20"/>
+                                                            <rect key="frame" x="74" y="15" width="171" height="20"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vx0-UA-fgR">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="69" height="20"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vx0-UA-fgR">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="60.666666666666664" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="20" id="SEM-ro-jzc"/>
                                                                     </constraints>
@@ -622,7 +622,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Mission District&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1i-PZ-Onx">
-                                                                    <rect key="frame" x="71" y="0.0" width="108.33333333333331" height="20"/>
+                                                                    <rect key="frame" x="62.66666666666665" y="0.0" width="108.33333333333331" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="20" id="DFk-DR-t4l"/>
                                                                     </constraints>

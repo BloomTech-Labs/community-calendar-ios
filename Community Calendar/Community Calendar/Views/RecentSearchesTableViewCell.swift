@@ -43,9 +43,9 @@ class RecentSearchesTableViewCell: UITableViewCell {
             } else {
                 for tagIndex in 0..<filter.tags!.count {
                     if tagIndex == filter.tags!.count - 1 {
-                        filterUsedLabel.text = "\(filterUsedLabel.text ?? "") \(filter.tags![tagIndex].title)"
+                        filterUsedLabel.text = "\(filterUsedLabel.text ?? "") \"\(filter.tags![tagIndex].title)\""
                     } else {
-                        filterUsedLabel.text = "\(filterUsedLabel.text ?? "") \(filter.tags![tagIndex].title),"
+                        filterUsedLabel.text = "\(filterUsedLabel.text ?? "") \"\(filter.tags![tagIndex].title)\","
                     }
                 }
             }

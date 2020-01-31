@@ -88,8 +88,6 @@ class FilterViewController: UIViewController {
         setUpSearchBar()
         
         applyButton.layer.cornerRadius = 6
-        
-        setUpWithFilters()
     }
     
     private func setUp() {
@@ -97,6 +95,8 @@ class FilterViewController: UIViewController {
         setUpTextField(zipCodeTextField, false)
         dateTextField.placeholder = "\(filterDateFormatter.string(from: Date()))"
         setUpTextField(dateTextField)
+        
+        setUpWithFilters()
         
         setDistrictList()
         setUpPickerViews()
@@ -258,8 +258,15 @@ class FilterViewController: UIViewController {
     
     @IBAction func clearTags(_ sender: UIButton) {
         selectedFilters = []
+        filter.tags = nil
         addSuggestedFilters()
-        // TODO - remove location zip and data filters
+        districtTextField.text = ""
+        filter.location = nil
+        zipCodeTextField.text = ""
+        // TODO: remove zipCode from filter
+        dateTextField.text = ""
+        filter.dateRange = nil
+        
         reloadCollectionViewsData()
     }
     
@@ -363,6 +370,9 @@ extension FilterViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if searchBar.text == "" && selectedFilters.count > 0 {
+            selectedFilters.remove(at: 0)
+        }
         searchBar.text = ""
         isEditingTag = false
     }

@@ -62,7 +62,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var searchBarCancelButton: UIButton!
     @IBOutlet private weak var searchBarTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private var searchViewTopConstraint: NSLayoutConstraint! // Strong reference so that it wont be deallocated when setting new value
-    @IBOutlet private var searchViewBottomConstraint: NSLayoutConstraint! // ""
+    @IBOutlet private var searchViewBottomConstraint: NSLayoutConstraint! // ^
     @IBOutlet weak var recentSearchesTableView: UITableView!
     
     // MARK: - Lifecycle Functions
@@ -132,7 +132,9 @@ class HomeViewController: UIViewController {
         seperatorView.layer.cornerRadius = 3
         
         dateLabel.text = todayDateFormatter.string(from: Date())
-        eventTableView.separatorColor = UIColor.clear
+        eventTableView.separatorColor = .clear
+        recentSearchesTableView.separatorColor = .clear
+        
         
         guard let poppinsFont = UIFont(name: "Poppins", size: 10) else { return }
         self.tabBarController?.tabBar.tintColor = .tabBarTint
@@ -146,15 +148,20 @@ class HomeViewController: UIViewController {
             case .success(let eventList):
                 if self.unfilteredEvents != eventList {
                     self.unfilteredEvents = eventList
-                    
-//                    for event in eventList {
-//                        print("Event(title: \"\(event.title)\", description: \"\(event.description)\", startDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.startDate ?? Date()))\") ?? Date(), endDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.endDate ?? Date()))\") ?? Date(), creator: \"\(event.creator)\", urls: \(event.urls), images: \(event.images), rsvps: \(event.rsvps), locations: \(event.locations), tags: \(event.tags), ticketPrice: \(event.ticketPrice))")
-//                    }
+//                    createMockData()
                 }
             case .failure(let error):
                 NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
             }
         }
+    }
+    
+    private func createMockData(eventList: [Event]) { // To create event mock data (useful when you wont have wifi)
+        print("[")
+        for event in eventList {
+            print("Event(title: \"\(event.title)\", description: \"\(event.description)\", startDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.startDate ?? Date()))\") ?? Date(), endDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.endDate ?? Date()))\") ?? Date(), creator: \"\(event.creator)\", urls: \(event.urls), images: \(event.images), rsvps: \(event.rsvps), locations: \(event.locations), tags: \(event.tags), ticketPrice: \(event.ticketPrice)),") // Will have extra comma after the last event
+        }
+        print("]")
     }
     
     private func setUpSearchBar() {
@@ -520,15 +527,6 @@ extension HomeViewController: UISearchBarDelegate {
             performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
 //            searchController.save(filteredSearch: currentFilter)
             recentFiltersList.insert(currentFilter, at: 0)
-        } else {
-            eventController.getEvents { result in
-                switch result {
-                case .success(let eventList):
-                    print(eventList.count)
-                case .failure(let error):
-                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-                }
-            }
         }
         searchBar.endEditing(true)
     }
@@ -551,9 +549,11 @@ extension HomeViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if currentFilter != nil {
-            self.currentFilter?.index = searchText
-        } else if searchText == "" {
-            currentFilter?.index = nil
+            if searchText == "" {
+                currentFilter?.index = nil
+            } else {
+                self.currentFilter?.index = searchText
+            }
         } else {
             currentFilter = Filter(index: searchText)
         }

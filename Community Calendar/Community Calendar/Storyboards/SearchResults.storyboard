@@ -17,18 +17,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WkM-Ed-Y4Y">
-                                <rect key="frame" x="16" y="117.5" width="192.5" height="17"/>
+                                <rect key="frame" x="76" y="118" width="129.5" height="12"/>
                                 <attributedString key="attributedText">
-                                    <fragment content="Thursday, December 12, 2019">
+                                    <fragment content="by location &quot;Mission District&quot;">
                                         <attributes>
-                                            <font key="NSFont" metaFont="menu" size="14"/>
+                                            <color key="NSColor" red="0.12941176470588234" green="0.14117647058823529" blue="0.17254901960784313" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="10" name="Poppins-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OA4-Mk-ceR">
-                                <rect key="frame" x="0.0" y="150.5" width="414" height="662.5"/>
+                                <rect key="frame" x="0.0" y="146" width="414" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EventTableViewCell" rowHeight="76" id="b6j-5t-Jzh" customClass="EventTableViewCell" customModule="Community_Calendar" customModuleProvider="target">
@@ -55,7 +57,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="DISTRICT NAME">
                                                                     <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="10"/>
+                                                                        <font key="NSFont" metaFont="menu" size="10"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -128,12 +130,13 @@
                                             <outlet property="eventImageView" destination="jUE-ZF-XyK" id="svX-fy-ydR"/>
                                             <outlet property="eventTitleLabel" destination="Ry8-CZ-Uzc" id="bJO-9s-mig"/>
                                             <outlet property="timeLabel" destination="UYE-SR-xth" id="CLK-Tz-g22"/>
+                                            <segue destination="q8Y-mO-ndk" kind="presentation" identifier="ShowDetailFromTable" id="jmO-ng-bt5"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="r2y-Ca-tm3">
-                                <rect key="frame" x="16" y="150.5" width="382" height="662.5"/>
+                                <rect key="frame" x="16" y="146" width="382" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="16" id="she-uc-OIU">
                                     <size key="itemSize" width="165" height="165"/>
@@ -221,28 +224,41 @@
                                             <outlet property="eventImageView" destination="Uwp-jF-zSj" id="4FI-Rp-3fg"/>
                                             <outlet property="eventTitleLabel" destination="0MZ-PC-xrl" id="PxR-C0-Dbf"/>
                                             <outlet property="timeLabel" destination="a16-QZ-fRf" id="BUS-Nc-aHY"/>
+                                            <segue destination="q8Y-mO-ndk" kind="presentation" identifier="ShowDetailFromCollection" id="elT-Ma-teY"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSD-iq-zJx">
-                                <rect key="frame" x="183" y="74" width="48" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSD-iq-zJx">
+                                <rect key="frame" x="177" y="74" width="60" height="21"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Results">
+                                        <attributes>
+                                            <font key="NSFont" size="18" name="Poppins-SemiBold"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofJ-Wa-Jt6">
-                                <rect key="frame" x="16" y="72.5" width="92" height="24"/>
-                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="10" maxY="0.0"/>
-                                <state key="normal" title="Go Back" image="arrow">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofJ-Wa-Jt6">
+                                <rect key="frame" x="22" y="72.5" width="79" height="24"/>
+                                <inset key="imageEdgeInsets" minX="-6" minY="0.0" maxX="6" maxY="0.0"/>
+                                <state key="normal" image="back-arrow">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Go Back">
+                                            <attributes>
+                                                <color key="NSColor" red="0.12941176470588234" green="0.14117647058823529" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <font key="NSFont" size="14" name="Poppins-Medium"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
                                 </state>
                                 <connections>
                                     <action selector="goBackPressed:" destination="ar6-q5-NGF" eventType="touchUpInside" id="bEz-p3-HQR"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="pFi-go-o10">
-                                <rect key="frame" x="360" y="116" width="38" height="20"/>
+                                <rect key="frame" x="360" y="114" width="38" height="20"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2D-Nc-9kh">
                                         <rect key="frame" x="0.0" y="4" width="13" height="12"/>
@@ -278,15 +294,29 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8H-QR-1iH">
+                                <rect key="frame" x="16" y="118" width="54" height="12"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="SEARCHED">
+                                        <attributes>
+                                            <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="10" name="Poppins-Medium"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="WkM-Ed-Y4Y" firstAttribute="leading" secondItem="qR7-x7-Vjp" secondAttribute="leading" constant="16" id="5lp-uB-j5W"/>
+                            <constraint firstItem="WkM-Ed-Y4Y" firstAttribute="leading" secondItem="i8H-QR-1iH" secondAttribute="trailing" constant="6" id="3Io-WN-5fw"/>
+                            <constraint firstItem="i8H-QR-1iH" firstAttribute="centerY" secondItem="WkM-Ed-Y4Y" secondAttribute="centerY" id="5rg-Mr-OwZ"/>
                             <constraint firstItem="OA4-Mk-ceR" firstAttribute="top" secondItem="WkM-Ed-Y4Y" secondAttribute="bottom" constant="16" id="9cc-rx-i13"/>
                             <constraint firstItem="qR7-x7-Vjp" firstAttribute="trailing" secondItem="r2y-Ca-tm3" secondAttribute="trailing" constant="16" id="BHI-EH-ZPv"/>
                             <constraint firstItem="ofJ-Wa-Jt6" firstAttribute="centerY" secondItem="wSD-iq-zJx" secondAttribute="centerY" id="BdN-yO-paO"/>
                             <constraint firstItem="OA4-Mk-ceR" firstAttribute="trailing" secondItem="qR7-x7-Vjp" secondAttribute="trailing" id="H2T-lH-dnQ"/>
                             <constraint firstItem="qR7-x7-Vjp" firstAttribute="trailing" secondItem="pFi-go-o10" secondAttribute="trailing" constant="16" id="Jwd-xj-Xd3"/>
+                            <constraint firstItem="i8H-QR-1iH" firstAttribute="leading" secondItem="qR7-x7-Vjp" secondAttribute="leading" constant="16" id="KXJ-8U-1RO"/>
                             <constraint firstItem="OA4-Mk-ceR" firstAttribute="leading" secondItem="qR7-x7-Vjp" secondAttribute="leading" id="Kda-bI-DXG"/>
                             <constraint firstItem="pFi-go-o10" firstAttribute="centerY" secondItem="WkM-Ed-Y4Y" secondAttribute="centerY" id="NOX-GE-s5u"/>
                             <constraint firstItem="r2y-Ca-tm3" firstAttribute="leading" secondItem="qR7-x7-Vjp" secondAttribute="leading" constant="16" id="Nyz-p9-l9N"/>
@@ -295,7 +325,7 @@
                             <constraint firstItem="wSD-iq-zJx" firstAttribute="centerX" secondItem="sZf-SQ-nCL" secondAttribute="centerX" id="gcr-Av-h2a"/>
                             <constraint firstItem="r2y-Ca-tm3" firstAttribute="top" secondItem="WkM-Ed-Y4Y" secondAttribute="bottom" constant="16" id="iJC-Nv-7tf"/>
                             <constraint firstItem="qR7-x7-Vjp" firstAttribute="bottom" secondItem="r2y-Ca-tm3" secondAttribute="bottom" id="j9U-bc-jHj"/>
-                            <constraint firstItem="ofJ-Wa-Jt6" firstAttribute="leading" secondItem="qR7-x7-Vjp" secondAttribute="leading" constant="16" id="owR-Xl-5V7"/>
+                            <constraint firstItem="ofJ-Wa-Jt6" firstAttribute="leading" secondItem="qR7-x7-Vjp" secondAttribute="leading" constant="22" id="owR-Xl-5V7"/>
                             <constraint firstItem="WkM-Ed-Y4Y" firstAttribute="top" secondItem="wSD-iq-zJx" secondAttribute="bottom" constant="23" id="peF-LG-C7j"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qR7-x7-Vjp"/>
@@ -317,10 +347,23 @@
             </objects>
             <point key="canvasLocation" x="94" y="118"/>
         </scene>
+        <!--EventDetail-->
+        <scene sceneID="Sll-cy-YPc">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EventDetail" id="q8Y-mO-ndk" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="HF4-KI-wiZ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hIP-l8-hzE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="749" y="118"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="arrow" width="24" height="24"/>
+        <image name="back-arrow" width="24" height="24"/>
         <image name="grid-selected" width="24" height="24"/>
         <image name="list-selected" width="26" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="elT-Ma-teY"/>
+    </inferredMetricsTieBreakers>
 </document>

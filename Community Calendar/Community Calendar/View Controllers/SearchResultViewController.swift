@@ -34,15 +34,7 @@ class SearchResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        eventResultsCollectionView.delegate = self
-        eventResultsCollectionView.dataSource = self
-        
-        eventResultsTableView.delegate = self
-        eventResultsTableView.dataSource = self
-        eventResultsTableView.showsVerticalScrollIndicator = false
-        
-        updateViews()
-        eventResultsCollectionView.isHidden = true
+        setUp()
     }
     
     private func updateViews() {
@@ -51,6 +43,22 @@ class SearchResultViewController: UIViewController {
         guard let _ = events, isViewLoaded else { return }
         eventResultsCollectionView.reloadData()
         eventResultsTableView.reloadData()
+        
+        setFilterLabel()
+    }
+    
+    private func setUp() {
+        eventResultsCollectionView.delegate = self
+        eventResultsCollectionView.dataSource = self
+        
+        eventResultsTableView.delegate = self
+        eventResultsTableView.dataSource = self
+        eventResultsTableView.showsVerticalScrollIndicator = false
+        
+        tableViewPressed(UIButton())
+        
+        updateViews()
+        eventResultsCollectionView.isHidden = true
     }
 
     private func fetchFilteredEvents() {
@@ -65,10 +73,39 @@ class SearchResultViewController: UIViewController {
         }
     }
     
+    private func setFilterLabel() {
+        guard let filter = filter else { return }
+        filterLabel.text = ""
+        if filter.index != nil {
+            filterLabel.text = "By term \"\(filter.index!)\""
+        } else if filter.dateRange != nil {
+            filterLabel.text = "By dates \(filterDateFormatter.string(from: filter.dateRange!.min)) - \(filterDateFormatter.string(from: filter.dateRange!.max))"
+        } else if filter.tags != nil {
+            filterLabel.text = "By tag"
+            if filter.tags!.count != 1 {
+                filterLabel.text = "\(filterLabel.text ?? "")s"
+            }
+            if filter.tags!.count >= 3 {
+                filterLabel.text = "\(filterLabel.text ?? "") \"\(filter.tags![0].title)\", \"\(filter.tags![1].title)\", \"\(filter.tags![2].title)\""
+            } else {
+                for tagIndex in 0..<filter.tags!.count {
+                    if tagIndex == filter.tags!.count - 1 {
+                        filterLabel.text = "\(filterLabel.text ?? "") \"\(filter.tags![tagIndex].title)\""
+                    } else {
+                        filterLabel.text = "\(filterLabel.text ?? "") \"\(filter.tags![tagIndex].title)\","
+                    }
+                }
+            }
+        } else if filter.location != nil {
+            filterLabel.text = "By district \(filter.location!.name)"
+        }
+    }
+    
     @IBAction func goBackPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
         guard let toVC = navigationController?.topViewController as? HomeViewController else { return }
-        toVC.shouldDismissFilterScreen = true
+        toVC.shouldShowSearchView(true, shouldAnimate: false)
+        toVC.shouldDismissFilterScreen = false // Neither this line nor the line above work :(
     }
     
     @IBAction func tableViewPressed(_ sender: UIButton) {
@@ -83,6 +120,17 @@ class SearchResultViewController: UIViewController {
         eventResultsCollectionView.isHidden = false
         tableViewButton.imageView?.image = UIImage(named: "list")
         collectionViewButton.imageView?.image = UIImage(named: "grid-selected")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let detailVC = segue.destination as? EventDetailViewController else { return }
+        if segue.identifier == "ShowDetailFromTable" {
+            guard let indexPath = eventResultsTableView.indexPathForSelectedRow else { return }
+            detailVC.event = events?[indexPath.row]
+        } else if segue.identifier == "ShowDetailFromCollection" {
+            guard let indexPaths = eventResultsCollectionView.indexPathsForSelectedItems, let indexPath = indexPaths.first else { return }
+            detailVC.event = events?[indexPath.row]
+        }
     }
 }
 
