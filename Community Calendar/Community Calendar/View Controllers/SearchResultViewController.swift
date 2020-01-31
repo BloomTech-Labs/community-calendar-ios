@@ -31,7 +31,8 @@ class SearchResultViewController: UIViewController {
     @IBOutlet private weak var tableViewButton: UIButton!
     @IBOutlet private weak var seperatorView: UIView!
     @IBOutlet private weak var filterLabel: UILabel!
-
+    @IBOutlet weak var noResultsLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,6 +60,8 @@ class SearchResultViewController: UIViewController {
         
         tableViewPressed(UIButton())
         
+        noResultsLabel.isHidden = true
+        
         updateViews()
         eventResultsCollectionView.isHidden = true
     }
@@ -69,6 +72,11 @@ class SearchResultViewController: UIViewController {
             switch result {
             case .success(let filteredEvents):
                 self.events = filteredEvents
+                if self.events?.count == 0 {
+                    DispatchQueue.main.async {
+                        self.noResultsLabel.isHidden = false
+                    }
+                }
             case .failure(let error):
                 NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
             }
@@ -125,6 +133,7 @@ class SearchResultViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailVC = segue.destination as? EventDetailViewController else { return }
+        detailVC.eventController = eventController
         if segue.identifier == "ShowDetailFromTable" {
             guard let indexPath = eventResultsTableView.indexPathForSelectedRow else { return }
             detailVC.event = events?[indexPath.row]

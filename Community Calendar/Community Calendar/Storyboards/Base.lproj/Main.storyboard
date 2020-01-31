@@ -702,10 +702,23 @@
                                     <action selector="searchBarCancelButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nnn-RW-PEC"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ki9-7N-9nF">
+                                <rect key="frame" x="177.66666666666666" y="479.66666666666669" width="59" height="14"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="No Results">
+                                        <attributes>
+                                            <font key="NSFont" size="12" name="Poppins-SemiBold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="pEp-ul-WoK" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="16" id="2Hm-GO-6C6"/>
+                            <constraint firstItem="ki9-7N-9nF" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="32" id="3ta-3N-QJD"/>
                             <constraint firstItem="z3C-88-WYf" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="16" id="6zd-2q-HCV"/>
                             <constraint firstItem="Mow-Pn-qDL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="E2j-cI-Fam"/>
                             <constraint firstItem="CK3-tv-Sqg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="EEO-DJ-KBV"/>
@@ -725,6 +738,7 @@
                             <constraint firstItem="CK3-tv-Sqg" firstAttribute="top" secondItem="mbc-pE-p2h" secondAttribute="bottom" constant="16" id="UNL-U5-cDV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lTs-qn-ZIT" secondAttribute="trailing" constant="16" id="WAr-xU-Uhg"/>
                             <constraint firstItem="FIc-R7-2qC" firstAttribute="top" secondItem="g7Q-b9-lep" secondAttribute="bottom" constant="16" id="XCu-iC-aUU"/>
+                            <constraint firstItem="ki9-7N-9nF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Z1r-rS-HhX"/>
                             <constraint firstItem="lTs-qn-ZIT" firstAttribute="top" secondItem="CK3-tv-Sqg" secondAttribute="bottom" constant="16" id="ZGk-9P-6qb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="i5q-B4-DVp" secondAttribute="trailing" constant="16" id="aqv-u5-6k0"/>
                             <constraint firstAttribute="trailing" secondItem="Mow-Pn-qDL" secondAttribute="trailing" id="bJ7-nv-Yit"/>
@@ -755,6 +769,7 @@
                         <outlet property="filterButton" destination="aAx-yW-aF5" id="Kpn-iZ-FFI"/>
                         <outlet property="nearbyButton" destination="Bjf-vJ-joZ" id="HHY-IQ-xPQ"/>
                         <outlet property="nearbyLabel" destination="bus-3w-XhM" id="jRK-sD-9GB"/>
+                        <outlet property="noResultsLabel" destination="ki9-7N-9nF" id="qx6-vD-Rvs"/>
                         <outlet property="recentSearchesLabel" destination="2BF-34-zMR" id="PCs-O4-dha"/>
                         <outlet property="recentSearchesTableView" destination="xmU-Od-diR" id="Xoa-rw-EdK"/>
                         <outlet property="searchBar" destination="g7Q-b9-lep" id="qFP-br-D6P"/>

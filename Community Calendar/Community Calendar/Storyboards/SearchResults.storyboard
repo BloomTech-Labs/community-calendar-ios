@@ -57,7 +57,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="DISTRICT NAME">
                                                                     <attributes>
-                                                                        <font key="NSFont" metaFont="menu" size="10"/>
+                                                                        <font key="NSFont" metaFont="system" size="10"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -306,6 +306,19 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3q-kp-2k1">
+                                <rect key="frame" x="177.5" y="162" width="59" height="14"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="No Results">
+                                        <attributes>
+                                            <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="12" name="Poppins-SemiBold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -326,7 +339,9 @@
                             <constraint firstItem="r2y-Ca-tm3" firstAttribute="top" secondItem="WkM-Ed-Y4Y" secondAttribute="bottom" constant="16" id="iJC-Nv-7tf"/>
                             <constraint firstItem="qR7-x7-Vjp" firstAttribute="bottom" secondItem="r2y-Ca-tm3" secondAttribute="bottom" id="j9U-bc-jHj"/>
                             <constraint firstItem="ofJ-Wa-Jt6" firstAttribute="leading" secondItem="qR7-x7-Vjp" secondAttribute="leading" constant="22" id="owR-Xl-5V7"/>
+                            <constraint firstItem="s3q-kp-2k1" firstAttribute="centerX" secondItem="sZf-SQ-nCL" secondAttribute="centerX" id="pGv-tm-Cb3"/>
                             <constraint firstItem="WkM-Ed-Y4Y" firstAttribute="top" secondItem="wSD-iq-zJx" secondAttribute="bottom" constant="23" id="peF-LG-C7j"/>
+                            <constraint firstItem="s3q-kp-2k1" firstAttribute="top" secondItem="WkM-Ed-Y4Y" secondAttribute="bottom" constant="32" id="w21-nO-RvB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qR7-x7-Vjp"/>
                     </view>
@@ -336,8 +351,9 @@
                         <outlet property="collectionViewButton" destination="kF3-f9-F8d" id="Tfl-9o-rYU"/>
                         <outlet property="eventResultsCollectionView" destination="r2y-Ca-tm3" id="lxb-YS-Eh7"/>
                         <outlet property="eventResultsTableView" destination="OA4-Mk-ceR" id="FtN-MP-0Hv"/>
-                        <outlet property="filterLabel" destination="WkM-Ed-Y4Y" id="yAU-in-KxI"/>
+                        <outlet property="filterLabel" destination="WkM-Ed-Y4Y" id="laD-bN-LbM"/>
                         <outlet property="goBackButton" destination="ofJ-Wa-Jt6" id="LaW-AQ-Y1m"/>
+                        <outlet property="noResultsLabel" destination="s3q-kp-2k1" id="51l-Jq-YMb"/>
                         <outlet property="seperatorView" destination="aRk-UI-4ec" id="Fq6-Mb-eY3"/>
                         <outlet property="tableViewButton" destination="B2D-Nc-9kh" id="V1p-73-LWY"/>
                         <outlet property="titleLabel" destination="wSD-iq-zJx" id="Vjt-vX-HuG"/>

@@ -418,6 +418,7 @@ extension FilterViewController: UITextFieldDelegate {
                 filter.dateRange = DateRangeFilter(dateRange: (secondDatePickerView.date, filter.dateRange!.min))
             }
             dateTextField.text = "\(filterDateFormatter.string(from: filter.dateRange!.min)) - \(filterDateFormatter.string(from: filter.dateRange!.max))"
+            dateTextField.endEditing(true)
         } else if secondDatePickerView.isHidden {
             filter.dateRange = DateRangeFilter(dateRange: (firstDatePickerView.date, firstDatePickerView.date))
             firstDatePickerView.isHidden = true
@@ -431,6 +432,7 @@ extension FilterViewController: UITextFieldDelegate {
     @objc
     func districtDoneButtonTapped(_ sender: UIButton) {
         districtTextField.text = districts?[districtPickerView.selectedRow(inComponent: 0)]
+        districtTextField.endEditing(true)
         districtPickerView.isHidden = true
         districtDoneButton.isHidden = true
         

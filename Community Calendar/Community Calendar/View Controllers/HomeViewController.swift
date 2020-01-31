@@ -46,6 +46,8 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var seperatorView: UIView!
     @IBOutlet private weak var dateLabel: UILabel!
     
+    @IBOutlet private weak var noResultsLabel: UILabel!
+    
     // MARK: - Filter Buttons IBOutles
     @IBOutlet private weak var thisWeekendButton: UIButton!
     @IBOutlet private weak var allUpcomingButton: UIButton!
@@ -86,6 +88,8 @@ class HomeViewController: UIViewController {
         } else {
             fetchEvents()
         }
+        
+        noResultsLabel.isHidden = true
     }
     
     // MARK: - Functions
@@ -216,7 +220,7 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Search Functions
-    func shouldShowSearchView(_ bool: Bool, shouldAnimate: Bool = true) {
+    private func shouldShowSearchView(_ bool: Bool, shouldAnimate: Bool = true) {
         searchViewTopConstraint.isActive = false
         if bool {
             searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: searchBar, attribute: .bottom, multiplier: 1, constant: 3)
@@ -235,7 +239,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    func searchBorderDesigns() {
+    private func searchBorderDesigns() {
         // Set filter button's border
         filterButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
         filterButton.layer.cornerRadius = 29 / 1.6
@@ -253,7 +257,7 @@ class HomeViewController: UIViewController {
         recentSearchesLabel.textColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
     }
     
-    func updateFilterCount() {
+    private func updateFilterCount() {
         guard let currentFilter = currentFilter else {
             filterButton.setTitle("Filters", for: .normal)
             return
@@ -403,6 +407,11 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == eventTableView {
+            if events?.count == 0 || events == nil {
+                noResultsLabel.isHidden = false
+            } else {
+                noResultsLabel.isHidden = true
+            }
             return events?.count ?? 0
         } else if tableView == recentSearchesTableView {
             return recentFiltersList.count
@@ -436,8 +445,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             eventTableView.deselectRow(at: indexPath, animated: true)
         } else if tableView == recentSearchesTableView {
             currentFilter = recentFiltersList[indexPath.row]
-            performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
             recentSearchesTableView.deselectRow(at: indexPath, animated: true)
+            performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
         }
     }
     
