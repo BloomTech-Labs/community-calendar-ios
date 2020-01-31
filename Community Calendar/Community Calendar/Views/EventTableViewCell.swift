@@ -40,8 +40,6 @@ class EventTableViewCell: UITableViewCell {
         setImage()
         districtNameLabel.text = event.locations.first?.city.uppercased()
         setDate()
-//        guard let startDate = event.startDate, let endDate = event.endDate else { return }
-//        timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
     }
     
     private func setImage() {

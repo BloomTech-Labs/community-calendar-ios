@@ -10,6 +10,7 @@
 		0E09806723E20D2C000110AB /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E09806623E20D2C000110AB /* Events.storyboard */; };
 		0E09806923E20DB1000110AB /* EventDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E09806823E20DB1000110AB /* EventDetail.storyboard */; };
 		0E09806B23E2A526000110AB /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E09806A23E2A526000110AB /* SearchController.swift */; };
+		0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */; };
 		0E64400223C63DC800A56B22 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E64400123C63DC800A56B22 /* EventController.swift */; };
 		0E73088F23C69147006B5326 /* EventControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E73088E23C69147006B5326 /* EventControllerTests.swift */; };
 		0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7DD80823C8E844009843BE /* EventDetailViewController.swift */; };
@@ -91,6 +92,7 @@
 		0E09806623E20D2C000110AB /* Events.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Events.storyboard; sourceTree = "<group>"; };
 		0E09806823E20DB1000110AB /* EventDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EventDetail.storyboard; sourceTree = "<group>"; };
 		0E09806A23E2A526000110AB /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesTableViewCell.swift; sourceTree = "<group>"; };
 		0E64400123C63DC800A56B22 /* EventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		0E73088C23C69147006B5326 /* Community Calendar Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Community Calendar Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E73088E23C69147006B5326 /* EventControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventControllerTests.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */,
 				0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */,
 				0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */,
+				0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */,
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
 				0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */,
+				0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
 				0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */,
 				0EF6DDEF23E0D94F00D8A91B /* Date+Extension.swift in Sources */,

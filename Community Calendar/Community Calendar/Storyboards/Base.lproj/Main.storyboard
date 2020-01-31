@@ -587,7 +587,7 @@
                                         <rect key="frame" x="0.0" y="153.66666666666669" width="414" height="564.33333333333326"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchTableViewCell" rowHeight="50" id="e4v-PI-bBo">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentSearchCell" rowHeight="50" id="e4v-PI-bBo" customClass="RecentSearchesTableViewCell" customModule="Community_Calendar" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="e4v-PI-bBo" id="Qa0-iI-bsN">
@@ -641,6 +641,11 @@
                                                         <constraint firstItem="wSe-Ij-G4k" firstAttribute="leading" secondItem="HQy-HE-ttx" secondAttribute="trailing" constant="16" id="voe-sM-w7U"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="byFilterLabel" destination="vx0-UA-fgR" id="W0t-hb-LW7"/>
+                                                    <outlet property="filterUsedLabel" destination="F1i-PZ-Onx" id="GE4-Jc-pyP"/>
+                                                    <outlet property="imageButton" destination="HQy-HE-ttx" id="cPv-BC-zTe"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -751,6 +756,7 @@
                         <outlet property="nearbyButton" destination="Bjf-vJ-joZ" id="HHY-IQ-xPQ"/>
                         <outlet property="nearbyLabel" destination="bus-3w-XhM" id="jRK-sD-9GB"/>
                         <outlet property="recentSearchesLabel" destination="2BF-34-zMR" id="PCs-O4-dha"/>
+                        <outlet property="recentSearchesTableView" destination="xmU-Od-diR" id="Xoa-rw-EdK"/>
                         <outlet property="searchBar" destination="g7Q-b9-lep" id="qFP-br-D6P"/>
                         <outlet property="searchBarCancelButton" destination="Cbf-KY-KLb" id="Iqp-Rn-LXF"/>
                         <outlet property="searchBarTrailingConstraint" destination="Qau-mp-sju" id="MoP-9N-g4S"/>

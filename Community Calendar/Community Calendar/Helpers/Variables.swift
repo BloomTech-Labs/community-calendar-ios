@@ -42,6 +42,12 @@ let backendDateFormatter: DateFormatter = {
     return df
 }()
 
+let weekdayDateFormatter: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "EEEE"
+    return df
+}()
+
 let filterDateFormatter: DateFormatter = {
     let df = DateFormatter()
     df.dateFormat = "MM-dd-yy"

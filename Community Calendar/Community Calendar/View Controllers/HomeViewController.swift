@@ -14,6 +14,12 @@ class HomeViewController: UIViewController {
     
     var shouldDismissFilterScreen = true
     private let eventController = EventController()
+    private let searchController = SearchController()
+    private var recentFiltersList = [Filter]() {
+        didSet {
+            recentSearchesTableView.reloadData()
+        }
+    }
     private var unfilteredEvents: [Event]? {
         didSet {
             allUpcomingTapped(UIButton())
@@ -57,6 +63,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var searchBarTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private var searchViewTopConstraint: NSLayoutConstraint! // Strong reference so that it wont be deallocated when setting new value
     @IBOutlet private var searchViewBottomConstraint: NSLayoutConstraint! // ""
+    @IBOutlet weak var recentSearchesTableView: UITableView!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
@@ -64,9 +71,10 @@ class HomeViewController: UIViewController {
         setUp()
 //        printFonts()
         
-        nearbyButton.backgroundColor = .clear // Remove and implement
+//        recentFiltersList = searchController.loadFromPersistantStore()
+        
+        nearbyButton.isHidden = true // Remove and implement
         nearbyLabel.textColor = .clear // Remove and implement
-        nearbyButton.imageView?.image = nil // Remove
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,6 +91,10 @@ class HomeViewController: UIViewController {
         eventTableView.delegate = self
         eventTableView.dataSource = self
         eventTableView.showsVerticalScrollIndicator = false
+        
+        recentSearchesTableView.delegate = self
+        recentSearchesTableView.dataSource = self
+        recentSearchesTableView.showsVerticalScrollIndicator = false
         
         eventCollectionView.delegate = self
         eventCollectionView.dataSource = self
@@ -284,6 +296,7 @@ class HomeViewController: UIViewController {
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         events = unfilteredEvents?.filter({ Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0)) == Calendar.current.dateComponents([.day, .month, .year], from: Date()) })
         eventTableView.reloadData()
+        dateLabel.text = todayDateFormatter.string(from: Date())
     }
     
     @IBAction func tomorrowTapped(_ sender: UIButton) {
@@ -291,11 +304,12 @@ class HomeViewController: UIViewController {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
+        let filterDate = Calendar.current.dateComponents([.day, .month, .year], from: Date().tomorrow)
         events = unfilteredEvents?.filter({
-            let filterDate = Calendar.current.dateComponents([.day, .month, .year], from: Date().tomorrow)
             return filterDate == Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
         })
         eventTableView.reloadData()
+        dateLabel.text = todayDateFormatter.string(from: Date().tomorrow)
     }
     
     @IBAction func thisWeekendTapped(_ sender: UIButton) {
@@ -305,12 +319,14 @@ class HomeViewController: UIViewController {
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
         
         let arrWeekDays = Date().getWeekDays()
+        let saturdayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 2])
+        let sundayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 1])
         events = unfilteredEvents?.filter({
-            let saturdayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.nextWeek[arrWeekDays.nextWeek.count - 2])
-            let sundayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.nextWeek[arrWeekDays.nextWeek.count - 1])
-            return saturdayFilterDate == Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0)) || sundayFilterDate == Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
+            let comp = Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
+            return saturdayFilterDate == comp || sundayFilterDate == comp
         })
         eventTableView.reloadData()
+        dateLabel.text = "\(weekdayDateFormatter.string(from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 2])) - \(todayDateFormatter.string(from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 1]))"
     }
     
     @IBAction func allUpcomingTapped(_ sender: UIButton) {
@@ -320,6 +336,7 @@ class HomeViewController: UIViewController {
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
         events = unfilteredEvents
         eventTableView.reloadData()
+        dateLabel.text = "\(todayDateFormatter.string(from: Date()))+"
     }
     
     // MARK: - Search IBActions
@@ -365,6 +382,7 @@ class HomeViewController: UIViewController {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
             resultsVC.eventController = eventController
             resultsVC.filter = currentFilter
+            currentFilter = nil
         }
     }
 }
@@ -372,47 +390,77 @@ class HomeViewController: UIViewController {
 // MARK: - Table View Extension
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events?.count ?? 0
+        if tableView == eventTableView {
+            return events?.count ?? 0
+        } else if tableView == recentSearchesTableView {
+            return recentFiltersList.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell,
-        let events = events else { return UITableViewCell() }
+        if tableView == eventTableView {
+            guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell,
+            let events = events else { return UITableViewCell() }
+            
+            cell.indexPath = indexPath
+            cell.eventController = eventController
+            cell.event = events[indexPath.row]
+            
+            return cell
+        } else if tableView == recentSearchesTableView {
+            guard let cell = recentSearchesTableView.dequeueReusableCell(withIdentifier: "RecentSearchCell", for: indexPath) as? RecentSearchesTableViewCell else { return UITableViewCell() }
+            
+            cell.filter = recentFiltersList[indexPath.row]
+            
+            return cell
+        }
         
-        cell.indexPath = indexPath
-        cell.eventController = eventController
-        cell.event = events[indexPath.row]
-        
-        return cell
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        eventTableView.deselectRow(at: indexPath, animated: true)
+        if tableView == eventTableView {
+            eventTableView.deselectRow(at: indexPath, animated: true)
+        } else if tableView == recentSearchesTableView {
+            currentFilter = recentFiltersList[indexPath.row]
+            performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
+            recentSearchesTableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        if tableView == eventTableView {
+            return true
+        }
+        return false
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let favoriteAction = UIContextualAction(style: .normal, title: "Favorite") { (action, view, handler) in
-            print("Favorite tapped")
-            // TODO: Add event to favorites
+        if tableView == eventTableView {
+            let favoriteAction = UIContextualAction(style: .normal, title: "Favorite") { (action, view, handler) in
+                print("Favorite tapped")
+                // TODO: Add event to favorites
+            }
+            favoriteAction.backgroundColor = UIColor.systemPink
+            let configuration = UISwipeActionsConfiguration(actions: [favoriteAction])
+            return configuration
         }
-        favoriteAction.backgroundColor = UIColor.systemPink
-        let configuration = UISwipeActionsConfiguration(actions: [favoriteAction])
-        return configuration
+        return nil
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let hideAction = UIContextualAction(style: .destructive, title: "Hide") { (action, view, handler) in
-            print("Hide tapped")
-            self.events?.remove(at: indexPath.row)
-            self.eventTableView.deleteRows(at: [indexPath], with: .fade)
+        if tableView == eventTableView {
+            let hideAction = UIContextualAction(style: .destructive, title: "Hide") { (action, view, handler) in
+                print("Hide tapped")
+                self.events?.remove(at: indexPath.row)
+                self.eventTableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            hideAction.backgroundColor = UIColor.blue
+            let configuration = UISwipeActionsConfiguration(actions: [hideAction])
+            return configuration
         }
-        hideAction.backgroundColor = UIColor.blue
-        let configuration = UISwipeActionsConfiguration(actions: [hideAction])
-        return configuration
+        return nil
     }
 }
 
@@ -455,6 +503,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 // MARK: - Search Bar Extension
 extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        recentFiltersList = searchController.loadFromPersistantStore()
         if shouldDismissFilterScreen {
             shouldShowSearchView(true)
             searchBarTrailingConstraint.constant = -searchBarCancelButton.frame.width - 32
@@ -469,15 +518,8 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let currentFilter = currentFilter {
             performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
-            eventController.getEvents(by: currentFilter) { result in
-                switch result {
-                case .success(let eventList):
-                    print(eventList)
-                    self.currentFilter = nil
-                case .failure(let error):
-                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-                }
-            }
+//            searchController.save(filteredSearch: currentFilter)
+            recentFiltersList.insert(currentFilter, at: 0)
         } else {
             eventController.getEvents { result in
                 switch result {

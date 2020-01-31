@@ -104,9 +104,9 @@ class FilterViewController: UIViewController {
     
     private func setUpWithFilters() {
         if let dateRange = filter.dateRange {
-            dateTextField.text = "\(filterDateFormatter.string(from: dateRange.0)) - \(filterDateFormatter.string(from: dateRange.1))"
-            firstDatePickerView.date = dateRange.0
-            secondDatePickerView.date = dateRange.1
+            dateTextField.text = "\(filterDateFormatter.string(from: dateRange.min)) - \(filterDateFormatter.string(from: dateRange.max))"
+            firstDatePickerView.date = dateRange.min
+            secondDatePickerView.date = dateRange.max
         }
         if let location = filter.location, let row = location.row {
             districtTextField.text = location.name
@@ -397,13 +397,13 @@ extension FilterViewController: UITextFieldDelegate {
             secondDatePickerView.isHidden = true
             dateDoneButton.isHidden = true
             
-            filter.dateRange = (filter.dateRange!.0, secondDatePickerView.date)
-            if filter.dateRange!.0.isGreaterThan(date: secondDatePickerView.date)! {
-                filter.dateRange = (secondDatePickerView.date, filter.dateRange!.0)
+            filter.dateRange = DateRangeFilter(dateRange: (filter.dateRange!.min, secondDatePickerView.date))
+            if filter.dateRange!.min.isGreaterThan(date: secondDatePickerView.date)! {
+                filter.dateRange = DateRangeFilter(dateRange: (secondDatePickerView.date, filter.dateRange!.min))
             }
-            dateTextField.text = "\(filterDateFormatter.string(from: filter.dateRange!.0)) - \(filterDateFormatter.string(from: filter.dateRange!.1))"
+            dateTextField.text = "\(filterDateFormatter.string(from: filter.dateRange!.min)) - \(filterDateFormatter.string(from: filter.dateRange!.max))"
         } else if secondDatePickerView.isHidden {
-            filter.dateRange = (firstDatePickerView.date, firstDatePickerView.date)
+            filter.dateRange = DateRangeFilter(dateRange: (firstDatePickerView.date, firstDatePickerView.date))
             firstDatePickerView.isHidden = true
             secondDatePickerView.isHidden = false
             dateDoneButton.setTitle("Done", for: .normal)
