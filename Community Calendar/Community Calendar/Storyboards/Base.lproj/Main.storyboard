@@ -550,6 +550,18 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ki9-7N-9nF">
+                                <rect key="frame" x="177.66666666666666" y="479.66666666666669" width="59" height="14"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="No Results">
+                                        <attributes>
+                                            <font key="NSFont" size="12" name="Poppins-SemiBold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mow-Pn-qDL">
                                 <rect key="frame" x="0.0" y="95" width="414" height="718"/>
                                 <subviews>
@@ -702,18 +714,6 @@
                                     <action selector="searchBarCancelButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nnn-RW-PEC"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ki9-7N-9nF">
-                                <rect key="frame" x="177.66666666666666" y="479.66666666666669" width="59" height="14"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="No Results">
-                                        <attributes>
-                                            <font key="NSFont" size="12" name="Poppins-SemiBold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>

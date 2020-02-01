@@ -13,6 +13,8 @@ class LoginViewController: UIViewController {
     // MARK: - Variables
     var homeController = HomeViewController()
     
+    @IBOutlet weak var nameLabel: UILabel!
+    
     var onAuth: ((Result<Credentials>) -> ())!
     var credentials: Credentials? {
         didSet {
@@ -48,8 +50,12 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(true)
         if credentials == nil {
             loginOrSignUpButtonPressed(0)
+            nameLabel.text = "Please log in"
         } else {
             print("\(#function): User already signed in")
+            if let profile = profile {
+                nameLabel.text = "Name: \(profile.name ?? "Could not find name!")"
+            }
         }
     }
     

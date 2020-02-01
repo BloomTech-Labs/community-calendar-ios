@@ -441,11 +441,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == eventTableView {
-            eventTableView.deselectRow(at: indexPath, animated: true)
-        } else if tableView == recentSearchesTableView {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if tableView == recentSearchesTableView {
             currentFilter = recentFiltersList[indexPath.row]
-            recentSearchesTableView.deselectRow(at: indexPath, animated: true)
             performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
         }
     }

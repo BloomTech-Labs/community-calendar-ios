@@ -25,12 +25,12 @@ class RecentSearchesTableViewCell: UITableViewCell {
     }
 
     func updateViews() {
-        backgroundColor = UIColor(red: 0.84, green: 0.84, blue: 0.84, alpha: 1.0)
-        layer.cornerRadius = 5
-        layer.borderWidth = 1
-        layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
-        
         guard let filter = filter, let filterUsedLabel = filterUsedLabel else { return }
+        imageButton.backgroundColor = UIColor(red: 0.84, green: 0.84, blue: 0.84, alpha: 1.0)
+        imageButton.layer.cornerRadius = 5
+        imageButton.layer.borderWidth = 1
+        imageButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
+        
         filterUsedLabel.text = ""
         if filter.index != nil {
             byFilterLabel.text = "By term"

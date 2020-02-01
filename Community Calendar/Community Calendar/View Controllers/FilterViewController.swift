@@ -95,7 +95,7 @@ class FilterViewController: UIViewController {
     
     private func setUp() {
         setUpTextField(districtTextField)
-        setUpTextField(zipCodeTextField, false)
+        setUpTextField(zipCodeTextField)
         dateTextField.placeholder = "\(filterDateFormatter.string(from: Date()))"
         setUpTextField(dateTextField)
         
@@ -127,22 +127,22 @@ class FilterViewController: UIViewController {
         suggestedTagsCollectionView.reloadData()
     }
     
-    private func setUpTextField(_ textField: UITextField, _ withoutSelect: Bool = true) {
+    private func setUpTextField(_ textField: UITextField) {
         guard let font = UIFont(name: "Poppins-Regular", size: 14), let placeholderText = textField.placeholder else { return }
         textField.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.font : font])
         textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.font : font])
         textField.font = font
         
-        textField.addSubview(UIView(frame: CGRect(x: 0, y: 20, width: textField.frame.width, height: 1)))
-        textField.subviews.last?.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 1)
-        
         textField.delegate = self
         textField.delegate = self
         
-        if withoutSelect {
+        if textField == zipCodeTextField {
+            textField.addSubview(UIView(frame: CGRect(x: 0, y: 20, width: textField.frame.width, height: 1)))
+            textField.subviews.last?.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 1)
+        } else {
             textField.inputView = UIView()
             textField.inputAccessoryView = UIView()
-            textField.tintColor = .white
+            textField.tintColor = .clear
         }
     }
     
@@ -176,14 +176,17 @@ class FilterViewController: UIViewController {
         districtPickerView.delegate = self
         districtPickerView.dataSource = self
         
+//        firstDatePickerView.setValue(UIFont(name: "Poppins-Regular", size: 14), forKeyPath: "fontName")
+        
         firstDatePickerView.datePickerMode = .date
         secondDatePickerView.datePickerMode = .date
         
         view.addSubview(firstDatePickerView)
         view.addSubview(secondDatePickerView)
         view.addSubview(dateDoneButton)
-        firstDatePickerView.frame = CGRect(x: dateTextField.frame.minX - 100, y: dateTextField.frame.maxY, width: dateTextField.frame.width + 100, height: 100)
-        secondDatePickerView.frame = CGRect(x: dateTextField.frame.minX - 100, y: dateTextField.frame.maxY, width: dateTextField.frame.width + 100, height: 100)
+        let frame = CGRect(x: dateTextField.frame.minX - 100, y: dateTextField.frame.maxY + 5, width: dateTextField.frame.width + 100, height: 100)
+        firstDatePickerView.frame = frame
+        secondDatePickerView.frame = frame
         dateDoneButton.frame = CGRect(x: dateTextField.frame.minX, y: dateTextField.frame.maxY + 100, width: 50, height: 30)
         dateDoneButton.setTitle("Done", for: .normal)
         dateDoneButton.addTarget(self, action: #selector(dateDoneButtonTapped(_:)), for: .touchUpInside)
@@ -194,8 +197,8 @@ class FilterViewController: UIViewController {
         view.addSubview(districtPickerView)
         view.addSubview(districtDoneButton)
         districtPickerView.reloadAllComponents()
-        districtPickerView.frame = CGRect(x: districtTextField.frame.minX - 100, y: districtTextField.frame.maxY, width: districtTextField.frame.width + 100, height: 100)
-        districtDoneButton.frame = CGRect(x: dateTextField.frame.minX, y: dateTextField.frame.maxY + 100, width: 50, height: 30)
+        districtPickerView.frame = CGRect(x: districtTextField.frame.minX - 100, y: districtTextField.frame.maxY + 5, width: districtTextField.frame.width + 100, height: 100)
+        districtDoneButton.frame = CGRect(x: districtTextField.frame.minX, y: districtTextField.frame.maxY + 100, width: 50, height: 30)
         districtDoneButton.setTitle("Done", for: .normal)
         districtDoneButton.addTarget(self, action: #selector(districtDoneButtonTapped(_:)), for: .touchUpInside)
         districtPickerView.isHidden = true
@@ -400,8 +403,13 @@ extension FilterViewController: UITextFieldDelegate {
         if textField == districtTextField {
             districtPickerView.isHidden = false
             districtDoneButton.isHidden = false
+            firstDatePickerView.isHidden = true
+            secondDatePickerView.isHidden = true
+            dateDoneButton.isHidden = true
         } else if textField == dateTextField {
             firstDatePickerView.isHidden = false
+            districtPickerView.isHidden = true
+            districtDoneButton.isHidden = true
             dateDoneButton.setTitle("Next", for: .normal)
             dateDoneButton.isHidden = false
         }
@@ -464,12 +472,12 @@ extension FilterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return 0
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if pickerView == districtPickerView {
-            guard let districts = districts else { return "?" }
-            return districts[row]
+            guard let districts = districts, let font = UIFont(name: "Poppins-Regular", size: 12) else { return NSAttributedString(string: "?") }
+            return NSAttributedString(string: districts[row], attributes: [NSAttributedString.Key.font: font])
         }
-        return "?"
+        return NSAttributedString(string: "?")
     }
 }
 
