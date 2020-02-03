@@ -17,6 +17,7 @@ class SearchResultViewController: UIViewController {
     }
     var filter: Filter? {
         didSet {
+            setFilterLabel()
             fetchFilteredEvents()
         }
     }
@@ -35,8 +36,14 @@ class SearchResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUp()
+        updateViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchFilteredEvents()
     }
     
     private func updateViews() {
@@ -64,6 +71,8 @@ class SearchResultViewController: UIViewController {
         
         updateViews()
         eventResultsCollectionView.isHidden = true
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
     private func fetchFilteredEvents() {
@@ -84,7 +93,7 @@ class SearchResultViewController: UIViewController {
     }
     
     private func setFilterLabel() {
-        guard let filter = filter else { return }
+        guard let filter = filter, let filterLabel = filterLabel else { return }
         filterLabel.text = ""
         if filter.index != nil {
             filterLabel.text = "By term \"\(filter.index!)\""
@@ -205,4 +214,12 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
         let configuration = UISwipeActionsConfiguration(actions: [hideAction])
         return configuration
     }
+}
+
+extension SearchResultViewController: UIGestureRecognizerDelegate, UINavigationControllerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    
 }

@@ -14,12 +14,12 @@ class SearchController {
     
     func save(filteredSearch: Filter) {
         var tempArr = loadFromPersistantStore()
-        userDefaults.setValue(tempArr.append(filteredSearch), forKey: searchPersistanceKey)
+        tempArr.append(filteredSearch)
+        userDefaults.setValue(try? PropertyListEncoder().encode(tempArr), forKey: searchPersistanceKey)
     }
     
     func loadFromPersistantStore() -> [Filter] {
-        let storedFilters = userDefaults.object(forKey: searchPersistanceKey)
-        guard let data = storedFilters as? Data, let decodedArray = try? JSONDecoder().decode([Filter].self, from: data) else { return [] }
+        guard let data = userDefaults.object(forKey: searchPersistanceKey) as? Data, let decodedArray = try? PropertyListDecoder().decode([Filter].self, from: data) else { return [] }
         return decodedArray
     }
     

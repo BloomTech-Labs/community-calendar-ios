@@ -372,7 +372,7 @@ class HomeViewController: UIViewController {
         if segue.identifier == "ShowFeaturedDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
                 let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
-                let events = events else { return }
+                let events = unfilteredEvents else { return }
             detailVC.eventController = eventController
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
@@ -522,7 +522,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 // MARK: - Search Bar Extension
 extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        recentFiltersList = searchController.loadFromPersistantStore()
+        recentFiltersList = searchController.loadFromPersistantStore()
         shouldShowSearchView(true)
         searchBarTrailingConstraint.constant = -searchBarCancelButton.frame.width - 32
         UIView.animate(withDuration: 0.25) {
@@ -535,7 +535,7 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let currentFilter = currentFilter {
             performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
-//            searchController.save(filteredSearch: currentFilter)
+            searchController.save(filteredSearch: currentFilter)
             recentFiltersList.insert(currentFilter, at: 0)
         }
         shouldDismissFilterScreen = true

@@ -9,7 +9,7 @@
 import Foundation
 
 class Cache<Key, Value> where Key : Hashable {
-    private let queue = DispatchQueue(label: "com.mazjap.Community-Calendar.cache")
+    private let queue = DispatchQueue(label: "com.lambdaschool.Community-Calendar.cache")
     private var cache = [Key : Value]()
     
     func cache(value: Value, for key: Key) {
