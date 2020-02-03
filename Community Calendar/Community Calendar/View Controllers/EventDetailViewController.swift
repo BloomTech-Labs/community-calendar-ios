@@ -50,14 +50,18 @@ class EventDetailViewController: UIViewController {
     
     private func updateViews() {
         guard isViewLoaded, let event = event else { return }
+        
         titleLabel.text = event.title
         eventDescTextView.text = event.description
         hostNameLabel.text = event.creator
+        addressLabel.text = "\(event.locations.first?.streetAddress ?? ""), \(event.locations.first?.city ?? "")"
         if let startDate = event.startDate, let endDate = event.endDate {
+            dateLabel.text = todayDateFormatter.string(from: startDate)
             timeLabel.text = "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))"
         } else {
             timeLabel.text = "No time given"
         }
+        priceLabel.text = "\(event.ticketPrice == 0.0 ? "Free" : "\(event.ticketPrice)")"
         
         
         
@@ -67,9 +71,11 @@ class EventDetailViewController: UIViewController {
         
         openInMapsButton.setTitleColor(.white, for: .normal)
         openInMapsButton.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
+        openInMapsButton.layer.cornerRadius = 6
         
         addToCalendarButton.setTitleColor(.white, for: .normal)
         addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
+        addToCalendarButton.layer.cornerRadius = 6
         
         if let imageURL = event.images.first, !imageURL.isEmpty {
             if eventController?.cache.fetch(key: imageURL) == nil {
