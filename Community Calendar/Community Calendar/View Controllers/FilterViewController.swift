@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol FilterDelegate {
     func receive(filters: Filter)
@@ -14,24 +15,30 @@ protocol FilterDelegate {
 
 class FilterViewController: UIViewController {
     // MARK: - Varibles
-    var eventController: EventController?
     var delegate: FilterDelegate?
-    var selectedFilters = [Tag]()
-    var suggestedFilters = [Tag]()
     var isEditingTag: Bool = false
-    var events: [Event]? {
-        didSet {
-            setDistrictList()
-        }
-    }
+    
     var districts: [String]?
-    var dateFilter: (Date, Date?)?
     
     var firstDatePickerView = UIDatePicker()
     var secondDatePickerView = UIDatePicker()
     var districtPickerView = UIPickerView()
     var dateDoneButton = UIButton()
     var districtDoneButton = UIButton()
+    var selectedFilters = [Tag]()
+    var suggestedFilters = [Tag]()
+    
+    var eventController: EventController?
+    var events: [Event]? {
+        didSet {
+            setDistrictList()
+        }
+    }
+    var filter = Filter() {
+        didSet {
+            updateViews()
+        }
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -67,6 +74,8 @@ class FilterViewController: UIViewController {
         
         tagsSearchBar.delegate = self
         tagsSearchBar.returnKeyType = .done
+        
+        zipCodeTextField.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,36 +86,63 @@ class FilterViewController: UIViewController {
     
     // MARK: - Functions
     private func updateViews() {
+        guard isViewLoaded else { return }
         setUpSearchBar()
         
         applyButton.layer.cornerRadius = 6
+        
     }
     
     private func setUp() {
         setUpTextField(districtTextField)
-        setUpTextField(zipCodeTextField, false)
+        setUpTextField(zipCodeTextField)
         dateTextField.placeholder = "\(filterDateFormatter.string(from: Date()))"
         setUpTextField(dateTextField)
+        
+        setUpWithFilters()
         
         setDistrictList()
         setUpPickerViews()
     }
     
-    private func setUpTextField(_ textField: UITextField, _ withoutSelect: Bool = true) {
+    private func setUpWithFilters() {
+        if let dateRange = filter.dateRange {
+            dateTextField.text = "\(filterDateFormatter.string(from: dateRange.min)) - \(filterDateFormatter.string(from: dateRange.max))"
+            firstDatePickerView.date = dateRange.min
+            secondDatePickerView.date = dateRange.max
+        }
+        if let location = filter.location, let row = location.row {
+            districtTextField.text = location.name
+            districtPickerView.selectRow(row, inComponent: 0, animated: false)
+        }
+        
+        selectedFilters = filter.tags ?? []
+        for suggestedTag in suggestedFilters {
+            for selectedTag in selectedFilters {
+                if suggestedTag.title == selectedTag.title {
+                    remove(object: suggestedTag, from: &suggestedFilters)
+                }
+            }
+        }
+        suggestedTagsCollectionView.reloadData()
+    }
+    
+    private func setUpTextField(_ textField: UITextField) {
         guard let font = UIFont(name: "Poppins-Regular", size: 14), let placeholderText = textField.placeholder else { return }
         textField.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.font : font])
         textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.font : font])
-        
-        textField.addSubview(UIView(frame: CGRect(x: 0, y: 20, width: textField.frame.width, height: 1)))
-        textField.subviews.last?.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 1)
+        textField.font = font
         
         textField.delegate = self
         textField.delegate = self
         
-        if withoutSelect {
+        if textField == zipCodeTextField {
+            textField.addSubview(UIView(frame: CGRect(x: 0, y: 20, width: textField.frame.width, height: 1)))
+            textField.subviews.last?.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 1)
+        } else {
             textField.inputView = UIView()
             textField.inputAccessoryView = UIView()
-            textField.tintColor = .white
+            textField.tintColor = .clear
         }
     }
     
@@ -140,14 +176,17 @@ class FilterViewController: UIViewController {
         districtPickerView.delegate = self
         districtPickerView.dataSource = self
         
+//        firstDatePickerView.setValue(UIFont(name: "Poppins-Regular", size: 14), forKeyPath: "fontName")
+        
         firstDatePickerView.datePickerMode = .date
         secondDatePickerView.datePickerMode = .date
         
         view.addSubview(firstDatePickerView)
         view.addSubview(secondDatePickerView)
         view.addSubview(dateDoneButton)
-        firstDatePickerView.frame = CGRect(x: dateTextField.frame.minX - 100, y: dateTextField.frame.maxY, width: dateTextField.frame.width + 100, height: 100)
-        secondDatePickerView.frame = CGRect(x: dateTextField.frame.minX - 100, y: dateTextField.frame.maxY, width: dateTextField.frame.width + 100, height: 100)
+        let frame = CGRect(x: dateTextField.frame.minX - 100, y: dateTextField.frame.maxY + 5, width: dateTextField.frame.width + 100, height: 100)
+        firstDatePickerView.frame = frame
+        secondDatePickerView.frame = frame
         dateDoneButton.frame = CGRect(x: dateTextField.frame.minX, y: dateTextField.frame.maxY + 100, width: 50, height: 30)
         dateDoneButton.setTitle("Done", for: .normal)
         dateDoneButton.addTarget(self, action: #selector(dateDoneButtonTapped(_:)), for: .touchUpInside)
@@ -158,8 +197,8 @@ class FilterViewController: UIViewController {
         view.addSubview(districtPickerView)
         view.addSubview(districtDoneButton)
         districtPickerView.reloadAllComponents()
-        districtPickerView.frame = CGRect(x: districtTextField.frame.minX - 100, y: districtTextField.frame.maxY, width: districtTextField.frame.width + 100, height: 100)
-        districtDoneButton.frame = CGRect(x: dateTextField.frame.minX, y: dateTextField.frame.maxY + 100, width: 50, height: 30)
+        districtPickerView.frame = CGRect(x: districtTextField.frame.minX - 100, y: districtTextField.frame.maxY + 5, width: districtTextField.frame.width + 100, height: 100)
+        districtDoneButton.frame = CGRect(x: districtTextField.frame.minX, y: districtTextField.frame.maxY + 100, width: 50, height: 30)
         districtDoneButton.setTitle("Done", for: .normal)
         districtDoneButton.addTarget(self, action: #selector(districtDoneButtonTapped(_:)), for: .touchUpInside)
         districtPickerView.isHidden = true
@@ -189,13 +228,13 @@ class FilterViewController: UIViewController {
     }
     
     private func addSuggestedFilters() {
-        // TODO: Get data from back end or show recent or most used filters. Alternatively use CoreML to learn what kind of filters the user likes and suggest new and used ones appropriately.
+        // TODO: Record most used filters and display the top 10. Alternatively use CoreML to learn what kind of filters the user likes and suggest new and used ones appropriately.
         if let eventController = eventController {
             eventController.fetchTags { result in
                 switch result {
                 case .success(let tags):
                     self.suggestedFilters = tags
-                    self.suggestedTagsCollectionView.reloadData()
+                    self.setUpWithFilters()
                 case .failure(let error):
                     NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error \(error)")
                 }
@@ -203,6 +242,19 @@ class FilterViewController: UIViewController {
         } else {
             suggestedFilters = [Tag(title: "Cooking"), Tag(title: "Tech"), Tag(title: "Reading"), Tag(title: "Entertainment"), Tag(title: "Music"), Tag(title: "Family")]
         }
+    }
+    
+    @discardableResult
+    private func remove<T: Equatable>(object: T, from array: inout [T]) -> Any? {
+        for index in 0...array.count - 1 {
+            if object == array[index] {
+                let temp = array[index]
+                array.remove(at: index)
+                return temp
+            }
+        }
+        print("Failed to find object of type \(String(describing: object.self)) in array of type \(String(describing: array.self)). Are these objects of the same type?")
+        return nil
     }
     
     // MARK: - IBActions
@@ -213,15 +265,22 @@ class FilterViewController: UIViewController {
     
     @IBAction func clearTags(_ sender: UIButton) {
         selectedFilters = []
+        filter.tags = nil
         addSuggestedFilters()
-        // TODO - remove location zip and data filters
+        districtTextField.text = ""
+        filter.location = nil
+        zipCodeTextField.text = ""
+        // TODO: remove zipCode from filter
+        dateTextField.text = ""
+        filter.dateRange = nil
+        
         reloadCollectionViewsData()
     }
     
     
     
     @IBAction func applyFilters(_ sender: UIButton) {
-        delegate?.receive(filters: Filter(index: nil, tags: selectedFilters, location: nil, ticketRange: nil, dateRange: nil))
+        delegate?.receive(filters: filter)
         navigationController?.popViewController(animated: true)
     }
 }
@@ -275,11 +334,13 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let tag = cell.filterTag else { return }
         if cell.isActive {
             guard let indexPath = selectedTagsCollectionView.indexPath(for: cell) else { return }
-            for i in 0..<selectedFilters.count {
-                if selectedFilters[i] == tag {
-                    selectedFilters.remove(at: i); break
+            for tagFilter in selectedFilters {
+                if tagFilter == tag {
+                    remove(object: tagFilter, from: &selectedFilters)
+                    filter.tags = selectedFilters
                 }
             }
+            tagsSearchBar.endEditing(true)
             selectedTagsCollectionView.deleteItems(at: [indexPath])
             if isEditingTag && cell == selectedTagsCollectionView.visibleCells.first {
                 view.endEditing(true)
@@ -294,6 +355,7 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
             suggestedTagsCollectionView.deleteItems(at: [indexPath])
             selectedFilters.append(tag)
             selectedTagsCollectionView.insertItems(at: [IndexPath(row: selectedFilters.count - 1, section: 0)])
+            filter.tags = selectedFilters
         }
     }
 }
@@ -315,13 +377,20 @@ extension FilterViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if searchBar.text == "" && selectedFilters.count > 0 {
+            selectedFilters.remove(at: 0)
+        } else {
+            filter.tags = selectedFilters
+        }
         searchBar.text = ""
         isEditingTag = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        selectedFilters[0].title = searchText
-        selectedTagsCollectionView.reloadData()
+        if searchText != "" {
+            selectedFilters[0].title = searchText
+            selectedTagsCollectionView.reloadData()
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -334,8 +403,13 @@ extension FilterViewController: UITextFieldDelegate {
         if textField == districtTextField {
             districtPickerView.isHidden = false
             districtDoneButton.isHidden = false
+            firstDatePickerView.isHidden = true
+            secondDatePickerView.isHidden = true
+            dateDoneButton.isHidden = true
         } else if textField == dateTextField {
             firstDatePickerView.isHidden = false
+            districtPickerView.isHidden = true
+            districtDoneButton.isHidden = true
             dateDoneButton.setTitle("Next", for: .normal)
             dateDoneButton.isHidden = false
         }
@@ -344,12 +418,17 @@ extension FilterViewController: UITextFieldDelegate {
     @objc
     func dateDoneButtonTapped(_ sender: UIButton) {
         if firstDatePickerView.isHidden {
-            dateFilter?.1 = secondDatePickerView.date
             secondDatePickerView.isHidden = true
             dateDoneButton.isHidden = true
-            dateTextField.text = "\(filterDateFormatter.string(from: dateFilter!.0)) - \(filterDateFormatter.string(from: dateFilter!.1!))"
+            
+            filter.dateRange = DateRangeFilter(dateRange: (filter.dateRange!.min, secondDatePickerView.date))
+            if filter.dateRange!.min.isGreaterThan(date: secondDatePickerView.date)! {
+                filter.dateRange = DateRangeFilter(dateRange: (secondDatePickerView.date, filter.dateRange!.min))
+            }
+            dateTextField.text = "\(filterDateFormatter.string(from: filter.dateRange!.min)) - \(filterDateFormatter.string(from: filter.dateRange!.max))"
+            dateTextField.endEditing(true)
         } else if secondDatePickerView.isHidden {
-            dateFilter = (firstDatePickerView.date, nil)
+            filter.dateRange = DateRangeFilter(dateRange: (firstDatePickerView.date, firstDatePickerView.date))
             firstDatePickerView.isHidden = true
             secondDatePickerView.isHidden = false
             dateDoneButton.setTitle("Done", for: .normal)
@@ -361,8 +440,23 @@ extension FilterViewController: UITextFieldDelegate {
     @objc
     func districtDoneButtonTapped(_ sender: UIButton) {
         districtTextField.text = districts?[districtPickerView.selectedRow(inComponent: 0)]
+        districtTextField.endEditing(true)
         districtPickerView.isHidden = true
         districtDoneButton.isHidden = true
+        
+        if let district = districtTextField.text {
+            let geoCoder = CLGeocoder()
+            geoCoder.geocodeAddressString(district) { (placemarks, error) in
+                guard
+                    let placemarks = placemarks,
+                    let location = placemarks.first?.location
+                else {
+                    NSLog("Could not pull location from district name")
+                    return
+                }
+                self.filter.location = LocationFilter(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude, radius: 30, name: self.districtTextField.text!, row: self.districtPickerView.selectedRow(inComponent: 0))
+            }
+        }
     }
 }
 
@@ -378,12 +472,12 @@ extension FilterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return 0
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if pickerView == districtPickerView {
-            guard let districts = districts else { return "?" }
-            return districts[row]
+            guard let districts = districts, let font = UIFont(name: "Poppins-Regular", size: 12) else { return NSAttributedString(string: "?") }
+            return NSAttributedString(string: districts[row], attributes: [NSAttributedString.Key.font: font])
         }
-        return "?"
+        return NSAttributedString(string: "?")
     }
 }
 

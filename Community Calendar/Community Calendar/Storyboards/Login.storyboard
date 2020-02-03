@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ma7-Lx-nbk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ma7-Lx-nbk">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,28 +16,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GuB-HZ-ADK">
-                                <rect key="frame" x="151" y="433" width="112" height="30"/>
+                                <rect key="frame" x="151" y="315" width="112" height="30"/>
                                 <state key="normal" title="Login or Sign up"/>
                                 <connections>
                                     <action selector="loginOrSignUpButtonPressed:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="HeB-BU-avO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g98-tm-y3h">
-                                <rect key="frame" x="184" y="471" width="46" height="30"/>
+                                <rect key="frame" x="184" y="353" width="46" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="Logout"/>
                                 <connections>
                                     <action selector="logoutButtonPressed:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="bsT-il-q1P"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdr-Dh-oUw">
+                                <rect key="frame" x="184.5" y="244" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="lFR-Mm-pzB" firstAttribute="bottom" secondItem="g98-tm-y3h" secondAttribute="bottom" constant="312" id="VGi-nm-5eN"/>
+                            <constraint firstItem="pdr-Dh-oUw" firstAttribute="top" secondItem="lFR-Mm-pzB" secondAttribute="top" constant="200" id="AhB-vi-fEx"/>
+                            <constraint firstItem="GuB-HZ-ADK" firstAttribute="centerX" secondItem="dXB-cv-WTT" secondAttribute="centerX" id="SCt-sW-s3J"/>
                             <constraint firstItem="g98-tm-y3h" firstAttribute="top" secondItem="GuB-HZ-ADK" secondAttribute="bottom" constant="8" id="a11-fQ-dIz"/>
+                            <constraint firstItem="GuB-HZ-ADK" firstAttribute="top" secondItem="pdr-Dh-oUw" secondAttribute="bottom" constant="50" id="cxt-XI-LKf"/>
                             <constraint firstItem="lFR-Mm-pzB" firstAttribute="trailing" secondItem="g98-tm-y3h" secondAttribute="trailing" constant="184" id="e0B-Xi-ri8"/>
-                            <constraint firstItem="GuB-HZ-ADK" firstAttribute="centerY" secondItem="dXB-cv-WTT" secondAttribute="centerY" id="kK4-a6-oul"/>
-                            <constraint firstItem="GuB-HZ-ADK" firstAttribute="centerX" secondItem="dXB-cv-WTT" secondAttribute="centerX" id="wRc-V8-Myb"/>
+                            <constraint firstItem="pdr-Dh-oUw" firstAttribute="centerX" secondItem="dXB-cv-WTT" secondAttribute="centerX" id="mrH-q7-SLx"/>
                             <constraint firstItem="g98-tm-y3h" firstAttribute="leading" secondItem="lFR-Mm-pzB" secondAttribute="leading" constant="184" id="wne-lB-tsY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lFR-Mm-pzB"/>
@@ -47,6 +54,7 @@
                     <connections>
                         <outlet property="LoginButton" destination="GuB-HZ-ADK" id="D6p-8K-zBQ"/>
                         <outlet property="logOutButton" destination="g98-tm-y3h" id="LTH-ur-vys"/>
+                        <outlet property="nameLabel" destination="pdr-Dh-oUw" id="f9y-A6-4ET"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xE7-7h-0Ii" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

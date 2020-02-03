@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xIc-ff-1kb">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Event Detail View Controller-->
+        <scene sceneID="Voc-Ha-ROc">
+            <objects>
+                <viewController id="xIc-ff-1kb" customClass="EventDetailViewController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6yf-ZS-Opj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfO-JB-HN1">
+                                <rect key="frame" x="166.5" y="124" width="81" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hFV-1A-8y1">
+                                <rect key="frame" x="50" y="195" width="314" height="407"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v1k-nc-1t0">
+                                <rect key="frame" x="159" y="652" width="96" height="30"/>
+                                <state key="normal" title="Show in maps"/>
+                                <connections>
+                                    <action selector="showInMaps:" destination="xIc-ff-1kb" eventType="touchUpInside" id="6z6-xI-hJC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOc-mc-P5V">
+                                <rect key="frame" x="152.5" y="732" width="109" height="30"/>
+                                <state key="normal" title="Add to calendar"/>
+                                <connections>
+                                    <action selector="showInCalendar:" destination="xIc-ff-1kb" eventType="touchUpInside" id="yRj-rG-Uib"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="v1k-nc-1t0" firstAttribute="centerX" secondItem="6yf-ZS-Opj" secondAttribute="centerX" id="08i-VW-E8X"/>
+                            <constraint firstItem="vOc-mc-P5V" firstAttribute="centerX" secondItem="6yf-ZS-Opj" secondAttribute="centerX" id="4go-My-zbR"/>
+                            <constraint firstItem="v1k-nc-1t0" firstAttribute="top" secondItem="hFV-1A-8y1" secondAttribute="bottom" constant="50" id="Fkw-cm-caA"/>
+                            <constraint firstItem="hFV-1A-8y1" firstAttribute="leading" secondItem="ys0-wl-IGy" secondAttribute="leading" constant="50" id="HEU-dM-z8e"/>
+                            <constraint firstItem="QfO-JB-HN1" firstAttribute="centerX" secondItem="6yf-ZS-Opj" secondAttribute="centerX" id="I3s-hy-tTg"/>
+                            <constraint firstItem="vOc-mc-P5V" firstAttribute="top" secondItem="v1k-nc-1t0" secondAttribute="bottom" constant="50" id="T6S-Na-gdl"/>
+                            <constraint firstItem="QfO-JB-HN1" firstAttribute="top" secondItem="ys0-wl-IGy" secondAttribute="top" constant="80" id="dwM-Jk-dda"/>
+                            <constraint firstItem="ys0-wl-IGy" firstAttribute="bottom" secondItem="vOc-mc-P5V" secondAttribute="bottom" constant="100" id="epD-n0-ty7"/>
+                            <constraint firstItem="ys0-wl-IGy" firstAttribute="trailing" secondItem="hFV-1A-8y1" secondAttribute="trailing" constant="50" id="hbh-Oi-keN"/>
+                            <constraint firstItem="hFV-1A-8y1" firstAttribute="top" secondItem="QfO-JB-HN1" secondAttribute="bottom" constant="50" id="jzz-9e-Jwx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ys0-wl-IGy"/>
+                    </view>
+                    <connections>
+                        <outlet property="eventImageView" destination="hFV-1A-8y1" id="Rs1-7u-Adm"/>
+                        <outlet property="titleLabel" destination="QfO-JB-HN1" id="jS7-zj-ONF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Ow-jZ-AS9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="383" y="105"/>
+        </scene>
+    </scenes>
+</document>

@@ -9,10 +9,12 @@
 import Foundation
 import Apollo
 // Run this command in terminal to generate an updated schema.json:
+// (You must have apollo installed)
 // apollo schema:download --endpoint=https://ccstaging.herokuapp.com/schema.graphql schema.json
 class EventController {
     public let cache = Cache<String, UIImage>()
-    private let graphQLClient = ApolloClient(url: URL(string: "https://ccstaging.herokuapp.com/graphql")!)
+    // Use staging (https://ccstaging.herokuapp.com/schema.graphql) when developing, use production (https://ccapollo-production.herokuapp.com/graphql) when releasing
+    private let graphQLClient = ApolloClient(url: URL(string: "https://ccstaging.herokuapp.com/schema.graphql")!)
     
     func getEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
         graphQLClient.fetch(query: GetEventsQuery()) { result in

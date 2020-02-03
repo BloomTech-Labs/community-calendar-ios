@@ -36,8 +36,6 @@ class EventCollectionViewCell: UICollectionViewCell {
         setImage()
         districtNameLabel.text = event.locations.first?.city.uppercased()
         setDate()
-//        guard let startDate = event.startDate, let endDate = event.endDate else { return }
-//        timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
     }
     
     private func setImage() {
@@ -85,5 +83,6 @@ class EventCollectionViewCell: UICollectionViewCell {
     
     func observeImage() {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
+        // Notification pattern used because there are 3 different cells trying to access the same image, so when one of them finishes getting the image, the other 2 are notified with the same image.
     }
 }

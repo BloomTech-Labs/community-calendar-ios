@@ -8,11 +8,12 @@
 
 import UIKit
 import Auth0
-import SafariServices
 
 class LoginViewController: UIViewController {
     // MARK: - Variables
     var homeController = HomeViewController()
+    
+    @IBOutlet weak var nameLabel: UILabel!
     
     var onAuth: ((Result<Credentials>) -> ())!
     var credentials: Credentials? {
@@ -49,8 +50,12 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(true)
         if credentials == nil {
             loginOrSignUpButtonPressed(0)
+            nameLabel.text = "Please log in"
         } else {
-            print("Already signed in")
+            print("\(#function): User already signed in")
+            if let profile = profile {
+                nameLabel.text = "Name: \(profile.name ?? "Could not find name!")"
+            }
         }
     }
     
@@ -74,17 +79,21 @@ class LoginViewController: UIViewController {
     }
     
     private func getUserInfo() {
-        guard let accessToken = credentials?.accessToken else {
-            NSLog("User is not logged in or access token has expired")
-            return
-        }
-        
-        Auth0.authentication().userInfo(withAccessToken: accessToken).start { result in
-            switch(result) {
-            case .success(let profile):
-                self.profile = profile
-            case .failure(let error):
-                print("Error: \(error)")
+        if credentials == nil {
+            NSLog("User has signed out")
+        } else {
+            guard let accessToken = credentials?.accessToken else {
+                NSLog("User is not logged in or access token has expired")
+                return
+            }
+            
+            Auth0.authentication().userInfo(withAccessToken: accessToken).start { result in
+                switch(result) {
+                case .success(let profile):
+                    self.profile = profile
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
             }
         }
     }

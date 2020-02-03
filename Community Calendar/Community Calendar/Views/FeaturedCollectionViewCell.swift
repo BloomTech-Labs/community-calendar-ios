@@ -48,6 +48,7 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
         } else {
             if let indexPath = indexPath {
                 eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
+                // Gives event an image when it doesn't have one. See Assests.xcassets
             } else {
                 eventImageView.image = UIImage(named: "lambda")
             }
