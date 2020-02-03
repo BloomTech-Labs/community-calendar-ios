@@ -21,21 +21,55 @@ class EventDetailViewController: UIViewController {
     let eventStore = EKEventStore()
     
     // MARK: - IBOutlets
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var eventImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var eventImageView: UIImageView!
+    @IBOutlet private weak var attendButton: UIButton!
+    @IBOutlet private weak var openInMapsButton: UIButton!
+    @IBOutlet private weak var addToCalendarButton: UIButton!
+    
+    @IBOutlet private weak var hostImageView: UIImageView!
+    @IBOutlet private weak var hostNameLabel: UILabel!
+    @IBOutlet private weak var timeLabel: UILabel! // Three lines
+    @IBOutlet private weak var priceLabel: UILabel! // Red if free
+    @IBOutlet private weak var eventDescTextView: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var addressLabel: UILabel!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
         observeImage()
-        updateViews()
+        setUp()
     }
     
     // MARK: - Functions
+    private func setUp() {
+        updateViews()
+    }
+    
     private func updateViews() {
         guard isViewLoaded, let event = event else { return }
         titleLabel.text = event.title
+        eventDescTextView.text = event.description
+        hostNameLabel.text = event.creator
+        if let startDate = event.startDate, let endDate = event.endDate {
+            timeLabel.text = "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))"
+        } else {
+            timeLabel.text = "No time given"
+        }
+        
+        
+        
+        attendButton.layer.cornerRadius = 6
+        attendButton.layer.borderWidth = 1
+        attendButton.layer.borderColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1).cgColor
+        
+        openInMapsButton.setTitleColor(.white, for: .normal)
+        openInMapsButton.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
+        
+        addToCalendarButton.setTitleColor(.white, for: .normal)
+        addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
         
         if let imageURL = event.images.first, !imageURL.isEmpty {
             if eventController?.cache.fetch(key: imageURL) == nil {
@@ -100,6 +134,14 @@ class EventDetailViewController: UIViewController {
     }
     
     // MARK: - IBActions
+    @IBAction func followHost(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func attendEvent(_ sender: UIButton) {
+        
+    }
+    
     @IBAction func showInMaps(_ sender: UIButton) {
         if let event = event, let address = event.locations.first?.streetAddress, let zip = event.locations.first?.zipcode {
             let baseURL = URL(string: "http://maps.apple.com/")!
