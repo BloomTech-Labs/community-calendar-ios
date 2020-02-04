@@ -89,7 +89,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HWV-qB-hm6">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="110"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cjr-fP-YaI">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="cjr-fP-YaI">
                                                                 <rect key="frame" x="32" y="10" width="36" height="36"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="36" id="SXY-AL-g7d"/>
@@ -598,5 +598,6 @@
     </scenes>
     <resources>
         <image name="arrow" width="24" height="24"/>
+        <image name="user-placeholder" width="96" height="96"/>
     </resources>
 </document>

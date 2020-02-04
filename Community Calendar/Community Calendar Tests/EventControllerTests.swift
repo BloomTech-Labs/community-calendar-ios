@@ -32,7 +32,7 @@ class EventControllerTests: XCTestCase {
     func testDownloadingImage() {
         NotificationCenter.default.addObserver(self, selector: #selector(testDownloadingImageHelper), name: .imageWasLoaded, object: nil)
         
-        eventController.loadImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+        eventController.fetchImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
     }
     
     @objc
@@ -53,7 +53,7 @@ class EventControllerTests: XCTestCase {
     func testFetchingImageFromCache() {
         NotificationCenter.default.addObserver(self, selector: #selector(testFetchingImageFromCacheHelper), name: .imageWasLoaded, object: nil)
         
-        eventController.loadImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+        eventController.fetchImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
     }
     
     @objc

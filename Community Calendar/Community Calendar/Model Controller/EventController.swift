@@ -70,7 +70,7 @@ class EventController {
         }
     }
     
-    func loadImage(for key: String) {
+    func fetchImage(for key: String) {
         if let image = cache.fetch(key: key) {
             NotificationCenter.default.post(name: .imageWasLoaded, object: ImageNotification(image: image, url: key))
             return

@@ -9,6 +9,7 @@ query getEventsByFilter($filters: SearchFilters) {
       firstName
       lastName
       auth0Id
+      profileImage
     }
     eventImages {
       url
@@ -53,6 +54,7 @@ query getEvents {
       firstName
       lastName
       auth0Id
+      profileImage
     }
     eventImages {
       url

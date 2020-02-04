@@ -21,6 +21,7 @@ struct Event: Codable, Equatable {
         self.locations = event.locations?.map { (Location(location: $0)) } ?? []
         self.tags = event.tags?.map { (Tag(tag: $0)) } ?? []
         self.ticketPrice = event.ticketPrice
+        self.profileImageURL = event.creator?.profileImage
     }
     
     init(event: GetEventsByFilterQuery.Data.Event) {
@@ -35,9 +36,10 @@ struct Event: Codable, Equatable {
         self.locations = event.locations?.map { (Location(location: $0)) } ?? []
         self.tags = event.tags?.map { (Tag(tag: $0)) } ?? []
         self.ticketPrice = event.ticketPrice
+        self.profileImageURL = event.creator?.profileImage
     }
     
-    init(title: String, description: String, startDate: Date, endDate: Date, creator: String, urls: [String], images: [String], rsvps: [String], locations: [Location], tags: [Tag], ticketPrice: Double) {
+    init(title: String, description: String, startDate: Date, endDate: Date, creator: String, urls: [String], images: [String], rsvps: [String], locations: [Location], tags: [Tag], ticketPrice: Double, profileImageURL: String? = nil) {
         self.title = title
         self.description = description
         self.startDate = startDate
@@ -49,6 +51,7 @@ struct Event: Codable, Equatable {
         self.locations = locations
         self.tags = tags
         self.ticketPrice = ticketPrice
+        self.profileImageURL = profileImageURL
     }
     
     let title: String
@@ -57,6 +60,7 @@ struct Event: Codable, Equatable {
     let startDate: Date?
     let endDate: Date?
     let creator: String
+    let profileImageURL: String?
     let rsvps: [String]
     let urls: [String]
     let locations: [Location]

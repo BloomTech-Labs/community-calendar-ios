@@ -12,8 +12,7 @@ import Auth0
 class LoginViewController: UIViewController {
     // MARK: - Variables
     var homeController = HomeViewController()
-    
-    @IBOutlet weak var nameLabel: UILabel!
+    var eventController = EventController()
     
     var onAuth: ((Result<Credentials>) -> ())!
     var credentials: Credentials? {
@@ -37,6 +36,8 @@ class LoginViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var LoginButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
@@ -51,10 +52,15 @@ class LoginViewController: UIViewController {
         if credentials == nil {
             loginOrSignUpButtonPressed(0)
             nameLabel.text = "Please log in"
+            imageView.isHidden = true
         } else {
             print("\(#function): User already signed in")
             if let profile = profile {
                 nameLabel.text = "Name: \(profile.name ?? "Could not find name!")"
+                imageView.isHidden = false
+                if let picture = profile.picture {
+                    eventController.fetchImage(for: picture.absoluteString)
+                }
             }
         }
     }
@@ -138,4 +144,22 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    @objc
+    func receiveImage(_ notification: Notification) {
+        guard let imageNot = notification.object as? ImageNotification else {
+            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
+            return
+        }
+        if let imageURL = profile?.picture?.absoluteString, imageNot.url == imageURL {
+            DispatchQueue.main.async {
+                self.imageView.image = imageNot.image
+            }
+        }
+    }
+    
+    func observeImage() {
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
+    }
+
 }

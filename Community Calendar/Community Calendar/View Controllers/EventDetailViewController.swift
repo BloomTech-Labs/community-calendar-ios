@@ -46,6 +46,14 @@ class EventDetailViewController: UIViewController {
     // MARK: - Functions
     private func setUp() {
         updateViews()
+        fetchProfileImage()
+    }
+    
+    func fetchProfileImage() {
+        if let eventController = eventController, let event = event,
+            let key = event.profileImageURL {
+            eventController.fetchImage(for: key)
+        }
     }
     
     private func updateViews() {
@@ -54,6 +62,7 @@ class EventDetailViewController: UIViewController {
         titleLabel.text = event.title
         eventDescTextView.text = event.description
         hostNameLabel.text = event.creator
+        hostImageView.layer.cornerRadius = hostImageView.frame.height/2
         addressLabel.text = "\(event.locations.first?.streetAddress ?? ""), \(event.locations.first?.city ?? "")"
         if let startDate = event.startDate, let endDate = event.endDate {
             dateLabel.text = todayDateFormatter.string(from: startDate)
@@ -81,7 +90,7 @@ class EventDetailViewController: UIViewController {
             if eventController?.cache.fetch(key: imageURL) == nil {
                 eventImageView.image = nil
             }
-            eventController?.loadImage(for: imageURL)
+            eventController?.fetchImage(for: imageURL)
         } else {
             if let indexPath = indexPath {
                 eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
@@ -128,9 +137,15 @@ class EventDetailViewController: UIViewController {
             assertionFailure("Object type could not be inferred: \(notification.object as Any)")
             return
         }
-        if let eventImageUrl = event?.images.first, imageNot.url == eventImageUrl {
-            DispatchQueue.main.async {
-                self.eventImageView.image = imageNot.image
+        if let eventImageUrl = event?.images.first {
+            if imageNot.url == eventImageUrl  {
+                DispatchQueue.main.async {
+                    self.eventImageView.image = imageNot.image
+                }
+            } else if let profileImage = event?.profileImageURL, profileImage == imageNot.url {
+                DispatchQueue.main.async {
+                    self.hostImageView.image = imageNot.image
+                }
             }
         }
     }

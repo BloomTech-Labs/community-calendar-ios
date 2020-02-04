@@ -43,7 +43,7 @@ class EventCollectionViewCell: UICollectionViewCell {
             if eventController?.cache.fetch(key: imageURL) == nil {
                 eventImageView.image = nil
             }
-            eventController?.loadImage(for: imageURL)
+            eventController?.fetchImage(for: imageURL)
         } else {
             if let indexPath = indexPath {
                 eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
