@@ -9,7 +9,7 @@
 import UIKit
 import EventKit
 
-class EventDetailViewController: UIViewController {
+class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Variables
     var event: Event? {
         didSet {
@@ -34,6 +34,7 @@ class EventDetailViewController: UIViewController {
     @IBOutlet private weak var eventDescTextView: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var addressLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
@@ -45,6 +46,7 @@ class EventDetailViewController: UIViewController {
     
     // MARK: - Functions
     private func setUp() {
+        scrollView.delegate = self
         updateViews()
         fetchProfileImage()
     }
@@ -129,6 +131,10 @@ class EventDetailViewController: UIViewController {
             UIApplication.shared.open(url)
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset.x = 0
     }
     
     @objc

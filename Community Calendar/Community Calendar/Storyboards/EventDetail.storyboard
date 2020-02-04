@@ -587,6 +587,7 @@
                         <outlet property="hostNameLabel" destination="Q2C-NT-vCQ" id="Rfp-Qo-d9A"/>
                         <outlet property="openInMapsButton" destination="98F-xq-ZzJ" id="zzs-Lz-1Rt"/>
                         <outlet property="priceLabel" destination="WB5-tg-EAs" id="Ygk-Dg-Vnc"/>
+                        <outlet property="scrollView" destination="Jso-wK-oCn" id="1PP-yP-wbv"/>
                         <outlet property="timeLabel" destination="rwf-3v-YJc" id="KaU-fS-HFm"/>
                         <outlet property="titleLabel" destination="QfO-JB-HN1" id="jS7-zj-ONF"/>
                     </connections>
