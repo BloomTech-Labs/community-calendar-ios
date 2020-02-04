@@ -110,4 +110,18 @@ class EventController {
             }
         }
     }
+    
+    func rsvpToEvent(with id: String) {
+        graphQLClient.perform(mutation: RsvpToEventMutation(id: EventIdInput(id: id))) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                break
+                
+            case .success(let wasSuccessful):
+                print(wasSuccessful)
+                break
+            }
+        }
+    }
 }

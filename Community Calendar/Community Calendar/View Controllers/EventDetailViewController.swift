@@ -70,7 +70,7 @@ class EventDetailViewController: UIViewController {
         } else {
             timeLabel.text = "No time given"
         }
-        priceLabel.text = "\(event.ticketPrice == 0.0 ? "Free" : "\(event.ticketPrice)")"
+        priceLabel.text = "\(event.ticketPrice == 0.0 ? "Free" : "$\(event.ticketPrice)")"
         
         
         
@@ -160,7 +160,8 @@ class EventDetailViewController: UIViewController {
     }
     
     @IBAction func attendEvent(_ sender: UIButton) {
-        
+        guard let eventController = eventController, let event = event else { return }
+        eventController.rsvpToEvent(with: event.id)
     }
     
     @IBAction func showInMaps(_ sender: UIButton) {

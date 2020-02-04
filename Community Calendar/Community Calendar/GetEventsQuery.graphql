@@ -5,6 +5,7 @@ query getEventsByFilter($filters: SearchFilters) {
     start
     end
     ticketPrice
+    id
     creator {
       firstName
       lastName
@@ -50,6 +51,7 @@ query getEvents {
     start
     end
     ticketPrice
+    id
     creator {
       firstName
       lastName
@@ -93,4 +95,8 @@ query getTags {
     title
     id
   }
+}
+
+mutation rsvpToEvent($id: EventIdInput!) {
+  rsvpEvent(event: $id)
 }
