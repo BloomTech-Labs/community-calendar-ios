@@ -6,7 +6,7 @@ There is a disconnect between event organizers and community members. From the p
 
 |                                       [Hayden Hastings](https://github.com/hayden32)                                        |                                       [Jordan Christensen](https://github.com/mazjap)                                       |
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
-|                      [<img src="https://avatars3.githubusercontent.com/u/25404401?s=400&v=4" width = "300" />](https://github.com/Hayden32)                  |                      [<img src="https://avatars0.githubusercontent.com/u/24785257?s=460&v=4" width = "300" />](https://github.com/mazjap)                       |
+|                      [<img src="https://media-exp1.licdn.com/dms/image/C5603AQFfbY6C4mi2nQ/profile-displayphoto-shrink_200_200/0?e=1586390400&v=beta&t=fHYR7ScNMtfizzKoOJX9Htz6HTKbSjasYjggnGXjHMw" width = "300" />](https://github.com/Hayden32)                  |                      [<img src="https://avatars0.githubusercontent.com/u/24785257?s=460&v=4" width = "300" />](https://github.com/mazjap)                       |
 |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Hayden32)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/mazjap)             |
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/hayden-hastings/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jordan-a-christensen/) |
 
@@ -38,6 +38,9 @@ The app is divided into three different tabs: home, where you can find events ta
     - Sign up/in with Facebook
 - Open in maps
 - Add event to calendar
+- Search events by search term
+- Sort events on home page
+- Filter events by date, location, tag, etc.
 - Table view to list events
 - Collection view to list events
 - Featured section to list events
@@ -60,7 +63,7 @@ We integrated Apollo to query our [GraphQL backend](https://ccstaging.herokuapp.
 
 ## Requirements
 
--   iOS 12.0+
+-   iOS 13.0+
 -   Xcode 11
 -   Cocoapods
 
