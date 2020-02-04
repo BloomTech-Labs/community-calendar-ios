@@ -106,7 +106,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - IBAction
     @IBAction func loginOrSignUpButtonPressed(_ sender: Any) {
-        Auth0.webAuth().scope("openid profile").audience("https://communitycalendar-staging.auth0.com/userinfo").start {
+        Auth0.webAuth().scope("openid profile").audience("https://community-calendar.auth0.com/api/v2/").start {
             switch $0 {
             case .failure(let error):
                 // Handle the error

@@ -14,7 +14,7 @@ import Apollo
 class EventController {
     public let cache = Cache<String, UIImage>()
     // Use staging (https://ccstaging.herokuapp.com/schema.graphql) when developing, use production (https://ccapollo-production.herokuapp.com/graphql) when releasing
-    private let graphQLClient = ApolloClient(url: URL(string: "https://ccstaging.herokuapp.com/schema.graphql")!)
+    private let graphQLClient = ApolloClient(url: URL(string: "https://ccapollo-production.herokuapp.com/graphql")!)
     
     func getEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
         graphQLClient.fetch(query: GetEventsQuery()) { result in

@@ -8,6 +8,7 @@ query getEventsByFilter($filters: SearchFilters) {
     creator {
       firstName
       lastName
+      auth0Id
     }
     eventImages {
       url
@@ -51,6 +52,7 @@ query getEvents {
     creator {
       firstName
       lastName
+      auth0Id
     }
     eventImages {
       url

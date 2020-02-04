@@ -159,6 +159,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
           __typename
           firstName
           lastName
+          auth0Id
         }
         eventImages {
           __typename
@@ -381,6 +382,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("firstName", type: .scalar(String.self)),
           GraphQLField("lastName", type: .scalar(String.self)),
+          GraphQLField("auth0Id", type: .nonNull(.scalar(String.self))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -389,8 +391,8 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(firstName: String? = nil, lastName: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName])
+        public init(firstName: String? = nil, lastName: String? = nil, auth0Id: String) {
+          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "auth0Id": auth0Id])
         }
 
         public var __typename: String {
@@ -417,6 +419,15 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "lastName")
+          }
+        }
+
+        public var auth0Id: String {
+          get {
+            return resultMap["auth0Id"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "auth0Id")
           }
         }
       }
@@ -799,6 +810,7 @@ public final class GetEventsQuery: GraphQLQuery {
           __typename
           firstName
           lastName
+          auth0Id
         }
         eventImages {
           __typename
@@ -1014,6 +1026,7 @@ public final class GetEventsQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("firstName", type: .scalar(String.self)),
           GraphQLField("lastName", type: .scalar(String.self)),
+          GraphQLField("auth0Id", type: .nonNull(.scalar(String.self))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -1022,8 +1035,8 @@ public final class GetEventsQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(firstName: String? = nil, lastName: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName])
+        public init(firstName: String? = nil, lastName: String? = nil, auth0Id: String) {
+          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "auth0Id": auth0Id])
         }
 
         public var __typename: String {
@@ -1050,6 +1063,15 @@ public final class GetEventsQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "lastName")
+          }
+        }
+
+        public var auth0Id: String {
+          get {
+            return resultMap["auth0Id"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "auth0Id")
           }
         }
       }
