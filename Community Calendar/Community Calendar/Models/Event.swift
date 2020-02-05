@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Event: Codable, Equatable {
     init(event: GetEventsQuery.Data.Event) {
@@ -70,4 +71,20 @@ struct Event: Codable, Equatable {
     let locations: [Location]
     let tags: [Tag]
     let ticketPrice: Double
+    
+    static func > (lhs: Event, rhs: Event) -> Bool {
+        guard let lhsFirst = lhs.locations.first, let rhsFirst = rhs.locations.first,
+            let userLocation = CLLocationManager().location else {
+            return false
+        }
+        return lhsFirst.clLocation.distance(from: userLocation) > rhsFirst.clLocation.distance(from: userLocation)
+    }
+    
+    static func < (lhs: Event, rhs: Event) -> Bool {
+        guard let lhsFirst = lhs.locations.first, let rhsFirst = rhs.locations.first,
+            let userLocation = CLLocationManager().location else {
+            return false
+        }
+        return lhsFirst.clLocation.distance(from: userLocation) < rhsFirst.clLocation.distance(from: userLocation)
+    }
 }

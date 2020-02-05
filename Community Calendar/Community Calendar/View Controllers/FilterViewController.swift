@@ -61,21 +61,8 @@ class FilterViewController: UIViewController {
         
         setUp()
         
-        selectedTagsCollectionView.delegate = self
-        selectedTagsCollectionView.dataSource = self
-        
-        suggestedTagsCollectionView.delegate = self
-        suggestedTagsCollectionView.dataSource = self
-        
-        let layout = LeftAlignedCollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 16
-        layout.minimumLineSpacing = 16
-        suggestedTagsCollectionView.collectionViewLayout = layout
-        
         tagsSearchBar.delegate = self
         tagsSearchBar.returnKeyType = .done
-        
-        zipCodeTextField.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,9 +75,7 @@ class FilterViewController: UIViewController {
     private func updateViews() {
         guard isViewLoaded else { return }
         setUpSearchBar()
-        
         applyButton.layer.cornerRadius = 6
-        
     }
     
     private func setUp() {
@@ -103,6 +88,17 @@ class FilterViewController: UIViewController {
         
         setDistrictList()
         setUpPickerViews()
+        
+        selectedTagsCollectionView.delegate = self
+        selectedTagsCollectionView.dataSource = self
+        
+        suggestedTagsCollectionView.delegate = self
+        suggestedTagsCollectionView.dataSource = self
+        
+        let layout = LeftAlignedCollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 16
+        layout.minimumLineSpacing = 16
+        suggestedTagsCollectionView.collectionViewLayout = layout
     }
     
     private func setUpWithFilters() {
@@ -270,7 +266,7 @@ class FilterViewController: UIViewController {
         districtTextField.text = ""
         filter.location = nil
         zipCodeTextField.text = ""
-        // TODO: remove zipCode from filter
+        filter.zipCode = nil
         dateTextField.text = ""
         filter.dateRange = nil
         
@@ -280,6 +276,10 @@ class FilterViewController: UIViewController {
     
     
     @IBAction func applyFilters(_ sender: UIButton) {
+        if let zip = zipCodeTextField.text, let zipCode = Int(zip),
+            !(zipCodeTextField.text?.isEmpty ?? false) {
+            filter.zipCode = zipCode
+        }
         delegate?.receive(filters: filter)
         navigationController?.popViewController(animated: true)
     }

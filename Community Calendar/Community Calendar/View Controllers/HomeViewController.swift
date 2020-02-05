@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CoreLocation
 
 class HomeViewController: UIViewController {
     // MARK: - Varibles
     var testing = false // Set this to true if you wish to use the test data located in Variables.swift
     
+    let locationManager = CLLocationManager()
     var shouldDismissFilterScreen = true
     private let eventController = EventController()
     private let searchController = SearchController()
@@ -25,11 +27,7 @@ class HomeViewController: UIViewController {
             todayTapped(UIButton())
         }
     }
-    private var events: [Event]? {
-        didSet {
-            updateLists()
-        }
-    }
+    private var events: [Event]?
     var currentFilter: Filter? {
         didSet {
             updateFilterCount()
@@ -150,6 +148,7 @@ class HomeViewController: UIViewController {
             case .success(let eventList):
                 if self.unfilteredEvents != eventList {
                     self.unfilteredEvents = eventList
+                    self.featuredCollectionView.reloadData()
 //                    createMockData()
                 }
             case .failure(let error):
@@ -268,6 +267,9 @@ class HomeViewController: UIViewController {
         if currentFilter.location != nil {
             filterCount += 1
         }
+        if currentFilter.zipCode != nil {
+            filterCount += 1
+        }
         if currentFilter.ticketPrice != nil {
             filterCount += 1
         }
@@ -275,6 +277,36 @@ class HomeViewController: UIViewController {
             filterCount += currentFilter.tags?.count ?? 0
         }
         filterButton.text("Filters\(filterCount == 0 ? "" : "(\(filterCount))")")
+    }
+    
+    func setUpLocation() -> Bool {
+        var alert: UIAlertController?
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedAlways, .authorizedWhenInUse:
+            return true
+        case .denied:
+            alert = UIAlertController(title: "Location disabled", message: "Please turn on location services in settings", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let openSettings = UIAlertAction(title: "Settings", style: .default) { action in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+            }
+            alert?.addAction(cancelAction)
+            alert?.addAction(openSettings)
+            return false
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            alert = UIAlertController(title: "You are restricted", message: "Please request access from restrictor (generally from parental or administrative controls)", preferredStyle: .alert)
+            alert?.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            return false
+        @unknown default:
+            return false
+        }
+        return false
+    }
+    
+    func requestLocation() {
+        
     }
     
     // MARK: - IBActions
@@ -357,6 +389,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func nearByButtonTapped(_ sender: UIButton) {
         
+        performSegue(withIdentifier: "ByDistanceSegue", sender: self)
     }
     
     @IBAction func searchBarCancelButtonTapped(_ sender: UIButton) {
@@ -393,6 +426,13 @@ class HomeViewController: UIViewController {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
             resultsVC.eventController = eventController
             resultsVC.filter = currentFilter
+            currentFilter = nil
+        } else if segue.identifier == "ByDistanceSegue" {
+            guard let resultsVC = segue.destination as? SearchResultViewController else { return }
+            resultsVC.eventController = eventController
+            resultsVC.sortByDistance = true
+            resultsVC.events = unfilteredEvents
+            resultsVC.locationManager = locationManager
             currentFilter = nil
         }
     }

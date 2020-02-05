@@ -14,7 +14,7 @@ class SearchController {
     
     func save(filteredSearch: Filter) {
         var tempArr = loadFromPersistantStore()
-        tempArr.append(filteredSearch)
+        tempArr.insert(filteredSearch, at: 0)
         userDefaults.setValue(try? PropertyListEncoder().encode(tempArr), forKey: searchPersistanceKey)
     }
     

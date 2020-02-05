@@ -32,32 +32,34 @@ class RecentSearchesTableViewCell: UITableViewCell {
         imageButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
         
         filterUsedLabel.text = ""
-        if filter.index != nil {
+        if let index = filter.index {
             byFilterLabel.text = "By term"
-            filterUsedLabel.text = "\"\(filter.index!)\""
-        } else if filter.dateRange != nil {
+            filterUsedLabel.text = "\"\(index)\""
+        } else if let dateRange = filter.dateRange {
             byFilterLabel.text = "By dates"
-            filterUsedLabel.text = "\(filterDateFormatter.string(from: filter.dateRange!.min)) - \(filterDateFormatter.string(from: filter.dateRange!.max))"
-        } else if filter.tags != nil {
+            filterUsedLabel.text = "\(filterDateFormatter.string(from: dateRange.min)) - \(filterDateFormatter.string(from: dateRange.max))"
+        } else if let tags = filter.tags {
             byFilterLabel.text = "By tag"
-            if filter.tags!.count != 1 {
+            if tags.count != 1 {
                 byFilterLabel.text = "\(byFilterLabel.text ?? "")s"
             }
-            if filter.tags!.count >= 3 {
-                filterUsedLabel.text = "\"\(filter.tags![0].title)\", \"\(filter.tags![1].title)\", \"\(filter.tags![2].title)\""
+            if tags.count >= 3 {
+                filterUsedLabel.text = "\(filterUsedLabel.text ?? "") \"\(tags[0].title)\", \"\(tags[1].title)\", \"\(tags[2].title)\""
             } else {
-                for tagIndex in 0..<filter.tags!.count {
-                    if tagIndex == filter.tags!.count - 1 {
-                        filterUsedLabel.text = "\(filterUsedLabel.text ?? "") \"\(filter.tags![tagIndex].title)\""
+                for tagIndex in 0..<tags.count {
+                    if tagIndex == tags.count - 1 {
+                        filterUsedLabel.text = "\(filterUsedLabel.text ?? "") \"\(tags[tagIndex].title)\""
                     } else {
-                        filterUsedLabel.text = "\(filterUsedLabel.text ?? "") \"\(filter.tags![tagIndex].title)\","
+                        filterUsedLabel.text = "\(filterUsedLabel.text ?? "") \"\(tags[tagIndex].title)\","
                     }
                 }
             }
-        } else if filter.location != nil {
+        } else if let location = filter.location {
             byFilterLabel.text = "By district"
-            filterUsedLabel.text = "\(filter.location!.name)"
+            filterUsedLabel.text = "\(location.name)"
+        } else if let zipCode = filter.zipCode {
+            byFilterLabel.text = "By zipcode"
+            filterUsedLabel.text = "\(zipCode)"
         }
     }
-
 }

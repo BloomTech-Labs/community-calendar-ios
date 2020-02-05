@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Location: Codable, Equatable {
     init(location: GetEventsQuery.Data.Event.Location) {
@@ -54,6 +55,10 @@ struct Location: Codable, Equatable {
     let streetAddress: String
     let streetAddress2: String?
     let zipcode: Int
+    
+    var clLocation: CLLocation {
+        CLLocation(latitude: latitude ?? 0, longitude: longitude ?? 0)
+    }
 }
 
 struct LocationFilter: Codable, Equatable {

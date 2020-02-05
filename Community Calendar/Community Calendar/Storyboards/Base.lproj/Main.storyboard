@@ -675,6 +675,7 @@
                                         <state key="normal" image="location-tag"/>
                                         <connections>
                                             <action selector="nearByButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V0S-HV-96v"/>
+                                            <segue destination="oGT-Hc-B1b" kind="show" identifier="ByDistanceSegue" id="RES-dV-zmU"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -858,6 +859,7 @@
         <image name="person" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="RES-dV-zmU"/>
         <segue reference="cN3-bE-Cpz"/>
     </inferredMetricsTieBreakers>
 </document>

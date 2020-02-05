@@ -37,6 +37,8 @@
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to access your calender to save events</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to access your location</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Black.ttf</string>
