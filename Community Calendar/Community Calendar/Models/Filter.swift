@@ -9,10 +9,11 @@
 import Foundation
 
 struct Filter: Codable, Equatable {
-    init(index: String? = nil, tags: [Tag]? = nil, location: LocationFilter? = nil, ticketPrice: (Int, Int)? = nil, dateRange: (Date, Date)? = nil) {
+    init(index: String? = nil, tags: [Tag]? = nil, location: LocationFilter? = nil, zipCode: Int? = nil, ticketPrice: (Int, Int)? = nil, dateRange: (Date, Date)? = nil) {
         self.index = index
         self.tags = tags
         self.location = location
+        self.zipCode = zipCode
         if let dateRange = dateRange {
             self.dateRange = DateRangeFilter(dateRange: dateRange)
         }
@@ -24,6 +25,7 @@ struct Filter: Codable, Equatable {
     var index: String?
     var tags: [Tag]?
     var location: LocationFilter?
+    var zipCode: Int?
     var ticketPrice: TicketPriceFilter?
     var dateRange: DateRangeFilter?
     

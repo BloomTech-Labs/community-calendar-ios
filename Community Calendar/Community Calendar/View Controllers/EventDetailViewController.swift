@@ -46,6 +46,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         setUp()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        checkForRSVP()
+    }
+    
     // MARK: - Functions
     private func setUp() {
         scrollView.delegate = self
@@ -70,8 +74,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         hostShadowView.layer.cornerRadius = hostShadowView.frame.height/2
         hostShadowView.layer.shadowColor = UIColor.darkGray.cgColor
         hostShadowView.layer.shadowOpacity = 1.0
-        hostShadowView.layer.shadowRadius = 3
-        hostShadowView.layer.shadowOffset = CGSize(width: 2, height: 2)
+        hostShadowView.layer.shadowRadius = 1.5
+        hostShadowView.layer.shadowOffset = CGSize(width: -1, height: 1)
         addressLabel.text = "\(event.locations.first?.streetAddress ?? ""), \(event.locations.first?.city ?? "")"
         if let startDate = event.startDate, let endDate = event.endDate {
             dateLabel.text = todayDateFormatter.string(from: startDate)
@@ -110,20 +114,20 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func checkForRSVP() {
-        self.attendButton.text("Attend")
+        self.attendButton.attrText("Attend")
         self.addToCalendarButton.isHidden = true
         guard let event = event, let eventController = eventController, let userToken = userToken else { return }
         do {
             let decodedToken = try decode(jwt: userToken)
             guard let userId = decodedToken.ccId else { return }
-            eventController.checkForRSVP(with: userId) { ids, error  in
+            eventController.checkForRsvp(with: userId) { ids, error  in
                 if let error = error {
                     NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
                     return
                 }
                 if let ids = ids, ids.contains(event.id) {
                     DispatchQueue.main.async {
-                        self.attendButton.text("Unattend")
+                        self.attendButton.attrText("Unattend")
                         self.addToCalendarButton.isHidden = false
                     }
                 }
@@ -211,26 +215,30 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func attendEvent(_ sender: UIButton) {
         guard let eventController = eventController, let event = event else { return }
-        eventController.rsvpToEvent(with: event.id) { error, errors in
-            if error == nil && errors?.isEmpty ?? true {
-                DispatchQueue.main.async {
-                    self.attendButton.text("Unattend")
-                    self.addToCalendarButton.isHidden = false
-                }
-            }
+        eventController.rsvpToEvent(with: event.id) { bool, error in
             if let error = error {
-                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-            }
-            if let errors = errors, !errors.isEmpty {
                 var presentLogin = false
-                for errorql in errors {
-                    if let errorMessage = errorql.message, errorMessage.contains("No token was found in header") {
-                        presentLogin = true
+                switch error {
+                case .ql(let errors):
+                    for qlrr in errors {
+                        if let errorMessage = qlrr.message, errorMessage.contains("No token was found in header") {
+                            presentLogin = true
+                        }
                     }
+                case .rr(let singleError):
+                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(singleError)")
                 }
                 if presentLogin {
                     self.loginAlert(with: "rsvp to an event")
                 }
+            }
+            guard let bool = bool else {
+                // TODO: Handle error
+                return
+            }
+            DispatchQueue.main.async {
+                self.attendButton.attrText(bool ? "Unattend" : "Attend")
+                bool ? (self.addToCalendarButton.isHidden = false) : (self.addToCalendarButton.isHidden = true)
             }
         }
     }

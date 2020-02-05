@@ -9,6 +9,12 @@
 import Foundation
 import Apollo
 import JWTDecode
+
+enum qlError {
+    case ql([GraphQLError])
+    case rr(Error)
+}
+
 // Run this command in terminal to generate an updated schema.json:
 // (You must have apollo installed)
 // apollo schema:download --endpoint=https://ccstaging.herokuapp.com/schema.graphql schema.json
@@ -16,6 +22,7 @@ import JWTDecode
 // apollo schema:download --endpoint=https://ccapollo-production.herokuapp.com/schema.graphql schema.json
 
 class EventController: HTTPNetworkTransportDelegate {
+    
     //  Use staging (https://ccstaging.herokuapp.com/schema.graphql) when developing, use production (https://ccapollo-production.herokuapp.com/graphql) when releasing
     private static let url = URL(string: "https://ccapollo-production.herokuapp.com/graphql")!
     
@@ -117,19 +124,23 @@ class EventController: HTTPNetworkTransportDelegate {
         }
     }
     
-    func rsvpToEvent(with id: String, completion: @escaping (Error?, [GraphQLError]?) -> Void) {
+    func rsvpToEvent(with id: String, completion: @escaping (Bool?, qlError?) -> Void) {
         graphQLClient = updateApollo()
         graphQLClient.perform(mutation: RsvpToEventMutation(id: EventIdInput(id: id))) { result in
             switch result {
             case .failure(let error):
-                completion(error, nil)
+                completion(nil, .rr(error))
             case .success(let data):
-                completion(nil, (data.errors?.isEmpty ?? true) ? nil : data.errors)
+                if let errors = data.errors {
+                    completion(nil, .ql(errors))
+                } else {
+                    completion(data.data?.rsvpEvent, nil)
+                }
             }
         }
     }
     
-    func checkForRSVP(with id: String, completion: @escaping ([String]?, Error?) -> Void) {
+    func checkForRsvp(with id: String, completion: @escaping ([String]?, Error?) -> Void) {
         graphQLClient.fetch(query: GetUserRsvPsQuery(id: id)) { result in
             switch result {
             case .failure(let error):
