@@ -5,9 +5,12 @@ query getEventsByFilter($filters: SearchFilters) {
     start
     end
     ticketPrice
+    id
     creator {
       firstName
       lastName
+      auth0Id
+      profileImage
     }
     eventImages {
       url
@@ -48,9 +51,12 @@ query getEvents {
     start
     end
     ticketPrice
+    id
     creator {
       firstName
       lastName
+      auth0Id
+      profileImage
     }
     eventImages {
       url
@@ -88,5 +94,18 @@ query getTags {
   tags {
     title
     id
+  }
+}
+
+mutation rsvpToEvent($id: EventIdInput!) {
+  rsvpEvent(event: $id)
+}
+
+query getUserRSVPs($id: ID) {
+  users(where: {id: $id}) {
+    rsvps {
+      id
+      title
+    }
   }
 }

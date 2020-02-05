@@ -8,46 +8,135 @@
 
 import UIKit
 import EventKit
+import JWTDecode
 
-class EventDetailViewController: UIViewController {
+class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Variables
     var event: Event? {
         didSet {
             updateViews()
         }
     }
-    var eventController: EventController?
+    var controller: Controller?
     var indexPath: IndexPath?
     let eventStore = EKEventStore()
     
     // MARK: - IBOutlets
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var eventImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var eventImageView: UIImageView!
+    @IBOutlet private weak var attendButton: UIButton!
+    @IBOutlet private weak var openInMapsButton: UIButton!
+    @IBOutlet private weak var addToCalendarButton: UIButton!
+    
+    @IBOutlet private weak var hostImageView: UIImageView!
+    @IBOutlet weak var hostShadowView: UIView!
+    @IBOutlet private weak var hostNameLabel: UILabel!
+    @IBOutlet private weak var timeLabel: UILabel! // Three lines
+    @IBOutlet private weak var priceLabel: UILabel! // Red if free
+    @IBOutlet private weak var eventDescTextView: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var addressLabel: UILabel!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private var descLabelHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
         observeImage()
-        updateViews()
+        setUp()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        checkForRSVP()
     }
     
     // MARK: - Functions
+    private func setUp() {
+        scrollView.delegate = self
+        updateViews()
+        fetchProfileImage()
+    }
+    
+    func fetchProfileImage() {
+        if let controller = controller, let event = event,
+            let key = event.profileImageURL {
+            controller.fetchImage(for: key)
+        }
+    }
+    
     private func updateViews() {
         guard isViewLoaded, let event = event else { return }
+        
         titleLabel.text = event.title
+        let height = event.description.height(with: view.frame.width - 32, font: UIFont(name: "Poppins-Light", size: 12)!)
+        height < 100 ? (descLabelHeightConstraint.constant = height) : (descLabelHeightConstraint.constant = 100.0)
+        eventDescTextView.text = event.description
+        hostNameLabel.text = event.creator
+        hostImageView.layer.cornerRadius = hostImageView.frame.height/2
+        hostShadowView.layer.cornerRadius = hostShadowView.frame.height/2
+        hostShadowView.layer.shadowColor = UIColor.darkGray.cgColor
+        hostShadowView.layer.shadowOpacity = 1.0
+        hostShadowView.layer.shadowRadius = 1.5
+        hostShadowView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        addressLabel.text = "\(event.locations.first?.streetAddress ?? ""), \(event.locations.first?.city ?? "")"
+        if let startDate = event.startDate, let endDate = event.endDate {
+            dateLabel.text = todayDateFormatter.string(from: startDate)
+            timeLabel.text = "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))"
+        } else {
+            timeLabel.text = "No time given"
+        }
+        priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
+        
+        
+        checkForRSVP()
+        attendButton.layer.cornerRadius = 6
+        attendButton.layer.borderWidth = 1
+        attendButton.layer.borderColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1).cgColor
+        
+        openInMapsButton.setTitleColor(.white, for: .normal)
+        openInMapsButton.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
+        openInMapsButton.layer.cornerRadius = 6
+        
+        addToCalendarButton.setTitleColor(.white, for: .normal)
+        addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
+        addToCalendarButton.layer.cornerRadius = 6
         
         if let imageURL = event.images.first, !imageURL.isEmpty {
-            if eventController?.cache.fetch(key: imageURL) == nil {
+            if controller?.cache.fetch(key: imageURL) == nil {
                 eventImageView.image = nil
             }
-            eventController?.loadImage(for: imageURL)
+            controller?.fetchImage(for: imageURL)
         } else {
             if let indexPath = indexPath {
                 eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
             } else {
                 eventImageView.image = UIImage(named: "lambda")
             }
+        }
+    }
+    
+    func checkForRSVP() {
+        self.attendButton.attrText("Attend")
+        self.addToCalendarButton.isHidden = true
+        guard let event = event, let controller = controller, let userToken = userToken else { return }
+        do {
+            let decodedToken = try decode(jwt: userToken)
+            guard let userId = decodedToken.ccId else { return }
+            controller.checkForRsvp(with: userId) { ids, error  in
+                if let error = error {
+                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+                    return
+                }
+                if let ids = ids, ids.contains(event.id) {
+                    DispatchQueue.main.async {
+                        self.attendButton.attrText("Unattend")
+                        self.addToCalendarButton.isHidden = false
+                    }
+                }
+            }
+        } catch {
+            NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
         }
     }
     
@@ -82,15 +171,38 @@ class EventDetailViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset.x = 0
+    }
+    
+    func loginAlert(with message: String) {
+        let alert = UIAlertController(title: "Please log in", message: "You must be logged in to \(message)", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let login = UIAlertAction(title: "Log in", style: .default) { action in
+            self.presentingViewController?.tabBarController?.selectedIndex = (self.presentingViewController?.tabBarController?.viewControllers?.count ?? 1) - 1
+            alert.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true)
+        }
+        alert.addAction(cancel)
+        alert.addAction(login)
+        self.present(alert, animated: true)
+    }
+    
     @objc
     func receiveImage(_ notification: Notification) {
         guard let imageNot = notification.object as? ImageNotification else {
             assertionFailure("Object type could not be inferred: \(notification.object as Any)")
             return
         }
-        if let eventImageUrl = event?.images.first, imageNot.url == eventImageUrl {
-            DispatchQueue.main.async {
-                self.eventImageView.image = imageNot.image
+        if let eventImageUrl = event?.images.first {
+            if imageNot.url == eventImageUrl  {
+                DispatchQueue.main.async {
+                    self.eventImageView.image = imageNot.image
+                }
+            } else if let profileImage = event?.profileImageURL, profileImage == imageNot.url {
+                DispatchQueue.main.async {
+                    self.hostImageView.image = imageNot.image
+                }
             }
         }
     }
@@ -100,6 +212,49 @@ class EventDetailViewController: UIViewController {
     }
     
     // MARK: - IBActions
+    @IBAction func followHost(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func attendEvent(_ sender: UIButton) {
+        guard let controller = controller, let event = event else { return }
+        controller.rsvpToEvent(with: event.id) { bool, error in
+            if let error = error {
+                var presentLogin = false
+                switch error {
+                case .ql(let errors):
+                    for qlrr in errors {
+                        if let errorMessage = qlrr.message, errorMessage.contains("No token was found in header") {
+                            presentLogin = true
+                        }
+                    }
+                case .rr(let singleError):
+                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(singleError)")
+                }
+                if presentLogin {
+                    self.loginAlert(with: "rsvp to an event")
+                }
+            }
+            guard let bool = bool else {
+                // TODO: Handle error
+                return
+            }
+            DispatchQueue.main.async {
+                self.attendButton.attrText(bool ? "Unattend" : "Attend")
+                bool ? (self.addToCalendarButton.isHidden = false) : (self.addToCalendarButton.isHidden = true)
+            }
+        }
+    }
+    
+    @IBAction func showMore(_ sender: UIButton) {
+        let height = event?.description.height(with: view.frame.width - 32, font: UIFont(name: "Poppins-Light", size: 12)!)
+        if descLabelHeightConstraint.constant != height {
+            descLabelHeightConstraint.constant = (height ?? 10) + 3
+        }
+        sender.isHidden = true
+    }
+    
+    
     @IBAction func showInMaps(_ sender: UIButton) {
         if let event = event, let address = event.locations.first?.streetAddress, let zip = event.locations.first?.zipcode {
             let baseURL = URL(string: "http://maps.apple.com/")!

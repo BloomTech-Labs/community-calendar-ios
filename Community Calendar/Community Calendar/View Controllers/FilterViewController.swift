@@ -28,7 +28,7 @@ class FilterViewController: UIViewController {
     var selectedFilters = [Tag]()
     var suggestedFilters = [Tag]()
     
-    var eventController: EventController?
+    var controller: Controller?
     var events: [Event]? {
         didSet {
             setDistrictList()
@@ -61,21 +61,8 @@ class FilterViewController: UIViewController {
         
         setUp()
         
-        selectedTagsCollectionView.delegate = self
-        selectedTagsCollectionView.dataSource = self
-        
-        suggestedTagsCollectionView.delegate = self
-        suggestedTagsCollectionView.dataSource = self
-        
-        let layout = LeftAlignedCollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 16
-        layout.minimumLineSpacing = 16
-        suggestedTagsCollectionView.collectionViewLayout = layout
-        
         tagsSearchBar.delegate = self
         tagsSearchBar.returnKeyType = .done
-        
-        zipCodeTextField.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,9 +75,7 @@ class FilterViewController: UIViewController {
     private func updateViews() {
         guard isViewLoaded else { return }
         setUpSearchBar()
-        
         applyButton.layer.cornerRadius = 6
-        
     }
     
     private func setUp() {
@@ -103,6 +88,17 @@ class FilterViewController: UIViewController {
         
         setDistrictList()
         setUpPickerViews()
+        
+        selectedTagsCollectionView.delegate = self
+        selectedTagsCollectionView.dataSource = self
+        
+        suggestedTagsCollectionView.delegate = self
+        suggestedTagsCollectionView.dataSource = self
+        
+        let layout = LeftAlignedCollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 16
+        layout.minimumLineSpacing = 16
+        suggestedTagsCollectionView.collectionViewLayout = layout
     }
     
     private func setUpWithFilters() {
@@ -188,7 +184,7 @@ class FilterViewController: UIViewController {
         firstDatePickerView.frame = frame
         secondDatePickerView.frame = frame
         dateDoneButton.frame = CGRect(x: dateTextField.frame.minX, y: dateTextField.frame.maxY + 100, width: 50, height: 30)
-        dateDoneButton.setTitle("Done", for: .normal)
+        dateDoneButton.text("Done")
         dateDoneButton.addTarget(self, action: #selector(dateDoneButtonTapped(_:)), for: .touchUpInside)
         firstDatePickerView.isHidden = true
         secondDatePickerView.isHidden = true
@@ -199,7 +195,7 @@ class FilterViewController: UIViewController {
         districtPickerView.reloadAllComponents()
         districtPickerView.frame = CGRect(x: districtTextField.frame.minX - 100, y: districtTextField.frame.maxY + 5, width: districtTextField.frame.width + 100, height: 100)
         districtDoneButton.frame = CGRect(x: districtTextField.frame.minX, y: districtTextField.frame.maxY + 100, width: 50, height: 30)
-        districtDoneButton.setTitle("Done", for: .normal)
+        districtDoneButton.text("Done")
         districtDoneButton.addTarget(self, action: #selector(districtDoneButtonTapped(_:)), for: .touchUpInside)
         districtPickerView.isHidden = true
         districtDoneButton.isHidden = true
@@ -229,8 +225,8 @@ class FilterViewController: UIViewController {
     
     private func addSuggestedFilters() {
         // TODO: Record most used filters and display the top 10. Alternatively use CoreML to learn what kind of filters the user likes and suggest new and used ones appropriately.
-        if let eventController = eventController {
-            eventController.fetchTags { result in
+        if let controller = controller {
+            controller.fetchTags { result in
                 switch result {
                 case .success(let tags):
                     self.suggestedFilters = tags
@@ -240,7 +236,7 @@ class FilterViewController: UIViewController {
                 }
             }
         } else {
-            suggestedFilters = [Tag(title: "Cooking"), Tag(title: "Tech"), Tag(title: "Reading"), Tag(title: "Entertainment"), Tag(title: "Music"), Tag(title: "Family")]
+            suggestedFilters = [Tag(title: "cooking"), Tag(title: "art"), Tag(title: "reading"), Tag(title: "entertainment"), Tag(title: "music"), Tag(title:"family")]
         }
     }
     
@@ -270,7 +266,7 @@ class FilterViewController: UIViewController {
         districtTextField.text = ""
         filter.location = nil
         zipCodeTextField.text = ""
-        // TODO: remove zipCode from filter
+        filter.zipCode = nil
         dateTextField.text = ""
         filter.dateRange = nil
         
@@ -280,6 +276,10 @@ class FilterViewController: UIViewController {
     
     
     @IBAction func applyFilters(_ sender: UIButton) {
+        if let zip = zipCodeTextField.text, let zipCode = Int(zip),
+            !(zipCodeTextField.text?.isEmpty ?? false) {
+            filter.zipCode = zipCode
+        }
         delegate?.receive(filters: filter)
         navigationController?.popViewController(animated: true)
     }
@@ -410,7 +410,7 @@ extension FilterViewController: UITextFieldDelegate {
             firstDatePickerView.isHidden = false
             districtPickerView.isHidden = true
             districtDoneButton.isHidden = true
-            dateDoneButton.setTitle("Next", for: .normal)
+            dateDoneButton.text("Next")
             dateDoneButton.isHidden = false
         }
     }
@@ -431,7 +431,7 @@ extension FilterViewController: UITextFieldDelegate {
             filter.dateRange = DateRangeFilter(dateRange: (firstDatePickerView.date, firstDatePickerView.date))
             firstDatePickerView.isHidden = true
             secondDatePickerView.isHidden = false
-            dateDoneButton.setTitle("Done", for: .normal)
+            dateDoneButton.text("Done")
         } else {
             dateDoneButton.isHidden = true
         }

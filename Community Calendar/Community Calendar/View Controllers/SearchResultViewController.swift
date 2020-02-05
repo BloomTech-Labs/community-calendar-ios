@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import CoreLocation
 
 class SearchResultViewController: UIViewController {
-    var eventController: EventController?
+    var controller: Controller?
     var events: [Event]? {
         didSet {
             updateViews()
@@ -36,14 +37,24 @@ class SearchResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // If filter was passed, sort according to filter, otherwise filter based on location
         setUp()
         updateViews()
+        if filter == nil {
+            filterLabel.text = "By distance"
+            if CLLocationManager.locationServicesEnabled() {
+                controller?.locationManager.delegate = self
+                controller?.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                controller?.locationManager.startUpdatingLocation()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        fetchFilteredEvents()
+        if filter != nil {
+            fetchFilteredEvents()
+        }
     }
     
     private func updateViews() {
@@ -76,10 +87,20 @@ class SearchResultViewController: UIViewController {
     }
 
     private func fetchFilteredEvents() {
-        guard let filter = filter, let eventController = eventController else { return }
-        eventController.getEvents(by: filter) { result in
+        guard let filter = filter, let controller = controller else { return }
+        controller.getEvents(by: filter) { result in
             switch result {
-            case .success(let filteredEvents):
+            case .success(var filteredEvents):
+                if let zip = filter.zipCode {
+                    filteredEvents = filteredEvents.filter {
+                        for location in $0.locations {
+                            if location.zipcode == zip {
+                                return true
+                            }
+                        }
+                        return false
+                    }
+                }
                 self.events = filteredEvents
                 if self.events?.count == 0 {
                     DispatchQueue.main.async {
@@ -94,29 +115,31 @@ class SearchResultViewController: UIViewController {
     
     private func setFilterLabel() {
         guard let filter = filter, let filterLabel = filterLabel else { return }
-        filterLabel.text = ""
-        if filter.index != nil {
-            filterLabel.text = "By term \"\(filter.index!)\""
-        } else if filter.dateRange != nil {
-            filterLabel.text = "By dates \(filterDateFormatter.string(from: filter.dateRange!.min)) - \(filterDateFormatter.string(from: filter.dateRange!.max))"
-        } else if filter.tags != nil {
+        filterLabel.text = "All Events"
+        if let index = filter.index {
+            filterLabel.text = "By term \"\(index)\""
+        } else if let dateRange = filter.dateRange {
+            filterLabel.text = "By dates \(filterDateFormatter.string(from: dateRange.min)) - \(filterDateFormatter.string(from: dateRange.max))"
+        } else if let tags = filter.tags {
             filterLabel.text = "By tag"
-            if filter.tags!.count != 1 {
+            if tags.count != 1 {
                 filterLabel.text = "\(filterLabel.text ?? "")s"
             }
-            if filter.tags!.count >= 3 {
-                filterLabel.text = "\(filterLabel.text ?? "") \"\(filter.tags![0].title)\", \"\(filter.tags![1].title)\", \"\(filter.tags![2].title)\""
+            if tags.count >= 3 {
+                filterLabel.text = "\(filterLabel.text ?? "") \"\(tags[0].title)\", \"\(tags[1].title)\", \"\(tags[2].title)\""
             } else {
-                for tagIndex in 0..<filter.tags!.count {
-                    if tagIndex == filter.tags!.count - 1 {
-                        filterLabel.text = "\(filterLabel.text ?? "") \"\(filter.tags![tagIndex].title)\""
+                for tagIndex in 0..<tags.count {
+                    if tagIndex == tags.count - 1 {
+                        filterLabel.text = "\(filterLabel.text ?? "") \"\(tags[tagIndex].title)\""
                     } else {
-                        filterLabel.text = "\(filterLabel.text ?? "") \"\(filter.tags![tagIndex].title)\","
+                        filterLabel.text = "\(filterLabel.text ?? "") \"\(tags[tagIndex].title)\","
                     }
                 }
             }
-        } else if filter.location != nil {
-            filterLabel.text = "By district \(filter.location!.name)"
+        } else if let location = filter.location {
+            filterLabel.text = "By district \(location.name)"
+        } else if let zipCode = filter.zipCode {
+            filterLabel.text = "By zipcode \(zipCode)"
         }
     }
     
@@ -142,7 +165,7 @@ class SearchResultViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailVC = segue.destination as? EventDetailViewController else { return }
-        detailVC.eventController = eventController
+        detailVC.controller = controller
         if segue.identifier == "ShowDetailFromTable" {
             guard let indexPath = eventResultsTableView.indexPathForSelectedRow else { return }
             detailVC.event = events?[indexPath.row]
@@ -163,7 +186,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         let events = events else { return UICollectionViewCell() }
         
         cell.indexPath = indexPath
-        cell.eventController = eventController
+        cell.controller = controller
         cell.event = events[indexPath.row]
         
         return cell
@@ -180,7 +203,7 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
         let events = events else { return UITableViewCell() }
         
         cell.indexPath = indexPath
-        cell.eventController = eventController
+        cell.controller = controller
         cell.event = events[indexPath.row]
         
         return cell
@@ -220,6 +243,16 @@ extension SearchResultViewController: UIGestureRecognizerDelegate, UINavigationC
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-    
-    
+}
+
+extension SearchResultViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last, filter == nil {
+            let center = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            events!.sort { center.distance(from: $0.clLocation) < center.distance(from: $1.clLocation) }
+            eventResultsTableView.reloadData()
+            eventResultsCollectionView.reloadData()
+        }
+        controller?.locationManager.stopUpdatingLocation()
+    }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Location: Codable, Equatable {
     init(location: GetEventsQuery.Data.Event.Location) {

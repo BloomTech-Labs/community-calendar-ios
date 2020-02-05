@@ -143,6 +143,23 @@ public struct DateRangeSearchInput: GraphQLMapConvertible {
   }
 }
 
+public struct EventIdInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(id: GraphQLID) {
+    graphQLMap = ["id": id]
+  }
+
+  public var id: GraphQLID {
+    get {
+      return graphQLMap["id"] as! GraphQLID
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "id")
+    }
+  }
+}
+
 public final class GetEventsByFilterQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition =
@@ -155,10 +172,13 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
         start
         end
         ticketPrice
+        id
         creator {
           __typename
           firstName
           lastName
+          auth0Id
+          profileImage
         }
         eventImages {
           __typename
@@ -248,6 +268,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
         GraphQLField("start", type: .nonNull(.scalar(String.self))),
         GraphQLField("end", type: .nonNull(.scalar(String.self))),
         GraphQLField("ticketPrice", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("creator", type: .object(Creator.selections)),
         GraphQLField("eventImages", type: .list(.nonNull(.object(EventImage.selections)))),
         GraphQLField("rsvps", type: .list(.nonNull(.object(Rsvp.selections)))),
@@ -262,8 +283,8 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(title: String, description: String, start: String, end: String, ticketPrice: Double, creator: Creator? = nil, eventImages: [EventImage]? = nil, rsvps: [Rsvp]? = nil, urls: [Url]? = nil, locations: [Location]? = nil, tags: [Tag]? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Event", "title": title, "description": description, "start": start, "end": end, "ticketPrice": ticketPrice, "creator": creator.flatMap { (value: Creator) -> ResultMap in value.resultMap }, "eventImages": eventImages.flatMap { (value: [EventImage]) -> [ResultMap] in value.map { (value: EventImage) -> ResultMap in value.resultMap } }, "rsvps": rsvps.flatMap { (value: [Rsvp]) -> [ResultMap] in value.map { (value: Rsvp) -> ResultMap in value.resultMap } }, "urls": urls.flatMap { (value: [Url]) -> [ResultMap] in value.map { (value: Url) -> ResultMap in value.resultMap } }, "locations": locations.flatMap { (value: [Location]) -> [ResultMap] in value.map { (value: Location) -> ResultMap in value.resultMap } }, "tags": tags.flatMap { (value: [Tag]) -> [ResultMap] in value.map { (value: Tag) -> ResultMap in value.resultMap } }])
+      public init(title: String, description: String, start: String, end: String, ticketPrice: Double, id: GraphQLID, creator: Creator? = nil, eventImages: [EventImage]? = nil, rsvps: [Rsvp]? = nil, urls: [Url]? = nil, locations: [Location]? = nil, tags: [Tag]? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Event", "title": title, "description": description, "start": start, "end": end, "ticketPrice": ticketPrice, "id": id, "creator": creator.flatMap { (value: Creator) -> ResultMap in value.resultMap }, "eventImages": eventImages.flatMap { (value: [EventImage]) -> [ResultMap] in value.map { (value: EventImage) -> ResultMap in value.resultMap } }, "rsvps": rsvps.flatMap { (value: [Rsvp]) -> [ResultMap] in value.map { (value: Rsvp) -> ResultMap in value.resultMap } }, "urls": urls.flatMap { (value: [Url]) -> [ResultMap] in value.map { (value: Url) -> ResultMap in value.resultMap } }, "locations": locations.flatMap { (value: [Location]) -> [ResultMap] in value.map { (value: Location) -> ResultMap in value.resultMap } }, "tags": tags.flatMap { (value: [Tag]) -> [ResultMap] in value.map { (value: Tag) -> ResultMap in value.resultMap } }])
       }
 
       public var __typename: String {
@@ -317,6 +338,15 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "ticketPrice")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
         }
       }
 
@@ -381,6 +411,8 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("firstName", type: .scalar(String.self)),
           GraphQLField("lastName", type: .scalar(String.self)),
+          GraphQLField("auth0Id", type: .nonNull(.scalar(String.self))),
+          GraphQLField("profileImage", type: .scalar(String.self)),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -389,8 +421,8 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(firstName: String? = nil, lastName: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName])
+        public init(firstName: String? = nil, lastName: String? = nil, auth0Id: String, profileImage: String? = nil) {
+          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "auth0Id": auth0Id, "profileImage": profileImage])
         }
 
         public var __typename: String {
@@ -417,6 +449,24 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "lastName")
+          }
+        }
+
+        public var auth0Id: String {
+          get {
+            return resultMap["auth0Id"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "auth0Id")
+          }
+        }
+
+        public var profileImage: String? {
+          get {
+            return resultMap["profileImage"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "profileImage")
           }
         }
       }
@@ -795,10 +845,13 @@ public final class GetEventsQuery: GraphQLQuery {
         start
         end
         ticketPrice
+        id
         creator {
           __typename
           firstName
           lastName
+          auth0Id
+          profileImage
         }
         eventImages {
           __typename
@@ -881,6 +934,7 @@ public final class GetEventsQuery: GraphQLQuery {
         GraphQLField("start", type: .nonNull(.scalar(String.self))),
         GraphQLField("end", type: .nonNull(.scalar(String.self))),
         GraphQLField("ticketPrice", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("creator", type: .object(Creator.selections)),
         GraphQLField("eventImages", type: .list(.nonNull(.object(EventImage.selections)))),
         GraphQLField("rsvps", type: .list(.nonNull(.object(Rsvp.selections)))),
@@ -895,8 +949,8 @@ public final class GetEventsQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(title: String, description: String, start: String, end: String, ticketPrice: Double, creator: Creator? = nil, eventImages: [EventImage]? = nil, rsvps: [Rsvp]? = nil, urls: [Url]? = nil, locations: [Location]? = nil, tags: [Tag]? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Event", "title": title, "description": description, "start": start, "end": end, "ticketPrice": ticketPrice, "creator": creator.flatMap { (value: Creator) -> ResultMap in value.resultMap }, "eventImages": eventImages.flatMap { (value: [EventImage]) -> [ResultMap] in value.map { (value: EventImage) -> ResultMap in value.resultMap } }, "rsvps": rsvps.flatMap { (value: [Rsvp]) -> [ResultMap] in value.map { (value: Rsvp) -> ResultMap in value.resultMap } }, "urls": urls.flatMap { (value: [Url]) -> [ResultMap] in value.map { (value: Url) -> ResultMap in value.resultMap } }, "locations": locations.flatMap { (value: [Location]) -> [ResultMap] in value.map { (value: Location) -> ResultMap in value.resultMap } }, "tags": tags.flatMap { (value: [Tag]) -> [ResultMap] in value.map { (value: Tag) -> ResultMap in value.resultMap } }])
+      public init(title: String, description: String, start: String, end: String, ticketPrice: Double, id: GraphQLID, creator: Creator? = nil, eventImages: [EventImage]? = nil, rsvps: [Rsvp]? = nil, urls: [Url]? = nil, locations: [Location]? = nil, tags: [Tag]? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Event", "title": title, "description": description, "start": start, "end": end, "ticketPrice": ticketPrice, "id": id, "creator": creator.flatMap { (value: Creator) -> ResultMap in value.resultMap }, "eventImages": eventImages.flatMap { (value: [EventImage]) -> [ResultMap] in value.map { (value: EventImage) -> ResultMap in value.resultMap } }, "rsvps": rsvps.flatMap { (value: [Rsvp]) -> [ResultMap] in value.map { (value: Rsvp) -> ResultMap in value.resultMap } }, "urls": urls.flatMap { (value: [Url]) -> [ResultMap] in value.map { (value: Url) -> ResultMap in value.resultMap } }, "locations": locations.flatMap { (value: [Location]) -> [ResultMap] in value.map { (value: Location) -> ResultMap in value.resultMap } }, "tags": tags.flatMap { (value: [Tag]) -> [ResultMap] in value.map { (value: Tag) -> ResultMap in value.resultMap } }])
       }
 
       public var __typename: String {
@@ -950,6 +1004,15 @@ public final class GetEventsQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "ticketPrice")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
         }
       }
 
@@ -1014,6 +1077,8 @@ public final class GetEventsQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("firstName", type: .scalar(String.self)),
           GraphQLField("lastName", type: .scalar(String.self)),
+          GraphQLField("auth0Id", type: .nonNull(.scalar(String.self))),
+          GraphQLField("profileImage", type: .scalar(String.self)),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -1022,8 +1087,8 @@ public final class GetEventsQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(firstName: String? = nil, lastName: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName])
+        public init(firstName: String? = nil, lastName: String? = nil, auth0Id: String, profileImage: String? = nil) {
+          self.init(unsafeResultMap: ["__typename": "User", "firstName": firstName, "lastName": lastName, "auth0Id": auth0Id, "profileImage": profileImage])
         }
 
         public var __typename: String {
@@ -1050,6 +1115,24 @@ public final class GetEventsQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "lastName")
+          }
+        }
+
+        public var auth0Id: String {
+          get {
+            return resultMap["auth0Id"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "auth0Id")
+          }
+        }
+
+        public var profileImage: String? {
+          get {
+            return resultMap["profileImage"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "profileImage")
           }
         }
       }
@@ -1503,6 +1586,195 @@ public final class GetTagsQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+    }
+  }
+}
+
+public final class RsvpToEventMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition =
+    """
+    mutation rsvpToEvent($id: EventIdInput!) {
+      rsvpEvent(event: $id)
+    }
+    """
+
+  public let operationName = "rsvpToEvent"
+
+  public var id: EventIdInput
+
+  public init(id: EventIdInput) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("rsvpEvent", arguments: ["event": GraphQLVariable("id")], type: .nonNull(.scalar(Bool.self))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(rsvpEvent: Bool) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "rsvpEvent": rsvpEvent])
+    }
+
+    public var rsvpEvent: Bool {
+      get {
+        return resultMap["rsvpEvent"]! as! Bool
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "rsvpEvent")
+      }
+    }
+  }
+}
+
+public final class GetUserRsvPsQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition =
+    """
+    query getUserRSVPs($id: ID) {
+      users(where: {id: $id}) {
+        __typename
+        rsvps {
+          __typename
+          id
+          title
+        }
+      }
+    }
+    """
+
+  public let operationName = "getUserRSVPs"
+
+  public var id: GraphQLID?
+
+  public init(id: GraphQLID? = nil) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("users", arguments: ["where": ["id": GraphQLVariable("id")]], type: .list(.nonNull(.object(User.selections)))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(users: [User]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "users": users.flatMap { (value: [User]) -> [ResultMap] in value.map { (value: User) -> ResultMap in value.resultMap } }])
+    }
+
+    public var users: [User]? {
+      get {
+        return (resultMap["users"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [User] in value.map { (value: ResultMap) -> User in User(unsafeResultMap: value) } }
+      }
+      set {
+        resultMap.updateValue(newValue.flatMap { (value: [User]) -> [ResultMap] in value.map { (value: User) -> ResultMap in value.resultMap } }, forKey: "users")
+      }
+    }
+
+    public struct User: GraphQLSelectionSet {
+      public static let possibleTypes = ["User"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("rsvps", type: .list(.nonNull(.object(Rsvp.selections)))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(rsvps: [Rsvp]? = nil) {
+        self.init(unsafeResultMap: ["__typename": "User", "rsvps": rsvps.flatMap { (value: [Rsvp]) -> [ResultMap] in value.map { (value: Rsvp) -> ResultMap in value.resultMap } }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var rsvps: [Rsvp]? {
+        get {
+          return (resultMap["rsvps"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [Rsvp] in value.map { (value: ResultMap) -> Rsvp in Rsvp(unsafeResultMap: value) } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [Rsvp]) -> [ResultMap] in value.map { (value: Rsvp) -> ResultMap in value.resultMap } }, forKey: "rsvps")
+        }
+      }
+
+      public struct Rsvp: GraphQLSelectionSet {
+        public static let possibleTypes = ["Event"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("title", type: .nonNull(.scalar(String.self))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: GraphQLID, title: String) {
+          self.init(unsafeResultMap: ["__typename": "Event", "id": id, "title": title])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return resultMap["id"]! as! GraphQLID
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var title: String {
+          get {
+            return resultMap["title"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "title")
+          }
         }
       }
     }

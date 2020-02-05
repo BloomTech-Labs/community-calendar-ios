@@ -19,10 +19,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Event Tab Bar Controller-->
         <scene sceneID="pKf-b5-kAm">
             <objects>
-                <tabBarController id="x3w-3d-zoY" sceneMemberID="viewController">
+                <tabBarController id="x3w-3d-zoY" customClass="EventTabBarController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pRn-9m-wrx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -673,8 +673,15 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="14" minY="12" maxX="14" maxY="12"/>
                                         <state key="normal" image="location-tag"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7l3-P1-t3D">
+                                        <rect key="frame" x="0.0" y="64" width="414" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="mp3-iz-3js"/>
+                                        </constraints>
                                         <connections>
-                                            <action selector="nearByButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V0S-HV-96v"/>
+                                            <action selector="nearByButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gAs-cE-RdZ"/>
+                                            <segue destination="oGT-Hc-B1b" kind="show" identifier="ByDistanceSegue" id="Fe6-WQ-Mfo"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -689,12 +696,15 @@
                                     <constraint firstAttribute="trailing" secondItem="xmU-Od-diR" secondAttribute="trailing" id="GZ3-fI-z1h"/>
                                     <constraint firstItem="xmU-Od-diR" firstAttribute="leading" secondItem="Mow-Pn-qDL" secondAttribute="leading" id="LP4-KZ-exi"/>
                                     <constraint firstItem="wSe-Ij-G4k" firstAttribute="leading" secondItem="HQy-HE-ttx" secondAttribute="trailing" constant="16" id="QbO-TW-wMK"/>
+                                    <constraint firstItem="7l3-P1-t3D" firstAttribute="leading" secondItem="Mow-Pn-qDL" secondAttribute="leading" id="XWg-oJ-p3z"/>
+                                    <constraint firstItem="7l3-P1-t3D" firstAttribute="centerY" secondItem="Bjf-vJ-joZ" secondAttribute="centerY" id="Xcz-px-XOW"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bus-3w-XhM" secondAttribute="trailing" constant="16" id="lf3-HI-xrD"/>
                                     <constraint firstItem="2BF-34-zMR" firstAttribute="leading" secondItem="aAx-yW-aF5" secondAttribute="leading" id="oPW-Oq-OUc"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aAx-yW-aF5" secondAttribute="trailing" constant="16" id="pl7-sZ-uNX"/>
                                     <constraint firstItem="aAx-yW-aF5" firstAttribute="leading" secondItem="Mow-Pn-qDL" secondAttribute="leading" constant="16" id="rMo-Wy-wiz"/>
                                     <constraint firstItem="bus-3w-XhM" firstAttribute="centerY" secondItem="Bjf-vJ-joZ" secondAttribute="centerY" id="trm-56-egL"/>
                                     <constraint firstItem="Bjf-vJ-joZ" firstAttribute="top" secondItem="aAx-yW-aF5" secondAttribute="bottom" constant="16" id="uE5-XX-1d3"/>
+                                    <constraint firstAttribute="trailing" secondItem="7l3-P1-t3D" secondAttribute="trailing" id="y3P-U5-dhx"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2BF-34-zMR" secondAttribute="trailing" constant="16" id="zDC-do-ljo"/>
                                 </constraints>
                             </view>
@@ -804,7 +814,7 @@
         <!--Home-->
         <scene sceneID="EGb-ve-li8">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="kl8-6E-gu3" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="kl8-6E-gu3" customClass="EventNavController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home" selectedImage="home" id="64c-nn-fjW"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BEM-Dv-Y4s">
@@ -858,6 +868,7 @@
         <image name="person" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Fe6-WQ-Mfo"/>
         <segue reference="cN3-bE-Cpz"/>
     </inferredMetricsTieBreakers>
 </document>

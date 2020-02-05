@@ -8,16 +8,23 @@
 
 import UIKit
 import Auth0
+//import JWTDecode
+// If you wanted to keep the user logged in even after closing the app,
+// there are some great docs on https://github.com/auth0/JWTDecode.swift.
+// (let jwt = try decode(jwt: token); jwt.expiresAt)
+// When opening the app, you can decode the token and see if it has already
+// expired, if not, refresh the token, if it has expired, log the user in again
+// Store the token in apple's keychain, and NOT UserDefaults
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, ControllerDelegate {
     // MARK: - Variables
     var homeController = HomeViewController()
-    
-    @IBOutlet weak var nameLabel: UILabel!
+    var controller: Controller?
     
     var onAuth: ((Result<Credentials>) -> ())!
     var credentials: Credentials? {
         didSet {
+            userToken = self.credentials?.accessToken
             getUserInfo()
             DispatchQueue.main.async {
                 if self.credentials == nil {
@@ -37,6 +44,8 @@ class LoginViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var LoginButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
@@ -51,10 +60,15 @@ class LoginViewController: UIViewController {
         if credentials == nil {
             loginOrSignUpButtonPressed(0)
             nameLabel.text = "Please log in"
+            imageView.isHidden = true
         } else {
             print("\(#function): User already signed in")
             if let profile = profile {
                 nameLabel.text = "Name: \(profile.name ?? "Could not find name!")"
+                imageView.isHidden = false
+                if let picture = profile.picture {
+                    controller?.fetchImage(for: picture.absoluteString)
+                }
             }
         }
     }
@@ -86,7 +100,7 @@ class LoginViewController: UIViewController {
                 NSLog("User is not logged in or access token has expired")
                 return
             }
-            
+            userToken = accessToken
             Auth0.authentication().userInfo(withAccessToken: accessToken).start { result in
                 switch(result) {
                 case .success(let profile):
@@ -106,7 +120,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - IBAction
     @IBAction func loginOrSignUpButtonPressed(_ sender: Any) {
-        Auth0.webAuth().scope("openid profile").audience("https://communitycalendar-staging.auth0.com/userinfo").start {
+        Auth0.webAuth().scope("openid profile").audience("https://community-calendar.auth0.com/api/v2/").start {
             switch $0 {
             case .failure(let error):
                 // Handle the error
@@ -138,4 +152,22 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    @objc
+    func receiveImage(_ notification: Notification) {
+        guard let imageNot = notification.object as? ImageNotification else {
+            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
+            return
+        }
+        if let imageURL = profile?.picture?.absoluteString, imageNot.url == imageURL {
+            DispatchQueue.main.async {
+                self.imageView.image = imageNot.image
+            }
+        }
+    }
+    
+    func observeImage() {
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
+    }
+
 }

@@ -14,7 +14,7 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     var event: Event? {
         didSet { updateViews() }
     }
-    var eventController: EventController?
+    var controller: Controller?
     var isFadeLayerSet = false
     var fadeLayer: CAGradientLayer!
     
@@ -31,7 +31,7 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        guard let event = event, let _ = eventController else { return }
+        guard let event = event, let _ = controller else { return }
         eventImageView.layer.cornerRadius = 6
         eventTitleLabel.text = event.title
         setImage()
@@ -41,10 +41,10 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     
     private func setImage() {
         if let imageURL = event?.images.first, !imageURL.isEmpty {
-            if eventController?.cache.fetch(key: imageURL) == nil {
+            if controller?.cache.fetch(key: imageURL) == nil {
                 eventImageView.image = nil
             }
-            eventController?.loadImage(for: imageURL)
+            controller?.fetchImage(for: imageURL)
         } else {
             if let indexPath = indexPath {
                 eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")

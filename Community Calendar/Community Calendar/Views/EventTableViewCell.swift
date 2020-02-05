@@ -16,7 +16,7 @@ class EventTableViewCell: UITableViewCell {
             updateViews()
         }
     }
-    var eventController: EventController?
+    var controller: Controller?
     
     @IBOutlet weak var districtNameLabel: UILabel!
     @IBOutlet weak var eventTitleLabel: UILabel!
@@ -34,7 +34,7 @@ class EventTableViewCell: UITableViewCell {
     }
     
     func updateViews() {
-        guard let event = event, let _ = eventController else { return }
+        guard let event = event, let _ = controller else { return }
         eventImageView.layer.cornerRadius = 3
         eventTitleLabel.text = event.title
         setImage()
@@ -44,10 +44,10 @@ class EventTableViewCell: UITableViewCell {
     
     private func setImage() {
         if let imageURL = event?.images.first, !imageURL.isEmpty {
-            if eventController?.cache.fetch(key: imageURL) == nil {
+            if controller?.cache.fetch(key: imageURL) == nil {
                 eventImageView.image = nil
             }
-            eventController?.loadImage(for: imageURL)
+            controller?.fetchImage(for: imageURL)
         } else {
             if let indexPath = indexPath {
                 eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
