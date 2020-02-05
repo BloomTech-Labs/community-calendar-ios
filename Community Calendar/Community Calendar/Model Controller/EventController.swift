@@ -8,15 +8,21 @@
 
 import Foundation
 import Apollo
+import JWTDecode
 // Run this command in terminal to generate an updated schema.json:
 // (You must have apollo installed)
 // apollo schema:download --endpoint=https://ccstaging.herokuapp.com/schema.graphql schema.json
-class EventController {
-    public let cache = Cache<String, UIImage>()
-    // Use staging (https://ccstaging.herokuapp.com/schema.graphql) when developing, use production (https://ccapollo-production.herokuapp.com/graphql) when releasing
-    private let graphQLClient = ApolloClient(url: URL(string: "https://ccapollo-production.herokuapp.com/graphql")!)
+// or
+// apollo schema:download --endpoint=https://ccapollo-production.herokuapp.com/schema.graphql schema.json
+
+class EventController: HTTPNetworkTransportDelegate {
+    //  Use staging (https://ccstaging.herokuapp.com/schema.graphql) when developing, use production (https://ccapollo-production.herokuapp.com/graphql) when releasing
+    private static let url = URL(string: "https://ccapollo-production.herokuapp.com/graphql")!
     
-    func getEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
+    public let cache = Cache<String, UIImage>()
+    private var graphQLClient: ApolloClient = ApolloClient(url: EventController.url)
+    
+    func getEvents(completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
         graphQLClient.fetch(query: GetEventsQuery()) { result in
             switch result {
             case .failure(let error):
@@ -43,7 +49,7 @@ class EventController {
         }
     }
     
-    func getEvents(by filters: Filter, completion: @escaping (Result<[Event], Error>) -> Void) {
+    func getEvents(by filters: Filter, completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
         graphQLClient.fetch(query: GetEventsByFilterQuery(filters: filters.searchFilter)) { result in
             switch result {
             case .failure(let error):
@@ -95,7 +101,7 @@ class EventController {
         }.resume()
     }
     
-    func fetchTags(completion: @escaping (Result<[Tag], Error>) -> Void) {
+    func fetchTags(completion: @escaping (Swift.Result<[Tag], Error>) -> Void) {
         graphQLClient.fetch(query: GetTagsQuery()) { result in
             switch result {
             case .failure(let error):
@@ -111,17 +117,42 @@ class EventController {
         }
     }
     
-    func rsvpToEvent(with id: String) {
+    func rsvpToEvent(with id: String, completion: @escaping (Error?, [GraphQLError]?) -> Void) {
+        graphQLClient = updateApollo()
         graphQLClient.perform(mutation: RsvpToEventMutation(id: EventIdInput(id: id))) { result in
             switch result {
             case .failure(let error):
-                print(error)
-                break
-                
-            case .success(let wasSuccessful):
-                print(wasSuccessful)
-                break
+                completion(error, nil)
+            case .success(let data):
+                completion(nil, (data.errors?.isEmpty ?? true) ? nil : data.errors)
             }
         }
+    }
+    
+    func checkForRSVP(with id: String, completion: @escaping ([String]?, Error?) -> Void) {
+        graphQLClient.fetch(query: GetUserRsvPsQuery(id: id)) { result in
+            switch result {
+            case .failure(let error):
+                completion(nil, error)
+            case .success(let rsvps):
+                if rsvps.data?.users?.isEmpty ?? true {
+                    completion([], nil)
+                } else {
+                    if let userRSVP = rsvps.data?.users?.first {
+                        let rsvpIdList = userRSVP.rsvps?.map { $0.id }
+                        completion(rsvpIdList, nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    func updateApollo() -> ApolloClient {
+        let token = userToken ?? ""
+        
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"]
+        
+        return ApolloClient(networkTransport: HTTPNetworkTransport(url: EventController.url, session: URLSession(configuration: configuration), delegate: self))
     }
 }

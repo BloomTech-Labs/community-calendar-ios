@@ -8,6 +8,12 @@
 
 import UIKit
 import Auth0
+//import JWTDecode
+// If you wanted to keep the user logged in even after closing the app,
+// there are some great docs on https://github.com/auth0/JWTDecode.swift.
+// (let jwt = try decode(jwt: token); jwt.expiresAt)
+// When opening the app, you can decode the token and see if it has already
+// expired, if not, refresh the token, if it has expired, log the user in again
 
 class LoginViewController: UIViewController {
     // MARK: - Variables
@@ -17,6 +23,7 @@ class LoginViewController: UIViewController {
     var onAuth: ((Result<Credentials>) -> ())!
     var credentials: Credentials? {
         didSet {
+            userToken = self.credentials?.accessToken
             getUserInfo()
             DispatchQueue.main.async {
                 if self.credentials == nil {
@@ -92,7 +99,7 @@ class LoginViewController: UIViewController {
                 NSLog("User is not logged in or access token has expired")
                 return
             }
-            
+            userToken = accessToken
             Auth0.authentication().userInfo(withAccessToken: accessToken).start { result in
                 switch(result) {
                 case .success(let profile):

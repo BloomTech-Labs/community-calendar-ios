@@ -63,6 +63,8 @@ enum NetworkError: Error {
     case otherError(Error)
 }
 
+var userToken: String?
+
 let searchPersistanceKey = "SearchController.filter" // If you change this you will need to delete and redownload the app
 
 

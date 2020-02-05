@@ -100,3 +100,12 @@ query getTags {
 mutation rsvpToEvent($id: EventIdInput!) {
   rsvpEvent(event: $id)
 }
+
+query getUserRSVPs($id: ID) {
+  users(where: {id: $id}) {
+    rsvps {
+      id
+      title
+    }
+  }
+}

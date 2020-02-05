@@ -8,6 +8,7 @@
 
 import UIKit
 import EventKit
+import JWTDecode
 
 class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Variables
@@ -28,6 +29,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet private weak var addToCalendarButton: UIButton!
     
     @IBOutlet private weak var hostImageView: UIImageView!
+    @IBOutlet weak var hostShadowView: UIView!
     @IBOutlet private weak var hostNameLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel! // Three lines
     @IBOutlet private weak var priceLabel: UILabel! // Red if free
@@ -65,6 +67,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         eventDescTextView.text = event.description
         hostNameLabel.text = event.creator
         hostImageView.layer.cornerRadius = hostImageView.frame.height/2
+        hostShadowView.layer.cornerRadius = hostShadowView.frame.height/2
+        hostShadowView.layer.shadowColor = UIColor.darkGray.cgColor
+        hostShadowView.layer.shadowOpacity = 1.0
+        hostShadowView.layer.shadowRadius = 3
+        hostShadowView.layer.shadowOffset = CGSize(width: 2, height: 2)
         addressLabel.text = "\(event.locations.first?.streetAddress ?? ""), \(event.locations.first?.city ?? "")"
         if let startDate = event.startDate, let endDate = event.endDate {
             dateLabel.text = todayDateFormatter.string(from: startDate)
@@ -75,7 +82,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         priceLabel.text = "\(event.ticketPrice == 0.0 ? "Free" : "$\(event.ticketPrice)")"
         
         
-        
+        checkForRSVP()
         attendButton.layer.cornerRadius = 6
         attendButton.layer.borderWidth = 1
         attendButton.layer.borderColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1).cgColor
@@ -99,6 +106,30 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             } else {
                 eventImageView.image = UIImage(named: "lambda")
             }
+        }
+    }
+    
+    func checkForRSVP() {
+        self.attendButton.text("Attend")
+        self.addToCalendarButton.isHidden = true
+        guard let event = event, let eventController = eventController, let userToken = userToken else { return }
+        do {
+            let decodedToken = try decode(jwt: userToken)
+            guard let userId = decodedToken.ccId else { return }
+            eventController.checkForRSVP(with: userId) { ids, error  in
+                if let error = error {
+                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+                    return
+                }
+                if let ids = ids, ids.contains(event.id) {
+                    DispatchQueue.main.async {
+                        self.attendButton.text("Unattend")
+                        self.addToCalendarButton.isHidden = false
+                    }
+                }
+            }
+        } catch {
+            NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
         }
     }
     
@@ -137,6 +168,19 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         scrollView.contentOffset.x = 0
     }
     
+    func loginAlert(with message: String) {
+        let alert = UIAlertController(title: "Please log in", message: "You must be logged in to \(message)", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let login = UIAlertAction(title: "Log in", style: .default) { action in
+            self.presentingViewController?.tabBarController?.selectedIndex = (self.presentingViewController?.tabBarController?.viewControllers?.count ?? 1) - 1
+            alert.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true)
+        }
+        alert.addAction(cancel)
+        alert.addAction(login)
+        self.present(alert, animated: true)
+    }
+    
     @objc
     func receiveImage(_ notification: Notification) {
         guard let imageNot = notification.object as? ImageNotification else {
@@ -167,7 +211,28 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func attendEvent(_ sender: UIButton) {
         guard let eventController = eventController, let event = event else { return }
-        eventController.rsvpToEvent(with: event.id)
+        eventController.rsvpToEvent(with: event.id) { error, errors in
+            if error == nil && errors?.isEmpty ?? true {
+                DispatchQueue.main.async {
+                    self.attendButton.text("Unattend")
+                    self.addToCalendarButton.isHidden = false
+                }
+            }
+            if let error = error {
+                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+            }
+            if let errors = errors, !errors.isEmpty {
+                var presentLogin = false
+                for errorql in errors {
+                    if let errorMessage = errorql.message, errorMessage.contains("No token was found in header") {
+                        presentLogin = true
+                    }
+                }
+                if presentLogin {
+                    self.loginAlert(with: "rsvp to an event")
+                }
+            }
+        }
     }
     
     @IBAction func showInMaps(_ sender: UIButton) {

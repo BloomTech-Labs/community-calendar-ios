@@ -188,7 +188,7 @@ class FilterViewController: UIViewController {
         firstDatePickerView.frame = frame
         secondDatePickerView.frame = frame
         dateDoneButton.frame = CGRect(x: dateTextField.frame.minX, y: dateTextField.frame.maxY + 100, width: 50, height: 30)
-        dateDoneButton.setTitle("Done", for: .normal)
+        dateDoneButton.text("Done")
         dateDoneButton.addTarget(self, action: #selector(dateDoneButtonTapped(_:)), for: .touchUpInside)
         firstDatePickerView.isHidden = true
         secondDatePickerView.isHidden = true
@@ -199,7 +199,7 @@ class FilterViewController: UIViewController {
         districtPickerView.reloadAllComponents()
         districtPickerView.frame = CGRect(x: districtTextField.frame.minX - 100, y: districtTextField.frame.maxY + 5, width: districtTextField.frame.width + 100, height: 100)
         districtDoneButton.frame = CGRect(x: districtTextField.frame.minX, y: districtTextField.frame.maxY + 100, width: 50, height: 30)
-        districtDoneButton.setTitle("Done", for: .normal)
+        districtDoneButton.text("Done")
         districtDoneButton.addTarget(self, action: #selector(districtDoneButtonTapped(_:)), for: .touchUpInside)
         districtPickerView.isHidden = true
         districtDoneButton.isHidden = true
@@ -240,7 +240,7 @@ class FilterViewController: UIViewController {
                 }
             }
         } else {
-            suggestedFilters = [Tag(title: "Cooking"), Tag(title: "Tech"), Tag(title: "Reading"), Tag(title: "Entertainment"), Tag(title: "Music"), Tag(title: "Family")]
+            suggestedFilters = [Tag(title: "cooking"), Tag(title: "art"), Tag(title: "reading"), Tag(title: "entertainment"), Tag(title: "music"), Tag(title:"family")]
         }
     }
     
@@ -410,7 +410,7 @@ extension FilterViewController: UITextFieldDelegate {
             firstDatePickerView.isHidden = false
             districtPickerView.isHidden = true
             districtDoneButton.isHidden = true
-            dateDoneButton.setTitle("Next", for: .normal)
+            dateDoneButton.text("Next")
             dateDoneButton.isHidden = false
         }
     }
@@ -431,7 +431,7 @@ extension FilterViewController: UITextFieldDelegate {
             filter.dateRange = DateRangeFilter(dateRange: (firstDatePickerView.date, firstDatePickerView.date))
             firstDatePickerView.isHidden = true
             secondDatePickerView.isHidden = false
-            dateDoneButton.setTitle("Done", for: .normal)
+            dateDoneButton.text("Done")
         } else {
             dateDoneButton.isHidden = true
         }

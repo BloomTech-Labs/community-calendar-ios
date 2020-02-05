@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     }
     private var unfilteredEvents: [Event]? {
         didSet {
-            allUpcomingTapped(UIButton())
+            todayTapped(UIButton())
         }
     }
     private var events: [Event]? {
@@ -74,12 +74,7 @@ class HomeViewController: UIViewController {
         setUp()
 //        printFonts()
         
-//        recentFiltersList = searchController.loadFromPersistantStore()
-        
         self.tabBarController?.setViewControllers([tabBarController?.viewControllers?[0] ?? UIViewController(), tabBarController?.viewControllers?[2] ?? UIViewController()], animated: false) // Changed for presentation, please remove
-        nearbyButton.isHidden = true // Remove and implement
-        nearbyLabel.textColor = .clear // Remove and implement
-        seeAllTapped(seeAllButton) // Remove and implement
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -259,7 +254,7 @@ class HomeViewController: UIViewController {
     
     private func updateFilterCount() {
         guard let currentFilter = currentFilter else {
-            filterButton.setTitle("Filters", for: .normal)
+            filterButton.text("Filters")
             return
         }
         var filterCount = 0
@@ -279,7 +274,7 @@ class HomeViewController: UIViewController {
         if currentFilter.tags != nil {
             filterCount += currentFilter.tags?.count ?? 0
         }
-        filterButton.setTitle("Filters\(filterCount == 0 ? "" : "(\(filterCount))")", for: .normal)
+        filterButton.text("Filters\(filterCount == 0 ? "" : "(\(filterCount))")")
     }
     
     // MARK: - IBActions
@@ -299,7 +294,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func seeAllTapped(_ sender: UIButton) {
-        sender.isHidden = true // TODO: Remove and implement
+        performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
     }
     
     // MARK: - Filter Buttons IBActions

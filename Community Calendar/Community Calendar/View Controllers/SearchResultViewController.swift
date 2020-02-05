@@ -94,7 +94,7 @@ class SearchResultViewController: UIViewController {
     
     private func setFilterLabel() {
         guard let filter = filter, let filterLabel = filterLabel else { return }
-        filterLabel.text = ""
+        filterLabel.text = "All Events"
         if filter.index != nil {
             filterLabel.text = "By term \"\(filter.index!)\""
         } else if filter.dateRange != nil {
@@ -220,6 +220,4 @@ extension SearchResultViewController: UIGestureRecognizerDelegate, UINavigationC
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-    
-    
 }
