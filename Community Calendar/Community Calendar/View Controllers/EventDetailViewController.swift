@@ -36,7 +36,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet private weak var eventDescTextView: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var addressLabel: UILabel!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private var descLabelHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
@@ -68,6 +69,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         guard isViewLoaded, let event = event else { return }
         
         titleLabel.text = event.title
+        let height = event.description.height(with: view.frame.width - 32, font: UIFont(name: "Poppins-Light", size: 12)!)
+        height < 100 ? (descLabelHeightConstraint.constant = height) : (descLabelHeightConstraint.constant = 100.0)
         eventDescTextView.text = event.description
         hostNameLabel.text = event.creator
         hostImageView.layer.cornerRadius = hostImageView.frame.height/2
@@ -83,7 +86,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         } else {
             timeLabel.text = "No time given"
         }
-        priceLabel.text = "\(event.ticketPrice == 0.0 ? "Free" : "$\(event.ticketPrice)")"
+        priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
         
         
         checkForRSVP()
@@ -242,6 +245,15 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
+    
+    @IBAction func showMore(_ sender: UIButton) {
+        let height = event?.description.height(with: view.frame.width - 32, font: UIFont(name: "Poppins-Light", size: 12)!)
+        if descLabelHeightConstraint.constant != height {
+            descLabelHeightConstraint.constant = (height ?? 10) + 3
+        }
+        sender.isHidden = true
+    }
+    
     
     @IBAction func showInMaps(_ sender: UIButton) {
         if let event = event, let address = event.locations.first?.streetAddress, let zip = event.locations.first?.zipcode {

@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreLocation
 
 class Controller {
     private let eventController = EventController()
     private let searchController = SearchController()
+    public let locationManager = CLLocationManager()
     public let cache = Cache<String, UIImage>()
     
     func getEvents(by filters: Filter? = nil, completion: @escaping (Swift.Result<[Event], Error>) -> Void) {

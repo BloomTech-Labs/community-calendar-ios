@@ -13,7 +13,6 @@ class HomeViewController: UIViewController, ControllerDelegate {
     // MARK: - Varibles
     var testing = false // Set this to true if you wish to use the test data located in Variables.swift
     
-    let locationManager = CLLocationManager()
     var shouldDismissFilterScreen = true
     var controller: Controller?
     private var recentFiltersList = [Filter]() {
@@ -115,7 +114,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         
         
         // Filter buttons set up
-        allUpcomingTapped(UIButton())
+        todayTapped(UIButton())
         todayButton.titleLabel?.adjustsFontSizeToFitWidth = true
         tomorrowButton.titleLabel?.adjustsFontSizeToFitWidth = true
         thisWeekendButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -293,7 +292,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
             alert?.addAction(openSettings)
             return false
         case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
+            controller?.locationManager.requestWhenInUseAuthorization()
         case .restricted:
             alert = UIAlertController(title: "You are restricted", message: "Please request access from restrictor (generally from parental or administrative controls)", preferredStyle: .alert)
             alert?.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
@@ -302,10 +301,6 @@ class HomeViewController: UIViewController, ControllerDelegate {
             return false
         }
         return false
-    }
-    
-    func requestLocation() {
-        
     }
     
     // MARK: - IBActions
@@ -325,6 +320,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     @IBAction func seeAllTapped(_ sender: UIButton) {
+        self.currentFilter = Filter()
         performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
     }
     
@@ -387,8 +383,9 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     @IBAction func nearByButtonTapped(_ sender: UIButton) {
-        
-        performSegue(withIdentifier: "ByDistanceSegue", sender: self)
+        if setUpLocation() {
+            currentFilter = nil
+        }
     }
     
     @IBAction func searchBarCancelButtonTapped(_ sender: UIButton) {
@@ -429,9 +426,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         } else if segue.identifier == "ByDistanceSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
             resultsVC.controller = controller
-            resultsVC.sortByDistance = true
             resultsVC.events = unfilteredEvents
-            resultsVC.locationManager = locationManager
             currentFilter = nil
         }
     }

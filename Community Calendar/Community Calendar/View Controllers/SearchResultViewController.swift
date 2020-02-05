@@ -10,7 +10,6 @@ import UIKit
 import CoreLocation
 
 class SearchResultViewController: UIViewController {
-    var locationManager: CLLocationManager?
     var controller: Controller?
     var events: [Event]? {
         didSet {
@@ -23,7 +22,6 @@ class SearchResultViewController: UIViewController {
             fetchFilteredEvents()
         }
     }
-    var sortByDistance: Bool?
     var searchBar: UISearchBar?
     
     @IBOutlet private weak var eventResultsCollectionView: UICollectionView!
@@ -39,18 +37,24 @@ class SearchResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let _ = events, let sort = sortByDistance, sort {
-            events!.sort { $0 > $1 }
-        } else {
-            setUp()
-            updateViews()
+        // If filter was passed, sort according to filter, otherwise filter based on location
+        setUp()
+        updateViews()
+        if filter == nil {
+            filterLabel.text = "By distance"
+            if CLLocationManager.locationServicesEnabled() {
+                controller?.locationManager.delegate = self
+                controller?.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                controller?.locationManager.startUpdatingLocation()
+            }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        fetchFilteredEvents()
+        if filter != nil {
+            fetchFilteredEvents()
+        }
     }
     
     private func updateViews() {
@@ -238,5 +242,17 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
 extension SearchResultViewController: UIGestureRecognizerDelegate, UINavigationControllerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+extension SearchResultViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last, filter == nil {
+            let center = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            events!.sort { center.distance(from: $0.clLocation) < center.distance(from: $1.clLocation) }
+            eventResultsTableView.reloadData()
+            eventResultsCollectionView.reloadData()
+        }
+        controller?.locationManager.stopUpdatingLocation()
     }
 }
