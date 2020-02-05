@@ -28,7 +28,7 @@ class FilterViewController: UIViewController {
     var selectedFilters = [Tag]()
     var suggestedFilters = [Tag]()
     
-    var eventController: EventController?
+    var controller: Controller?
     var events: [Event]? {
         didSet {
             setDistrictList()
@@ -225,8 +225,8 @@ class FilterViewController: UIViewController {
     
     private func addSuggestedFilters() {
         // TODO: Record most used filters and display the top 10. Alternatively use CoreML to learn what kind of filters the user likes and suggest new and used ones appropriately.
-        if let eventController = eventController {
-            eventController.fetchTags { result in
+        if let controller = controller {
+            controller.fetchTags { result in
                 switch result {
                 case .success(let tags):
                     self.suggestedFilters = tags

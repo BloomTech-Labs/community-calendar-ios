@@ -26,7 +26,6 @@ class EventController: HTTPNetworkTransportDelegate {
     //  Use staging (https://ccstaging.herokuapp.com/schema.graphql) when developing, use production (https://ccapollo-production.herokuapp.com/graphql) when releasing
     private static let url = URL(string: "https://ccapollo-production.herokuapp.com/graphql")!
     
-    public let cache = Cache<String, UIImage>()
     private var graphQLClient: ApolloClient = ApolloClient(url: EventController.url)
     
     func getEvents(completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
@@ -81,31 +80,6 @@ class EventController: HTTPNetworkTransportDelegate {
                 completion(.success(sortedEvents))
             }
         }
-    }
-    
-    func fetchImage(for key: String) {
-        if let image = cache.fetch(key: key) {
-            NotificationCenter.default.post(name: .imageWasLoaded, object: ImageNotification(image: image, url: key))
-            return
-        }
-        
-        let imageURL = URL(string: key)!
-        URLSession.shared.dataTask(with: imageURL) { (data, _, error) in
-            if let error = error {
-                NSLog("\(#file):L\(#line): Unable to fetch image data inside \(#function) with error: \(error)")
-                return
-            }
-            
-            guard let data = data else {
-                NSLog("\(#file):L\(#line): No data returned while trying to fetch image data inside \(#function)")
-                return
-            }
-            
-            if let image = UIImage(data: data) {
-                self.cache.cache(value: image, for: key)
-                NotificationCenter.default.post(name: .imageWasLoaded, object: ImageNotification(image: image, url: key))
-            }
-        }.resume()
     }
     
     func fetchTags(completion: @escaping (Swift.Result<[Tag], Error>) -> Void) {

@@ -17,7 +17,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             updateViews()
         }
     }
-    var eventController: EventController?
+    var controller: Controller?
     var indexPath: IndexPath?
     let eventStore = EKEventStore()
     
@@ -58,9 +58,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func fetchProfileImage() {
-        if let eventController = eventController, let event = event,
+        if let controller = controller, let event = event,
             let key = event.profileImageURL {
-            eventController.fetchImage(for: key)
+            controller.fetchImage(for: key)
         }
     }
     
@@ -100,10 +100,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         addToCalendarButton.layer.cornerRadius = 6
         
         if let imageURL = event.images.first, !imageURL.isEmpty {
-            if eventController?.cache.fetch(key: imageURL) == nil {
+            if controller?.cache.fetch(key: imageURL) == nil {
                 eventImageView.image = nil
             }
-            eventController?.fetchImage(for: imageURL)
+            controller?.fetchImage(for: imageURL)
         } else {
             if let indexPath = indexPath {
                 eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
@@ -116,11 +116,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     func checkForRSVP() {
         self.attendButton.attrText("Attend")
         self.addToCalendarButton.isHidden = true
-        guard let event = event, let eventController = eventController, let userToken = userToken else { return }
+        guard let event = event, let controller = controller, let userToken = userToken else { return }
         do {
             let decodedToken = try decode(jwt: userToken)
             guard let userId = decodedToken.ccId else { return }
-            eventController.checkForRsvp(with: userId) { ids, error  in
+            controller.checkForRsvp(with: userId) { ids, error  in
                 if let error = error {
                     NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
                     return
@@ -214,8 +214,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func attendEvent(_ sender: UIButton) {
-        guard let eventController = eventController, let event = event else { return }
-        eventController.rsvpToEvent(with: event.id) { bool, error in
+        guard let controller = controller, let event = event else { return }
+        controller.rsvpToEvent(with: event.id) { bool, error in
             if let error = error {
                 var presentLogin = false
                 switch error {

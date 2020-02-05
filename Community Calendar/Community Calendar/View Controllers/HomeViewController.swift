@@ -9,14 +9,13 @@
 import UIKit
 import CoreLocation
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, ControllerDelegate {
     // MARK: - Varibles
     var testing = false // Set this to true if you wish to use the test data located in Variables.swift
     
     let locationManager = CLLocationManager()
     var shouldDismissFilterScreen = true
-    private let eventController = EventController()
-    private let searchController = SearchController()
+    var controller: Controller?
     private var recentFiltersList = [Filter]() {
         didSet {
             recentSearchesTableView.reloadData()
@@ -72,7 +71,7 @@ class HomeViewController: UIViewController {
         setUp()
 //        printFonts()
         
-        self.tabBarController?.setViewControllers([tabBarController?.viewControllers?[0] ?? UIViewController(), tabBarController?.viewControllers?[2] ?? UIViewController()], animated: false) // Changed for presentation, please remove
+        self.tabBarController?.setViewControllers([tabBarController?.viewControllers?[0] ?? UIViewController(), tabBarController?.viewControllers?[2] ?? UIViewController()], animated: false); #warning("Changed for presentation, please remove")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -143,7 +142,7 @@ class HomeViewController: UIViewController {
     }
     
     private func fetchEvents() {
-        eventController.getEvents { result in
+        controller?.getEvents { result in
             switch result {
             case .success(let eventList):
                 if self.unfilteredEvents != eventList {
@@ -401,21 +400,21 @@ class HomeViewController: UIViewController {
             guard let detailVC = segue.destination as? EventDetailViewController,
                 let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
                 let events = unfilteredEvents else { return }
-            detailVC.eventController = eventController
+            detailVC.controller = controller
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "ShowEventsTableDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventTableView.indexPathForSelectedRow,
             let events = events else { return }
-            detailVC.eventController = eventController
+            detailVC.controller = controller
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
             let events = events else { return }
-            detailVC.eventController = eventController
+            detailVC.controller = controller
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "CustomShowFilterSegue" {
@@ -424,12 +423,12 @@ class HomeViewController: UIViewController {
             filterVC.delegate = self
         } else if segue.identifier == "ShowSearchResultsSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
-            resultsVC.eventController = eventController
+            resultsVC.controller = controller
             resultsVC.filter = currentFilter
             currentFilter = nil
         } else if segue.identifier == "ByDistanceSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
-            resultsVC.eventController = eventController
+            resultsVC.controller = controller
             resultsVC.sortByDistance = true
             resultsVC.events = unfilteredEvents
             resultsVC.locationManager = locationManager
@@ -460,7 +459,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             let events = events else { return UITableViewCell() }
             
             cell.indexPath = indexPath
-            cell.eventController = eventController
+            cell.controller = controller
             cell.event = events[indexPath.row]
             
             return cell
@@ -535,7 +534,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let events = events else { return UICollectionViewCell() }
             
             cell.indexPath = indexPath
-            cell.eventController = eventController
+            cell.controller = controller
             cell.event = events[indexPath.row]
             
             return cell
@@ -545,7 +544,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let events = unfilteredEvents else { return UICollectionViewCell() }
             
             cell.indexPath = indexPath
-            cell.eventController = eventController
+            cell.controller = controller
             cell.event = events[indexPath.row]
             
             return cell
@@ -557,7 +556,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 // MARK: - Search Bar Extension
 extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        recentFiltersList = searchController.loadFromPersistantStore()
+        recentFiltersList = controller!.loadFromPersistantStore()
         shouldShowSearchView(true)
         searchBarTrailingConstraint.constant = -searchBarCancelButton.frame.width - 32
         UIView.animate(withDuration: 0.25) {
@@ -570,7 +569,7 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let currentFilter = currentFilter {
             performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
-            searchController.save(filteredSearch: currentFilter)
+            controller?.save(filteredSearch: currentFilter)
             recentFiltersList.insert(currentFilter, at: 0)
         }
         shouldDismissFilterScreen = true
@@ -622,7 +621,7 @@ extension HomeViewController: UINavigationControllerDelegate {
             view.endEditing(true)
             if let toVC = toVC as? FilterViewController {
                 toVC.events = unfilteredEvents
-                toVC.eventController = eventController
+                toVC.controller = controller
                 if let filter = self.currentFilter {
                     toVC.filter = filter
                 }

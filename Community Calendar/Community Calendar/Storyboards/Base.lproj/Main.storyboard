@@ -19,10 +19,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Event Tab Bar Controller-->
         <scene sceneID="pKf-b5-kAm">
             <objects>
-                <tabBarController id="x3w-3d-zoY" sceneMemberID="viewController">
+                <tabBarController id="x3w-3d-zoY" customClass="EventTabBarController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pRn-9m-wrx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -805,7 +805,7 @@
         <!--Home-->
         <scene sceneID="EGb-ve-li8">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="kl8-6E-gu3" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="kl8-6E-gu3" customClass="EventNavController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home" selectedImage="home" id="64c-nn-fjW"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BEM-Dv-Y4s">

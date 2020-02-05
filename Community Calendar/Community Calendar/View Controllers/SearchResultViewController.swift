@@ -11,7 +11,7 @@ import CoreLocation
 
 class SearchResultViewController: UIViewController {
     var locationManager: CLLocationManager?
-    var eventController: EventController?
+    var controller: Controller?
     var events: [Event]? {
         didSet {
             updateViews()
@@ -83,8 +83,8 @@ class SearchResultViewController: UIViewController {
     }
 
     private func fetchFilteredEvents() {
-        guard let filter = filter, let eventController = eventController else { return }
-        eventController.getEvents(by: filter) { result in
+        guard let filter = filter, let controller = controller else { return }
+        controller.getEvents(by: filter) { result in
             switch result {
             case .success(var filteredEvents):
                 if let zip = filter.zipCode {
@@ -161,7 +161,7 @@ class SearchResultViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailVC = segue.destination as? EventDetailViewController else { return }
-        detailVC.eventController = eventController
+        detailVC.controller = controller
         if segue.identifier == "ShowDetailFromTable" {
             guard let indexPath = eventResultsTableView.indexPathForSelectedRow else { return }
             detailVC.event = events?[indexPath.row]
@@ -182,7 +182,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         let events = events else { return UICollectionViewCell() }
         
         cell.indexPath = indexPath
-        cell.eventController = eventController
+        cell.controller = controller
         cell.event = events[indexPath.row]
         
         return cell
@@ -199,7 +199,7 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
         let events = events else { return UITableViewCell() }
         
         cell.indexPath = indexPath
-        cell.eventController = eventController
+        cell.controller = controller
         cell.event = events[indexPath.row]
         
         return cell

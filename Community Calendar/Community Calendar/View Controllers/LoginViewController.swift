@@ -14,11 +14,12 @@ import Auth0
 // (let jwt = try decode(jwt: token); jwt.expiresAt)
 // When opening the app, you can decode the token and see if it has already
 // expired, if not, refresh the token, if it has expired, log the user in again
+// Store the token in apple's keychain, and NOT UserDefaults
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, ControllerDelegate {
     // MARK: - Variables
     var homeController = HomeViewController()
-    var eventController = EventController()
+    var controller: Controller?
     
     var onAuth: ((Result<Credentials>) -> ())!
     var credentials: Credentials? {
@@ -66,7 +67,7 @@ class LoginViewController: UIViewController {
                 nameLabel.text = "Name: \(profile.name ?? "Could not find name!")"
                 imageView.isHidden = false
                 if let picture = profile.picture {
-                    eventController.fetchImage(for: picture.absoluteString)
+                    controller?.fetchImage(for: picture.absoluteString)
                 }
             }
         }
