@@ -119,7 +119,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     func checkForRSVP() {
         self.attendButton.attrText("Attend")
         self.addToCalendarButton.isHidden = true
-        guard let event = event, let controller = controller, let userToken = userToken else { return }
+        guard let event = event, let controller = controller, let userToken = controller.userToken else { return }
         do {
             let decodedToken = try decode(jwt: userToken)
             guard let userId = decodedToken.ccId else { return }
@@ -179,7 +179,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         let alert = UIAlertController(title: "Please log in", message: "You must be logged in to \(message)", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let login = UIAlertAction(title: "Log in", style: .default) { action in
-            self.presentingViewController?.tabBarController?.selectedIndex = (self.presentingViewController?.tabBarController?.viewControllers?.count ?? 1) - 1
+            if let tabVC = self.presentingViewController as? EventTabBarController {
+                tabVC.selectedIndex = (tabVC.viewControllers?.count ?? 1) - 1
+            }
             alert.dismiss(animated: true, completion: nil)
             self.dismiss(animated: true)
         }

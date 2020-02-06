@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Date {
+extension Date { // Make dates easier to use
     func getWeekDays() -> (thisWeek:[Date], nextWeek:[Date]) {
         var tuple: (thisWeek:[Date], nextWeek:[Date])
         var arrThisWeek: [Date] = []

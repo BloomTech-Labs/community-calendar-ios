@@ -8,7 +8,8 @@
 
 import UIKit
 
-public enum Model : String {
+public enum Model : String { // This will return the type of device, used to check whether screen is rounded in CustomPush/PopAnimator
+    // All simulators are considered roundedDevices and will look funky when performing the customAnimation
     case simulator   = "simulator/sandbox",
     iPod1            = "iPod 1",
     iPod2            = "iPod 2",

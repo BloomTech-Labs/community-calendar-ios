@@ -24,7 +24,7 @@ class LoginViewController: UIViewController, ControllerDelegate {
     var onAuth: ((Result<Credentials>) -> ())!
     var credentials: Credentials? {
         didSet {
-            userToken = self.credentials?.accessToken
+            controller?.userToken = self.credentials?.accessToken
             getUserInfo()
             DispatchQueue.main.async {
                 if self.credentials == nil {
@@ -100,7 +100,7 @@ class LoginViewController: UIViewController, ControllerDelegate {
                 NSLog("User is not logged in or access token has expired")
                 return
             }
-            userToken = accessToken
+            controller?.userToken = accessToken
             Auth0.authentication().userInfo(withAccessToken: accessToken).start { result in
                 switch(result) {
                 case .success(let profile):

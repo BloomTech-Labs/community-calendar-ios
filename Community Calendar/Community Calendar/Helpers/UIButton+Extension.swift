@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIButton {
+extension UIButton { // Set title for all button states
     func text(_ title: String) {
         for state: UIControl.State in [.normal, .highlighted, .disabled, .selected, .focused, .application, .reserved] {
             self.setTitle(title, for: state)

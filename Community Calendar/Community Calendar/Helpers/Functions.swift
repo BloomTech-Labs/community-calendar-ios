@@ -50,12 +50,13 @@ func vcFrameRect(from navView: UIView) -> CGRect {
 }
 
 func isRoundedDevice() -> CGFloat {
-    switch UIDevice().type {
-    case .iPod1, .iPod2, .iPod3, .iPod4, .iPod5, .iPad2, .iPadMini1, .iPhone4, .iPhone4S, .iPhone5,
-         .iPhone5C, .iPad3, .iPad4, .iPhone5S, .iPadAir1, .iPadAir2, .iPadMini2, .iPadMini3, .iPhone7plus,
-         .iPhone6plus, .iPhone6, .iPhone6S, .iPhone6Splus, .iPhoneSE, .iPhone7, .iPhone8, .iPhone8plus:
+    switch UIDevice().type { // These devices have large bezels on the screen
+    case .iPod1, .iPod2, .iPod3, .iPod4, .iPod5, .iPad2, .iPadMini1, .iPhone4,
+         .iPhone4S, .iPhone5, .iPhone5C, .iPad3, .iPad4, .iPhone5S, .iPadAir1,
+         .iPadAir2, .iPadMini2, .iPadMini3, .iPhone7plus, .iPhone6plus, .iPhone6,
+         .iPhone6S, .iPhone6Splus, .iPhoneSE, .iPhone7, .iPhone8, .iPhone8plus:
         return 0
-    default:
+    default: // These devices have rounded screen corners
         return 35
     }
 }

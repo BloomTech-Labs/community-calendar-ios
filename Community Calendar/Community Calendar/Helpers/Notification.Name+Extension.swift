@@ -9,6 +9,7 @@
 import Foundation
 
 extension Notification.Name {
+    // Use varible instead of string for notification pattern to take advantage of autocomplete
     static var imageWasLoaded: Notification.Name {
         .init(rawValue: "EventController.imageWasLoaded")
     }

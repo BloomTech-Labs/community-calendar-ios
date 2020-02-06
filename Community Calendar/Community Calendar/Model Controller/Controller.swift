@@ -10,10 +10,16 @@ import UIKit
 import CoreLocation
 
 class Controller {
-    private let eventController = EventController()
-    private let searchController = SearchController()
+    private var eventController = EventController()
+    private var searchController = SearchController()
     public let locationManager = CLLocationManager()
     public let cache = Cache<String, UIImage>()
+    
+    public var userToken: String?
+    
+    init() {
+        eventController.parent = self
+    }
     
     func getEvents(by filters: Filter? = nil, completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
         if let filters = filters {

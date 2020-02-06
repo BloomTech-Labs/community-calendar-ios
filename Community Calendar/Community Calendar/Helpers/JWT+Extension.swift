@@ -9,7 +9,7 @@
 import JWTDecode
 import Apollo
 
-extension JWT {
+extension JWT { // Used to fetch custom key from Json Web Tokens
     var ccId: String? {
         claim(name: "http://cc_id").string
     }

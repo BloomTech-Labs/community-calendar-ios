@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension String {
+extension String { // Get height or width of label based on text and font. Used with "Read More" button on detailVC
     func height(with constrainedWidth: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: constrainedWidth, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)

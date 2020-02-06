@@ -10,7 +10,8 @@ import Foundation
 
 class SearchController {
     private let userDefaults = UserDefaults.standard // Use userdefaults to store user's searches
-    // Note: This is stored locally. Search results will remain the same regardless of account signed in.
+    // Note: This is stored locally. Search results will remain the same regardless of account signed in
+    // You could append the user's Id or something unique to the key to get user specific results
     
     func save(filteredSearch: Filter) {
         var tempArr = loadFromPersistantStore()
