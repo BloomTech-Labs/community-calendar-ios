@@ -24,7 +24,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="xBq-Ta-Dh1">
                                         <rect key="frame" x="16" y="16" width="112.5" height="70"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfO-JB-HN1">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfO-JB-HN1">
                                                 <rect key="frame" x="0.0" y="0.0" width="112.5" height="28"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Event Title">
@@ -39,7 +39,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ZhH-0H-e2e">
                                                 <rect key="frame" x="0.0" y="37" width="112.5" height="33"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBj-fy-BZ8">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBj-fy-BZ8">
                                                         <rect key="frame" x="0.0" y="0.0" width="29.5" height="16.5"/>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Date">
@@ -51,7 +51,7 @@
                                                         </attributedString>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkV-Sb-L3h">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkV-Sb-L3h">
                                                         <rect key="frame" x="0.0" y="16.5" width="52" height="16.5"/>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Address">
@@ -78,13 +78,13 @@
                                     <constraint firstAttribute="height" secondItem="xBq-Ta-Dh1" secondAttribute="height" constant="32" id="KQy-t4-cft"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jso-wK-oCn">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="Jso-wK-oCn">
                                 <rect key="frame" x="0.0" y="395" width="414" height="820"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="6iO-nW-bgd" userLabel="ContentView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="820"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="R0x-O4-I2c">
+                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="R0x-O4-I2c">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HWV-qB-hm6">
@@ -368,7 +368,7 @@
                                                     <action selector="attendEvent:" destination="xIc-ff-1kb" eventType="touchUpInside" id="Raq-U5-UIy"/>
                                                 </connections>
                                             </button>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discussions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJg-ZI-WOF">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discussions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJg-ZI-WOF">
                                                 <rect key="frame" x="16" y="357" width="91.5" height="20.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20.5" id="aUK-em-EbR"/>
@@ -377,7 +377,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ask a question or share an idea" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xBd-ou-QgM">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ask a question or share an idea" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xBd-ou-QgM">
                                                 <rect key="frame" x="16" y="393.5" width="352" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="gBR-rs-Kex"/>
@@ -385,7 +385,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1GE-ur-DOY">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1GE-ur-DOY">
                                                 <rect key="frame" x="368" y="395.5" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="1GE-ur-DOY" secondAttribute="height" multiplier="1:1" id="7Sq-f0-9FP"/>
@@ -394,19 +394,16 @@
                                                 <inset key="imageEdgeInsets" minX="10" minY="6" maxX="0.0" maxY="6"/>
                                                 <state key="normal" image="arrow"/>
                                             </button>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBK-bu-8q3">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBK-bu-8q3">
                                                 <rect key="frame" x="16" y="425.5" width="382" height="1"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="LQ1-vm-INI"/>
                                                 </constraints>
                                             </view>
-                                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ET0-R2-OMR">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ET0-R2-OMR">
                                                 <rect key="frame" x="0.0" y="443.5" width="414" height="376.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="cfZ-g7-keF"/>
-                                                </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyMessageCell" rowHeight="100" id="Sc8-LD-GYV" customClass="MessageTableViewCell" customModule="Community_Calendar" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="414" height="100"/>
@@ -568,7 +565,6 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="6iO-nW-bgd" secondAttribute="bottom" id="7C1-HO-X60"/>
                                     <constraint firstItem="6iO-nW-bgd" firstAttribute="leading" secondItem="Jso-wK-oCn" secondAttribute="leading" id="BJ9-e7-tk9"/>
-                                    <constraint firstItem="6iO-nW-bgd" firstAttribute="height" secondItem="Jso-wK-oCn" secondAttribute="height" priority="250" id="MaS-xq-Wy3"/>
                                     <constraint firstItem="6iO-nW-bgd" firstAttribute="centerX" secondItem="Jso-wK-oCn" secondAttribute="centerX" id="VYU-S4-66c"/>
                                     <constraint firstItem="6iO-nW-bgd" firstAttribute="top" secondItem="Jso-wK-oCn" secondAttribute="top" id="YEV-vd-iJk"/>
                                     <constraint firstItem="6iO-nW-bgd" firstAttribute="width" secondItem="Jso-wK-oCn" secondAttribute="width" id="ayX-Hs-U7E"/>
@@ -586,6 +582,7 @@
                             <constraint firstItem="Jso-wK-oCn" firstAttribute="trailing" secondItem="ys0-wl-IGy" secondAttribute="trailing" id="EwD-rZ-kni"/>
                             <constraint firstItem="hFV-1A-8y1" firstAttribute="leading" secondItem="ys0-wl-IGy" secondAttribute="leading" id="HEU-dM-z8e"/>
                             <constraint firstItem="Jso-wK-oCn" firstAttribute="leading" secondItem="ys0-wl-IGy" secondAttribute="leading" id="LO0-Iv-Lll"/>
+                            <constraint firstItem="6iO-nW-bgd" firstAttribute="height" relation="greaterThanOrEqual" secondItem="6yf-ZS-Opj" secondAttribute="height" multiplier="0.674897" id="MTQ-9k-UbX"/>
                             <constraint firstAttribute="bottom" secondItem="Jso-wK-oCn" secondAttribute="bottom" id="MxS-dr-TbE"/>
                             <constraint firstItem="4tq-Oc-aS4" firstAttribute="leading" secondItem="ys0-wl-IGy" secondAttribute="leading" id="Uez-yF-uoP"/>
                             <constraint firstItem="ys0-wl-IGy" firstAttribute="trailing" secondItem="4tq-Oc-aS4" secondAttribute="trailing" id="fjY-pi-pDq"/>
