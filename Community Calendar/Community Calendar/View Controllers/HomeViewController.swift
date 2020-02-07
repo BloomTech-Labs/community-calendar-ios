@@ -19,11 +19,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     var shouldDismissFilterScreen = true
     var controller: Controller?
-    private var unfilteredEvents: [Event]? {        // Varible events' data source
-        didSet {
-            todayTapped(UIButton())
-        }
-    }
+    private var unfilteredEvents: [Event]?          // Varible events' data source
     private var recentFiltersList = [Filter]() {
         didSet {
             recentSearchesTableView.reloadData()
@@ -107,6 +103,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         featuredCollectionView.showsHorizontalScrollIndicator = false
         
         tableViewButtonTapped(0)
+        todayTapped(UIButton())
         
         
         searchBar.delegate = self
@@ -193,25 +190,25 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     @objc
     private func setUpTimer() {
-        fetchEventsTimer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-    }
-    
-    @objc
-    private func updateTimer() {
-        if repeatCount >= 4 {
-            if fetchEventsTimer != nil {
-                fetchEventsTimer!.invalidate()
-                fetchEventsTimer = nil
-                repeatCount = 1
-                let alert = UIAlertController(title: "Unable to get events", message: "Please make sure your device is connect to wifi or cellular data.", preferredStyle: .alert)
-                self.present(alert, animated: true)
+        fetchEventsTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
+            if self.repeatCount >= 4 {
+                timer.invalidate()
+                self.fetchEventsTimer = nil
+                self.repeatCount = 1
+                if self.unfilteredEvents == nil || self.unfilteredEvents?.isEmpty ?? true {
+                    let alert = UIAlertController(title: "Unable to get events", message: "Please make sure your device is connect to wifi or cellular data.", preferredStyle: .alert)
+                    DispatchQueue.main.async { self.present(alert, animated: true) }
+                    Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { _ in
+                        alert.dismiss(animated: true, completion: nil)
+                    }
+                } else {
+                    NSLog("Timer is nil, but selector was called. Possible concurrency issue")
+                }
+                NSLog("Unable to fetch events, all attemps failed. Is device connected to internet?")
             } else {
-                NSLog("Timer is nil, but selector was called. Possible concurrency issue")
+                print("Timer fired!")
+                self.repeatCount += 1
             }
-            NSLog("Unable to fetch events, all attemps failed. Is device connected to internet?")
-        } else {
-            print("Timer fired!")
-            repeatCount += 1
         }
     }
     
