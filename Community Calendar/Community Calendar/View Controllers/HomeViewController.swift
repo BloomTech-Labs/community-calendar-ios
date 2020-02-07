@@ -9,7 +9,6 @@
 //  "If you can't fix it, it's a feature."
 
 import UIKit
-import CoreLocation
 
 class HomeViewController: UIViewController, ControllerDelegate {
     // MARK: - Varibles
@@ -19,10 +18,9 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     var shouldDismissFilterScreen = true
     var controller: Controller?
-    private var unfilteredEvents: [Event]?          // Varible events' data source
-    private var recentFiltersList = [Filter]() {
+    private var unfilteredEvents: [Event]? {        // Varible events' data source
         didSet {
-            recentSearchesTableView.reloadData()
+            todayTapped(UIButton())
         }
     }
     private var events: [Event]?                    // Table/Collection view data source
@@ -52,21 +50,17 @@ class HomeViewController: UIViewController, ControllerDelegate {
     @IBOutlet private weak var seeAllButton: UIButton!
     
     // MARK: - Search IBOutles
-    @IBOutlet private weak var searchBar: UISearchBar!
-    @IBOutlet private weak var filterButton: UIButton!
-    @IBOutlet private weak var nearbyButton: UIButton!
-    @IBOutlet private weak var nearbyLabel: UILabel!
-    @IBOutlet private weak var recentSearchesLabel: UILabel!
-    @IBOutlet private weak var recentSearchesTableView: UITableView!
-    @IBOutlet private weak var searchView: UIView!
-    @IBOutlet private weak var searchBarCancelButton: UIButton!
-    @IBOutlet private weak var searchBarTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet private var searchViewTopConstraint: NSLayoutConstraint!      // Strong reference so that it wont be deallocated when setting new value
-    @IBOutlet private var searchViewBottomConstraint: NSLayoutConstraint!   // ^
+    @IBOutlet weak var eventSearchBar: UISearchBar!
+    @IBOutlet private weak var searchView: SearchView!
+    @IBOutlet weak var searchBarCancelButton: UIButton!
+    @IBOutlet weak var searchBarTrailingConstraint: NSLayoutConstraint!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchView.homeVC = self
+        searchView.controller = controller
+        searchView.setUp()
         setUp()
 //        printFonts()
         
@@ -80,7 +74,6 @@ class HomeViewController: UIViewController, ControllerDelegate {
             setUpTimer()
             fetchEvents()
         }
-        
         noResultsLabel.isHidden = true
     }
     
@@ -90,10 +83,6 @@ class HomeViewController: UIViewController, ControllerDelegate {
         eventTableView.dataSource = self
         eventTableView.showsVerticalScrollIndicator = false
         
-        recentSearchesTableView.delegate = self
-        recentSearchesTableView.dataSource = self
-        recentSearchesTableView.showsVerticalScrollIndicator = false
-        
         eventCollectionView.delegate = self
         eventCollectionView.dataSource = self
         eventCollectionView.showsVerticalScrollIndicator = false
@@ -102,14 +91,12 @@ class HomeViewController: UIViewController, ControllerDelegate {
         featuredCollectionView.dataSource = self
         featuredCollectionView.showsHorizontalScrollIndicator = false
         
-        tableViewButtonTapped(0)
+        tableViewButtonTapped(UIButton())
         todayTapped(UIButton())
         
         
-        searchBar.delegate = self
+        eventSearchBar.delegate = self
         self.navigationController?.delegate = self
-        searchView.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
         shouldShowSearchView(false, shouldAnimate: false)               // Hide searchview on launch
         
         
@@ -127,13 +114,12 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     private func updateViews() {
         setUpSearchBar()
-        searchBorderDesigns()
-
+        searchView.layoutSubviews()
+        
         seperatorView.layer.cornerRadius = 3
         
         dateLabel.text = todayDateFormatter.string(from: Date())
         eventTableView.separatorColor = .clear
-        recentSearchesTableView.separatorColor = .clear
         
         
         guard let poppinsFont = UIFont(name: PoppinsFont.regular.rawValue, size: 10) else { return }
@@ -143,26 +129,26 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     private func setUpSearchBar() {
-        searchBar.backgroundColor = .white
-        searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        searchBar.setImage(UIImage(), for: .search, state: .normal)
-        searchBar.isTranslucent = true
-        searchBar.searchTextField.backgroundColor = .clear
-        searchBar.layer.cornerRadius = 6
-        searchBar.layer.shadowColor = UIColor.lightGray.cgColor
-        searchBar.layer.shadowOpacity = 1.0
-        searchBar.layer.shadowRadius = 2
-        searchBar.layer.shadowOffset = CGSize(width: 0, height: 0)
-        searchBar.searchTextField.placeholder = ""
+        eventSearchBar.backgroundColor = .white
+        eventSearchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+        eventSearchBar.setImage(UIImage(), for: .search, state: .normal)
+        eventSearchBar.isTranslucent = true
+        eventSearchBar.searchTextField.backgroundColor = .clear
+        eventSearchBar.layer.cornerRadius = 6
+        eventSearchBar.layer.shadowColor = UIColor.lightGray.cgColor
+        eventSearchBar.layer.shadowOpacity = 1.0
+        eventSearchBar.layer.shadowRadius = 2
+        eventSearchBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        eventSearchBar.searchTextField.placeholder = ""
         
         if let font = UIFont(name: PoppinsFont.medium.rawValue, size: 14.0) {
-            searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [
+            eventSearchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [
                 NSAttributedString.Key.font: font,
                 NSAttributedString.Key.foregroundColor: UIColor.lightGray
             ])
-            searchBar.searchTextField.font = font
+            eventSearchBar.searchTextField.font = font
         } else {
-            searchBar.searchTextField.placeholder = "Search"
+            eventSearchBar.searchTextField.placeholder = "Search"
         }
     }
     
@@ -171,13 +157,14 @@ class HomeViewController: UIViewController, ControllerDelegate {
         controller?.getEvents { result in
             switch result {
             case .success(let eventList):
+                if self.fetchEventsTimer != nil {
+                    self.fetchEventsTimer!.invalidate()
+                    self.fetchEventsTimer = nil
+                    NSLog("Fetched events successfully after \(self.repeatCount) attempt\(self.repeatCount == 1 ? "" : "s")")
+                    self.repeatCount = 1
+                }
+                
                 if self.unfilteredEvents != eventList {
-                    if self.fetchEventsTimer != nil {
-                        self.fetchEventsTimer!.invalidate()
-                        self.fetchEventsTimer = nil
-                        NSLog("Fetched events successfully after \(self.repeatCount) attempt\(self.repeatCount == 1 ? "" : "s")")
-                        self.repeatCount = 1
-                    }
                     self.unfilteredEvents = eventList
                     self.featuredCollectionView.reloadData()
 //                    createMockData()
@@ -196,6 +183,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
                 self.fetchEventsTimer = nil
                 self.repeatCount = 1
                 if self.unfilteredEvents == nil || self.unfilteredEvents?.isEmpty ?? true {
+                    NSLog("Unable to fetch events, all attemps failed. Is device connected to internet?")
                     let alert = UIAlertController(title: "Unable to get events", message: "Please make sure your device is connect to wifi or cellular data.", preferredStyle: .alert)
                     DispatchQueue.main.async { self.present(alert, animated: true) }
                     Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { _ in
@@ -204,9 +192,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
                 } else {
                     NSLog("Timer is nil, but selector was called. Possible concurrency issue")
                 }
-                NSLog("Unable to fetch events, all attemps failed. Is device connected to internet?")
             } else {
-                print("Timer fired!")
+                print("Timer #\(self.repeatCount) ended")
                 self.repeatCount += 1
             }
         }
@@ -224,99 +211,16 @@ class HomeViewController: UIViewController, ControllerDelegate {
         print("]")
     }
     
-    // MARK: - Search Functions
+    // MARK: - Search/Filter Functions
     private func shouldShowSearchView(_ bool: Bool, shouldAnimate: Bool = true) {
-        searchViewTopConstraint.isActive = false
-        if bool {
-            searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: searchBar, attribute: .bottom, multiplier: 1, constant: 3)
-        } else {
-            searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-        }
-        searchViewTopConstraint.isActive = true
-        searchViewBottomConstraint.isActive = bool
-        
-        if shouldAnimate {
-            UIView.animate(withDuration: 0.5) {
-                self.searchView.layoutIfNeeded()
-            }
-        } else {
-            self.searchView.layoutIfNeeded()
-        }
-    }
-    
-    private func searchBorderDesigns() {
-        // Set filter button's border
-        filterButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
-        filterButton.layer.cornerRadius = 29 / 1.6
-        filterButton.layer.borderWidth = 1
-        filterButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
-        
-        // Set nearby button's boarder
-        nearbyButton.layer.backgroundColor = UIColor(red: 0.842, green: 0.842, blue: 0.842, alpha: 1).cgColor
-        nearbyButton.layer.cornerRadius = 5
-        nearbyButton.layer.borderWidth = 1
-        nearbyButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
-        
-        // Change text color
-        nearbyLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
-        recentSearchesLabel.textColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
+        searchView.shouldShowSearchView(bool, shouldAnimate: shouldAnimate)
     }
     
     private func updateFilterCount() {
-        guard let currentFilter = currentFilter else {
-            filterButton.text("Filters")
-            return
-        }
-        var filterCount = 0
-        
-        if currentFilter.dateRange != nil {
-            filterCount += 1
-        }
-        if currentFilter.index != nil {
-            filterCount += 1
-        }
-        if currentFilter.location != nil {
-            filterCount += 1
-        }
-        if currentFilter.zipCode != nil {
-            filterCount += 1
-        }
-        if currentFilter.ticketPrice != nil {
-            filterCount += 1
-        }
-        if currentFilter.tags != nil {
-            filterCount += currentFilter.tags?.count ?? 0
-        }
-        filterButton.text("Filters\(filterCount == 0 ? "" : "(\(filterCount))")")
+        searchView.updateFilterCount(filter: currentFilter)
     }
     
-    func setUpLocation() -> Bool {
-        var alert: UIAlertController?
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedAlways, .authorizedWhenInUse:
-            return true
-        case .denied:
-            alert = UIAlertController(title: "Location disabled", message: "Please turn on location services in settings", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            let openSettings = UIAlertAction(title: "Settings", style: .default) { action in
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-            }
-            alert?.addAction(cancelAction)
-            alert?.addAction(openSettings)
-            return false
-        case .notDetermined:
-            controller?.locationManager.requestWhenInUseAuthorization()
-        case .restricted:
-            alert = UIAlertController(title: "You are restricted", message: "Please request access from restrictor (generally from parental or administrative controls)", preferredStyle: .alert)
-            alert?.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            return false
-        @unknown default:
-            return false
-        }
-        return false
-    }
-    
-    // MARK: - Extra Functions
+    // MARK: - Helper Functions
     private func printFonts() {
         // To test if fonts were added correctly: (Common mistakes: Incorrect/no target membership, not listed in info.plist)
         for fam in UIFont.familyNames {
@@ -336,19 +240,18 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     // MARK: - IBActions
-    @IBAction func tableViewButtonTapped(_ sender: Any) {
+    @IBAction func tableViewButtonTapped(_ sender: UIButton) {
         eventCollectionView.isHidden = true
         eventTableView.isHidden = false
         tableViewButton.imageView?.image = UIImage(named: "list-selected")
         collectionViewButton.imageView?.image = UIImage(named: "grid")
     }
     
-    @IBAction func collectionViewButtonTapped(_ sender: Any) {
+    @IBAction func collectionViewButtonTapped(_ sender: UIButton) {
         eventCollectionView.isHidden = false
         eventTableView.isHidden = true
         tableViewButton.imageView?.image = UIImage(named: "list")
         collectionViewButton.imageView?.image = UIImage(named: "grid-selected")
-        
     }
     
     @IBAction func seeAllTapped(_ sender: UIButton) {
@@ -410,18 +313,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     // MARK: - Search IBActions
-    @IBAction func filterButtonTapped(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func nearByButtonTapped(_ sender: UIButton) {
-        if setUpLocation() {
-            currentFilter = nil
-        }
-    }
-    
     @IBAction func searchBarCancelButtonTapped(_ sender: UIButton) {
-        searchBarCancelButtonClicked(searchBar)
+        searchBarCancelButtonClicked(eventSearchBar)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -479,8 +372,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 noResultsLabel.isHidden = true
             }
             return events?.count ?? 0
-        } else if tableView == recentSearchesTableView {
-            return recentFiltersList.count
         }
         return 0
     }
@@ -495,12 +386,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.event = events[indexPath.row]
             
             return cell
-        } else if tableView == recentSearchesTableView {
-            guard let cell = recentSearchesTableView.dequeueReusableCell(withIdentifier: "RecentSearchCell", for: indexPath) as? RecentSearchesTableViewCell else { return UITableViewCell() }
-            
-            cell.filter = recentFiltersList[indexPath.row]
-            
-            return cell
         }
         
         return UITableViewCell()
@@ -508,10 +393,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if tableView == recentSearchesTableView {
-            currentFilter = recentFiltersList[indexPath.row]
-            performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
-        }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -588,7 +469,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 // MARK: - Search Bar Extension
 extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        recentFiltersList = controller!.loadFromPersistantStore()
         shouldShowSearchView(true)
         searchBarTrailingConstraint.constant = -searchBarCancelButton.frame.width - 32
         UIView.animate(withDuration: 0.25) {
@@ -602,7 +482,7 @@ extension HomeViewController: UISearchBarDelegate {
         if let currentFilter = currentFilter {
             performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
             controller?.save(filteredSearch: currentFilter)
-            recentFiltersList.insert(currentFilter, at: 0)
+            searchView.insertFilter(currentFilter)
         }
         shouldDismissFilterScreen = true
         searchBar.endEditing(true)
@@ -638,7 +518,7 @@ extension HomeViewController: UISearchBarDelegate {
     }
     
     func setSearchBarText(to text: String = "") {
-        searchBar.text = text
+        eventSearchBar.text = text
     }
 }
 
@@ -658,7 +538,7 @@ extension HomeViewController: UINavigationControllerDelegate {
             }
         case .pop:
             if let _ = fromVC as? FilterViewController {
-                searchBar.becomeFirstResponder()
+                eventSearchBar.becomeFirstResponder()
                 return CustomPopAnimator(view: view)
             }
             return nil

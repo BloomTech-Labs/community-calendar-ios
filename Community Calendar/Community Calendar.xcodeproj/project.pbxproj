@@ -13,6 +13,7 @@
 		0E09806B23E2A526000110AB /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E09806A23E2A526000110AB /* SearchController.swift */; };
 		0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */; };
 		0E2B119523ECE53E0072E72E /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B119423ECE53E0072E72E /* UserDefaults+Extension.swift */; };
+		0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B119623ED0FCB0072E72E /* SearchView.swift */; };
 		0E2E723123EA4082006F94D3 /* JWT+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E723023EA4082006F94D3 /* JWT+Extension.swift */; };
 		0E2E723323EA5A47006F94D3 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E723223EA5A47006F94D3 /* UIButton+Extension.swift */; };
 		0E64400223C63DC800A56B22 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E64400123C63DC800A56B22 /* EventController.swift */; };
@@ -104,6 +105,7 @@
 		0E09806A23E2A526000110AB /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesTableViewCell.swift; sourceTree = "<group>"; };
 		0E2B119423ECE53E0072E72E /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		0E2B119623ED0FCB0072E72E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		0E2E723023EA4082006F94D3 /* JWT+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JWT+Extension.swift"; sourceTree = "<group>"; };
 		0E2E723223EA5A47006F94D3 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		0E64400123C63DC800A56B22 /* EventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */,
 				0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */,
 				0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */,
+				0E2B119623ED0FCB0072E72E /* SearchView.swift */,
 				0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */,
 				0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */,
 				0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */,
@@ -628,6 +631,7 @@
 				0EE307A923AC53470045EFD1 /* Event.swift in Sources */,
 				0E64400223C63DC800A56B22 /* EventController.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
+				0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */,
 				0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */,
 				0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,

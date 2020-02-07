@@ -13,10 +13,9 @@ class SearchController {
     // Note: This is stored locally. Search results will remain the same regardless of account signed in
     // You could append the user's Id or something unique to the key to get user specific results
     
-    func save(filteredSearch: Filter) {
-        var tempArr = loadFromPersistantStore()
-        tempArr.insert(filteredSearch, at: 0)
-        userDefaults.setValue(try? PropertyListEncoder().encode(tempArr), forKey: UserDefaults.searchPersistanceKey)
+    func save(filteredSearch: [Filter]) {
+        let arr = filteredSearch + loadFromPersistantStore()
+        userDefaults.setValue(try? PropertyListEncoder().encode(arr), forKey: UserDefaults.searchPersistanceKey)
     }
     
     func loadFromPersistantStore() -> [Filter] {

@@ -118,7 +118,7 @@ class FilterViewController: UIViewController {
         for suggestedTag in suggestedFilters {
             for selectedTag in selectedFilters {
                 if suggestedTag.title == selectedTag.title {
-                    remove(object: suggestedTag, from: &suggestedFilters)
+                    removeObject(suggestedTag, from: &suggestedFilters)
                 }
             }
         }
@@ -240,19 +240,6 @@ class FilterViewController: UIViewController {
         }
     }
     
-    @discardableResult
-    private func remove<T: Equatable>(object: T, from array: inout [T]) -> Any? {
-        for index in 0...array.count - 1 {
-            if object == array[index] {
-                let temp = array[index]
-                array.remove(at: index)
-                return temp
-            }
-        }
-        print("Failed to find object of type \(String(describing: object.self)) in array of type \(String(describing: array.self)). Are these objects of the same type?")
-        return nil
-    }
-    
     // MARK: - IBActions
     @IBAction func exitTapped(_ sender: UIButton) {
         exitButton.setImage(UIImage(named: "x-light"), for: .normal)
@@ -336,7 +323,7 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
             guard let indexPath = selectedTagsCollectionView.indexPath(for: cell) else { return }
             for tagFilter in selectedFilters {
                 if tagFilter == tag {
-                    remove(object: tagFilter, from: &selectedFilters)
+                    removeObject(tagFilter, from: &selectedFilters)
                     filter.tags = selectedFilters
                 }
             }

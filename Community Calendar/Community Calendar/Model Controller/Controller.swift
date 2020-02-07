@@ -100,7 +100,7 @@ class Controller {
     }
     
     func save(filteredSearch: Filter) {
-        searchController.save(filteredSearch: filteredSearch)
+        searchController.save(filteredSearch: [filteredSearch])
     }
     
     func loadFromPersistantStore() -> [Filter] {
@@ -109,5 +109,15 @@ class Controller {
     
     func clearSearches() {
         searchController.clearSearches()
+    }
+    
+    func remove(filter: Filter) -> Bool {
+        var filters = searchController.loadFromPersistantStore()
+        if let _ = removeObject(filter, from: &filters) {
+            searchController.save(filteredSearch: filters)
+            return true
+        } else {
+            return false
+        }
     }
 }

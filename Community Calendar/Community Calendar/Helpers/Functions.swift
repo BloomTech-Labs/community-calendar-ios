@@ -49,6 +49,19 @@ func vcFrameRect(from navView: UIView) -> CGRect {
     return constArr
 }
 
+@discardableResult
+func removeObject<T: Equatable>(_ object: T, from array: inout [T]) -> Any? {
+    for index in 0...array.count - 1 {
+        if object == array[index] {
+            let temp = array[index]
+            array.remove(at: index)
+            return temp
+        }
+    }
+    print("Failed to find object of type \(String(describing: object.self)) in array of type \(String(describing: array.self)). Are these objects of the same type?")
+    return nil
+}
+
 func isRoundedDevice() -> CGFloat {
     switch UIDevice().type { // These devices have large bezels on the screen
     case .iPod1, .iPod2, .iPod3, .iPod4, .iPod5, .iPad2, .iPadMini1, .iPhone4,

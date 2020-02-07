@@ -562,7 +562,7 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mow-Pn-qDL">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mow-Pn-qDL" customClass="SearchView" customModule="Community_Calendar" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="95" width="414" height="718"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAx-yW-aF5">
@@ -576,7 +576,6 @@
                                             <color key="titleColor" red="0.5031527281" green="0.5032284856" blue="0.503136158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="filterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tn6-5C-O9I"/>
                                             <segue destination="KkW-Js-76C" kind="show" identifier="CustomShowFilterSegue" id="wYS-oF-gc4"/>
                                         </connections>
                                     </button>
@@ -680,12 +679,12 @@
                                             <constraint firstAttribute="height" constant="50" id="mp3-iz-3js"/>
                                         </constraints>
                                         <connections>
-                                            <action selector="nearByButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gAs-cE-RdZ"/>
+                                            <action selector="nearByButtonTapped:" destination="Mow-Pn-qDL" eventType="touchUpInside" id="eLt-gp-0Hx"/>
                                             <segue destination="oGT-Hc-B1b" kind="show" identifier="ByDistanceSegue" id="Fe6-WQ-Mfo"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="bus-3w-XhM" firstAttribute="leading" secondItem="Bjf-vJ-joZ" secondAttribute="trailing" constant="16" id="09Z-oL-Q1w"/>
                                     <constraint firstItem="xmU-Od-diR" firstAttribute="top" secondItem="2BF-34-zMR" secondAttribute="bottom" constant="16" id="4G6-yA-Z2B"/>
@@ -707,6 +706,15 @@
                                     <constraint firstAttribute="trailing" secondItem="7l3-P1-t3D" secondAttribute="trailing" id="y3P-U5-dhx"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2BF-34-zMR" secondAttribute="trailing" constant="16" id="zDC-do-ljo"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="filterButton" destination="aAx-yW-aF5" id="XsC-Be-ERJ"/>
+                                    <outlet property="nearbyButton" destination="Bjf-vJ-joZ" id="DO3-7Y-AZB"/>
+                                    <outlet property="nearbyLabel" destination="bus-3w-XhM" id="443-H4-jgr"/>
+                                    <outlet property="recentSearchesLabel" destination="2BF-34-zMR" id="KjL-vb-3ee"/>
+                                    <outlet property="recentSearchesTableView" destination="xmU-Od-diR" id="lA5-jk-nL2"/>
+                                    <outlet property="searchViewBottomConstraint" destination="EKM-Ik-2QD" id="z1m-Ff-cNm"/>
+                                    <outlet property="searchViewTopConstraint" destination="u8L-Ww-dNL" id="8Oj-MD-e4t"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cbf-KY-KLb">
                                 <rect key="frame" x="414" y="57.000000000000007" width="44" height="28.333333333333336"/>
@@ -725,7 +733,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="pEp-ul-WoK" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="16" id="2Hm-GO-6C6"/>
                             <constraint firstItem="ki9-7N-9nF" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="32" id="3ta-3N-QJD"/>
@@ -774,20 +782,13 @@
                         <outlet property="collectionViewButton" destination="GOQ-rn-s0j" id="tJc-3G-Vh4"/>
                         <outlet property="dateLabel" destination="U4O-xw-GzV" id="3Lq-l8-GwU"/>
                         <outlet property="eventCollectionView" destination="pEp-ul-WoK" id="zdp-d2-exV"/>
+                        <outlet property="eventSearchBar" destination="g7Q-b9-lep" id="qFP-br-D6P"/>
                         <outlet property="eventTableView" destination="z3C-88-WYf" id="n6l-Nk-lMW"/>
                         <outlet property="featuredCollectionView" destination="mbc-pE-p2h" id="AGT-ct-TTf"/>
-                        <outlet property="filterButton" destination="aAx-yW-aF5" id="Kpn-iZ-FFI"/>
-                        <outlet property="nearbyButton" destination="Bjf-vJ-joZ" id="HHY-IQ-xPQ"/>
-                        <outlet property="nearbyLabel" destination="bus-3w-XhM" id="jRK-sD-9GB"/>
                         <outlet property="noResultsLabel" destination="ki9-7N-9nF" id="qx6-vD-Rvs"/>
-                        <outlet property="recentSearchesLabel" destination="2BF-34-zMR" id="PCs-O4-dha"/>
-                        <outlet property="recentSearchesTableView" destination="xmU-Od-diR" id="Xoa-rw-EdK"/>
-                        <outlet property="searchBar" destination="g7Q-b9-lep" id="qFP-br-D6P"/>
                         <outlet property="searchBarCancelButton" destination="Cbf-KY-KLb" id="Iqp-Rn-LXF"/>
                         <outlet property="searchBarTrailingConstraint" destination="Qau-mp-sju" id="MoP-9N-g4S"/>
                         <outlet property="searchView" destination="Mow-Pn-qDL" id="nbH-Ex-FCa"/>
-                        <outlet property="searchViewBottomConstraint" destination="EKM-Ik-2QD" id="nAj-YO-Ouz"/>
-                        <outlet property="searchViewTopConstraint" destination="u8L-Ww-dNL" id="Tvn-g1-OsW"/>
                         <outlet property="seeAllButton" destination="LqL-6o-O1F" id="fiZ-XV-IV3"/>
                         <outlet property="seperatorView" destination="sQr-3f-pwc" id="IYo-es-5ZK"/>
                         <outlet property="tableViewButton" destination="R4Q-Eg-rjg" id="o4E-S0-BTf"/>
