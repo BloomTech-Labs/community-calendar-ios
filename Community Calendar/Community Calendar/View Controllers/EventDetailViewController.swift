@@ -3,7 +3,7 @@
 //  Community Calendar
 //
 //  Created by Jordan Christensen on 1/11/20.
-//  Copyright © 2020 Mazjap Co. All rights reserved.
+//  Copyright © 2020 Lambda School All rights reserved.
 //
 
 import UIKit
@@ -69,7 +69,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         guard isViewLoaded, let event = event else { return }
         
         titleLabel.text = event.title
-        let height = event.description.height(with: view.frame.width - 32, font: UIFont(name: "Poppins-Light", size: 12)!)
+        let height = event.description.height(with: view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
         height < 100 ? (descLabelHeightConstraint.constant = height) : (descLabelHeightConstraint.constant = 100.0)
         eventDescTextView.text = event.description
         hostNameLabel.text = event.creator
@@ -249,7 +249,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func showMore(_ sender: UIButton) {
-        let height = event?.description.height(with: view.frame.width - 32, font: UIFont(name: "Poppins-Light", size: 12)!)
+        let height = event?.description.height(with: view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
         if descLabelHeightConstraint.constant != height {
             descLabelHeightConstraint.constant = (height ?? 10) + 3
         }

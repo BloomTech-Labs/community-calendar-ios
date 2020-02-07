@@ -3,29 +3,33 @@
 //  Community Calendar
 //
 //  Created by Jordan Christensen on 12/16/19.
-//  Copyright © 2019 Mazjap Co. All rights reserved.
+//  Copyright © 2019 Lambda School All rights reserved.
 //
+//  Dev Notes:
+//  "If you can't fix it, it's a feature."
 
 import UIKit
 import CoreLocation
 
 class HomeViewController: UIViewController, ControllerDelegate {
     // MARK: - Varibles
-    var testing = false // Set this to true if you wish to use the test data located in Variables.swift
+    var testing = false                             // Use the test data from Variables.swift
+    var repeatCount = 1
+    var fetchEventsTimer: Timer?
     
     var shouldDismissFilterScreen = true
     var controller: Controller?
+    private var unfilteredEvents: [Event]? {        // Varible events' data source
+        didSet {
+            todayTapped(UIButton())
+        }
+    }
     private var recentFiltersList = [Filter]() {
         didSet {
             recentSearchesTableView.reloadData()
         }
     }
-    private var unfilteredEvents: [Event]? {
-        didSet {
-            todayTapped(UIButton())
-        }
-    }
-    private var events: [Event]?
+    private var events: [Event]?                    // Table/Collection view data source
     var currentFilter: Filter? {
         didSet {
             updateFilterCount()
@@ -61,8 +65,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
     @IBOutlet private weak var searchView: UIView!
     @IBOutlet private weak var searchBarCancelButton: UIButton!
     @IBOutlet private weak var searchBarTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet private var searchViewTopConstraint: NSLayoutConstraint! // Strong reference so that it wont be deallocated when setting new value
-    @IBOutlet private var searchViewBottomConstraint: NSLayoutConstraint! // ^
+    @IBOutlet private var searchViewTopConstraint: NSLayoutConstraint!      // Strong reference so that it wont be deallocated when setting new value
+    @IBOutlet private var searchViewBottomConstraint: NSLayoutConstraint!   // ^
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
@@ -77,15 +81,15 @@ class HomeViewController: UIViewController, ControllerDelegate {
         if testing {
             unfilteredEvents = testData
         } else {
+            setUpTimer()
             fetchEvents()
         }
         
         noResultsLabel.isHidden = true
     }
     
-    // MARK: - Functions
+    // MARK: - View Functions
     private func setUp() { // Things that only need to be set once
-        // Table and collection view set up
         eventTableView.delegate = self
         eventTableView.dataSource = self
         eventTableView.showsVerticalScrollIndicator = false
@@ -104,23 +108,24 @@ class HomeViewController: UIViewController, ControllerDelegate {
         
         tableViewButtonTapped(0)
         
-
-        // Searchbar/search set up
+        
         searchBar.delegate = self
         self.navigationController?.delegate = self
         searchView.translatesAutoresizingMaskIntoConstraints = false
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        shouldShowSearchView(false, shouldAnimate: false)
+        shouldShowSearchView(false, shouldAnimate: false)               // Hide searchview on launch
         
         
-        // Filter buttons set up
-        todayTapped(UIButton())
         todayButton.titleLabel?.adjustsFontSizeToFitWidth = true
         tomorrowButton.titleLabel?.adjustsFontSizeToFitWidth = true
         thisWeekendButton.titleLabel?.adjustsFontSizeToFitWidth = true
         allUpcomingButton.titleLabel?.adjustsFontSizeToFitWidth = true
         
         updateViews()
+        
+        Timer.scheduledTimer(withTimeInterval: 600.0, repeats: true) { timer in
+            self.setUpTimer()                                           // Timer that checks for new event updates every 10 mins
+        }
     }
     
     private func updateViews() {
@@ -134,33 +139,10 @@ class HomeViewController: UIViewController, ControllerDelegate {
         recentSearchesTableView.separatorColor = .clear
         
         
-        guard let poppinsFont = UIFont(name: "Poppins", size: 10) else { return }
+        guard let poppinsFont = UIFont(name: PoppinsFont.regular.rawValue, size: 10) else { return }
         self.tabBarController?.tabBar.tintColor = .tabBarTint
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: poppinsFont], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: poppinsFont], for: .selected)
-    }
-    
-    private func fetchEvents() {
-        controller?.getEvents { result in
-            switch result {
-            case .success(let eventList):
-                if self.unfilteredEvents != eventList {
-                    self.unfilteredEvents = eventList
-                    self.featuredCollectionView.reloadData()
-//                    createMockData()
-                }
-            case .failure(let error):
-                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-            }
-        }
-    }
-    
-    private func createMockData(eventList: [Event]) { // To create event mock data (useful when you wont have wifi)
-        print("[")
-        for event in eventList {
-            print("Event(title: \"\(event.title)\", description: \"\(event.description)\", startDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.startDate ?? Date()))\") ?? Date(), endDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.endDate ?? Date()))\") ?? Date(), creator: \"\(event.creator)\", urls: \(event.urls), images: \(event.images), rsvps: \(event.rsvps), locations: \(event.locations), tags: \(event.tags), ticketPrice: \(event.ticketPrice)),") // Will have extra comma after the last event
-        }
-        print("]")
     }
     
     private func setUpSearchBar() {
@@ -176,7 +158,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         searchBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         searchBar.searchTextField.placeholder = ""
         
-        if let font = UIFont(name: "Poppins-Medium", size: 14.0) {
+        if let font = UIFont(name: PoppinsFont.medium.rawValue, size: 14.0) {
             searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [
                 NSAttributedString.Key.font: font,
                 NSAttributedString.Key.foregroundColor: UIColor.lightGray
@@ -187,28 +169,62 @@ class HomeViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    private func updateLists() { // Refresh all three lists in one function
-        eventTableView.reloadData()
-        eventCollectionView.reloadData()
-        featuredCollectionView.reloadData()
-    }
-    
-    private func printFonts() {
-        // To test if fonts were added correctly: (Common mistakes: Incorrect/no target membership, not listed in info.plist)
-        for fam in UIFont.familyNames {
-            print("Family: \(fam)")
-            for fontName in UIFont.fontNames(forFamilyName: fam) {
-                print("Name: \(fontName)")
-                // If font is here ^, you can use it in storyboard or code, if not, there is an issue
+    // MARK: - Data Functions
+    private func fetchEvents() {
+        controller?.getEvents { result in
+            switch result {
+            case .success(let eventList):
+                if self.unfilteredEvents != eventList {
+                    if self.fetchEventsTimer != nil {
+                        self.fetchEventsTimer!.invalidate()
+                        self.fetchEventsTimer = nil
+                        NSLog("Fetched events successfully after \(self.repeatCount) attempt\(self.repeatCount == 1 ? "" : "s")")
+                        self.repeatCount = 1
+                    }
+                    self.unfilteredEvents = eventList
+                    self.featuredCollectionView.reloadData()
+//                    createMockData()
+                }
+            case .failure(let error):
+                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
             }
         }
     }
     
-    private func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
-        guard let font = UIFont(name: fontName, size: 14) else { return NSAttributedString() }
-        let attrString = NSAttributedString(string: title,
-            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font])
-        return attrString
+    @objc
+    private func setUpTimer() {
+        fetchEventsTimer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc
+    private func updateTimer() {
+        if repeatCount >= 4 {
+            if fetchEventsTimer != nil {
+                fetchEventsTimer!.invalidate()
+                fetchEventsTimer = nil
+                repeatCount = 1
+                let alert = UIAlertController(title: "Unable to get events", message: "Please make sure your device is connect to wifi or cellular data.", preferredStyle: .alert)
+                self.present(alert, animated: true)
+            } else {
+                NSLog("Timer is nil, but selector was called. Possible concurrency issue")
+            }
+            NSLog("Unable to fetch events, all attemps failed. Is device connected to internet?")
+        } else {
+            print("Timer fired!")
+            repeatCount += 1
+        }
+    }
+    
+    private func createMockData(eventList: [Event]) { // For testing without wifi
+        print("let testData = [")
+        for event in eventList {
+            var addComma = ","
+            if event == eventList.last! {
+                addComma = ""
+            }
+            print("Event(title: \"\(event.title)\", description: \"\(event.description)\", startDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.startDate ?? Date()))\") ?? Date(), endDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.endDate ?? Date()))\") ?? Date(), creator: \"\(event.creator)\", urls: \(event.urls), images: \(event.images), rsvps: \(event.rsvps), locations: \(event.locations), tags: \(event.tags), ticketPrice: \(event.ticketPrice))\(addComma)")
+        }
+        print("]")
     }
     
     // MARK: - Search Functions
@@ -216,12 +232,12 @@ class HomeViewController: UIViewController, ControllerDelegate {
         searchViewTopConstraint.isActive = false
         if bool {
             searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: searchBar, attribute: .bottom, multiplier: 1, constant: 3)
-            searchViewBottomConstraint.isActive = true
         } else {
             searchViewTopConstraint = NSLayoutConstraint(item: searchView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-            searchViewBottomConstraint.isActive = false
         }
         searchViewTopConstraint.isActive = true
+        searchViewBottomConstraint.isActive = bool
+        
         if shouldAnimate {
             UIView.animate(withDuration: 0.5) {
                 self.searchView.layoutIfNeeded()
@@ -303,6 +319,25 @@ class HomeViewController: UIViewController, ControllerDelegate {
         return false
     }
     
+    // MARK: - Extra Functions
+    private func printFonts() {
+        // To test if fonts were added correctly: (Common mistakes: Incorrect/no target membership, not listed in info.plist)
+        for fam in UIFont.familyNames {
+            print("Family: \(fam)")
+            for fontName in UIFont.fontNames(forFamilyName: fam) {
+                print("Name: \(fontName)")
+                // If font is here ^, you can use it in storyboard or code, if not, there is an issue
+            }
+        }
+    }
+    
+    private func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
+        guard let font = UIFont(name: fontName, size: 14) else { return NSAttributedString() }
+        let attrString = NSAttributedString(string: title,
+            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font])
+        return attrString
+    }
+    
     // MARK: - IBActions
     @IBAction func tableViewButtonTapped(_ sender: Any) {
         eventCollectionView.isHidden = true
@@ -326,20 +361,20 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     // MARK: - Filter Buttons IBActions
     @IBAction func todayTapped(_ sender: UIButton) {
-        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
-        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
-        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
-        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         events = unfilteredEvents?.filter({ Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0)) == Calendar.current.dateComponents([.day, .month, .year], from: Date()) })
         eventTableView.reloadData()
         dateLabel.text = todayDateFormatter.string(from: Date())
     }
     
     @IBAction func tomorrowTapped(_ sender: UIButton) {
-        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
-        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
-        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
-        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         let filterDate = Calendar.current.dateComponents([.day, .month, .year], from: Date().tomorrow)
         events = unfilteredEvents?.filter({
             return filterDate == Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
@@ -349,10 +384,10 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     @IBAction func thisWeekendTapped(_ sender: UIButton) {
-        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
-        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
-        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
-        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         
         let arrWeekDays = Date().getWeekDays()
         let saturdayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 2])
@@ -366,10 +401,10 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     @IBAction func allUpcomingTapped(_ sender: UIButton) {
-        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
-        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
-        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: "Poppins-Light"), for: .normal)
-        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: "Poppins-SemiBold"), for: .normal)
+        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         events = unfilteredEvents?.filter {
             return Date() < $0.endDate ?? Date(timeIntervalSince1970: 0)
         }
@@ -417,6 +452,11 @@ class HomeViewController: UIViewController, ControllerDelegate {
         } else if segue.identifier == "CustomShowFilterSegue" {
             shouldDismissFilterScreen = false
             guard let filterVC = segue.destination as? FilterViewController else { return }
+            filterVC.events = unfilteredEvents
+            filterVC.controller = controller
+            if let filter = self.currentFilter {
+                filterVC.filter = filter
+            }
             filterVC.delegate = self
         } else if segue.identifier == "ShowSearchResultsSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
@@ -610,16 +650,11 @@ extension HomeViewController: UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let view = self.navigationController?.view else { return nil }
-        
+        // This function calls a custom segue animation when transitioning to an instance of FilterViewController
         switch operation {
         case .push:
             view.endEditing(true)
-            if let toVC = toVC as? FilterViewController {
-                toVC.events = unfilteredEvents
-                toVC.controller = controller
-                if let filter = self.currentFilter {
-                    toVC.filter = filter
-                }
+            if let _ = toVC as? FilterViewController {
                 return CustomPushAnimator(view: view)
             } else {
                 return nil

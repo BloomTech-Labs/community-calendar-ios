@@ -3,18 +3,18 @@
 //  Community Calendar
 //
 //  Created by Hayden Hastings on 12/16/19.
-//  Copyright © 2019 Mazjap Co. All rights reserved.
+//  Copyright © 2019 Lambda School All rights reserved.
 //
+//  Dev Notes:
+//  If you wanted to keep the user logged in even after closing the app,
+//  there are some great docs on https://github.com/auth0/JWTDecode.swift.
+//  (let jwt = try decode(jwt: token); jwt.expiresAt)
+//  When opening the app, you can decode the token and see if it has already
+//  expired, if not, refresh the token, if it has expired, log the user in again
+//  Store the token in apple's keychain
 
 import UIKit
 import Auth0
-//import JWTDecode
-// If you wanted to keep the user logged in even after closing the app,
-// there are some great docs on https://github.com/auth0/JWTDecode.swift.
-// (let jwt = try decode(jwt: token); jwt.expiresAt)
-// When opening the app, you can decode the token and see if it has already
-// expired, if not, refresh the token, if it has expired, log the user in again
-// Store the token in apple's keychain, and NOT UserDefaults
 
 class LoginViewController: UIViewController, ControllerDelegate {
     // MARK: - Variables
