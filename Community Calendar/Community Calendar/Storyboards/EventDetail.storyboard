@@ -29,16 +29,10 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="xBq-Ta-Dh1">
                                         <rect key="frame" x="16" y="16" width="112.5" height="70"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="QfO-JB-HN1">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Event Title" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="QfO-JB-HN1">
                                                 <rect key="frame" x="0.0" y="0.0" width="112.5" height="28"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="Event Title">
-                                                        <attributes>
-                                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <font key="NSFont" size="24" name="Butler-Bold"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                                <fontDescription key="fontDescription" name="Butler-Bold" family="Butler" pointSize="24"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ZhH-0H-e2e">
@@ -82,6 +76,10 @@
                                     <constraint firstItem="xBq-Ta-Dh1" firstAttribute="centerY" secondItem="4tq-Oc-aS4" secondAttribute="centerY" id="KKo-O0-hnJ"/>
                                     <constraint firstAttribute="height" secondItem="xBq-Ta-Dh1" secondAttribute="height" constant="32" id="KQy-t4-cft"/>
                                 </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sCk-GT-pxG">
+                                <rect key="frame" x="0.0" y="805" width="414" height="410"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="Jso-wK-oCn">
                                 <rect key="frame" x="0.0" y="395" width="414" height="820"/>
@@ -566,10 +564,13 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.12941176470588234" green="0.14117647058823529" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Jso-wK-oCn" firstAttribute="top" secondItem="4tq-Oc-aS4" secondAttribute="bottom" id="0UX-qQ-wJh"/>
+                            <constraint firstItem="sCk-GT-pxG" firstAttribute="height" secondItem="Jso-wK-oCn" secondAttribute="height" multiplier="0.5" id="1yE-oP-Jtv"/>
                             <constraint firstItem="hFV-1A-8y1" firstAttribute="height" secondItem="6yf-ZS-Opj" secondAttribute="height" multiplier="0.241152" id="28J-hn-SWN"/>
+                            <constraint firstItem="ys0-wl-IGy" firstAttribute="trailing" secondItem="sCk-GT-pxG" secondAttribute="trailing" id="4xz-wx-5DF"/>
+                            <constraint firstItem="sCk-GT-pxG" firstAttribute="leading" secondItem="ys0-wl-IGy" secondAttribute="leading" id="5R2-nw-ewH"/>
                             <constraint firstItem="hFV-1A-8y1" firstAttribute="top" secondItem="6yf-ZS-Opj" secondAttribute="top" id="9l9-wR-y28"/>
                             <constraint firstItem="4tq-Oc-aS4" firstAttribute="top" secondItem="hFV-1A-8y1" secondAttribute="bottom" id="BIB-bw-PPv"/>
                             <constraint firstItem="Jso-wK-oCn" firstAttribute="trailing" secondItem="ys0-wl-IGy" secondAttribute="trailing" id="EwD-rZ-kni"/>
@@ -578,6 +579,7 @@
                             <constraint firstItem="6iO-nW-bgd" firstAttribute="height" relation="greaterThanOrEqual" secondItem="6yf-ZS-Opj" secondAttribute="height" multiplier="0.674897" id="MTQ-9k-UbX"/>
                             <constraint firstAttribute="bottom" secondItem="Jso-wK-oCn" secondAttribute="bottom" id="MxS-dr-TbE"/>
                             <constraint firstItem="4tq-Oc-aS4" firstAttribute="leading" secondItem="ys0-wl-IGy" secondAttribute="leading" id="Uez-yF-uoP"/>
+                            <constraint firstAttribute="bottom" secondItem="sCk-GT-pxG" secondAttribute="bottom" id="W6k-nN-AdV"/>
                             <constraint firstItem="ys0-wl-IGy" firstAttribute="trailing" secondItem="4tq-Oc-aS4" secondAttribute="trailing" id="fjY-pi-pDq"/>
                             <constraint firstItem="hFV-1A-8y1" firstAttribute="trailing" secondItem="ys0-wl-IGy" secondAttribute="trailing" id="sqC-H7-GzN"/>
                         </constraints>
