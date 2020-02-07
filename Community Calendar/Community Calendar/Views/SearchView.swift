@@ -194,6 +194,7 @@ extension SearchView: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             let filter = recentFiltersList[indexPath.row]
             if controller?.remove(filter: filter) ?? false {
+                recentFiltersList.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             }
         }

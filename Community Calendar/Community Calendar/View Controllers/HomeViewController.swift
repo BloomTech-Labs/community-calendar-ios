@@ -64,6 +64,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
         setUp()
 //        printFonts()
         
+        print()
+        
         self.tabBarController?.setViewControllers([tabBarController?.viewControllers?[0] ?? UIViewController(), tabBarController?.viewControllers?[2] ?? UIViewController()], animated: false); #warning("Changed for presentation, please remove")
     }
     
@@ -165,7 +167,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
                 }
                 
                 if self.unfilteredEvents != eventList {
-                    self.unfilteredEvents = eventList
+                    
+                    self.unfilteredEvents = self.fixDates(eventList)
                     self.featuredCollectionView.reloadData()
 //                    createMockData()
                 }
@@ -173,6 +176,19 @@ class HomeViewController: UIViewController, ControllerDelegate {
                 NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
             }
         }
+    }
+    
+    private func fixDates(_ eventsList: [Event]) -> [Event] {
+        var events = eventsList
+        for (index, event) in events.enumerated() {
+            if let startDate = event.startDate {
+                events[index].startDate = backendDateFormatter.date(from: backendDateFormatter.string(from: startDate))
+            }
+            if let endDate = event.endDate {
+                events[index].endDate = backendDateFormatter.date(from: backendDateFormatter.string(from: endDate))
+            }
+        }
+        return events
     }
     
     @objc

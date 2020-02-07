@@ -81,8 +81,12 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         hostShadowView.layer.shadowOffset = CGSize(width: -1, height: 1)
         addressLabel.text = "\(event.locations.first?.streetAddress ?? ""), \(event.locations.first?.city ?? "")"
         if let startDate = event.startDate, let endDate = event.endDate {
+            if event.title == "Art & Architecture - Downtown Walking Tour" {
+                timeLabel.text = "10:00am\n-\n12:30am"
+            } else {
+                timeLabel.text = "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))"
+            }
             dateLabel.text = todayDateFormatter.string(from: startDate)
-            timeLabel.text = "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))"
         } else {
             timeLabel.text = "No time given"
         }

@@ -62,8 +62,8 @@ struct Event: Codable, Equatable {
     let title: String
     let description: String
     let images: [String]
-    let startDate: Date?
-    let endDate: Date?
+    var startDate: Date?
+    var endDate: Date?
     let creator: String
     let profileImageURL: String?
     let rsvps: [String]

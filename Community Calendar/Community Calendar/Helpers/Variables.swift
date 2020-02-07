@@ -21,35 +21,77 @@ var miniFrame = CGRect()
 
 let todayDateFormatter: DateFormatter = {
     let df = DateFormatter()
+    df.timeZone = TimeZone(abbreviation: "MST")
     df.dateFormat = "EEEE, MMMM d, yyyy"
     return df
 }()
 
 let featuredEventDateFormatter: DateFormatter = {
     let df = DateFormatter()
+    df.timeZone = TimeZone(abbreviation: "MST")
     df.dateFormat = "MMMM d, EEEE"
     return df
 }()
 
 let cellDateFormatter: DateFormatter = {
     let df = DateFormatter()
+    df.timeZone = TimeZone(abbreviation: "MST")
     df.dateFormat = "h:mma"
     return df
 }()
 
 let backendDateFormatter: DateFormatter = {
     let df = DateFormatter()
+    df.timeZone = TimeZone(abbreviation: "MST")
     df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     return df
 }()
 
 let weekdayDateFormatter: DateFormatter = {
     let df = DateFormatter()
+    df.timeZone = TimeZone(abbreviation: "MST")
     df.dateFormat = "EEEE"
     return df
 }()
 
 let filterDateFormatter: DateFormatter = {
+    let df = DateFormatter()
+    df.timeZone = TimeZone(abbreviation: "MST")
+    df.dateFormat = "MM-dd-yy"
+    return df
+}()
+
+let todayDateFormatterWithoutTimezone: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "EEEE, MMMM d, yyyy"
+    return df
+}()
+
+let featuredEventDateFormatterWithoutTimezone: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "MMMM d, EEEE"
+    return df
+}()
+
+let cellDateFormatterWithoutTimezone: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "h:mma"
+    return df
+}()
+
+let backendDateFormatterWithoutTimezone: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    return df
+}()
+
+let weekdayDateFormatterWithoutTimezone: DateFormatter = {
+    let df = DateFormatter()
+    df.dateFormat = "EEEE"
+    return df
+}()
+
+let filterDateFormatterWithoutTimezone: DateFormatter = {
     let df = DateFormatter()
     df.dateFormat = "MM-dd-yy"
     return df
