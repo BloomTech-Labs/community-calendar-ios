@@ -3,17 +3,24 @@
 //  Community Calendar
 //
 //  Created by Jordan Christensen on 2/5/20.
-//  Copyright © 2020 Mazjap Co. All rights reserved.
+//  Copyright © 2020 Lambda School All rights reserved.
 //
 
 import UIKit
 import CoreLocation
 
 class Controller {
-    private let eventController = EventController()
-    private let searchController = SearchController()
+    private var eventController = EventController()
+    private var searchController = SearchController()
     public let locationManager = CLLocationManager()
     public let cache = Cache<String, UIImage>()
+    
+    private var rsvpIds: [String]?
+    public var userToken: String?
+    
+    init() {
+        eventController.parent = self
+    }
     
     func getEvents(by filters: Filter? = nil, completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
         if let filters = filters {
@@ -58,11 +65,19 @@ class Controller {
         }
     }
     
-    func checkForRsvp(with id: String, completion: @escaping ([String]?, Error?) -> Void) {
+    func checkUserRsvps(with id: String?) -> Bool? {
+        if let id = id, let rsvpIds = rsvpIds {
+            return rsvpIds.contains(id)
+        }
+        return nil
+    }
+    
+    func fetchUserRsvps(with id: String, completion: @escaping ([String]?, Error?) -> Void) {
         eventController.checkForRsvp(with: id) { ids, error in
             if let error = error {
                 completion(nil, error)
             } else if let ids = ids {
+                self.rsvpIds = ids
                 completion(ids, nil)
             }
         }
@@ -94,7 +109,7 @@ class Controller {
     }
     
     func save(filteredSearch: Filter) {
-        searchController.save(filteredSearch: filteredSearch)
+        searchController.save(filteredSearch: [filteredSearch])
     }
     
     func loadFromPersistantStore() -> [Filter] {
@@ -103,5 +118,15 @@ class Controller {
     
     func clearSearches() {
         searchController.clearSearches()
+    }
+    
+    func remove(filter: Filter) -> Bool {
+        var filters = searchController.loadFromPersistantStore()
+        if let _ = removeObject(filter, from: &filters) {
+            searchController.save(filteredSearch: filters)
+            return true
+        } else {
+            return false
+        }
     }
 }

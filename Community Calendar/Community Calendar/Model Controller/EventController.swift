@@ -3,7 +3,7 @@
 //  Community Calendar
 //
 //  Created by Jordan Christensen on 1/9/20.
-//  Copyright © 2020 Mazjap Co. All rights reserved.
+//  Copyright © 2020 Lambda School All rights reserved.
 //
 
 import Foundation
@@ -25,8 +25,9 @@ class EventController: HTTPNetworkTransportDelegate {
     
     //  Use staging (https://ccstaging.herokuapp.com/schema.graphql) when developing, use production (https://ccapollo-production.herokuapp.com/graphql) when releasing
     private static let url = URL(string: "https://ccapollo-production.herokuapp.com/graphql")!
-    
     private var graphQLClient: ApolloClient = ApolloClient(url: EventController.url)
+    
+    var parent: Controller!
     
     func getEvents(completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
         graphQLClient.fetch(query: GetEventsQuery()) { result in
@@ -133,7 +134,7 @@ class EventController: HTTPNetworkTransportDelegate {
     }
     
     func updateApollo() -> ApolloClient {
-        let token = userToken ?? ""
+        let token = parent.userToken ?? ""
         
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"]

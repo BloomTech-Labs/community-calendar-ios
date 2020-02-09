@@ -3,18 +3,18 @@
 //  Community Calendar
 //
 //  Created by Hayden Hastings on 12/16/19.
-//  Copyright © 2019 Mazjap Co. All rights reserved.
+//  Copyright © 2019 Lambda School All rights reserved.
 //
+//  Dev Notes:
+//  If you wanted to keep the user logged in even after closing the app,
+//  there are some great docs on https://github.com/auth0/JWTDecode.swift.
+//  (let jwt = try decode(jwt: token); jwt.expiresAt)
+//  When opening the app, you can decode the token and see if it has already
+//  expired, if not, refresh the token, if it has expired, log the user in again
+//  Store the token in apple's keychain
 
 import UIKit
 import Auth0
-//import JWTDecode
-// If you wanted to keep the user logged in even after closing the app,
-// there are some great docs on https://github.com/auth0/JWTDecode.swift.
-// (let jwt = try decode(jwt: token); jwt.expiresAt)
-// When opening the app, you can decode the token and see if it has already
-// expired, if not, refresh the token, if it has expired, log the user in again
-// Store the token in apple's keychain, and NOT UserDefaults
 
 class LoginViewController: UIViewController, ControllerDelegate {
     // MARK: - Variables
@@ -24,7 +24,7 @@ class LoginViewController: UIViewController, ControllerDelegate {
     var onAuth: ((Result<Credentials>) -> ())!
     var credentials: Credentials? {
         didSet {
-            userToken = self.credentials?.accessToken
+            controller?.userToken = self.credentials?.accessToken
             getUserInfo()
             DispatchQueue.main.async {
                 if self.credentials == nil {
@@ -53,6 +53,9 @@ class LoginViewController: UIViewController, ControllerDelegate {
         
         logOutButton.isHidden = true
         LoginButton.isHidden = true
+        
+        observeImage()
+        imageView.layer.cornerRadius = imageView.frame.height / 2
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,11 +103,14 @@ class LoginViewController: UIViewController, ControllerDelegate {
                 NSLog("User is not logged in or access token has expired")
                 return
             }
-            userToken = accessToken
+            controller?.userToken = accessToken
             Auth0.authentication().userInfo(withAccessToken: accessToken).start { result in
                 switch(result) {
                 case .success(let profile):
                     self.profile = profile
+                    if let image = profile.picture?.absoluteString {
+                        self.controller?.fetchImage(for: image)
+                    }
                 case .failure(let error):
                     print("Error: \(error)")
                 }

@@ -3,7 +3,7 @@
 //  Community Calendar
 //
 //  Created by Jordan Christensen on 12/16/19.
-//  Copyright © 2019 Mazjap Co. All rights reserved.
+//  Copyright © 2019 Lambda School All rights reserved.
 //
 
 import Foundation
@@ -62,8 +62,8 @@ struct Event: Codable, Equatable {
     let title: String
     let description: String
     let images: [String]
-    let startDate: Date?
-    let endDate: Date?
+    var startDate: Date?
+    var endDate: Date?
     let creator: String
     let profileImageURL: String?
     let rsvps: [String]

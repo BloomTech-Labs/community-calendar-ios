@@ -3,7 +3,7 @@
 //  Community Calendar Tests
 //
 //  Created by Jordan Christensen on 1/9/20.
-//  Copyright © 2020 Mazjap Co. All rights reserved.
+//  Copyright © 2020 Lambda School All rights reserved.
 //
 
 import XCTest
@@ -11,11 +11,11 @@ import XCTest
 
 class EventControllerTests: XCTestCase {
     
-    private let eventController = EventController()
+    private let controller = Controller()
 
     func testGettingEvents() {
         var events = [Event]()
-        eventController.getEvents { result in
+        controller.getEvents { result in
             switch result {
             case .success(let eventList):
                 XCTAssertTrue(events.count == 0)
@@ -32,7 +32,7 @@ class EventControllerTests: XCTestCase {
     func testDownloadingImage() {
         NotificationCenter.default.addObserver(self, selector: #selector(testDownloadingImageHelper), name: .imageWasLoaded, object: nil)
         
-        eventController.fetchImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+        controller.fetchImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
     }
     
     @objc
@@ -53,12 +53,12 @@ class EventControllerTests: XCTestCase {
     func testFetchingImageFromCache() {
         NotificationCenter.default.addObserver(self, selector: #selector(testFetchingImageFromCacheHelper), name: .imageWasLoaded, object: nil)
         
-        eventController.fetchImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+        controller.fetchImage(for: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
     }
     
     @objc
     func testFetchingImageFromCacheHelper(_ notification: Notification) {
-        let cache = eventController.cache
+        let cache = controller.cache
         guard let _ = notification.object as? ImageNotification else {
             assertionFailure("Object type could not be inferred: \(notification.object as Any)")
             return

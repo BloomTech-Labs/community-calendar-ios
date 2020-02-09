@@ -3,7 +3,7 @@
 //  Community Calendar
 //
 //  Created by Jordan Christensen on 1/11/20.
-//  Copyright © 2020 Mazjap Co. All rights reserved.
+//  Copyright © 2020 Lambda School All rights reserved.
 //
 
 import UIKit
@@ -69,7 +69,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         guard isViewLoaded, let event = event else { return }
         
         titleLabel.text = event.title
-        let height = event.description.height(with: view.frame.width - 32, font: UIFont(name: "Poppins-Light", size: 12)!)
+        let height = event.description.height(with: view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
         height < 100 ? (descLabelHeightConstraint.constant = height) : (descLabelHeightConstraint.constant = 100.0)
         eventDescTextView.text = event.description
         hostNameLabel.text = event.creator
@@ -81,12 +81,12 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         hostShadowView.layer.shadowOffset = CGSize(width: -1, height: 1)
         addressLabel.text = "\(event.locations.first?.streetAddress ?? ""), \(event.locations.first?.city ?? "")"
         if let startDate = event.startDate, let endDate = event.endDate {
+            timeLabel.text = "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))".lowercased()
             dateLabel.text = todayDateFormatter.string(from: startDate)
-            timeLabel.text = "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))"
         } else {
             timeLabel.text = "No time given"
         }
-        priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
+        priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
         
         
         checkForRSVP()
@@ -117,26 +117,35 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func checkForRSVP() {
-        self.attendButton.attrText("Attend")
-        self.addToCalendarButton.isHidden = true
-        guard let event = event, let controller = controller, let userToken = userToken else { return }
+        if let bool = controller?.checkUserRsvps(with: event?.id) {
+            updateRSVP(with: bool)
+        } else {
+            updateRSVP(with: false)
+        }
+        
+        guard let event = event,
+            let controller = controller, let userToken = controller.userToken else { return }
         do {
             let decodedToken = try decode(jwt: userToken)
             guard let userId = decodedToken.ccId else { return }
-            controller.checkForRsvp(with: userId) { ids, error  in
+            controller.fetchUserRsvps(with: userId) { ids, error  in
                 if let error = error {
                     NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
                     return
                 }
                 if let ids = ids, ids.contains(event.id) {
-                    DispatchQueue.main.async {
-                        self.attendButton.attrText("Unattend")
-                        self.addToCalendarButton.isHidden = false
-                    }
+                    self.updateRSVP(with: true)
                 }
             }
         } catch {
             NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+        }
+    }
+    
+    func updateRSVP(with bool: Bool) {
+        DispatchQueue.main.async {
+            self.attendButton.attrText(bool ? "Unattend" : "Attend")
+            bool ? (self.addToCalendarButton.isHidden = false) : (self.addToCalendarButton.isHidden = true)
         }
     }
     
@@ -179,7 +188,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         let alert = UIAlertController(title: "Please log in", message: "You must be logged in to \(message)", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let login = UIAlertAction(title: "Log in", style: .default) { action in
-            self.presentingViewController?.tabBarController?.selectedIndex = (self.presentingViewController?.tabBarController?.viewControllers?.count ?? 1) - 1
+            if let tabVC = self.presentingViewController as? EventTabBarController {
+                tabVC.selectedIndex = (tabVC.viewControllers?.count ?? 1) - 1
+            }
             alert.dismiss(animated: true, completion: nil)
             self.dismiss(animated: true)
         }
@@ -223,11 +234,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
                 var presentLogin = false
                 switch error {
                 case .ql(let errors):
-                    for qlrr in errors {
-                        if let errorMessage = qlrr.message, errorMessage.contains("No token was found in header") {
+//                    for qlrr in errors {
+//                        if let errorMessage = qlrr.message, errorMessage.contains("No token was found in header") {
                             presentLogin = true
-                        }
-                    }
+//                        }
+//                    }
                 case .rr(let singleError):
                     NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(singleError)")
                 }
@@ -239,15 +250,12 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
                 // TODO: Handle error
                 return
             }
-            DispatchQueue.main.async {
-                self.attendButton.attrText(bool ? "Unattend" : "Attend")
-                bool ? (self.addToCalendarButton.isHidden = false) : (self.addToCalendarButton.isHidden = true)
-            }
+            self.updateRSVP(with: bool)
         }
     }
     
     @IBAction func showMore(_ sender: UIButton) {
-        let height = event?.description.height(with: view.frame.width - 32, font: UIFont(name: "Poppins-Light", size: 12)!)
+        let height = event?.description.height(with: view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
         if descLabelHeightConstraint.constant != height {
             descLabelHeightConstraint.constant = (height ?? 10) + 3
         }

@@ -3,7 +3,9 @@
 //  Community Calendar
 //
 //  Created by Jordan Christensen on 1/15/20.
-//  Copyright © 2020 Mazjap Co. All rights reserved.
+//  Copyright © 2020 Lambda School All rights reserved.
+//
+//  Dev Notes:
 //
 
 import UIKit
@@ -116,7 +118,7 @@ class FilterViewController: UIViewController {
         for suggestedTag in suggestedFilters {
             for selectedTag in selectedFilters {
                 if suggestedTag.title == selectedTag.title {
-                    remove(object: suggestedTag, from: &suggestedFilters)
+                    removeObject(suggestedTag, from: &suggestedFilters)
                 }
             }
         }
@@ -124,7 +126,7 @@ class FilterViewController: UIViewController {
     }
     
     private func setUpTextField(_ textField: UITextField) {
-        guard let font = UIFont(name: "Poppins-Regular", size: 14), let placeholderText = textField.placeholder else { return }
+        guard let font = UIFont(name: PoppinsFont.regular.rawValue, size: 14), let placeholderText = textField.placeholder else { return }
         textField.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.font : font])
         textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.font : font])
         textField.font = font
@@ -157,7 +159,7 @@ class FilterViewController: UIViewController {
         tagsSearchBar.layer.borderColor = UIColor(red: 0.13, green: 0.14, blue: 0.17, alpha: 1.0).cgColor
         tagsSearchBar.layer.borderWidth = 1
         tagsSearchBar.searchTextField.placeholder = ""
-        if let font = UIFont(name: "Poppins-Medium", size: 14.0) {
+        if let font = UIFont(name: PoppinsFont.medium.rawValue, size: 14.0) {
             tagsSearchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search for tags", attributes: [
                 NSAttributedString.Key.font: font,
                 NSAttributedString.Key.foregroundColor: UIColor.lightGray
@@ -171,8 +173,6 @@ class FilterViewController: UIViewController {
     private func setUpPickerViews() {
         districtPickerView.delegate = self
         districtPickerView.dataSource = self
-        
-//        firstDatePickerView.setValue(UIFont(name: "Poppins-Regular", size: 14), forKeyPath: "fontName")
         
         firstDatePickerView.datePickerMode = .date
         secondDatePickerView.datePickerMode = .date
@@ -238,19 +238,6 @@ class FilterViewController: UIViewController {
         } else {
             suggestedFilters = [Tag(title: "cooking"), Tag(title: "art"), Tag(title: "reading"), Tag(title: "entertainment"), Tag(title: "music"), Tag(title:"family")]
         }
-    }
-    
-    @discardableResult
-    private func remove<T: Equatable>(object: T, from array: inout [T]) -> Any? {
-        for index in 0...array.count - 1 {
-            if object == array[index] {
-                let temp = array[index]
-                array.remove(at: index)
-                return temp
-            }
-        }
-        print("Failed to find object of type \(String(describing: object.self)) in array of type \(String(describing: array.self)). Are these objects of the same type?")
-        return nil
     }
     
     // MARK: - IBActions
@@ -319,7 +306,7 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let null = CGSize()
-        guard let font = UIFont(name: "Poppins-Regular", size: 14) else { return null }
+        guard let font = UIFont(name: PoppinsFont.regular.rawValue, size: 14) else { return null }
         let fontAttributes = [NSAttributedString.Key.font: font]
         if collectionView == selectedTagsCollectionView {
             return CGSize(width: (selectedFilters[indexPath.row].title as NSString).size(withAttributes: fontAttributes).width + 42, height: 22)
@@ -336,7 +323,7 @@ extension FilterViewController: UICollectionViewDelegate, UICollectionViewDataSo
             guard let indexPath = selectedTagsCollectionView.indexPath(for: cell) else { return }
             for tagFilter in selectedFilters {
                 if tagFilter == tag {
-                    remove(object: tagFilter, from: &selectedFilters)
+                    removeObject(tagFilter, from: &selectedFilters)
                     filter.tags = selectedFilters
                 }
             }
@@ -474,7 +461,7 @@ extension FilterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if pickerView == districtPickerView {
-            guard let districts = districts, let font = UIFont(name: "Poppins-Regular", size: 12) else { return NSAttributedString(string: "?") }
+            guard let districts = districts, let font = UIFont(name: PoppinsFont.regular.rawValue, size: 12) else { return NSAttributedString(string: "?") }
             return NSAttributedString(string: districts[row], attributes: [NSAttributedString.Key.font: font])
         }
         return NSAttributedString(string: "?")

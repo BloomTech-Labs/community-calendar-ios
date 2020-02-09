@@ -3,7 +3,7 @@
 //  Community Calendar
 //
 //  Created by Jordan Christensen on 1/30/20.
-//  Copyright © 2020 Mazjap Co. All rights reserved.
+//  Copyright © 2020 Lambda School All rights reserved.
 //
 
 import UIKit
@@ -152,6 +152,7 @@ class SearchResultViewController: UIViewController {
     @IBAction func tableViewPressed(_ sender: UIButton) {
         eventResultsCollectionView.isHidden = true
         eventResultsTableView.isHidden = false
+        eventResultsTableView.reloadData()
         tableViewButton.imageView?.image = UIImage(named: "list-selected")
         collectionViewButton.imageView?.image = UIImage(named: "grid")
     }
@@ -159,6 +160,7 @@ class SearchResultViewController: UIViewController {
     @IBAction func collectionViewPressed(_ sender: UIButton) {
         eventResultsTableView.isHidden = true
         eventResultsCollectionView.isHidden = false
+        eventResultsCollectionView.reloadData()
         tableViewButton.imageView?.image = UIImage(named: "list")
         collectionViewButton.imageView?.image = UIImage(named: "grid-selected")
     }

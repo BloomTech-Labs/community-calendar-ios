@@ -12,6 +12,8 @@
 		0E09806923E20DB1000110AB /* EventDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E09806823E20DB1000110AB /* EventDetail.storyboard */; };
 		0E09806B23E2A526000110AB /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E09806A23E2A526000110AB /* SearchController.swift */; };
 		0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */; };
+		0E2B119523ECE53E0072E72E /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B119423ECE53E0072E72E /* UserDefaults+Extension.swift */; };
+		0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B119623ED0FCB0072E72E /* SearchView.swift */; };
 		0E2E723123EA4082006F94D3 /* JWT+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E723023EA4082006F94D3 /* JWT+Extension.swift */; };
 		0E2E723323EA5A47006F94D3 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E723223EA5A47006F94D3 /* UIButton+Extension.swift */; };
 		0E64400223C63DC800A56B22 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E64400123C63DC800A56B22 /* EventController.swift */; };
@@ -102,6 +104,8 @@
 		0E09806823E20DB1000110AB /* EventDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EventDetail.storyboard; sourceTree = "<group>"; };
 		0E09806A23E2A526000110AB /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesTableViewCell.swift; sourceTree = "<group>"; };
+		0E2B119423ECE53E0072E72E /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		0E2B119623ED0FCB0072E72E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		0E2E723023EA4082006F94D3 /* JWT+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JWT+Extension.swift"; sourceTree = "<group>"; };
 		0E2E723223EA5A47006F94D3 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		0E64400123C63DC800A56B22 /* EventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
@@ -157,7 +161,7 @@
 		0EB19D6423A82C6200640A40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ED2657323AC0FB000278980 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		0EE2AC2223CE3B6C002B3EB4 /* Filter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Filter.storyboard; path = "Community Calendar/Storyboards/Filter.storyboard"; sourceTree = SOURCE_ROOT; };
-		0EE2AC2423CE7133002B3EB4 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
+		0EE2AC2423CE7133002B3EB4 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0EE2AC2623CE7233002B3EB4 /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
 		0EE2AC2823CF5142002B3EB4 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		0EE2AC2A23CFFA0D002B3EB4 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
@@ -252,13 +256,12 @@
 		0EB19D5223A82C5B00640A40 /* Community Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				0E9FDD4D23A8363B00FD75A0 /* Fonts */,
 				0EE3079D23AC52320045EFD1 /* Resources */,
 				0EE3079E23AC527E0045EFD1 /* View Controllers */,
 				0EE3079F23AC528D0045EFD1 /* Views */,
 				0EE307A023AC52B60045EFD1 /* Storyboards */,
-				0EE307AA23AC534A0045EFD1 /* Models */,
 				0E73089623C69BB0006B5326 /* Model Controller */,
+				0EE307AA23AC534A0045EFD1 /* Models */,
 				0EE307AB23AC53680045EFD1 /* Helpers */,
 				EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */,
 				0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */,
@@ -314,6 +317,7 @@
 				0EB19D5323A82C5B00640A40 /* AppDelegate.swift */,
 				0EB19D5F23A82C6200640A40 /* Assets.xcassets */,
 				0EB19D6423A82C6200640A40 /* Info.plist */,
+				0E9FDD4D23A8363B00FD75A0 /* Fonts */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -336,13 +340,14 @@
 		0EE3079F23AC528D0045EFD1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0E2B119623ED0FCB0072E72E /* SearchView.swift */,
 				0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */,
 				0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */,
 				0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */,
 				0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */,
-				0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */,
 				0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */,
 				0E0817CD23E8B1B70010532D /* MessageTableViewCell.swift */,
+				0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 				0E9FDD7823A8600700FD75A0 /* Variables.swift */,
 				0EE2AC3023CFFB2C002B3EB4 /* Functions.swift */,
 				0EE2AC2E23CFFA71002B3EB4 /* Notification.Name+Extension.swift */,
+				0E2B119423ECE53E0072E72E /* UserDefaults+Extension.swift */,
 				0EE2AC2C23CFFA4A002B3EB4 /* UIColor+Extension.swift */,
 				0EE2AC2A23CFFA0D002B3EB4 /* UIDevice+Extension.swift */,
 				0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */,
@@ -625,6 +631,7 @@
 				0EE307A923AC53470045EFD1 /* Event.swift in Sources */,
 				0E64400223C63DC800A56B22 /* EventController.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
+				0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */,
 				0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */,
 				0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
@@ -653,6 +660,7 @@
 				0E0817CE23E8B1B70010532D /* MessageTableViewCell.swift in Sources */,
 				0EA9731E23EB228500085435 /* EventTabBarController.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
+				0E2B119523ECE53E0072E72E /* UserDefaults+Extension.swift in Sources */,
 				0EE2AC2D23CFFA4A002B3EB4 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -847,7 +855,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -855,7 +863,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -870,7 +878,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -878,7 +886,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;

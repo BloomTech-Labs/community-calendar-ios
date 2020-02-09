@@ -3,12 +3,13 @@
 //  Community Calendar
 //
 //  Created by Jordan Christensen on 1/16/20.
-//  Copyright © 2020 Mazjap Co. All rights reserved.
+//  Copyright © 2020 Lambda School All rights reserved.
 //
 
 import UIKit
 
-public enum Model : String {
+public enum Model : String { // This will return the type of device, used to check whether screen is rounded in CustomPush/PopAnimator
+    // All simulators are considered roundedDevices and will look funky when performing the customAnimation
     case simulator   = "simulator/sandbox",
     iPod1            = "iPod 1",
     iPod2            = "iPod 2",
