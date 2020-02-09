@@ -1,6 +1,6 @@
 # Community Calendar
 
-There is a disconnect between event organizers and community members. From the perspective of organizers, it can be difficult to get the word out about an event to each of the members of a community, and from the perspective of community members, it can be challenging to find out about all the events going on in your neighborhood. Community Calendar was created to bridge that gap. Now anyone with a mobile phone can be alerted of events going on in their area.
+There is a disconnect between event organizers and community members. From the perspective of organizers, it can be difficult to get the word out about an event to each of the members of a community. From the perspective of community members, it can be challenging to find out about all the events going on in your neighborhood. Community Calendar was created to bridge that gap. Now anyone with a mobile phone can be alerted of events going on in their area.
 
 ## Contributors
 
@@ -18,6 +18,8 @@ There is a disconnect between event organizers and community members. From the p
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 ## Project Overview
+
+Developers, check out the wiki [here](https://github.com/Lambda-School-Labs/community-calendar-ios/wiki) for more in depth information on this project.
 
 You can find the deployed project on [Test flight](https://testflight.apple.com/join/rrBz0v5r) (click link on mobile to install).
 
@@ -59,7 +61,7 @@ This is the way you take out your frustrations. Get away from those little Chris
 
 ### Apollo
 
-We integrated Apollo to query our [GraphQL backend](https://ccstaging.herokuapp.com/). See [GetEventsQuery.graphql](Community%20Calendar/Community%20Calendar/GetEventsQuery.graphql) to view the query made.
+We integrated Apollo to query our [GraphQL backend](https://ccapollo-production.herokuapp.com/graphql). See [GetEventsQuery.graphql](Community%20Calendar/Community%20Calendar/GetEventsQuery.graphql) to view the query made.
 
 ## Requirements
 
