@@ -86,7 +86,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         } else {
             timeLabel.text = "No time given"
         }
-        priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
+        priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
         
         
         checkForRSVP()
@@ -117,26 +117,35 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func checkForRSVP() {
-        self.attendButton.attrText("Attend")
-        self.addToCalendarButton.isHidden = true
-        guard let event = event, let controller = controller, let userToken = controller.userToken else { return }
+        if let bool = controller?.checkUserRsvps(with: event?.id) {
+            updateRSVP(with: bool)
+        } else {
+            updateRSVP(with: false)
+        }
+        
+        guard let event = event,
+            let controller = controller, let userToken = controller.userToken else { return }
         do {
             let decodedToken = try decode(jwt: userToken)
             guard let userId = decodedToken.ccId else { return }
-            controller.checkForRsvp(with: userId) { ids, error  in
+            controller.fetchUserRsvps(with: userId) { ids, error  in
                 if let error = error {
                     NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
                     return
                 }
                 if let ids = ids, ids.contains(event.id) {
-                    DispatchQueue.main.async {
-                        self.attendButton.attrText("Unattend")
-                        self.addToCalendarButton.isHidden = false
-                    }
+                    self.updateRSVP(with: true)
                 }
             }
         } catch {
             NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+        }
+    }
+    
+    func updateRSVP(with bool: Bool) {
+        DispatchQueue.main.async {
+            self.attendButton.attrText(bool ? "Unattend" : "Attend")
+            bool ? (self.addToCalendarButton.isHidden = false) : (self.addToCalendarButton.isHidden = true)
         }
     }
     
@@ -225,11 +234,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
                 var presentLogin = false
                 switch error {
                 case .ql(let errors):
-                    for qlrr in errors {
-                        if let errorMessage = qlrr.message, errorMessage.contains("No token was found in header") {
+//                    for qlrr in errors {
+//                        if let errorMessage = qlrr.message, errorMessage.contains("No token was found in header") {
                             presentLogin = true
-                        }
-                    }
+//                        }
+//                    }
                 case .rr(let singleError):
                     NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(singleError)")
                 }
@@ -241,10 +250,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
                 // TODO: Handle error
                 return
             }
-            DispatchQueue.main.async {
-                self.attendButton.attrText(bool ? "Unattend" : "Attend")
-                bool ? (self.addToCalendarButton.isHidden = false) : (self.addToCalendarButton.isHidden = true)
-            }
+            self.updateRSVP(with: bool)
         }
     }
     

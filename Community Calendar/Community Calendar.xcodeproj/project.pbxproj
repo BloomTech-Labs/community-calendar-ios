@@ -256,13 +256,12 @@
 		0EB19D5223A82C5B00640A40 /* Community Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				0E9FDD4D23A8363B00FD75A0 /* Fonts */,
 				0EE3079D23AC52320045EFD1 /* Resources */,
 				0EE3079E23AC527E0045EFD1 /* View Controllers */,
 				0EE3079F23AC528D0045EFD1 /* Views */,
 				0EE307A023AC52B60045EFD1 /* Storyboards */,
-				0EE307AA23AC534A0045EFD1 /* Models */,
 				0E73089623C69BB0006B5326 /* Model Controller */,
+				0EE307AA23AC534A0045EFD1 /* Models */,
 				0EE307AB23AC53680045EFD1 /* Helpers */,
 				EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */,
 				0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */,
@@ -318,6 +317,7 @@
 				0EB19D5323A82C5B00640A40 /* AppDelegate.swift */,
 				0EB19D5F23A82C6200640A40 /* Assets.xcassets */,
 				0EB19D6423A82C6200640A40 /* Info.plist */,
+				0E9FDD4D23A8363B00FD75A0 /* Fonts */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -340,14 +340,14 @@
 		0EE3079F23AC528D0045EFD1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0E2B119623ED0FCB0072E72E /* SearchView.swift */,
 				0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */,
 				0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */,
 				0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */,
-				0E2B119623ED0FCB0072E72E /* SearchView.swift */,
 				0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */,
-				0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */,
 				0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */,
 				0E0817CD23E8B1B70010532D /* MessageTableViewCell.swift */,
+				0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -855,7 +855,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -863,7 +863,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -878,7 +878,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -886,7 +886,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;

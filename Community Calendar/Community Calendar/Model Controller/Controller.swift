@@ -15,6 +15,7 @@ class Controller {
     public let locationManager = CLLocationManager()
     public let cache = Cache<String, UIImage>()
     
+    private var rsvpIds: [String]?
     public var userToken: String?
     
     init() {
@@ -64,11 +65,19 @@ class Controller {
         }
     }
     
-    func checkForRsvp(with id: String, completion: @escaping ([String]?, Error?) -> Void) {
+    func checkUserRsvps(with id: String?) -> Bool? {
+        if let id = id, let rsvpIds = rsvpIds {
+            return rsvpIds.contains(id)
+        }
+        return nil
+    }
+    
+    func fetchUserRsvps(with id: String, completion: @escaping ([String]?, Error?) -> Void) {
         eventController.checkForRsvp(with: id) { ids, error in
             if let error = error {
                 completion(nil, error)
             } else if let ids = ids {
+                self.rsvpIds = ids
                 completion(ids, nil)
             }
         }

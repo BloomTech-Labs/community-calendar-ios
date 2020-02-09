@@ -53,6 +53,9 @@ class LoginViewController: UIViewController, ControllerDelegate {
         
         logOutButton.isHidden = true
         LoginButton.isHidden = true
+        
+        observeImage()
+        imageView.layer.cornerRadius = imageView.frame.height / 2
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,6 +108,9 @@ class LoginViewController: UIViewController, ControllerDelegate {
                 switch(result) {
                 case .success(let profile):
                     self.profile = profile
+                    if let image = profile.picture?.absoluteString {
+                        self.controller?.fetchImage(for: image)
+                    }
                 case .failure(let error):
                     print("Error: \(error)")
                 }

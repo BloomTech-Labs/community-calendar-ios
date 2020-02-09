@@ -259,6 +259,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     @IBAction func tableViewButtonTapped(_ sender: UIButton) {
         eventCollectionView.isHidden = true
         eventTableView.isHidden = false
+        eventTableView.reloadData()
         tableViewButton.imageView?.image = UIImage(named: "list-selected")
         collectionViewButton.imageView?.image = UIImage(named: "grid")
     }
@@ -266,6 +267,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     @IBAction func collectionViewButtonTapped(_ sender: UIButton) {
         eventCollectionView.isHidden = false
         eventTableView.isHidden = true
+        eventCollectionView.reloadData()
         tableViewButton.imageView?.image = UIImage(named: "list")
         collectionViewButton.imageView?.image = UIImage(named: "grid-selected")
     }
@@ -540,7 +542,6 @@ extension HomeViewController: UISearchBarDelegate {
 
 // MARK: - Navigation Extension
 extension HomeViewController: UINavigationControllerDelegate {
-
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let view = self.navigationController?.view else { return nil }
         // This function calls a custom segue animation when transitioning to an instance of FilterViewController
