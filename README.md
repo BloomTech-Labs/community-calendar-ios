@@ -1,3 +1,12 @@
+[![Swift Version][swift-image]][swift-url]
+[![Build Status][travis-image]][travis-url]
+[![License][license-image]][license-url]
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/EZSwiftExtensions.svg)](https://img.shields.io/cocoapods/v/LFAlertController.svg)
+[![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)](http://cocoapods.org/pods/LFAlertController)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4bf07c07141f7423fa42/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/community-calendar-ios/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/4bf07c07141f7423fa42/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/community-calendar-ios/test_coverage)
+
 # Community Calendar
 
 There is a disconnect between event organizers and community members. From the perspective of organizers, it can be difficult to get the word out about an event to each of the members of a community. From the perspective of community members, it can be challenging to find out about all the events going on in your neighborhood. Community Calendar was created to bridge that gap. Now anyone with a mobile phone can be alerted of events going on in their area.
@@ -9,13 +18,6 @@ There is a disconnect between event organizers and community members. From the p
 |                      [<img src="https://media-exp1.licdn.com/dms/image/C5603AQFfbY6C4mi2nQ/profile-displayphoto-shrink_200_200/0?e=1586390400&v=beta&t=fHYR7ScNMtfizzKoOJX9Htz6HTKbSjasYjggnGXjHMw" width = "300" />](https://github.com/Hayden32)                  |                      [<img src="https://avatars0.githubusercontent.com/u/24785257?s=460&v=4" width = "300" />](https://github.com/mazjap)                       |
 |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Hayden32)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/mazjap)             |
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/hayden-hastings/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jordan-a-christensen/) |
-
-[![Swift Version][swift-image]][swift-url]
-[![Build Status][travis-image]][travis-url]
-[![License][license-image]][license-url]
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/EZSwiftExtensions.svg)](https://img.shields.io/cocoapods/v/LFAlertController.svg)  
-[![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)](http://cocoapods.org/pods/LFAlertController)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 ## Project Overview
 
