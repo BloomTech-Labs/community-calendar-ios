@@ -65,8 +65,6 @@ class HomeViewController: UIViewController, ControllerDelegate {
 //        printFonts()
         
         print()
-        
-        self.tabBarController?.setViewControllers([tabBarController?.viewControllers?[0] ?? UIViewController(), tabBarController?.viewControllers?[2] ?? UIViewController()], animated: false); #warning("Changed for presentation, please remove")
     }
     
     override func viewWillAppear(_ animated: Bool) {
