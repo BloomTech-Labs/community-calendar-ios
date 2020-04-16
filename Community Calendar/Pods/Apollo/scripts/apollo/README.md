@@ -23,7 +23,7 @@ $ npm install -g apollo
 $ apollo COMMAND
 running command...
 $ apollo (-v|--version|version)
-apollo/2.21.0 linux-x64 node-v10.16.3
+apollo/2.26.0 linux-x64 node-v10.19.0
 $ apollo --help [COMMAND]
 USAGE
   $ apollo COMMAND
@@ -61,7 +61,12 @@ USAGE
 
 OPTIONS
   -c, --config=config                    Path to your Apollo config file
-  -t, --tag=tag                          The published service tag for this client
+
+  -g, --graph=graph                      The ID for the graph in Apollo Graph Manager to operate client commands with.
+                                         Overrides config file if set.
+
+  -v, --variant=variant                  The variant of the graph in Apollo Graph Manager to associate this client to
+
   --clientName=clientName                Name of the client that the queries will be attached to
 
   --clientReferenceId=clientReferenceId  Reference id for the client which will match ids from client traces, will use
@@ -69,7 +74,7 @@ OPTIONS
 
   --clientVersion=clientVersion          The version of the client that the queries will be attached to
 
-  --endpoint=endpoint                    The url of your service
+  --endpoint=endpoint                    The URL for the CLI use to introspect your service
 
   --excludes=excludes                    Glob of files to exclude for GraphQL operations. Caveat: this doesn't currently
                                          work in watch mode
@@ -81,7 +86,7 @@ OPTIONS
   --includes=includes                    Glob of files to search for GraphQL operations. This should be used to find
                                          queries *and* any client schema extensions
 
-  --key=key                              The API key for the Apollo Engine service
+  --key=key                              The API key to use for authentication to Apollo Graph Manager
 
   --queries=queries                      Deprecated in favor of the includes flag
 
@@ -93,7 +98,7 @@ _See code: [src/commands/client/check.ts](https://github.com/apollographql/apoll
 
 ## `apollo client:codegen [OUTPUT]`
 
-Generate static types for GraphQL queries. Can use the published schema in Apollo Engine or a downloaded schema.
+Generate static types for GraphQL queries. Can use the published schema in Apollo Graph Manager or a downloaded schema.
 
 ```
 USAGE
@@ -112,7 +117,12 @@ ARGUMENTS
 
 OPTIONS
   -c, --config=config                        Path to your Apollo config file
-  -t, --tag=tag                              The published service tag for this client
+
+  -g, --graph=graph                          The ID for the graph in Apollo Graph Manager to operate client commands
+                                             with. Overrides config file if set.
+
+  -v, --variant=variant                      The variant of the graph in Apollo Graph Manager to associate this client
+                                             to
 
   --[no-]addTypename                         [default: true] Automatically add __typename to your queries, can be unset
                                              with --no-addTypename
@@ -126,15 +136,15 @@ OPTIONS
 
   --customScalarsPrefix=customScalarsPrefix  Include a prefix when using provided types for custom scalars
 
-  --endpoint=endpoint                        The url of your service
+  --endpoint=endpoint                        The URL for the CLI use to introspect your service
 
   --excludes=excludes                        Glob of files to exclude for GraphQL operations. Caveat: this doesn't
                                              currently work in watch mode
 
   --globalTypesFile=globalTypesFile          By default, TypeScript will put a file named "globalTypes.ts" inside the
                                              "output" directory. Set "globalTypesFile" to specify a different path.
-                                             Alternatively, set "fileExtension" to modify the extension of the file, for
-                                             example "d.ts" will output "globalTypes.d.ts"
+                                             Alternatively, set "tsFileExtension" to modify the extension of the file,
+                                             for example "d.ts" will output "globalTypes.d.ts"
 
   --header=header                            Additional header to send to server for introspectionQuery. May be used
                                              multiple times to add multiple headers. NOTE: The `--endpoint` flag is
@@ -143,7 +153,7 @@ OPTIONS
   --includes=includes                        Glob of files to search for GraphQL operations. This should be used to find
                                              queries *and* any client schema extensions
 
-  --key=key                                  The API key for the Apollo Engine service
+  --key=key                                  The API key to use for authentication to Apollo Graph Manager
 
   --localSchemaFile=localSchemaFile          Path to one or more local GraphQL schema file(s), as introspection result
                                              or SDL. Supports comma-separated list of paths (ex.
@@ -199,18 +209,24 @@ _See code: [src/commands/client/codegen.ts](https://github.com/apollographql/apo
 
 ## `apollo client:download-schema OUTPUT`
 
-Download a schema from engine or a GraphQL endpoint.
+Download a schema from Apollo Graph Manager or a GraphQL endpoint in JSON or SDL format
 
 ```
 USAGE
   $ apollo client:download-schema OUTPUT
 
 ARGUMENTS
-  OUTPUT  [default: schema.json] Path to write the introspection result to
+  OUTPUT  [default: schema.json] Path to write the introspection result to. Can be `.graphql`, `.gql`, `.graphqls`, or
+          `.json`
 
 OPTIONS
   -c, --config=config                    Path to your Apollo config file
-  -t, --tag=tag                          The published service tag for this client
+
+  -g, --graph=graph                      The ID for the graph in Apollo Graph Manager to operate client commands with.
+                                         Overrides config file if set.
+
+  -v, --variant=variant                  The variant of the graph in Apollo Graph Manager to associate this client to
+
   --clientName=clientName                Name of the client that the queries will be attached to
 
   --clientReferenceId=clientReferenceId  Reference id for the client which will match ids from client traces, will use
@@ -218,7 +234,7 @@ OPTIONS
 
   --clientVersion=clientVersion          The version of the client that the queries will be attached to
 
-  --endpoint=endpoint                    The url of your service
+  --endpoint=endpoint                    The URL for the CLI use to introspect your service
 
   --excludes=excludes                    Glob of files to exclude for GraphQL operations. Caveat: this doesn't currently
                                          work in watch mode
@@ -230,7 +246,7 @@ OPTIONS
   --includes=includes                    Glob of files to search for GraphQL operations. This should be used to find
                                          queries *and* any client schema extensions
 
-  --key=key                              The API key for the Apollo Engine service
+  --key=key                              The API key to use for authentication to Apollo Graph Manager
 
   --queries=queries                      Deprecated in favor of the includes flag
 
@@ -253,7 +269,12 @@ ARGUMENTS
 
 OPTIONS
   -c, --config=config                    Path to your Apollo config file
-  -t, --tag=tag                          The published service tag for this client
+
+  -g, --graph=graph                      The ID for the graph in Apollo Graph Manager to operate client commands with.
+                                         Overrides config file if set.
+
+  -v, --variant=variant                  The variant of the graph in Apollo Graph Manager to associate this client to
+
   --clientName=clientName                Name of the client that the queries will be attached to
 
   --clientReferenceId=clientReferenceId  Reference id for the client which will match ids from client traces, will use
@@ -261,7 +282,7 @@ OPTIONS
 
   --clientVersion=clientVersion          The version of the client that the queries will be attached to
 
-  --endpoint=endpoint                    The url of your service
+  --endpoint=endpoint                    The URL for the CLI use to introspect your service
 
   --excludes=excludes                    Glob of files to exclude for GraphQL operations. Caveat: this doesn't currently
                                          work in watch mode
@@ -273,7 +294,13 @@ OPTIONS
   --includes=includes                    Glob of files to search for GraphQL operations. This should be used to find
                                          queries *and* any client schema extensions
 
-  --key=key                              The API key for the Apollo Engine service
+  --key=key                              The API key to use for authentication to Apollo Graph Manager
+
+  --preserveStringAndNumericLiterals     Disable redaction of string and numerical literals.  Without this flag, these
+                                         values will be replaced with empty strings (`''`) and zeroes (`0`)
+                                         respectively.  This redaction is intended to avoid  inadvertently outputting
+                                         potentially personally identifiable information (e.g. embedded passwords  or
+                                         API keys) into operation manifests
 
   --queries=queries                      Deprecated in favor of the includes flag
 
@@ -293,7 +320,12 @@ USAGE
 
 OPTIONS
   -c, --config=config                    Path to your Apollo config file
-  -t, --tag=tag                          The published service tag for this client
+
+  -g, --graph=graph                      The ID for the graph in Apollo Graph Manager to operate client commands with.
+                                         Overrides config file if set.
+
+  -v, --variant=variant                  The variant of the graph in Apollo Graph Manager to associate this client to
+
   --clientName=clientName                Name of the client that the queries will be attached to
 
   --clientReferenceId=clientReferenceId  Reference id for the client which will match ids from client traces, will use
@@ -301,7 +333,7 @@ OPTIONS
 
   --clientVersion=clientVersion          The version of the client that the queries will be attached to
 
-  --endpoint=endpoint                    The url of your service
+  --endpoint=endpoint                    The URL for the CLI use to introspect your service
 
   --excludes=excludes                    Glob of files to exclude for GraphQL operations. Caveat: this doesn't currently
                                          work in watch mode
@@ -313,7 +345,7 @@ OPTIONS
   --includes=includes                    Glob of files to search for GraphQL operations. This should be used to find
                                          queries *and* any client schema extensions
 
-  --key=key                              The API key for the Apollo Engine service
+  --key=key                              The API key to use for authentication to Apollo Graph Manager
 
   --queries=queries                      Deprecated in favor of the includes flag
 
@@ -338,7 +370,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
 ## `apollo plugins`
 
@@ -355,7 +387,7 @@ EXAMPLE
   $ apollo plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.9/src/commands/plugins/index.ts)_
 
 ## `apollo plugins:install PLUGIN...`
 
@@ -391,7 +423,7 @@ EXAMPLES
   $ apollo plugins:install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.9/src/commands/plugins/install.ts)_
 
 ## `apollo plugins:link PLUGIN`
 
@@ -418,7 +450,7 @@ EXAMPLE
   $ apollo plugins:link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.9/src/commands/plugins/link.ts)_
 
 ## `apollo plugins:uninstall PLUGIN...`
 
@@ -440,7 +472,7 @@ ALIASES
   $ apollo plugins:remove
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.9/src/commands/plugins/uninstall.ts)_
 
 ## `apollo plugins:update`
 
@@ -455,7 +487,7 @@ OPTIONS
   -v, --verbose
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.8/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v1.7.9/src/commands/plugins/update.ts)_
 
 ## `apollo service:check`
 
@@ -467,18 +499,28 @@ USAGE
 
 OPTIONS
   -c, --config=config                                            Path to your Apollo config file
-  -t, --tag=tag                                                  The published tag to check this service against
-  --endpoint=endpoint                                            The url of your service
+
+  -g, --graph=graph                                              The ID of the graph in Apollo Graph Manager to check
+                                                                 your proposed schema changes against. Overrides config
+                                                                 file if set.
+
+  -v, --variant=variant                                          The variant to check the proposed schema against
+
+  --endpoint=endpoint                                            The URL for the CLI use to introspect your service
 
   --header=header                                                Additional header to send to server for
                                                                  introspectionQuery. May be used multiple times to add
                                                                  multiple headers. NOTE: The `--endpoint` flag is
                                                                  REQUIRED if using the `--header` flag.
 
+  --ignoreFailures                                               Exit with status 0 when the check completes, even if
+                                                                 errors are found
+
   --json                                                         Output result in json, which can then be parsed by CLI
                                                                  tools such as jq.
 
-  --key=key                                                      The API key for the Apollo Engine service
+  --key=key                                                      The API key to use for authentication to Apollo Graph
+                                                                 Manager
 
   --localSchemaFile=localSchemaFile                              Path to one or more local GraphQL schema file(s), as
                                                                  introspection result or SDL. Supports comma-separated
@@ -512,7 +554,7 @@ _See code: [src/commands/service/check.ts](https://github.com/apollographql/apol
 
 ## `apollo service:delete`
 
-Delete a federated service from Engine and recompose remaining services
+Delete a federated service from Apollo Graph Manager and recompose remaining services
 
 ```
 USAGE
@@ -520,13 +562,20 @@ USAGE
 
 OPTIONS
   -c, --config=config        Path to your Apollo config file
-  -t, --tag=tag              The variant of the service to delete
-  --endpoint=endpoint        The url of your service
+
+  -g, --graph=graph          The ID of the graph in Apollo Graph Manager for which to delete an implementing service.
+                             Overrides config file if set.
+
+  -v, --variant=variant      The variant to delete the implementing service from
+
+  -y, --yes                  Bypass confirmation when deleting a service
+
+  --endpoint=endpoint        The URL for the CLI use to introspect your service
 
   --header=header            Additional header to send to server for introspectionQuery. May be used multiple times to
                              add multiple headers. NOTE: The `--endpoint` flag is REQUIRED if using the `--header` flag.
 
-  --key=key                  The API key for the Apollo Engine service
+  --key=key                  The API key to use for authentication to Apollo Graph Manager
 
   --serviceName=serviceName  (required) Provides the name of the implementing service for a federated graph
 ```
@@ -542,18 +591,24 @@ USAGE
   $ apollo service:download OUTPUT
 
 ARGUMENTS
-  OUTPUT  [default: schema.json] Path to write the introspection result to
+  OUTPUT  [default: schema.json] Path to write the introspection result to. Supports .json output only.
 
 OPTIONS
   -c, --config=config      Path to your Apollo config file
+
+  -g, --graph=graph        The ID of the graph in Apollo Graph Manager for which to download the schema for. Overrides
+                           config file if provided.
+
   -k, --skipSSLValidation  Allow connections to an SSL site without certs
-  -t, --tag=tag            [default: current] The published tag to check this service against
-  --endpoint=endpoint      The url of your service
+
+  -v, --variant=variant    The variant to download the schema of
+
+  --endpoint=endpoint      The URL for the CLI use to introspect your service
 
   --header=header          Additional header to send to server for introspectionQuery. May be used multiple times to add
                            multiple headers. NOTE: The `--endpoint` flag is REQUIRED if using the `--header` flag.
 
-  --key=key                The API key for the Apollo Engine service
+  --key=key                The API key to use for authentication to Apollo Graph Manager
 
 ALIASES
   $ apollo schema:download
@@ -570,21 +625,26 @@ USAGE
   $ apollo service:list
 
 OPTIONS
-  -c, --config=config  Path to your Apollo config file
-  -t, --tag=tag        The published tag to list the services from
-  --endpoint=endpoint  The url of your service
+  -c, --config=config    Path to your Apollo config file
 
-  --header=header      Additional header to send to server for introspectionQuery. May be used multiple times to add
-                       multiple headers. NOTE: The `--endpoint` flag is REQUIRED if using the `--header` flag.
+  -g, --graph=graph      The ID of the graph in Apollo Graph Manager for which to list implementing services. Overrides
+                         config file if set.
 
-  --key=key            The API key for the Apollo Engine service
+  -v, --variant=variant  The variant to list implementing services for
+
+  --endpoint=endpoint    The URL for the CLI use to introspect your service
+
+  --header=header        Additional header to send to server for introspectionQuery. May be used multiple times to add
+                         multiple headers. NOTE: The `--endpoint` flag is REQUIRED if using the `--header` flag.
+
+  --key=key              The API key to use for authentication to Apollo Graph Manager
 ```
 
 _See code: [src/commands/service/list.ts](https://github.com/apollographql/apollo-tooling/blob/master/packages/apollo/src/commands/service/list.ts)_
 
 ## `apollo service:push`
 
-Push a service to Engine
+Push a service definition to Apollo Graph Manager
 
 ```
 USAGE
@@ -592,14 +652,17 @@ USAGE
 
 OPTIONS
   -c, --config=config                Path to your Apollo config file
-  -t, --tag=tag                      [default: current] The tag to publish this service to
-  --endpoint=endpoint                The url of your service
+
+  -g, --graph=graph                  The ID of the graph in Apollo Graph Manager to publish your service to. Overrides
+                                     config file if set.
+
+  --endpoint=endpoint                The URL for the CLI use to introspect your service
 
   --header=header                    Additional header to send to server for introspectionQuery. May be used multiple
                                      times to add multiple headers. NOTE: The `--endpoint` flag is REQUIRED if using the
                                      `--header` flag.
 
-  --key=key                          The API key for the Apollo Engine service
+  --key=key                          The API key to use for authentication to Apollo Graph Manager
 
   --localSchemaFile=localSchemaFile  Path to one or more local GraphQL schema file(s), as introspection result or SDL.
                                      Supports comma-separated list of paths (ex.
@@ -621,11 +684,11 @@ _See code: [src/commands/service/push.ts](https://github.com/apollographql/apoll
 
 # Configuration
 
-The Apollo CLI and VS Code extension can be configured with an Apollo config file. Apollo configuration is stored as a plain object in an `apollo.config.js` file which exports the configuration. For more information about configuring an Apollo project, see: https://bit.ly/2ByILPj.
+The Apollo CLI and VS Code extension can be configured with an Apollo config file. Apollo configuration is stored as a plain object in an `apollo.config.js` file which exports the configuration. For more information about configuring an Apollo project, see: https://www.apollographql.com/docs/devtools/apollo-config/.
 
 > Note: the use of the `apollo` key in the project's package.json file for configuration is deprecated, and will no longer be supported in Apollo v3
 
-You'll need to set up your Apollo configuration for all the features of the Apollo CLI and VS Code extension to work correctly. For full details on how to do that, [visit our docs](https://www.apollographql.com/docs/references/apollo-config.html). A basic configuration (`apollo.config.js` style) looks something like this:
+You'll need to set up your Apollo configuration for all the features of the Apollo CLI and VS Code extension to work correctly. For full details on how to do that, [visit our docs](https://www.apollographql.com/docs/devtools/apollo-config/). A basic configuration (`apollo.config.js` style) looks something like this:
 
 ```js
 module.exports = {

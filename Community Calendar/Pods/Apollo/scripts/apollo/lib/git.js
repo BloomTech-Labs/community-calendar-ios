@@ -44,10 +44,8 @@ exports.gitInfo = async (log) => {
     const gitLoc = root ? root : findGitRoot();
     if (!commit)
         return;
-    let committer;
+    let committer, remoteUrl, message;
     let branch = ciBranch || prBranch;
-    let remoteUrl = process.env.BUILD_REPOSITORY_ID;
-    let message;
     if (gitLoc) {
         const _a = await git_parse_1.gitToJs(gitLoc)
             .then((commits) => commits && commits.length > 0

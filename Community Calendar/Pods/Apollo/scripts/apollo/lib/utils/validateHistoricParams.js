@@ -13,7 +13,7 @@ function validateHistoricParams({ validationPeriod, queryCountThreshold, queryCo
             ? -1 * moment_1.duration(Number(validationPeriod), "seconds").asSeconds()
             : -1 * moment_1.duration(validationPeriod).asSeconds();
         if (from >= 0) {
-            throw new Error("Please provide a valid duration for the --validationPeriod flag. Valid durations are represented in ISO 8601, see: https://bit.ly/2DEJ3UN.");
+            throw new Error("Please provide a valid duration for the --validationPeriod flag. Valid durations are represented in ISO 8601, see: https://go.apollo.dev/t/iso-durations.");
         }
     }
     if (queryCountThreshold &&

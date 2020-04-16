@@ -1,3 +1,4 @@
+// @generated
 //  This file was automatically generated and should not be edited.
 
 import Apollo
@@ -6,6 +7,12 @@ import Foundation
 public struct SearchFilters: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
+  /// - Parameters:
+  ///   - index
+  ///   - location
+  ///   - tags
+  ///   - ticketPrice
+  ///   - dateRange
   public init(index: Swift.Optional<String?> = nil, location: Swift.Optional<LocationSearchInput?> = nil, tags: Swift.Optional<[String]?> = nil, ticketPrice: Swift.Optional<[TicketPriceSearchInput]?> = nil, dateRange: Swift.Optional<DateRangeSearchInput?> = nil) {
     graphQLMap = ["index": index, "location": location, "tags": tags, "ticketPrice": ticketPrice, "dateRange": dateRange]
   }
@@ -59,6 +66,10 @@ public struct SearchFilters: GraphQLMapConvertible {
 public struct LocationSearchInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
+  /// - Parameters:
+  ///   - userLongitude
+  ///   - userLatitude
+  ///   - radius
   public init(userLongitude: Double, userLatitude: Double, radius: Int) {
     graphQLMap = ["userLongitude": userLongitude, "userLatitude": userLatitude, "radius": radius]
   }
@@ -94,6 +105,9 @@ public struct LocationSearchInput: GraphQLMapConvertible {
 public struct TicketPriceSearchInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
+  /// - Parameters:
+  ///   - minPrice
+  ///   - maxPrice
   public init(minPrice: Swift.Optional<Int?> = nil, maxPrice: Swift.Optional<Int?> = nil) {
     graphQLMap = ["minPrice": minPrice, "maxPrice": maxPrice]
   }
@@ -120,6 +134,9 @@ public struct TicketPriceSearchInput: GraphQLMapConvertible {
 public struct DateRangeSearchInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
+  /// - Parameters:
+  ///   - start
+  ///   - end
   public init(start: String, end: String) {
     graphQLMap = ["start": start, "end": end]
   }
@@ -146,6 +163,8 @@ public struct DateRangeSearchInput: GraphQLMapConvertible {
 public struct EventIdInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
+  /// - Parameters:
+  ///   - id
   public init(id: GraphQLID) {
     graphQLMap = ["id": id]
   }
@@ -162,7 +181,7 @@ public struct EventIdInput: GraphQLMapConvertible {
 
 public final class GetEventsByFilterQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
-  public let operationDefinition =
+  public let operationDefinition: String =
     """
     query getEventsByFilter($filters: SearchFilters) {
       events(searchFilters: $filters) {
@@ -220,7 +239,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
     }
     """
 
-  public let operationName = "getEventsByFilter"
+  public let operationName: String = "getEventsByFilter"
 
   public var filters: SearchFilters?
 
@@ -233,7 +252,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+    public static let possibleTypes: [String] = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
       GraphQLField("events", arguments: ["searchFilters": GraphQLVariable("filters")], type: .list(.nonNull(.object(Event.selections)))),
@@ -259,7 +278,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
     }
 
     public struct Event: GraphQLSelectionSet {
-      public static let possibleTypes = ["Event"]
+      public static let possibleTypes: [String] = ["Event"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -405,7 +424,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
       }
 
       public struct Creator: GraphQLSelectionSet {
-        public static let possibleTypes = ["User"]
+        public static let possibleTypes: [String] = ["User"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -472,7 +491,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
       }
 
       public struct EventImage: GraphQLSelectionSet {
-        public static let possibleTypes = ["EventImage"]
+        public static let possibleTypes: [String] = ["EventImage"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -509,7 +528,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
       }
 
       public struct Rsvp: GraphQLSelectionSet {
-        public static let possibleTypes = ["User"]
+        public static let possibleTypes: [String] = ["User"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -556,7 +575,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
       }
 
       public struct Url: GraphQLSelectionSet {
-        public static let possibleTypes = ["EventUrl"]
+        public static let possibleTypes: [String] = ["EventUrl"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -593,7 +612,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
       }
 
       public struct Location: GraphQLSelectionSet {
-        public static let possibleTypes = ["Location"]
+        public static let possibleTypes: [String] = ["Location"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -709,7 +728,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
         }
 
         public struct Neighborhood: GraphQLSelectionSet {
-          public static let possibleTypes = ["Neighborhood"]
+          public static let possibleTypes: [String] = ["Neighborhood"]
 
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -745,7 +764,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
           }
 
           public struct GeoJson: GraphQLSelectionSet {
-            public static let possibleTypes = ["GeoJson"]
+            public static let possibleTypes: [String] = ["GeoJson"]
 
             public static let selections: [GraphQLSelection] = [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -784,7 +803,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
       }
 
       public struct Tag: GraphQLSelectionSet {
-        public static let possibleTypes = ["Tag"]
+        public static let possibleTypes: [String] = ["Tag"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -835,7 +854,7 @@ public final class GetEventsByFilterQuery: GraphQLQuery {
 
 public final class GetEventsQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
-  public let operationDefinition =
+  public let operationDefinition: String =
     """
     query getEvents {
       events {
@@ -893,13 +912,13 @@ public final class GetEventsQuery: GraphQLQuery {
     }
     """
 
-  public let operationName = "getEvents"
+  public let operationName: String = "getEvents"
 
   public init() {
   }
 
   public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+    public static let possibleTypes: [String] = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
       GraphQLField("events", type: .list(.nonNull(.object(Event.selections)))),
@@ -925,7 +944,7 @@ public final class GetEventsQuery: GraphQLQuery {
     }
 
     public struct Event: GraphQLSelectionSet {
-      public static let possibleTypes = ["Event"]
+      public static let possibleTypes: [String] = ["Event"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1071,7 +1090,7 @@ public final class GetEventsQuery: GraphQLQuery {
       }
 
       public struct Creator: GraphQLSelectionSet {
-        public static let possibleTypes = ["User"]
+        public static let possibleTypes: [String] = ["User"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1138,7 +1157,7 @@ public final class GetEventsQuery: GraphQLQuery {
       }
 
       public struct EventImage: GraphQLSelectionSet {
-        public static let possibleTypes = ["EventImage"]
+        public static let possibleTypes: [String] = ["EventImage"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1175,7 +1194,7 @@ public final class GetEventsQuery: GraphQLQuery {
       }
 
       public struct Rsvp: GraphQLSelectionSet {
-        public static let possibleTypes = ["User"]
+        public static let possibleTypes: [String] = ["User"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1222,7 +1241,7 @@ public final class GetEventsQuery: GraphQLQuery {
       }
 
       public struct Url: GraphQLSelectionSet {
-        public static let possibleTypes = ["EventUrl"]
+        public static let possibleTypes: [String] = ["EventUrl"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1259,7 +1278,7 @@ public final class GetEventsQuery: GraphQLQuery {
       }
 
       public struct Location: GraphQLSelectionSet {
-        public static let possibleTypes = ["Location"]
+        public static let possibleTypes: [String] = ["Location"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1375,7 +1394,7 @@ public final class GetEventsQuery: GraphQLQuery {
         }
 
         public struct Neighborhood: GraphQLSelectionSet {
-          public static let possibleTypes = ["Neighborhood"]
+          public static let possibleTypes: [String] = ["Neighborhood"]
 
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1411,7 +1430,7 @@ public final class GetEventsQuery: GraphQLQuery {
           }
 
           public struct GeoJson: GraphQLSelectionSet {
-            public static let possibleTypes = ["GeoJson"]
+            public static let possibleTypes: [String] = ["GeoJson"]
 
             public static let selections: [GraphQLSelection] = [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1450,7 +1469,7 @@ public final class GetEventsQuery: GraphQLQuery {
       }
 
       public struct Tag: GraphQLSelectionSet {
-        public static let possibleTypes = ["Tag"]
+        public static let possibleTypes: [String] = ["Tag"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1501,7 +1520,7 @@ public final class GetEventsQuery: GraphQLQuery {
 
 public final class GetTagsQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
-  public let operationDefinition =
+  public let operationDefinition: String =
     """
     query getTags {
       tags {
@@ -1512,13 +1531,13 @@ public final class GetTagsQuery: GraphQLQuery {
     }
     """
 
-  public let operationName = "getTags"
+  public let operationName: String = "getTags"
 
   public init() {
   }
 
   public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+    public static let possibleTypes: [String] = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
       GraphQLField("tags", type: .list(.nonNull(.object(Tag.selections)))),
@@ -1544,7 +1563,7 @@ public final class GetTagsQuery: GraphQLQuery {
     }
 
     public struct Tag: GraphQLSelectionSet {
-      public static let possibleTypes = ["Tag"]
+      public static let possibleTypes: [String] = ["Tag"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1594,14 +1613,14 @@ public final class GetTagsQuery: GraphQLQuery {
 
 public final class RsvpToEventMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
-  public let operationDefinition =
+  public let operationDefinition: String =
     """
     mutation rsvpToEvent($id: EventIdInput!) {
       rsvpEvent(event: $id)
     }
     """
 
-  public let operationName = "rsvpToEvent"
+  public let operationName: String = "rsvpToEvent"
 
   public var id: EventIdInput
 
@@ -1614,7 +1633,7 @@ public final class RsvpToEventMutation: GraphQLMutation {
   }
 
   public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Mutation"]
+    public static let possibleTypes: [String] = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
       GraphQLField("rsvpEvent", arguments: ["event": GraphQLVariable("id")], type: .nonNull(.scalar(Bool.self))),
@@ -1643,7 +1662,7 @@ public final class RsvpToEventMutation: GraphQLMutation {
 
 public final class GetUserRsvPsQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
-  public let operationDefinition =
+  public let operationDefinition: String =
     """
     query getUserRSVPs($id: ID) {
       users(where: {id: $id}) {
@@ -1657,7 +1676,7 @@ public final class GetUserRsvPsQuery: GraphQLQuery {
     }
     """
 
-  public let operationName = "getUserRSVPs"
+  public let operationName: String = "getUserRSVPs"
 
   public var id: GraphQLID?
 
@@ -1670,7 +1689,7 @@ public final class GetUserRsvPsQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+    public static let possibleTypes: [String] = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
       GraphQLField("users", arguments: ["where": ["id": GraphQLVariable("id")]], type: .list(.nonNull(.object(User.selections)))),
@@ -1696,7 +1715,7 @@ public final class GetUserRsvPsQuery: GraphQLQuery {
     }
 
     public struct User: GraphQLSelectionSet {
-      public static let possibleTypes = ["User"]
+      public static let possibleTypes: [String] = ["User"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1732,7 +1751,7 @@ public final class GetUserRsvPsQuery: GraphQLQuery {
       }
 
       public struct Rsvp: GraphQLSelectionSet {
-        public static let possibleTypes = ["Event"]
+        public static let possibleTypes: [String] = ["Event"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),

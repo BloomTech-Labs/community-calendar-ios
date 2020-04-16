@@ -10,6 +10,8 @@ const graphql_1 = require("graphql");
 const tty_1 = __importDefault(require("tty"));
 const gaze_1 = require("gaze");
 const vscode_uri_1 = __importDefault(require("vscode-uri"));
+const chalk_1 = __importDefault(require("chalk"));
+const apollo_language_server_1 = require("apollo-language-server");
 const generate_1 = __importDefault(require("../../generate"));
 const Command_1 = require("../../Command");
 const waitForKey = async () => {
@@ -25,7 +27,7 @@ class Generate extends Command_1.ClientCommand {
     async run() {
         const { flags: { watch }, args: { output } } = this.parse(Generate);
         let write;
-        const run = () => this.runTasks(({ flags, args, project }) => {
+        const run = () => this.runTasks(({ flags, args, project, config }) => {
             let inferredTarget = "";
             if (["json", "swift", "typescript", "flow", "scala"].includes(flags.target)) {
                 inferredTarget = flags.target;
@@ -51,7 +53,7 @@ class Generate extends Command_1.ClientCommand {
                     task: async (ctx, task) => {
                         task.title = `Generating query files with '${inferredTarget}' target`;
                         const schema = await project.resolveSchema({
-                            tag: flags.tag
+                            tag: config.variant
                         });
                         if (!schema)
                             throw new Error("Error loading schema");
@@ -101,7 +103,13 @@ class Generate extends Command_1.ClientCommand {
                     return;
                 this.project.fileDidChange(vscode_uri_1.default.file(file).toString());
                 console.log("\nChange detected, generating types...");
-                write();
+                try {
+                    const fileCount = write();
+                    console.log(`${chalk_1.default.green("✔")} Wrote ${fileCount} files`);
+                }
+                catch (e) {
+                    apollo_language_server_1.Debug.error("Error while generating types: " + e.message);
+                }
             });
             if (tty_1.default.isatty(process.stdin.fd)) {
                 await waitForKey();
@@ -117,7 +125,7 @@ class Generate extends Command_1.ClientCommand {
 }
 exports.default = Generate;
 Generate.aliases = ["codegen:generate"];
-Generate.description = "Generate static types for GraphQL queries. Can use the published schema in Apollo Engine or a downloaded schema.";
+Generate.description = "Generate static types for GraphQL queries. Can use the published schema in Apollo Graph Manager or a downloaded schema.";
 Generate.flags = Object.assign(Object.assign({}, Command_1.ClientCommand.flags), { watch: command_1.flags.boolean({
         description: "Watch for file changes and reload codegen"
     }), target: command_1.flags.string({
@@ -154,7 +162,7 @@ Generate.flags = Object.assign(Object.assign({}, Command_1.ClientCommand.flags),
     }), outputFlat: command_1.flags.boolean({
         description: 'By default, TypeScript/Flow will put each generated file in a directory next to its source file using the value of the "output" as the directory name. Set "outputFlat" to put all generated files in the directory relative to the current working directory defined by "output".'
     }), globalTypesFile: command_1.flags.string({
-        description: 'By default, TypeScript will put a file named "globalTypes.ts" inside the "output" directory. Set "globalTypesFile" to specify a different path. Alternatively, set "fileExtension" to modify the extension of the file, for example "d.ts" will output "globalTypes.d.ts"'
+        description: 'By default, TypeScript will put a file named "globalTypes.ts" inside the "output" directory. Set "globalTypesFile" to specify a different path. Alternatively, set "tsFileExtension" to modify the extension of the file, for example "d.ts" will output "globalTypes.d.ts"'
     }), tsFileExtension: command_1.flags.string({
         description: 'By default, TypeScript will output "ts" files. Set "tsFileExtension" to specify a different file extension, for example "d.ts"'
     }) });

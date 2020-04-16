@@ -22,13 +22,14 @@ const getOperationManifestFromProject_1 = require("../../utils/getOperationManif
 const apollo_graphql_1 = require("apollo-graphql");
 const utils_1 = require("../../utils");
 const chalk_1 = __importDefault(require("chalk"));
+const sharedMessages_1 = require("../../utils/sharedMessages");
 class ClientPush extends Command_1.ClientCommand {
     async run() {
         const invalidOperationsErrorMessage = "encountered invalid operations";
         let result = "";
         try {
             await this.runTasks(({ flags, project, config }) => {
-                const clientBundleInfo = `${chalk_1.default.blue((config.client && config.client.name) || flags)}${chalk_1.default.blue((config.client &&
+                const clientBundleInfo = `${chalk_1.default.cyan((config.client && config.client.name) || flags)}${chalk_1.default.cyan((config.client &&
                     config.client.version &&
                     `@${config.client.version}`) ||
                     "")}`;
@@ -42,14 +43,14 @@ class ClientPush extends Command_1.ClientCommand {
                         }
                     },
                     {
-                        title: `Checked operations against ${chalk_1.default.blue(config.name || "")}@${chalk_1.default.blue(config.tag)}`,
+                        title: `Checked operations against ${chalk_1.default.cyan(config.graph + "@" + config.variant)}`,
                         task: async () => { }
                     },
                     {
                         title: "Pushing operations to operation registry",
                         task: async (_, task) => {
-                            if (!config.name) {
-                                throw new Error("No service found to link to Engine. Engine is required for this command.");
+                            if (!config.graph) {
+                                throw sharedMessages_1.graphUndefinedError;
                             }
                             const operationManifest = getOperationManifestFromProject_1.getOperationManifestFromProject(this.project);
                             const signatureToOperation = generateSignatureToOperationMap(this.project, config);
@@ -63,10 +64,10 @@ class ClientPush extends Command_1.ClientCommand {
                                     identifier: referenceID || name,
                                     version
                                 },
-                                id: config.name,
+                                id: config.graph,
                                 operations: operationManifest,
                                 manifestVersion: 2,
-                                graphVariant: config.tag
+                                graphVariant: config.variant
                             };
                             const { operations: _op } = variables, restVariables = __rest(variables, ["operations"]);
                             this.debug("Variables sent to Apollo");
@@ -81,7 +82,7 @@ class ClientPush extends Command_1.ClientCommand {
                                 if (invalidOperations) {
                                     invalidOperations.forEach(operation => {
                                         const { operationName, file } = signatureToOperation[operation.signature];
-                                        result += `\nError in: ${chalk_1.default.blue(file)}\n`;
+                                        result += `\nError in: ${chalk_1.default.cyan(file)}\n`;
                                         result += table_1.table([
                                             ["Status", "Operation", "Errors"],
                                             [

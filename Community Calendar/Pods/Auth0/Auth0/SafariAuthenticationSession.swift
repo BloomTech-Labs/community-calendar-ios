@@ -26,7 +26,6 @@ import SafariServices
 import AuthenticationServices
 #endif
 
-#if swift(>=3.2)
 @available(iOS 11.0, *)
 class SafariAuthenticationSession: AuthSession {
 
@@ -140,8 +139,7 @@ class SafariAuthenticationSession: AuthSession {
 @available(iOS 13.0, *)
 extension SafariAuthenticationSession: ASWebAuthenticationPresentationContextProviding {
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return UIApplication.shared.keyWindow ?? ASPresentationAnchor()
+        return UIApplication.shared()?.keyWindow ?? ASPresentationAnchor()
     }
 }
-#endif
 #endif

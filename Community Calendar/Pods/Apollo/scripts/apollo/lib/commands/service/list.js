@@ -10,6 +10,7 @@ const table_1 = require("table");
 const moment_1 = __importDefault(require("moment"));
 const apollo_language_server_1 = require("apollo-language-server");
 const chalk_1 = __importDefault(require("chalk"));
+const sharedMessages_1 = require("../../utils/sharedMessages");
 const formatImplementingService = (implementingService, effectiveDate = new Date()) => {
     return {
         name: implementingService.name,
@@ -41,31 +42,29 @@ function formatHumanReadable({ implementingServices, graphName, frontendUrl }) {
         ]));
         const serviceListUrlEnding = `/graph/${graphName}/service-list`;
         const targetUrl = `${frontendUrl}${serviceListUrlEnding}`;
-        result += `\n\nView full details at: ${targetUrl}`;
+        result += `\nView full details at: ${chalk_1.default.cyan(targetUrl)}\n`;
     }
     return result;
 }
 class ServiceList extends Command_1.ProjectCommand {
     async run() {
         const taskOutput = {};
-        let schema;
+        let graphID;
+        let graphVariant;
         try {
             await this.runTasks(({ config, flags, project }) => {
-                if (!apollo_language_server_1.isServiceProject(project)) {
-                    throw new Error("This project needs to be configured as a service project but is configured as a client project. Please see bit.ly/2ByILPj for help regarding configuration.");
-                }
-                const graphName = config.name;
-                const variant = flags.tag || config.tag || "current";
-                if (!graphName) {
-                    throw new Error("No service found to link to Engine");
+                graphID = config.graph;
+                graphVariant = config.variant;
+                if (!graphID) {
+                    throw sharedMessages_1.graphUndefinedError;
                 }
                 return [
                     {
-                        title: `Fetching list of services for graph ${chalk_1.default.blue(graphName + "@" + variant)}`,
+                        title: `Fetching list of services for graph ${chalk_1.default.cyan(graphID + "@" + graphVariant)}`,
                         task: async (ctx, task) => {
                             const { implementingServices } = await project.engine.listServices({
-                                id: graphName,
-                                graphVariant: variant
+                                id: graphID,
+                                graphVariant: graphVariant
                             });
                             const newContext = {
                                 implementingServices,
@@ -85,13 +84,9 @@ class ServiceList extends Command_1.ProjectCommand {
             }
             throw error;
         }
-        const { service } = taskOutput.config;
-        if (!service || !taskOutput.config) {
-            throw new Error("Service mising from config. This should have been validated elsewhere");
-        }
         this.log(formatHumanReadable({
             implementingServices: taskOutput.implementingServices,
-            graphName: taskOutput.config.name,
+            graphName: taskOutput.config.graph,
             frontendUrl: taskOutput.config.engine.frontend || apollo_language_server_1.DefaultEngineConfig.frontend
         }));
     }
@@ -100,6 +95,15 @@ exports.default = ServiceList;
 ServiceList.description = "List the services in a graph";
 ServiceList.flags = Object.assign(Object.assign({}, Command_1.ProjectCommand.flags), { tag: command_1.flags.string({
         char: "t",
-        description: "The published tag to list the services from"
+        description: "[Deprecated: please use --variant instead] The tag (AKA variant) to list implementing services for",
+        hidden: true,
+        exclusive: ["variant"]
+    }), variant: command_1.flags.string({
+        char: "v",
+        description: "The variant to list implementing services for",
+        exclusive: ["tag"]
+    }), graph: command_1.flags.string({
+        char: "g",
+        description: "The ID of the graph in Apollo Graph Manager for which to list implementing services. Overrides config file if set."
     }) });
 //# sourceMappingURL=list.js.map
