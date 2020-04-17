@@ -4,27 +4,31 @@ PODS:
   - Apollo/Core (0.21.0)
   - Auth0 (1.20.0):
     - SimpleKeychain
+  - JTAppleCalendar (8.0.3)
   - JWTDecode (2.4.1)
   - SimpleKeychain (0.9.0)
 
 DEPENDENCIES:
   - Apollo
   - Auth0 (~> 1.19)
+  - JTAppleCalendar
   - JWTDecode (~> 2.4)
 
 SPEC REPOS:
   trunk:
     - Apollo
     - Auth0
+    - JTAppleCalendar
     - JWTDecode
     - SimpleKeychain
 
 SPEC CHECKSUMS:
   Apollo: 56a0aa81b744bf2810a8277e705f155c91ac9055
   Auth0: 4a49703c66dfb2fc5445aa93296711dd0004fabf
+  JTAppleCalendar: 932cadea40b1051beab10f67843451d48ba16c99
   JWTDecode: 4bd4da0cdf0f8154fd467fa48499f34ec057fb88
   SimpleKeychain: 3be49072fd2d82de8fa83d847ef1e548622f8fc5
 
-PODFILE CHECKSUM: f0259b4a56b28570176cf044ffeaee3096010ea0
+PODFILE CHECKSUM: 0eaaccabc64924f35c5e031566abdfd3d8a3bc50
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.9.1

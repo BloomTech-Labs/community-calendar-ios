@@ -7,14 +7,27 @@
 //
 
 import UIKit
+import JTAppleCalendar
 
 class EventViewController: UIViewController, ControllerDelegate {
     var controller: Controller?
     
+    @IBOutlet weak var myEventsCollectionView: UICollectionView!
+    @IBOutlet weak var calendarCollectionView: JTACMonthView!
+    
+    var myEvents: [TestEventObject] = []
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        addEvents()
+        myEventsCollectionView.dataSource = self
+        myEventsCollectionView.delegate = self
+        calendarCollectionView.scrollingMode = .stopAtEachSection
+        calendarCollectionView.scrollDirection = .horizontal
+        calendarCollectionView.showsHorizontalScrollIndicator = false
+        calendarCollectionView.layer.borderWidth = 2.0
+        calendarCollectionView.layer.borderColor = UIColor.black.cgColor
     }
     
 

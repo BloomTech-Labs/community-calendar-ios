@@ -83,6 +83,15 @@
 		0EF6DDEF23E0D94F00D8A91B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */; };
 		0EF6DDF523E1FE1600D8A91B /* SearchResults.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */; };
 		0EF6DDF823E200FC00D8A91B /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */; };
+		4CE2E9302448D37C005AA6B5 /* EventViewController+CVDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E92F2448D37C005AA6B5 /* EventViewController+CVDataSource.swift */; };
+		4CE2E9322448D98D005AA6B5 /* EventViewController+CVDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9312448D98D005AA6B5 /* EventViewController+CVDelegate.swift */; };
+		4CE2E9352448E424005AA6B5 /* FeaturedEventLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */; };
+		4CE2E9372448F2EA005AA6B5 /* MyEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */; };
+		4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */; };
+		4CE2E93B24490A7B005AA6B5 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E93A24490A7B005AA6B5 /* DateCollectionViewCell.swift */; };
+		4CE2E93D24490B9A005AA6B5 /* EventVController+JTCalendarDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E93C24490B9A005AA6B5 /* EventVController+JTCalendarDataSource.swift */; };
+		4CE2E93F24490C2B005AA6B5 /* EventVC+JTCalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E93E24490C2B005AA6B5 /* EventVC+JTCalendarDelegate.swift */; };
+		4CE2E9412449195E005AA6B5 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9402449195E005AA6B5 /* DateHeader.swift */; };
 		EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF51CC4A23A83E4300FF4E62 /* Login.storyboard */; };
 		EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */; };
 		EFD4D3B023A98E6B00DDE283 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */; };
@@ -178,6 +187,15 @@
 		0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResults.storyboard; sourceTree = "<group>"; };
 		0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		4CE2E92F2448D37C005AA6B5 /* EventViewController+CVDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventViewController+CVDataSource.swift"; sourceTree = "<group>"; };
+		4CE2E9312448D98D005AA6B5 /* EventViewController+CVDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventViewController+CVDelegate.swift"; sourceTree = "<group>"; };
+		4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEventLayout.swift; sourceTree = "<group>"; };
+		4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventCollectionViewCell.swift; sourceTree = "<group>"; };
+		4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Decompression.swift"; sourceTree = "<group>"; };
+		4CE2E93A24490A7B005AA6B5 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		4CE2E93C24490B9A005AA6B5 /* EventVController+JTCalendarDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVController+JTCalendarDataSource.swift"; sourceTree = "<group>"; };
+		4CE2E93E24490C2B005AA6B5 /* EventVC+JTCalendarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+JTCalendarDelegate.swift"; sourceTree = "<group>"; };
+		4CE2E9402449195E005AA6B5 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.release.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Community_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +274,8 @@
 		0EB19D5223A82C5B00640A40 /* Community Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				4CE2E9332448E3F7005AA6B5 /* Layouts */,
+				4CE2E92E2448D316005AA6B5 /* Extensions */,
 				0EE3079D23AC52320045EFD1 /* Resources */,
 				0EE3079E23AC527E0045EFD1 /* View Controllers */,
 				0EE3079F23AC528D0045EFD1 /* Views */,
@@ -341,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				0E2B119623ED0FCB0072E72E /* SearchView.swift */,
+				4CE2E9402449195E005AA6B5 /* DateHeader.swift */,
 				0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */,
 				0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */,
 				0E9FDD7223A84FC100FD75A0 /* EventTableViewCell.swift */,
@@ -348,6 +369,8 @@
 				0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */,
 				0E0817CD23E8B1B70010532D /* MessageTableViewCell.swift */,
 				0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */,
+				4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */,
+				4CE2E93A24490A7B005AA6B5 /* DateCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -405,6 +428,26 @@
 				97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4CE2E92E2448D316005AA6B5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4CE2E92F2448D37C005AA6B5 /* EventViewController+CVDataSource.swift */,
+				4CE2E9312448D98D005AA6B5 /* EventViewController+CVDelegate.swift */,
+				4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */,
+				4CE2E93C24490B9A005AA6B5 /* EventVController+JTCalendarDataSource.swift */,
+				4CE2E93E24490C2B005AA6B5 /* EventVC+JTCalendarDelegate.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4CE2E9332448E3F7005AA6B5 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */,
+			);
+			path = Layouts;
 			sourceTree = "<group>";
 		};
 		AF02A3BECBE0CFBDE342171D /* Pods */ = {
@@ -625,16 +668,20 @@
 				0E09806B23E2A526000110AB /* SearchController.swift in Sources */,
 				0E7DD81E23CA4BAC009843BE /* ImageNotification.swift in Sources */,
 				0E2E723323EA5A47006F94D3 /* UIButton+Extension.swift in Sources */,
+				4CE2E93B24490A7B005AA6B5 /* DateCollectionViewCell.swift in Sources */,
+				4CE2E9352448E424005AA6B5 /* FeaturedEventLayout.swift in Sources */,
 				0EB19D5823A82C5B00640A40 /* HomeViewController.swift in Sources */,
 				0EA9732023EB260500085435 /* EventViewController.swift in Sources */,
 				0EF6DDED23DFFB7800D8A91B /* DropDownTextField.swift in Sources */,
 				0EE307A923AC53470045EFD1 /* Event.swift in Sources */,
+				4CE2E9412449195E005AA6B5 /* DateHeader.swift in Sources */,
 				0E64400223C63DC800A56B22 /* EventController.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
 				0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */,
 				0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */,
 				0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
+				4CE2E93F24490C2B005AA6B5 /* EventVC+JTCalendarDelegate.swift in Sources */,
 				0E86D5F723AC1C7900CF7012 /* API.swift in Sources */,
 				0E2E723123EA4082006F94D3 /* JWT+Extension.swift in Sources */,
 				0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */,
@@ -643,6 +690,7 @@
 				0EE2AC2B23CFFA0D002B3EB4 /* UIDevice+Extension.swift in Sources */,
 				0EA9732623EB39B500085435 /* String+Extension.swift in Sources */,
 				0EE2AC2523CE7133002B3EB4 /* CustomPushAnimator.swift in Sources */,
+				4CE2E93D24490B9A005AA6B5 /* EventVController+JTCalendarDataSource.swift in Sources */,
 				0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */,
 				0EF6DDF823E200FC00D8A91B /* SearchResultViewController.swift in Sources */,
 				0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */,
@@ -651,6 +699,7 @@
 				0EE2AC3123CFFB2C002B3EB4 /* Functions.swift in Sources */,
 				0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */,
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
+				4CE2E9302448D37C005AA6B5 /* EventViewController+CVDataSource.swift in Sources */,
 				0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */,
 				0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
@@ -659,8 +708,11 @@
 				0EA9732423EB324200085435 /* Controller.swift in Sources */,
 				0E0817CE23E8B1B70010532D /* MessageTableViewCell.swift in Sources */,
 				0EA9731E23EB228500085435 /* EventTabBarController.swift in Sources */,
+				4CE2E9322448D98D005AA6B5 /* EventViewController+CVDelegate.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
 				0E2B119523ECE53E0072E72E /* UserDefaults+Extension.swift in Sources */,
+				4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */,
+				4CE2E9372448F2EA005AA6B5 /* MyEventCollectionViewCell.swift in Sources */,
 				0EE2AC2D23CFFA4A002B3EB4 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -856,7 +908,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VXUQXR6S56;
+				DEVELOPMENT_TEAM = V5X7HQSSM6;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -879,7 +931,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VXUQXR6S56;
+				DEVELOPMENT_TEAM = V5X7HQSSM6;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
