@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZeL-Jq-9yj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZeL-Jq-9yj">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,14 +11,8 @@
         <array key="Poppins-Black.ttf">
             <string>Poppins-Black</string>
         </array>
-        <array key="Poppins-ExtraLight.ttf">
-            <string>Poppins-ExtraLight</string>
-        </array>
         <array key="Poppins-Regular.ttf">
             <string>Poppins-Regular</string>
-        </array>
-        <array key="Poppins-SemiBold.ttf">
-            <string>Poppins-SemiBold</string>
         </array>
     </customFonts>
     <scenes>
@@ -32,7 +26,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wcc-XP-aQD">
                                 <rect key="frame" x="0.0" y="463" width="414" height="350"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="350" id="sq9-WT-wGs"/>
                                 </constraints>
@@ -107,147 +101,41 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YB-FE-Xa2">
-                                <rect key="frame" x="20" y="73" width="374" height="35"/>
-                                <fontDescription key="fontDescription" name="Poppins-Black" family="Poppins" pointSize="25"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tZ4-Ol-x6u" customClass="JTACMonthView" customModule="JTAppleCalendar">
-                                <rect key="frame" x="20" y="111" width="374" height="344"/>
-                                <color key="backgroundColor" red="0.1721869707" green="0.1871494651" blue="0.22905066609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFU-Eb-AEi">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YB-FE-Xa2">
+                                        <rect key="frame" x="20" y="32" width="374" height="35"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Black" family="Poppins" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.17278988009999999" green="0.21882292240000001" blue="0.28800389389999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="344" id="zq2-Wj-sVb"/>
+                                    <constraint firstItem="2YB-FE-Xa2" firstAttribute="top" secondItem="VFU-Eb-AEi" secondAttribute="top" constant="32" id="4V3-5N-vz3"/>
+                                    <constraint firstAttribute="width" constant="414" id="MGO-rh-qIc"/>
+                                    <constraint firstAttribute="trailing" secondItem="2YB-FE-Xa2" secondAttribute="trailing" constant="20" id="WWr-cS-FMW"/>
+                                    <constraint firstItem="2YB-FE-Xa2" firstAttribute="leading" secondItem="VFU-Eb-AEi" secondAttribute="leading" constant="20" id="ZM2-FC-Bkw"/>
+                                    <constraint firstAttribute="height" constant="75" id="tU9-z5-uZh"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="IOg-H6-AFr">
-                                    <size key="itemSize" width="267" height="220"/>
-                                    <size key="headerReferenceSize" width="50" height="64"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DateCell" id="qzm-1X-iuP" customClass="DateCollectionViewCell" customModule="Community_Calendar" customModuleProvider="target">
-                                        <rect key="frame" x="53.5" y="64" width="267" height="220"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="eWC-45-ukH">
-                                            <rect key="frame" x="0.0" y="0.0" width="267" height="220"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thB-OS-rCw">
-                                                    <rect key="frame" x="230.5" y="8" width="28.5" height="17"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-ExtraLight" family="Poppins" pointSize="12"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstItem="thB-OS-rCw" firstAttribute="top" secondItem="eWC-45-ukH" secondAttribute="top" constant="8" id="3Jj-jn-T9o"/>
-                                                <constraint firstAttribute="trailing" secondItem="thB-OS-rCw" secondAttribute="trailing" constant="8" id="qNf-5P-o55"/>
-                                            </constraints>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="267" height="220"/>
-                                        <connections>
-                                            <outlet property="dateLabel" destination="thB-OS-rCw" id="GYw-zu-JvF"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="DateHeader" id="8ed-DQ-f9V" customClass="DateHeaderView" customModule="Community_Calendar" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="64"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jb2-nu-W3F">
-                                            <rect key="frame" x="159.5" y="0.0" width="55.5" height="24"/>
-                                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="tKZ-r5-XrM">
-                                            <rect key="frame" x="10.5" y="32" width="353" height="24"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHk-1C-Cn3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="31.5" height="24"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-ExtraLight" family="Poppins" pointSize="17"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MON" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsE-D5-hbs">
-                                                    <rect key="frame" x="54.5" y="0.0" width="39" height="24"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-ExtraLight" family="Poppins" pointSize="17"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TUE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEu-Tg-Wie">
-                                                    <rect key="frame" x="116.5" y="0.0" width="27.5" height="24"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-ExtraLight" family="Poppins" pointSize="17"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5h-x9-LvG">
-                                                    <rect key="frame" x="167" y="0.0" width="36.5" height="24"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-ExtraLight" family="Poppins" pointSize="17"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="THU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56I-jB-X1J">
-                                                    <rect key="frame" x="226.5" y="0.0" width="30.5" height="24"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-ExtraLight" family="Poppins" pointSize="17"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VyJ-SO-G3w">
-                                                    <rect key="frame" x="280" y="0.0" width="21.5" height="24"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-ExtraLight" family="Poppins" pointSize="17"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGj-Kq-rJC">
-                                                    <rect key="frame" x="324.5" y="0.0" width="28.5" height="24"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-ExtraLight" family="Poppins" pointSize="17"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </stackView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="tKZ-r5-XrM" secondAttribute="bottom" id="2Dk-fU-Bm2"/>
-                                        <constraint firstItem="tKZ-r5-XrM" firstAttribute="top" secondItem="jb2-nu-W3F" secondAttribute="bottom" constant="8" id="792-5d-JTE"/>
-                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="tKZ-r5-XrM" secondAttribute="trailing" id="80t-1e-pTl"/>
-                                        <constraint firstItem="tKZ-r5-XrM" firstAttribute="centerX" secondItem="8ed-DQ-f9V" secondAttribute="centerX" id="AJb-Gg-uwo"/>
-                                        <constraint firstItem="tKZ-r5-XrM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8ed-DQ-f9V" secondAttribute="leadingMargin" id="Fgx-fn-OCW"/>
-                                        <constraint firstItem="jb2-nu-W3F" firstAttribute="centerX" secondItem="8ed-DQ-f9V" secondAttribute="centerX" id="q5t-iE-OXU"/>
-                                    </constraints>
-                                    <connections>
-                                        <outlet property="monthLabel" destination="jb2-nu-W3F" id="x77-El-xoZ"/>
-                                    </connections>
-                                </collectionReusableView>
-                                <connections>
-                                    <outlet property="ibCalendarDataSource" destination="ZeL-Jq-9yj" id="7UK-tJ-S0e"/>
-                                    <outlet property="ibCalendarDelegate" destination="ZeL-Jq-9yj" id="Bqx-bF-JKK"/>
-                                </connections>
-                            </collectionView>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="VFU-Eb-AEi" firstAttribute="leading" secondItem="kCP-Nm-gug" secondAttribute="leading" id="6pq-v7-dLI"/>
                             <constraint firstItem="wcc-XP-aQD" firstAttribute="leading" secondItem="kCP-Nm-gug" secondAttribute="leading" id="Dyy-10-Ic6"/>
-                            <constraint firstItem="2YB-FE-Xa2" firstAttribute="top" secondItem="L8z-N3-w0m" secondAttribute="top" constant="73" id="GGP-0m-e9h"/>
-                            <constraint firstItem="kCP-Nm-gug" firstAttribute="trailing" secondItem="tZ4-Ol-x6u" secondAttribute="trailing" constant="20" id="MkU-WU-bwJ"/>
-                            <constraint firstItem="wcc-XP-aQD" firstAttribute="top" secondItem="tZ4-Ol-x6u" secondAttribute="bottom" constant="8" id="SZZ-nF-VyX"/>
+                            <constraint firstItem="VFU-Eb-AEi" firstAttribute="trailing" secondItem="kCP-Nm-gug" secondAttribute="trailing" id="Ppa-2S-UZx"/>
                             <constraint firstItem="wcc-XP-aQD" firstAttribute="bottom" secondItem="kCP-Nm-gug" secondAttribute="bottom" id="SxF-13-63a"/>
+                            <constraint firstItem="VFU-Eb-AEi" firstAttribute="top" secondItem="L8z-N3-w0m" secondAttribute="top" id="V5t-uf-inx"/>
                             <constraint firstItem="wcc-XP-aQD" firstAttribute="trailing" secondItem="kCP-Nm-gug" secondAttribute="trailing" id="Xun-yQ-dVf"/>
-                            <constraint firstItem="tZ4-Ol-x6u" firstAttribute="leading" secondItem="kCP-Nm-gug" secondAttribute="leading" constant="20" id="e8a-bV-jRm"/>
-                            <constraint firstItem="2YB-FE-Xa2" firstAttribute="leading" secondItem="L8z-N3-w0m" secondAttribute="leading" constant="20" id="gcl-b9-sa6"/>
-                            <constraint firstItem="2YB-FE-Xa2" firstAttribute="centerX" secondItem="L8z-N3-w0m" secondAttribute="centerX" id="vCQ-Z0-xOR"/>
-                            <constraint firstAttribute="trailing" secondItem="2YB-FE-Xa2" secondAttribute="trailing" constant="20" id="z6o-O5-cXB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kCP-Nm-gug"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Events" image="book" id="Eit-3D-Hxh"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="calendarCollectionView" destination="tZ4-Ol-x6u" id="aPf-YI-gul"/>
+                        <outlet property="blueHeaderView" destination="VFU-Eb-AEi" id="vRz-g5-8JU"/>
                         <outlet property="myEventsCollectionView" destination="wcc-XP-aQD" id="JcM-BC-PJ2"/>
                     </connections>
                 </viewController>

@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import JTAppleCalendar
-
-class DateCollectionViewCell: JTACDayCell {
-    
-    @IBOutlet weak var dateLabel: UILabel!
-    
-    
-}
+//import JTAppleCalendar
+//
+//class DateCollectionViewCell: JTACDayCell {
+//    
+//    @IBOutlet weak var dateLabel: UILabel!
+//    
+//    
+//}
