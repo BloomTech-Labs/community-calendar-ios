@@ -52,15 +52,17 @@ extension EventViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return myEvents.count
+        return tmController.events.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = myEventsCollectionView.dequeueReusableCell(withReuseIdentifier: "MyEventCell", for: indexPath) as? MyEventCollectionViewCell else { return UICollectionViewCell() }
         
-        let event = myEvents[indexPath.item]
-        cell.event = event
         
+        let event = tmController.events[indexPath.item]
+            
+        cell.event = event
+            
         return cell
     }
 }

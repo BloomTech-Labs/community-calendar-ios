@@ -11,7 +11,7 @@ import CoreLocation
 
 class SearchView: UIView, ControllerDelegate {
     //MARK: - Variables
-    var homeVC: HomeViewController!
+    var homeVC: HomeViewController?
     var controller: Controller?
     private var recentFiltersList = [Filter]() {
         didSet {
@@ -48,9 +48,9 @@ class SearchView: UIView, ControllerDelegate {
         searchViewTopConstraint.isActive = false
         
         if bool {
-            searchViewTopConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: homeVC.eventSearchBar, attribute: .bottom, multiplier: 1, constant: 3)
+            searchViewTopConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: homeVC?.eventSearchBar, attribute: .bottom, multiplier: 1, constant: 3)
         } else {
-            searchViewTopConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: homeVC.view, attribute: .bottom, multiplier: 1, constant: 0)
+            searchViewTopConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: homeVC?.view, attribute: .bottom, multiplier: 1, constant: 0)
         }
         searchViewTopConstraint.isActive = true
         searchViewBottomConstraint.isActive = bool
@@ -147,7 +147,7 @@ class SearchView: UIView, ControllerDelegate {
             return false
         }
         
-        if let alert = alert {
+        if let alert = alert, let homeVC = homeVC {
             homeVC.present(alert, animated: true)
         }
         
@@ -164,6 +164,7 @@ class SearchView: UIView, ControllerDelegate {
     
     //MARK: - IBActions
     @IBAction func nearByButtonTapped(_ sender: UIButton) {
+        guard let homeVC = homeVC else { return }
         if setUpLocation() {
             homeVC.currentFilter = nil
         }
@@ -186,6 +187,7 @@ extension SearchView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let homeVC = homeVC else { return }
         homeVC.currentFilter = recentFiltersList[indexPath.row]
         homeVC.performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
     }

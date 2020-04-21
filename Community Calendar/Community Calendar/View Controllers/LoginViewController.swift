@@ -18,7 +18,7 @@ import Auth0
 
 class LoginViewController: UIViewController, ControllerDelegate {
     // MARK: - Variables
-    var homeController = HomeViewController()
+//    var homeController = HomeViewController()
     var controller: Controller?
     
     var onAuth: ((Result<Credentials>) -> ())!

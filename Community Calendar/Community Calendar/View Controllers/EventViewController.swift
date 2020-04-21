@@ -15,13 +15,19 @@ class EventViewController: UIViewController, ControllerDelegate {
    
     @IBOutlet var blueHeaderView: UIView!
     
+    let tmController = TMEventController()
+    
     //MARK: - Properties
     var myEvents: [TestEventObject] = []
     
-    
+//    var homeVC = HomeViewController()
     var calendar = FSCalendar()
     var eventController: EventController?
-    var controller: Controller?
+    var controller: Controller? {
+        didSet {
+            
+        }
+    }
     var events: [Event]?
     
     var repeatCount = 1
@@ -44,6 +50,10 @@ class EventViewController: UIViewController, ControllerDelegate {
         setUp()
        // setPop() // Remove
         fetchEvents()
+        
+        tmController.getEvents { _, _ in
+            self.myEventsCollectionView.reloadData()
+        }
     }
     
 

@@ -11,8 +11,8 @@ import UIKit
 // The heights are declared as constants outside of the class so they can be easily referenced elsewhere
 struct FeaturedCellLayoutConstants {
     struct Cell {
-        static let featuredHeight: CGFloat = 250
-        static let standardHeight: CGFloat = 75
+        static let featuredHeight: CGFloat = UIScreen.main.bounds.height / 3.5
+        static let standardHeight: CGFloat = (UIScreen.main.bounds.height / 3.5) / 3
     }
 }
 

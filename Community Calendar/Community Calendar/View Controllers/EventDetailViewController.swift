@@ -222,13 +222,23 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EventsSegue" {
+            guard let eventVC = segue.destination as? EventViewController else { return }
+            eventVC.controller = controller
+        }
+    }
+    
     // MARK: - IBActions
     @IBAction func followHost(_ sender: UIButton) {
         
     }
     
     @IBAction func attendEvent(_ sender: UIButton) {
-        guard let controller = controller, let event = event else { return }
+        guard
+            let controller = controller,
+            let event = event
+            else { return }
         controller.rsvpToEvent(with: event.id) { bool, error in
             if let error = error {
                 var presentLogin = false
@@ -252,6 +262,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             }
             self.updateRSVP(with: bool)
         }
+        controller.myEvents.append(event)
+        self.performSegue(withIdentifier: "EventsSegue", sender: self)
     }
     
     @IBAction func showMore(_ sender: UIButton) {

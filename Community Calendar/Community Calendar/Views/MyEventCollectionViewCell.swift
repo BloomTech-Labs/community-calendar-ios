@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import MapKit
 
 class MyEventCollectionViewCell: UICollectionViewCell {
     
-    var event: TestEventObject? {
+    var event: EasyEvent? {
         didSet {
             updateViews()
         }
     }
+
     @IBOutlet weak var eventNameLabel: UILabel!
     @IBOutlet weak var eventDateLabel: UILabel!
     @IBOutlet weak var eventLocationLabel: UILabel!
@@ -38,7 +40,10 @@ class MyEventCollectionViewCell: UICollectionViewCell {
         
         let scale = max(delta, 0.5)
         eventNameLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
+        eventDateLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
+        eventLocationLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
         
+        eventNameLabel.alpha = delta
         eventDateLabel.alpha = delta
         eventLocationLabel.alpha = delta
         
@@ -48,11 +53,11 @@ class MyEventCollectionViewCell: UICollectionViewCell {
         guard let event = event else { return }
         
         eventNameLabel.text = event.eventName
-        eventDateLabel.text = event.eventDate
-        eventLocationLabel.text = event.eventLocation
+        eventDateLabel.text = event.stringEventDate
+        eventLocationLabel.text = event.eventAddress
         eventImageView.image = event.eventImage
-        self.layer.cornerRadius = 12
-        self.layer.borderWidth = 5
+        self.layer.cornerRadius = 7
+        self.layer.borderWidth = 3
         self.layer.borderColor = UIColor.black.cgColor
     }
 }

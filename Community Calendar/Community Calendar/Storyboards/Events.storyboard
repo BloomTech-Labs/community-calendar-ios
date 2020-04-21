@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZeL-Jq-9yj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZeL-Jq-9yj">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,7 +19,7 @@
         <!--Events-->
         <scene sceneID="iyA-v5-JWi">
             <objects>
-                <viewController id="ZeL-Jq-9yj" customClass="EventViewController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EventsViewController" id="ZeL-Jq-9yj" customClass="EventViewController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L8z-N3-w0m">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,28 +41,25 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9H8-Si-YWW">
                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="250" id="XIP-nS-gGC"/>
-                                                    </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2vb-DP-4RF">
                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d03-hm-1i3">
+                                                    <rect key="frame" x="0.0" y="25" width="250" height="25.5"/>
+                                                    <fontDescription key="fontDescription" name="Poppins-Black" family="Poppins" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EventDate" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ORg-6g-mNm">
-                                                    <rect key="frame" x="0.0" y="113" width="250" height="24"/>
+                                                    <rect key="frame" x="8" y="113" width="234" height="24"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d03-hm-1i3">
-                                                    <rect key="frame" x="0.0" y="25" width="250" height="35"/>
-                                                    <fontDescription key="fontDescription" name="Poppins-Black" family="Poppins" pointSize="25"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Event Location" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lcb-Fu-RFW">
-                                                    <rect key="frame" x="0.0" y="145" width="250" height="66"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Location" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lcb-Fu-RFW">
+                                                    <rect key="frame" x="8" y="145" width="234" height="66"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -70,24 +67,28 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="ORg-6g-mNm" firstAttribute="leading" secondItem="y9T-fp-xVN" secondAttribute="leading" id="00N-y2-nwK"/>
                                                 <constraint firstItem="ORg-6g-mNm" firstAttribute="centerY" secondItem="y9T-fp-xVN" secondAttribute="centerY" id="19V-JH-anr"/>
                                                 <constraint firstAttribute="trailing" secondItem="2vb-DP-4RF" secondAttribute="trailing" id="6Pt-MA-IJ7"/>
+                                                <constraint firstItem="d03-hm-1i3" firstAttribute="top" secondItem="y9T-fp-xVN" secondAttribute="top" constant="25" id="9TO-u4-7rU"/>
+                                                <constraint firstItem="ORg-6g-mNm" firstAttribute="top" relation="greaterThanOrEqual" secondItem="d03-hm-1i3" secondAttribute="bottom" constant="8" id="Gi8-Pk-jXi"/>
+                                                <constraint firstAttribute="bottom" secondItem="lcb-Fu-RFW" secondAttribute="bottom" constant="39" id="J7G-ft-W2Q"/>
+                                                <constraint firstItem="9H8-Si-YWW" firstAttribute="centerX" secondItem="y9T-fp-xVN" secondAttribute="centerX" id="KTc-w5-8Uz"/>
+                                                <constraint firstItem="9H8-Si-YWW" firstAttribute="top" secondItem="y9T-fp-xVN" secondAttribute="top" id="MCU-6T-Pce"/>
                                                 <constraint firstItem="ORg-6g-mNm" firstAttribute="centerX" secondItem="y9T-fp-xVN" secondAttribute="centerX" id="Mlc-kZ-qAK"/>
+                                                <constraint firstItem="ORg-6g-mNm" firstAttribute="leading" secondItem="y9T-fp-xVN" secondAttribute="leading" constant="8" id="N6i-s6-xYC"/>
                                                 <constraint firstItem="2vb-DP-4RF" firstAttribute="top" secondItem="y9T-fp-xVN" secondAttribute="top" id="Smb-ME-a2k"/>
-                                                <constraint firstItem="lcb-Fu-RFW" firstAttribute="leading" secondItem="y9T-fp-xVN" secondAttribute="leading" id="UJa-en-a4t"/>
                                                 <constraint firstItem="2vb-DP-4RF" firstAttribute="leading" secondItem="y9T-fp-xVN" secondAttribute="leading" id="VVR-UV-K79"/>
-                                                <constraint firstItem="d03-hm-1i3" firstAttribute="leading" secondItem="y9T-fp-xVN" secondAttribute="leading" id="bUR-f6-KQY"/>
-                                                <constraint firstAttribute="trailing" secondItem="d03-hm-1i3" secondAttribute="trailing" id="eD4-cy-mOQ"/>
-                                                <constraint firstItem="d03-hm-1i3" firstAttribute="top" secondItem="y9T-fp-xVN" secondAttribute="top" constant="25" id="ffv-aN-Lg0"/>
-                                                <constraint firstAttribute="trailing" secondItem="lcb-Fu-RFW" secondAttribute="trailing" id="gSH-jz-23w"/>
+                                                <constraint firstAttribute="trailing" secondItem="d03-hm-1i3" secondAttribute="trailing" id="VrH-qJ-06w"/>
+                                                <constraint firstItem="d03-hm-1i3" firstAttribute="leading" secondItem="y9T-fp-xVN" secondAttribute="leading" id="XhR-AT-TLM"/>
+                                                <constraint firstItem="lcb-Fu-RFW" firstAttribute="leading" secondItem="y9T-fp-xVN" secondAttribute="leading" constant="8" id="bZO-eb-CNK"/>
+                                                <constraint firstAttribute="trailing" secondItem="lcb-Fu-RFW" secondAttribute="trailing" constant="8" id="eeK-xQ-Cf0"/>
                                                 <constraint firstAttribute="bottom" secondItem="2vb-DP-4RF" secondAttribute="bottom" id="hkz-Wz-DmO"/>
                                                 <constraint firstAttribute="trailing" secondItem="9H8-Si-YWW" secondAttribute="trailing" id="jOw-zN-1Mw"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="lcb-Fu-RFW" secondAttribute="bottom" constant="8" id="kK5-Rq-XMK"/>
                                                 <constraint firstItem="9H8-Si-YWW" firstAttribute="leading" secondItem="y9T-fp-xVN" secondAttribute="leading" id="ll9-2c-654"/>
+                                                <constraint firstAttribute="bottom" secondItem="9H8-Si-YWW" secondAttribute="bottom" id="mB7-vz-kq9"/>
                                                 <constraint firstItem="9H8-Si-YWW" firstAttribute="centerY" secondItem="y9T-fp-xVN" secondAttribute="centerY" id="ohb-ci-gPI"/>
-                                                <constraint firstItem="lcb-Fu-RFW" firstAttribute="top" secondItem="ORg-6g-mNm" secondAttribute="bottom" constant="8" id="spr-9O-J0A"/>
-                                                <constraint firstAttribute="trailing" secondItem="ORg-6g-mNm" secondAttribute="trailing" id="xw2-pS-5AZ"/>
+                                                <constraint firstItem="lcb-Fu-RFW" firstAttribute="top" secondItem="ORg-6g-mNm" secondAttribute="bottom" constant="8" id="sIf-jx-GFN"/>
+                                                <constraint firstAttribute="trailing" secondItem="ORg-6g-mNm" secondAttribute="trailing" constant="8" id="tDf-Uw-Rmy"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="250" height="250"/>
