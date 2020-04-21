@@ -1,0 +1,24 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Community Calendar' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  
+  # Comment the next line if you would like to see framework warnings
+  inhibit_all_warnings!
+  
+  # Pods for Community Calendar
+  pod 'Auth0', '~> 1.19'
+  pod 'JWTDecode', '~> 2.4'
+  pod "Apollo"
+  
+  # Hides "-pie being ignored. It is only used when linking a main executable" warning from frameworks
+  post_install do |installer| # Access installer object
+    installer.pods_project.targets.each do |target| # Access target object
+      target.build_configurations.each do |config| # Access config object
+        config.build_settings['LD_NO_PIE'] = 'NO' # Set build setting with id 'LD_NO_PIE' to 'NO'
+      end
+    end
+  end
+end

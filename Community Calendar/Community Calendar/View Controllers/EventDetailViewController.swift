@@ -17,6 +17,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             updateViews()
         }
     }
+    
     var controller: Controller?
     var indexPath: IndexPath?
     let eventStore = EKEventStore()
