@@ -84,6 +84,8 @@
 		0EF6DDF523E1FE1600D8A91B /* SearchResults.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */; };
 		0EF6DDF823E200FC00D8A91B /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */; };
 		4C098F09244E870B0041E622 /* EasyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C098F08244E870B0041E622 /* EasyEvent.swift */; };
+		4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */; };
+		4C735F58244F7F61000BF5ED /* UIVIew+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */; };
 		4C9D2DC3244E556E0028B9D7 /* TicketMasterEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D2DC2244E556E0028B9D7 /* TicketMasterEvent.swift */; };
 		4C9D2DC5244E55BA0028B9D7 /* TMEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D2DC4244E55BA0028B9D7 /* TMEventController.swift */; };
 		4CE2E9302448D37C005AA6B5 /* EventViewController+CVDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E92F2448D37C005AA6B5 /* EventViewController+CVDataSource.swift */; };
@@ -189,6 +191,8 @@
 		0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResults.storyboard; sourceTree = "<group>"; };
 		0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		4C098F08244E870B0041E622 /* EasyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyEvent.swift; sourceTree = "<group>"; };
+		4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CVDelegateFlowLayout.swift"; sourceTree = "<group>"; };
+		4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Constraints.swift"; sourceTree = "<group>"; };
 		4C9D2DC2244E556E0028B9D7 /* TicketMasterEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketMasterEvent.swift; sourceTree = "<group>"; };
 		4C9D2DC4244E55BA0028B9D7 /* TMEventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMEventController.swift; sourceTree = "<group>"; };
 		4CE2E92F2448D37C005AA6B5 /* EventViewController+CVDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventViewController+CVDataSource.swift"; sourceTree = "<group>"; };
@@ -423,6 +427,7 @@
 				0E2E723023EA4082006F94D3 /* JWT+Extension.swift */,
 				0E2E723223EA5A47006F94D3 /* UIButton+Extension.swift */,
 				0EA9732523EB39B500085435 /* String+Extension.swift */,
+				4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -441,6 +446,7 @@
 				4CE2E92F2448D37C005AA6B5 /* EventViewController+CVDataSource.swift */,
 				4CE2E9312448D98D005AA6B5 /* EventViewController+CVDelegate.swift */,
 				4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */,
+				4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -693,6 +699,7 @@
 				0EA9732623EB39B500085435 /* String+Extension.swift in Sources */,
 				4C9D2DC3244E556E0028B9D7 /* TicketMasterEvent.swift in Sources */,
 				0EE2AC2523CE7133002B3EB4 /* CustomPushAnimator.swift in Sources */,
+				4C735F58244F7F61000BF5ED /* UIVIew+Constraints.swift in Sources */,
 				0E9FDD7523A8567B00FD75A0 /* FeaturedCollectionViewCell.swift in Sources */,
 				0EF6DDF823E200FC00D8A91B /* SearchResultViewController.swift in Sources */,
 				0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */,
@@ -700,6 +707,7 @@
 				4C098F09244E870B0041E622 /* EasyEvent.swift in Sources */,
 				0EE2AC2923CF5142002B3EB4 /* FilterViewController.swift in Sources */,
 				0EE2AC3123CFFB2C002B3EB4 /* Functions.swift in Sources */,
+				4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */,
 				0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */,
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
 				4CE2E9302448D37C005AA6B5 /* EventViewController+CVDataSource.swift in Sources */,

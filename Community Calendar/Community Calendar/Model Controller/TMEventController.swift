@@ -68,6 +68,7 @@ class TMEventController {
                 for event in fetchedEvents.events {
                     if let easyEvent = EasyEvent(ticketMasterEvent: event) {
                         self.events.append(easyEvent)
+                        let newEvent = EasyEvent(ticketMasterEvent: event)
                     }
                 }
                 let formatter = DateFormatter()

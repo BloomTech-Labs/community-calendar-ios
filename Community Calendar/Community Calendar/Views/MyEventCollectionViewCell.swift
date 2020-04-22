@@ -24,40 +24,46 @@ class MyEventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageCoverView: UIView!
     
     
-    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
-        super.apply(layoutAttributes)
-       
-        let standardHeight = FeaturedCellLayoutConstants.Cell.standardHeight
-        let featuredHeight = FeaturedCellLayoutConstants.Cell.featuredHeight
-       
-        let delta = 1 - (
-            (featuredHeight - frame.height) / (featuredHeight - standardHeight)
-        )
-       
-        let minAlpha: CGFloat = 0.3
-        let maxAlpha: CGFloat = 0.75
-        imageCoverView.alpha = maxAlpha - (delta * (maxAlpha - minAlpha))
-        
-        let scale = max(delta, 0.5)
-        eventNameLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
-        eventDateLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
-        eventLocationLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
-        
-        eventNameLabel.alpha = delta
-        eventDateLabel.alpha = delta
-        eventLocationLabel.alpha = delta
-        
-    }
+//    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+//        super.apply(layoutAttributes)
+//       
+//        let standardHeight = FeaturedCellLayoutConstants.Cell.standardHeight
+//        let featuredHeight = FeaturedCellLayoutConstants.Cell.featuredHeight
+//       
+//        let delta = 1 - (
+//            (featuredHeight - frame.height) / (featuredHeight - standardHeight)
+//        )
+//       
+//        let minAlpha: CGFloat = 0.3
+//        let maxAlpha: CGFloat = 0.75
+//        imageCoverView.alpha = maxAlpha - (delta * (maxAlpha - minAlpha))
+//        
+//        let scale = max(delta, 0.5)
+//        eventNameLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
+//        eventDateLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
+//        eventLocationLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
+//        
+//        eventNameLabel.alpha = delta
+//        eventDateLabel.alpha = delta
+//        eventLocationLabel.alpha = delta
+//        
+//    }
     
     func updateViews() {
-        guard let event = event else { return }
+        guard
+            let event = event,
+            let city = event.city,
+            let state = event.state,
+            let venue = event.venueName
+            else { return }
         
         eventNameLabel.text = event.eventName
         eventDateLabel.text = event.stringEventDate
-        eventLocationLabel.text = event.eventAddress
+        eventLocationLabel.text = "\(venue) - \(city), \(state)"
         eventImageView.image = event.eventImage
-        self.layer.cornerRadius = 7
-        self.layer.borderWidth = 3
-        self.layer.borderColor = UIColor.black.cgColor
+        eventImageView.layer.cornerRadius = 7
+//        self.layer.cornerRadius = 7
+//        self.layer.borderWidth = 1.5
+//        self.layer.borderColor = UIColor.black.cgColor
     }
 }

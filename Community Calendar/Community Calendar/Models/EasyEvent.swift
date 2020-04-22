@@ -14,13 +14,19 @@ class EasyEvent {
     var eventDate: Date?
     var stringEventDate: String?
     var eventAddress: String?
+    var city: String?
+    var state: String?
+    var venueName: String?
     
-    init(eventName: String, eventImage: UIImage?, eventDate: Date?, stringEventDate: String?, eventAddress: String?) {
+    init(eventName: String, eventImage: UIImage?, eventDate: Date?, stringEventDate: String?, eventAddress: String?, city: String?, state: String?, venueName: String?) {
         self.eventName = eventName
         self.eventImage = eventImage
         self.eventDate = eventDate
         self.stringEventDate = stringEventDate
         self.eventAddress = eventAddress
+        self.city = city
+        self.state = state
+        self.venueName = venueName
     }
     
     convenience init?(ticketMasterEvent: TicketMasterEvent) {
@@ -36,13 +42,16 @@ class EasyEvent {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .medium
+        dateFormatter.timeStyle = .short
         
         self.init(eventName: ticketMasterEvent.name,
                   eventImage: UIImage(data: data),
                   eventDate: ticketMasterEvent.dates.start.dateTime,
                   stringEventDate: dateFormatter.string(from: ticketMasterEvent.dates.start.dateTime),
-                  eventAddress: "\(streetAddress) \(city), \(state) \(zipCode)")
+                  eventAddress: "\(streetAddress) \(city), \(state) \(zipCode)",
+                  city: city,
+                  state: state,
+                  venueName: ticketMasterEvent.embedded.venues.first?.name)
     }
 }
 

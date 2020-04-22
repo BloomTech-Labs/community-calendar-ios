@@ -65,4 +65,6 @@ extension EventViewController: UICollectionViewDataSource {
             
         return cell
     }
+    
+
 }
