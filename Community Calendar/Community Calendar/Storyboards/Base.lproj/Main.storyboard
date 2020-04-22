@@ -32,6 +32,7 @@
                         <segue destination="kl8-6E-gu3" kind="relationship" relationship="viewControllers" id="0Ja-Wf-79f"/>
                         <segue destination="rdy-A1-6X3" kind="relationship" relationship="viewControllers" id="CRR-gL-A44"/>
                         <segue destination="yN9-Lq-TfV" kind="relationship" relationship="viewControllers" id="FnT-ii-kgk"/>
+                        <segue destination="H77-IT-jtx" kind="relationship" relationship="viewControllers" id="hAK-yq-84Y"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MgH-o5-fKh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -857,6 +858,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5Q-c0-ety" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1204" y="634"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="RDT-xE-T4O">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="go0-hr-GPo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController id="H77-IT-jtx" customClass="UserProfileViewController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LEo-fk-wPa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="oW7-7h-Dmg"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="5Rx-g3-BRa"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-704" y="898"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
