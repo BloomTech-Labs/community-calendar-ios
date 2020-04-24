@@ -118,19 +118,19 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
         cell.backgroundColor=UIColor.clear
         if indexPath.item <= firstWeekDayOfMonth - 2 {
             cell.isHidden=true
         } else {
             let calcDate = indexPath.row-firstWeekDayOfMonth+2
-            cell.isHidden=false
-            cell.lbl.text="\(calcDate)"
+            cell.isHidden = false
+            cell.lbl.text = "\(calcDate)"
             if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex {
-                cell.isUserInteractionEnabled=false
+                cell.isUserInteractionEnabled = false
                 cell.lbl.textColor = UIColor.lightGray
             } else {
-                cell.isUserInteractionEnabled=true
+                cell.isUserInteractionEnabled = true
                 cell.lbl.textColor = Style.activeCellLblColor
             }
         }
@@ -139,14 +139,14 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell=collectionView.cellForItem(at: indexPath)
-        cell?.backgroundColor=Colors.darkRed
+        cell?.backgroundColor = Colors.darkRed
         let lbl = cell?.subviews[1] as! UILabel
-        lbl.textColor=UIColor.white
+        lbl.textColor = UIColor.white
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell=collectionView.cellForItem(at: indexPath)
-        cell?.backgroundColor=UIColor.clear
+        cell?.backgroundColor = UIColor.clear
         let lbl = cell?.subviews[1] as! UILabel
         lbl.textColor = Style.activeCellLblColor
     }
@@ -172,7 +172,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func didChangeMonth(monthIndex: Int, year: Int) {
-        currentMonthIndex=monthIndex+1
+        currentMonthIndex = monthIndex+1
         currentYear = year
         
         //for leap year, make february month of 29 days
@@ -230,7 +230,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        let myCollectionView=UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        let myCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         myCollectionView.showsHorizontalScrollIndicator = false
         myCollectionView.translatesAutoresizingMaskIntoConstraints = false
         myCollectionView.backgroundColor = UIColor.clear
@@ -269,7 +269,7 @@ class dateCVCell: UICollectionViewCell {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = Colors.darkGray
-        label.translatesAutoresizingMaskIntoConstraints=false
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     

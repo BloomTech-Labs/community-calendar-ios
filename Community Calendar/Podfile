@@ -12,7 +12,6 @@ target 'Community Calendar' do
   pod 'Auth0', '~> 1.19'
   pod 'JWTDecode', '~> 2.4'
   pod "Apollo"
-  pod 'FSCalendar'
   
   # Hides "-pie being ignored. It is only used when linking a main executable" warning from frameworks
   post_install do |installer| # Access installer object
