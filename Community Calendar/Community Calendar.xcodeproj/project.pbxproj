@@ -83,6 +83,9 @@
 		0EF6DDEF23E0D94F00D8A91B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */; };
 		0EF6DDF523E1FE1600D8A91B /* SearchResults.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */; };
 		0EF6DDF823E200FC00D8A91B /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */; };
+		4571FCB524527A36001DE2A2 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCB424527A36001DE2A2 /* CalendarView.swift */; };
+		4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */; };
+		4571FCBB24527C61001DE2A2 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCBA24527C61001DE2A2 /* MonthView.swift */; };
 		4C098F09244E870B0041E622 /* EasyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C098F08244E870B0041E622 /* EasyEvent.swift */; };
 		4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */; };
 		4C735F58244F7F61000BF5ED /* UIVIew+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */; };
@@ -190,6 +193,9 @@
 		0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResults.storyboard; sourceTree = "<group>"; };
 		0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		4571FCB424527A36001DE2A2 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
+		4571FCBA24527C61001DE2A2 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		4C098F08244E870B0041E622 /* EasyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyEvent.swift; sourceTree = "<group>"; };
 		4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CVDelegateFlowLayout.swift"; sourceTree = "<group>"; };
 		4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Constraints.swift"; sourceTree = "<group>"; };
@@ -281,6 +287,7 @@
 		0EB19D5223A82C5B00640A40 /* Community Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				4571FCB1245279A8001DE2A2 /* Custom Calendar Layout */,
 				4CE2E9332448E3F7005AA6B5 /* Layouts */,
 				4CE2E92E2448D316005AA6B5 /* Extensions */,
 				0EE3079D23AC52320045EFD1 /* Resources */,
@@ -430,6 +437,16 @@
 				4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4571FCB1245279A8001DE2A2 /* Custom Calendar Layout */ = {
+			isa = PBXGroup;
+			children = (
+				4571FCBA24527C61001DE2A2 /* MonthView.swift */,
+				4571FCB424527A36001DE2A2 /* CalendarView.swift */,
+				4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */,
+			);
+			path = "Custom Calendar Layout";
 			sourceTree = "<group>";
 		};
 		4B1C6C772E89C0E95EBE07DE /* Frameworks */ = {
@@ -712,6 +729,7 @@
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
 				4CE2E9302448D37C005AA6B5 /* EventViewController+CVDataSource.swift in Sources */,
 				0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */,
+				4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */,
 				0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
 				0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */,
@@ -721,7 +739,9 @@
 				0EA9731E23EB228500085435 /* EventTabBarController.swift in Sources */,
 				4CE2E9322448D98D005AA6B5 /* EventViewController+CVDelegate.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
+				4571FCBB24527C61001DE2A2 /* MonthView.swift in Sources */,
 				0E2B119523ECE53E0072E72E /* UserDefaults+Extension.swift in Sources */,
+				4571FCB524527A36001DE2A2 /* CalendarView.swift in Sources */,
 				4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */,
 				4C9D2DC5244E55BA0028B9D7 /* TMEventController.swift in Sources */,
 				4CE2E9372448F2EA005AA6B5 /* MyEventCollectionViewCell.swift in Sources */,

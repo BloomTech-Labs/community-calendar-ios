@@ -9,6 +9,11 @@
 import UIKit
 import FSCalendar
 
+enum MyTheme {
+      case light
+      case dark
+  }
+
 class EventViewController: UIViewController, ControllerDelegate {
    
     //MARK: - IBOutlets
@@ -44,8 +49,10 @@ class EventViewController: UIViewController, ControllerDelegate {
         addEvents()
         myEventsCollectionView.dataSource = self
         myEventsCollectionView.delegate = self
-        setUpCalendar()
+       // setUpCalendar()
         fetchEvents()
+        
+        calendarViewDidLoad()
         
         tmController.getEvents { _, _ in
             self.myEventsCollectionView.reloadData()
@@ -118,27 +125,27 @@ class EventViewController: UIViewController, ControllerDelegate {
     
  
     
-    //MARK: - Calendar Setup
-    func setUpCalendar() {
-        calendarView.addSubview(calendar)
-//        calendarView.layer.cornerRadius = 12
-//        calendarView.layer.borderWidth = 2.0
-//        calendarView.layer.borderColor = UIColor.black.cgColor
-//        calendarView.layer.shadowRadius = 15
-        calendar.anchor(top: calendarView.topAnchor, leading: calendarView.leadingAnchor, trailing: calendarView.trailingAnchor, bottom: calendarView.bottomAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
-    
-        calendar.dataSource = self
-        calendar.delegate = self
-        calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "CELL")
-        calendar.addBorder(toSide: .Bottom, withColor: UIColor.black.cgColor, andThickness: 1.0)
-        
-//        calendar.backgroundColor = .white
-//        calendar.layer.cornerRadius = 12
-//        calendar.layer.shadowRadius = 20
-
-//        calendar.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(calendar)
-    
+//    //MARK: - Calendar Setup
+//    func setUpCalendar() {
+//        calendarView.addSubview(calendar)
+////        calendarView.layer.cornerRadius = 12
+////        calendarView.layer.borderWidth = 2.0
+////        calendarView.layer.borderColor = UIColor.black.cgColor
+////        calendarView.layer.shadowRadius = 15
+//        calendar.anchor(top: calendarView.topAnchor, leading: calendarView.leadingAnchor, trailing: calendarView.trailingAnchor, bottom: calendarView.bottomAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
+//
+//        calendar.dataSource = self
+//        calendar.delegate = self
+//        calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "CELL")
+//        calendar.addBorder(toSide: .Bottom, withColor: UIColor.black.cgColor, andThickness: 1.0)
+//
+////        calendar.backgroundColor = .white
+////        calendar.layer.cornerRadius = 12
+////        calendar.layer.shadowRadius = 20
+//
+////        calendar.translatesAutoresizingMaskIntoConstraints = false
+////        view.addSubview(calendar)
+//
     
     
     
@@ -155,51 +162,105 @@ class EventViewController: UIViewController, ControllerDelegate {
 //        calendar.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 6).isActive = true
 //        calendar.heightAnchor.constraint(equalToConstant: 417).isActive = true
 //        calendar.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-    }
     
     
-    
+    //MARK:- Custom Calendar
 
-}
-
-//MARK: - Calendar Delegation
-extension EventViewController: FSCalendarDelegate, FSCalendarDataSource {
-
-    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        let cell = calendar.dequeueReusableCell(withIdentifier: "CELL", for: date, at: position)
-        return cell
-    }
     
-    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+    var theme = MyTheme.light
+    
+    func calendarViewDidLoad() {
+       // super.viewDidLoad()
+        self.title = "My Calender"
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.view.backgroundColor = Style.bgColor
         
-        tmController.events.count
+        view.addSubview(calenderView)
+        calenderView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
+        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
+        calenderView.heightAnchor.constraint(equalToConstant: 365).isActive = true
+        
+        let rightBarBtn = UIBarButtonItem(title: "Light", style: .plain, target: self, action: #selector(rightBarBtnAction))
+        self.navigationItem.rightBarButtonItem = rightBarBtn
     }
     
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        //popView.isHidden.toggle() // Old Pop View Display.
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        calenderView.myCollectionView.collectionViewLayout.invalidateLayout()
     }
     
-    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-    }
-    
-    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-        return monthPosition == FSCalendarMonthPosition.current
-    }
-}
-
-extension UIView {
-    enum ViewSide {
-        case Left, Right, Top, Bottom
-    }
-    func addBorder(toSide side: ViewSide, withColor color: CGColor, andThickness thickness: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color
-        switch side {
-        case .Left: border.frame = CGRect(x: frame.minX, y: frame.minY, width: thickness, height: frame.height); break
-        case .Right: border.frame = CGRect(x: frame.maxX, y: frame.minY, width: thickness, height: frame.height); break
-        case .Top: border.frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: thickness); break
-        case .Bottom: border.frame = CGRect(x: frame.minX, y: frame.maxY, width: frame.width, height: thickness); break
+    // Light/ Dark Button Action
+    @objc func rightBarBtnAction(sender: UIBarButtonItem) {
+        if theme == .dark {
+            sender.title = "Dark"
+            theme = .light
+            Style.themeLight()
+        } else {
+            sender.title = "Light"
+            theme = .dark
+            Style.themeDark()
         }
-        layer.addSublayer(border)
+        self.view.backgroundColor = Style.bgColor
+        calenderView.changeTheme()
     }
-}
+    
+    let calenderView: CalenderView = {
+        let v=CalenderView(theme: MyTheme.light)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    
+    
+    
+    }
+
+
+    
+    
+    
+
+
+
+////MARK: - Calendar Delegation
+//extension EventViewController: FSCalendarDelegate, FSCalendarDataSource {
+//
+//    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+//        let cell = calendar.dequeueReusableCell(withIdentifier: "CELL", for: date, at: position)
+//        return cell
+//    }
+//
+//    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+//
+//        tmController.events.count
+//    }
+//
+//    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+//        //popView.isHidden.toggle() // Old Pop View Display.
+//    }
+//
+//    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+//    }
+//
+//    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+//        return monthPosition == FSCalendarMonthPosition.current
+//    }
+//}
+//
+//extension UIView {
+//    enum ViewSide {
+//        case Left, Right, Top, Bottom
+//    }
+//    func addBorder(toSide side: ViewSide, withColor color: CGColor, andThickness thickness: CGFloat) {
+//        let border = CALayer()
+//        border.backgroundColor = color
+//        switch side {
+//        case .Left: border.frame = CGRect(x: frame.minX, y: frame.minY, width: thickness, height: frame.height); break
+//        case .Right: border.frame = CGRect(x: frame.maxX, y: frame.minY, width: thickness, height: frame.height); break
+//        case .Top: border.frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: thickness); break
+//        case .Bottom: border.frame = CGRect(x: frame.minX, y: frame.maxY, width: frame.width, height: thickness); break
+//        }
+//        layer.addSublayer(border)
+//    }
+//}

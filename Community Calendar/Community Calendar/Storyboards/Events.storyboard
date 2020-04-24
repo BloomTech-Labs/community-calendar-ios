@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZeL-Jq-9yj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tTN-uz-0Cj">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,7 +16,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Events-->
+        <!--Event View Controller-->
         <scene sceneID="iyA-v5-JWi">
             <objects>
                 <viewController storyboardIdentifier="EventsViewController" id="ZeL-Jq-9yj" customClass="EventViewController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,7 +33,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPT-2D-pXY">
-                                <rect key="frame" x="0.0" y="44" width="414" height="342"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="298"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wcc-XP-aQD">
@@ -162,7 +162,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kCP-Nm-gug"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Events" image="book" id="Eit-3D-Hxh"/>
+                    <navigationItem key="navigationItem" id="3II-WS-Esx"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="calendarView" destination="DPT-2D-pXY" id="BOZ-Ko-Av8"/>
@@ -170,6 +170,25 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U92-ZD-avV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="679.71014492753625" y="177.45535714285714"/>
+        </scene>
+        <!--Events-->
+        <scene sceneID="VuA-W2-ukS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tTN-uz-0Cj" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Events" image="book" id="Eit-3D-Hxh"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XwJ-yb-rVR">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZeL-Jq-9yj" kind="relationship" relationship="rootViewController" id="DVb-Ce-pMc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5qZ-dn-c1Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-230.43478260869566" y="177.45535714285714"/>
         </scene>
