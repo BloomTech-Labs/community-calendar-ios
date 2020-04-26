@@ -10,10 +10,10 @@ import UIKit
 
 extension EventViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let layout = collectionView.collectionViewLayout as? FeaturedEventLayout else { return }
-        let offset = layout.dragOffset * CGFloat(indexPath.item)
-        if collectionView.contentOffset.y != offset {
-            collectionView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
+        if collectionView == myEventsCollectionView {
+            collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        } else if collectionView == detailAndCalendarCollectionView {
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
     }
 }

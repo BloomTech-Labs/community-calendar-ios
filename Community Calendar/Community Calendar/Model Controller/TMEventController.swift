@@ -30,7 +30,7 @@ class TMEventController {
         var urlComponents = URLComponents(url: eventURL, resolvingAgainstBaseURL: true)
         urlComponents?.queryItems = [URLQueryItem(name: "apikey", value: apiKey),
                                      URLQueryItem(name: "marketId", value: "41"),
-                                     URLQueryItem(name: "size", value: "100")]
+                                     URLQueryItem(name: "size", value: "75")]
         guard let requestURL = urlComponents?.url else { return }
         
         var request = URLRequest(url: requestURL)

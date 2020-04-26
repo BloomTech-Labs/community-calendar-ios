@@ -19,6 +19,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     //MARK: - IBOutlets
     @IBOutlet weak var myEventsCollectionView: UICollectionView!
     @IBOutlet weak var calendarView: UIView!
+    @IBOutlet weak var detailAndCalendarCollectionView: UICollectionView!
     
     
   
@@ -30,6 +31,14 @@ class EventViewController: UIViewController, ControllerDelegate {
     var eventController: EventController?
     var controller: Controller?
     var events: [Event]?
+    var detailEvent: EasyEvent?
+    var scrollTimer: Timer?
+    var featuredIndexPath: IndexPath? {
+        didSet {
+            
+        }
+    }
+    
     
     var repeatCount = 1
     
@@ -50,15 +59,15 @@ class EventViewController: UIViewController, ControllerDelegate {
         myEventsCollectionView.delegate = self
       
         fetchEvents()
+        setupSubViews()
         
-        calendarViewDidLoad()
         
         tmController.getEvents { _, _ in
             self.myEventsCollectionView.reloadData()
             
         }
     }
-
+    
  //MARK: - GraphQL Fetch
         private func fetchEvents() {
             controller?.getEvents { result in
@@ -96,7 +105,29 @@ class EventViewController: UIViewController, ControllerDelegate {
         return events
     }
 
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+    }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+    
+    @objc func updateIndexPath(_: Selector) {
+        let featuredIndexPath = self.myEventsCollectionView.indexPathsForVisibleItems.first
+        self.featuredIndexPath = featuredIndexPath
+        print("This is the inside featuredIndexPath: \(String(describing: featuredIndexPath))")
+        print("This is the outside featuredIndexPath: \(String(describing: self.featuredIndexPath))")
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let featuredIndexPath = self.myEventsCollectionView.indexPathsForVisibleItems.first
+        self.featuredIndexPath = featuredIndexPath
+        print("This is the inside featuredIndexPath: \(String(describing: featuredIndexPath))")
+        print("This is the outside featuredIndexPath: \(String(describing: self.featuredIndexPath))")
+        scrollView.decelerationRate = .fast
+        scrollView.bouncesZoom = true
+    }
     
     private func setUpTimer() {
            fetchEventsTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
@@ -121,7 +152,20 @@ class EventViewController: UIViewController, ControllerDelegate {
            }
        }
     
-    
+    func setupSubViews() {
+        myEventsCollectionView.dataSource = self
+        myEventsCollectionView.delegate = self
+        detailAndCalendarCollectionView.dataSource = self
+        detailAndCalendarCollectionView.delegate = self
+        myEventsCollectionView.anchor(top: view.centerYAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: -80, left: 0, bottom: 0, right: 0), size: .zero)
+        detailAndCalendarCollectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: myEventsCollectionView.topAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
+        if let flowLayout = detailAndCalendarCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = .horizontal
+            flowLayout.minimumLineSpacing = 0
+            detailAndCalendarCollectionView.isPagingEnabled = true
+            myEventsCollectionView.isPagingEnabled = true
+        }
+    }
  
     //MARK:- Custom Calendar
 
@@ -169,10 +213,6 @@ class EventViewController: UIViewController, ControllerDelegate {
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
-    
-    
-    
-    
 }
 
 

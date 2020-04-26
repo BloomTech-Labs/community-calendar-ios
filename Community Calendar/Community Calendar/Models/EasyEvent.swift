@@ -37,7 +37,8 @@ class EasyEvent {
             let streetAddress = ticketMasterEvent.embedded.venues.first?.address.line1,
             let city = ticketMasterEvent.embedded.venues.first?.city.name,
             let state = ticketMasterEvent.embedded.venues.first?.state.stateCode,
-            let zipCode = ticketMasterEvent.embedded.venues.first?.postalCode
+            let zipCode = ticketMasterEvent.embedded.venues.first?.postalCode,
+            let date = ticketMasterEvent.dates.start.dateTime
             else { return nil }
         
         let dateFormatter = DateFormatter()
@@ -47,7 +48,7 @@ class EasyEvent {
         self.init(eventName: ticketMasterEvent.name,
                   eventImage: UIImage(data: data),
                   eventDate: ticketMasterEvent.dates.start.dateTime,
-                  stringEventDate: dateFormatter.string(from: ticketMasterEvent.dates.start.dateTime),
+                  stringEventDate: dateFormatter.string(from: date),
                   eventAddress: "\(streetAddress) \(city), \(state) \(zipCode)",
                   city: city,
                   state: state,

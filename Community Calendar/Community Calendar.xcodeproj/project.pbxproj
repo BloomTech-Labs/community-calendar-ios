@@ -87,6 +87,8 @@
 		4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */; };
 		4571FCBB24527C61001DE2A2 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCBA24527C61001DE2A2 /* MonthView.swift */; };
 		4C098F09244E870B0041E622 /* EasyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C098F08244E870B0041E622 /* EasyEvent.swift */; };
+		4C6747D22453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */; };
+		4C6747D42453D87400AE768E /* UIView+DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D32453D87400AE768E /* UIView+DropShadow.swift */; };
 		4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */; };
 		4C735F58244F7F61000BF5ED /* UIVIew+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */; };
 		4C9D2DC3244E556E0028B9D7 /* TicketMasterEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D2DC2244E556E0028B9D7 /* TicketMasterEvent.swift */; };
@@ -197,6 +199,8 @@
 		4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
 		4571FCBA24527C61001DE2A2 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		4C098F08244E870B0041E622 /* EasyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyEvent.swift; sourceTree = "<group>"; };
+		4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Detail+CalendarCollectionViewCell.swift"; sourceTree = "<group>"; };
+		4C6747D32453D87400AE768E /* UIView+DropShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DropShadow.swift"; sourceTree = "<group>"; };
 		4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CVDelegateFlowLayout.swift"; sourceTree = "<group>"; };
 		4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Constraints.swift"; sourceTree = "<group>"; };
 		4C9D2DC2244E556E0028B9D7 /* TicketMasterEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketMasterEvent.swift; sourceTree = "<group>"; };
@@ -385,6 +389,7 @@
 				0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */,
 				4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */,
 				4CE2E93A24490A7B005AA6B5 /* DateCollectionViewCell.swift */,
+				4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -435,6 +440,7 @@
 				0E2E723223EA5A47006F94D3 /* UIButton+Extension.swift */,
 				0EA9732523EB39B500085435 /* String+Extension.swift */,
 				4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */,
+				4C6747D32453D87400AE768E /* UIView+DropShadow.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -706,6 +712,7 @@
 				0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */,
 				0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */,
 				0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */,
+				4C6747D22453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
 				0E86D5F723AC1C7900CF7012 /* API.swift in Sources */,
 				0E2E723123EA4082006F94D3 /* JWT+Extension.swift in Sources */,
@@ -742,6 +749,7 @@
 				4571FCBB24527C61001DE2A2 /* MonthView.swift in Sources */,
 				0E2B119523ECE53E0072E72E /* UserDefaults+Extension.swift in Sources */,
 				4571FCB524527A36001DE2A2 /* CalendarView.swift in Sources */,
+				4C6747D42453D87400AE768E /* UIView+DropShadow.swift in Sources */,
 				4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */,
 				4C9D2DC5244E55BA0028B9D7 /* TMEventController.swift in Sources */,
 				4CE2E9372448F2EA005AA6B5 /* MyEventCollectionViewCell.swift in Sources */,

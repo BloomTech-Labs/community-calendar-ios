@@ -65,9 +65,9 @@ struct Dates: Codable {
 }
 
 struct Start: Codable {
-    let localDate: String
-    let localTime: String
-    let dateTime: Date
+    let localDate: String?
+    let localTime: String?
+    let dateTime: Date?
     
     enum CodingKeys: String, CodingKey {
         case localDate = "localDate"

@@ -8,9 +8,22 @@
 
 import UIKit
 
+
+
 extension EventViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 9)
+        if collectionView == myEventsCollectionView {
+            return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 9)
+        } else if collectionView == detailAndCalendarCollectionView {
+            if indexPath.item == 0 {
+                return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 1.5)
+            } else if indexPath.item == 1 {
+                return CGSize(width: UIScreen.main.bounds.width, height: detailAndCalendarCollectionView.bounds.height - 10)
+            }
+                
+//                view.bounds.height - myEventsCollectionView.bounds.height - 100)
+        }
+        return CGSize()
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
