@@ -145,3 +145,7 @@ enum DetailCalendar: CaseIterable {
     case detail
     case calendar
 }
+
+extension NSNotification.Name {
+    static let updateEvent = NSNotification.Name("updateEvent")
+}

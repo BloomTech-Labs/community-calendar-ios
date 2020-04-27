@@ -12,6 +12,7 @@ extension EventViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == myEventsCollectionView {
             collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            self.featuredIndexPath = indexPath
         } else if collectionView == detailAndCalendarCollectionView {
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
