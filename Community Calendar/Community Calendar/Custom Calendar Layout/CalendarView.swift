@@ -153,7 +153,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width/7 - 8
-        let height: CGFloat = 40
+        let height: CGFloat = 30
         return CGSize(width: width, height: height)
     }
     

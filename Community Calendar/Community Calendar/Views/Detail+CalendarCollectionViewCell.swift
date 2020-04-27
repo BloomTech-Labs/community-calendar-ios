@@ -23,6 +23,7 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     }
     
     let detailView = UIView()
+    let calendarView = CalenderView()
     let eventImageView = UIImageView()
     let eventNameLabel = UILabel()
     let eventDateLabel = UILabel()
@@ -36,6 +37,8 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
         
         constraintsDetailView()
+        constraintCalendarView()
+        // Call it here
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +51,7 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     
     func updateViews() {
         if viewType == .detail {
+            calendarView.isHidden = true
             
         } else if viewType == .calendar {
             eventImageView.isHidden = true
@@ -63,6 +67,14 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         eventNameLabel.text = event.eventName
         eventDateLabel.text = event.stringEventDate
         eventVenueLabel.text = event.venueName
+    }
+    
+    //MARK: - Clendar View
+    func constraintCalendarView() {
+        
+        detailView.addSubview(calendarView)
+        calendarView.anchor(top: detailView.topAnchor, leading: detailView.leadingAnchor, trailing: detailView.trailingAnchor, bottom: detailView.bottomAnchor, centerX: nil, centerY: nil)
+        
     }
     
     func constraintsDetailView() {

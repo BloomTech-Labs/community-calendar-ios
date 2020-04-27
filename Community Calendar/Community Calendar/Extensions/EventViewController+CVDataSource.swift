@@ -30,7 +30,11 @@ extension EventViewController: UICollectionViewDataSource {
             cell.event = event
             return cell
         } else if collectionView == detailAndCalendarCollectionView {
-            guard let cell = detailAndCalendarCollectionView.dequeueReusableCell(withReuseIdentifier: "DetailCalendarCell", for: indexPath) as? Detail_CalendarCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = detailAndCalendarCollectionView.dequeueReusableCell(withReuseIdentifier: "DetailCalendarCell", for: indexPath) as? Detail_CalendarCollectionViewCell else { return UICollectionViewCell()
+                
+                
+                
+            }
             
             switch indexPath.item {
             case 0:
@@ -46,6 +50,7 @@ extension EventViewController: UICollectionViewDataSource {
                 }
             case 1:
                 cell.viewType = .calendar
+                 cell.event = self.detailEvent
             default:
                 cell.viewType = .detail
             }
