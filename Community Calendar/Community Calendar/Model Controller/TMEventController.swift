@@ -22,6 +22,7 @@ let apiKey = "n4XTh9yhi2qsN8hRhefbyzMyDPjjeBk7"
 
 class TMEventController {
     
+    var eventDates: [Date] = []
     var events: [EasyEvent] = []
     
     func getEvents(completion: @escaping (Error?, [EasyEvent]?) -> Void) {
@@ -71,6 +72,15 @@ class TMEventController {
                         let newEvent = EasyEvent(ticketMasterEvent: event)
                     }
                 }
+                
+                
+                for event in self.events {
+                    guard let eventDate = event.eventDate else {return}
+                    print(eventDate)
+                    self.eventDates.append(eventDate)
+                    
+                }
+                
                 let formatter = DateFormatter()
                 formatter.timeZone = .current
                 formatter.dateStyle = .medium

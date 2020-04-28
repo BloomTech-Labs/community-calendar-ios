@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     
     var event: EasyEvent? {
@@ -22,8 +23,13 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: View(s) Properties
+    //View 1
     let detailView = UIView()
+    //View 2
     let calendarView = CalenderView()
+    
+    // View 1 Properties
     let eventImageView = UIImageView()
     let eventNameLabel = UILabel()
     let eventDateLabel = UILabel()

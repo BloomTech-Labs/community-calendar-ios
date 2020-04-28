@@ -51,6 +51,9 @@ struct Style {
 class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MonthViewDelegate {
     
     // Calendar Properties
+    let tmController = TMEventController()
+   
+    
     var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]
     var currentMonthIndex: Int = 0
     var currentYear: Int = 0
@@ -95,7 +98,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         currentMonthIndex = Calendar.current.component(.month, from: Date())
         currentYear = Calendar.current.component(.year, from: Date())
         todaysDate = Calendar.current.component(.day, from: Date())
-        firstWeekDayOfMonth=getFirstWeekDay()
+        firstWeekDayOfMonth = getFirstWeekDay()
         
         //for leap years, make february month of 29 days
         if currentMonthIndex == 2 && currentYear % 4 == 0 {
@@ -113,17 +116,42 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
+        return tmController.events.count + numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
-        cell.backgroundColor=UIColor.clear
+        
+        // MARK: - TODO/ FIXME: For every Event that is counted, add a red background color to the cell
+        // One specific Event Date, just called dates(s) for difference
+        let eventDates = tmController.eventDates
+        
+        //FIXME: This For Loop doesn't run, lay a break point down on this one & the one in the TMEventController to see the behavior difference
+        for event in eventDates {
+           
+            // The Calc date is the date day from 1-31. See below as calcDate creates the date label
+            let calcDate = indexPath.row - firstWeekDayOfMonth+2
+            let eventDay = Calendar.current.component(.day, from: event)
+            print(eventDay) // This never gets printed becuase for loop doesn't execute, compare to TMEventController for loop print statement 
+            if eventDay == calcDate {
+                cell.backgroundColor = UIColor.red
+            }
+            
+            // The collection view will need to reload upon selection, but this line never executes nor does the for loop
+            collectionView.reloadData()
+        }
+        
+        
+        
+        
+        cell.backgroundColor = UIColor.clear
         if indexPath.item <= firstWeekDayOfMonth - 2 {
-            cell.isHidden=true
+            cell.isHidden = true
         } else {
-            let calcDate = indexPath.row-firstWeekDayOfMonth+2
+            let calcDate = indexPath.row - firstWeekDayOfMonth+2
             cell.isHidden = false
             cell.lbl.text = "\(calcDate)"
             if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex {
@@ -137,13 +165,15 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         return cell
     }
     
+    // Did Select Date - Turn Red
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell=collectionView.cellForItem(at: indexPath)
+        let cell = collectionView.cellForItem(at: indexPath)
         cell?.backgroundColor = Colors.darkRed
         let lbl = cell?.subviews[1] as! UILabel
         lbl.textColor = UIColor.white
     }
     
+    // Did Deselect Date - Turn Clear
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell=collectionView.cellForItem(at: indexPath)
         cell?.backgroundColor = UIColor.clear
@@ -172,7 +202,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func didChangeMonth(monthIndex: Int, year: Int) {
-        currentMonthIndex = monthIndex+1
+        currentMonthIndex = monthIndex + 1
         currentYear = year
         
         //for leap year, make february month of 29 days
