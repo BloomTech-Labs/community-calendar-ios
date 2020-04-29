@@ -25,6 +25,8 @@ class TMEventController {
     var eventDates: [Date] = []
     var events: [EasyEvent] = []
     
+    static let shared = TMEventController()
+    
     func getEvents(completion: @escaping (Error?, [EasyEvent]?) -> Void) {
         let eventURL = baseURL.appendingPathExtension("json")
         

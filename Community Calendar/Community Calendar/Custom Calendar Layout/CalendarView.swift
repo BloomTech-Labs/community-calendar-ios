@@ -51,7 +51,7 @@ struct Style {
 class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MonthViewDelegate {
     
     // Calendar Properties
-    let tmController = TMEventController()
+    let tmController = TMEventController.shared
    
     
     var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]
@@ -127,9 +127,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         // MARK: - TODO/ FIXME: For every Event that is counted, add a red background color to the cell
         // One specific Event Date, just called dates(s) for difference
-        let eventDates = tmController.eventDates
+       let eventDates = tmController.eventDates
         
-        //FIXME: This For Loop doesn't run, lay a break point down on this one & the one in the TMEventController to see the behavior difference
+        //FIXME: This For Loop doesn't run, eventDates is 0. Why?
         for event in eventDates {
            
             // The Calc date is the date day from 1-31. See below as calcDate creates the date label
@@ -139,9 +139,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             if eventDay == calcDate {
                 cell.backgroundColor = UIColor.red
             }
-            
-            // The collection view will need to reload upon selection, but this line never executes nor does the for loop
-            collectionView.reloadData()
+   
         }
         
         
