@@ -260,7 +260,6 @@
 		0EB19D5223A82C5B00640A40 /* Community Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				1A04823B24509A90001F6762 /* UserProfile */,
 				0EE3079D23AC52320045EFD1 /* Resources */,
 				0EE3079E23AC527E0045EFD1 /* View Controllers */,
 				0EE3079F23AC528D0045EFD1 /* Views */,
@@ -345,6 +344,8 @@
 		0EE3079F23AC528D0045EFD1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1ACF5F6A24520C9100A51B11 /* Styles */,
+				1A04823B24509A90001F6762 /* UserProfile */,
 				0E2B119623ED0FCB0072E72E /* SearchView.swift */,
 				0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */,
 				0E9FDD7623A8574B00FD75A0 /* EventCollectionViewCell.swift */,
@@ -411,6 +412,13 @@
 				1A0482402450A018001F6762 /* UserProfile+Extension.swift */,
 			);
 			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		1ACF5F6A24520C9100A51B11 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 		4B1C6C772E89C0E95EBE07DE /* Frameworks */ = {
@@ -880,7 +888,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AaronCleveland.Community-Calendar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_VERSION = 5.0;
@@ -903,7 +911,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AaronCleveland.Community-Calendar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_VERSION = 5.0;

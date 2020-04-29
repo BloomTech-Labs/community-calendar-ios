@@ -862,7 +862,6 @@
         <!--Item-->
         <scene sceneID="RDT-xE-T4O">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="go0-hr-GPo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="H77-IT-jtx" customClass="UserProfileViewController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LEo-fk-wPa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -872,6 +871,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="5Rx-g3-BRa"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="go0-hr-GPo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-704" y="898"/>
         </scene>
