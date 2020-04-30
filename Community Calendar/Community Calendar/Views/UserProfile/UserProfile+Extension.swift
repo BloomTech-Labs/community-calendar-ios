@@ -29,7 +29,7 @@ extension UserProfileViewController {
 
         bottomView.addSubview(tableView)
         bottomView.addSubview(tableFilterHStack)
-        topView.addSubview(loginSignupButton)
+        topView.addSubview(settingButton)
         topView.addSubview(topInfoHStack)
         topView.addSubview(topInfoVStack)
         view.addSubview(bottomView)
@@ -42,6 +42,10 @@ extension UserProfileViewController {
             topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             topView.heightAnchor.constraint(equalToConstant: 275),
+
+            settingButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            settingButton.leadingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: 80),
+            settingButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
 
             topInfoVStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             topInfoVStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
@@ -61,13 +65,13 @@ extension UserProfileViewController {
 
             tableFilterHStack.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
             tableFilterHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            tableFilterHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tableFilterHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20),
             tableFilterHStack.heightAnchor.constraint(equalToConstant: 25),
 
             tableView.topAnchor.constraint(equalTo: tableFilterHStack.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
