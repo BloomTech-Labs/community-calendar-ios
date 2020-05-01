@@ -8,7 +8,6 @@
 
 import UIKit
 import EventKit
-import JWTDecode
 
 class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Variables
@@ -48,7 +47,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        checkForRSVP()
+//        checkForRSVP()
     }
     
     // MARK: - Functions
@@ -89,7 +88,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
         
         
-        checkForRSVP()
+//        checkForRSVP()
         attendButton.layer.cornerRadius = 6
         attendButton.layer.borderWidth = 1
         attendButton.layer.borderColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1).cgColor
@@ -116,31 +115,31 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func checkForRSVP() {
-        if let bool = controller?.checkUserRsvps(with: event?.id) {
-            updateRSVP(with: bool)
-        } else {
-            updateRSVP(with: false)
-        }
-        
-        guard let event = event,
-            let controller = controller, let userToken = controller.userToken else { return }
-        do {
-            let decodedToken = try decode(jwt: userToken)
-            guard let userId = decodedToken.ccId else { return }
-            controller.fetchUserRsvps(with: userId) { ids, error  in
-                if let error = error {
-                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-                    return
-                }
-                if let ids = ids, ids.contains(event.id) {
-                    self.updateRSVP(with: true)
-                }
-            }
-        } catch {
-            NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-        }
-    }
+//    func checkForRSVP() {
+//        if let bool = controller?.checkUserRsvps(with: event?.id) {
+//            updateRSVP(with: bool)
+//        } else {
+//            updateRSVP(with: false)
+//        }
+//        
+//        guard let event = event,
+//            let controller = controller, let userToken = controller.userToken else { return }
+//        do {
+//            let decodedToken = try decode(jwt: userToken)
+//            guard let userId = decodedToken.ccId else { return }
+//            controller.fetchUserRsvps(with: userId) { ids, error  in
+//                if let error = error {
+//                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+//                    return
+//                }
+//                if let ids = ids, ids.contains(event.id) {
+//                    self.updateRSVP(with: true)
+//                }
+//            }
+//        } catch {
+//            NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+//        }
+//    }
     
     func updateRSVP(with bool: Bool) {
         DispatchQueue.main.async {

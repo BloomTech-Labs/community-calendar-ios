@@ -2,33 +2,25 @@ PODS:
   - Apollo (0.21.0):
     - Apollo/Core (= 0.21.0)
   - Apollo/Core (0.21.0)
-  - Auth0 (1.20.0):
-    - SimpleKeychain
-  - FSCalendar (2.8.0)
-  - JWTDecode (2.4.1)
-  - SimpleKeychain (0.9.0)
+  - AppAuth (0.91.0)
+  - OktaAuth (0.3.0):
+    - AppAuth (~> 0.91.0)
 
 DEPENDENCIES:
   - Apollo
-  - Auth0 (~> 1.19)
-  - FSCalendar
-  - JWTDecode (~> 2.4)
+  - OktaAuth (~> 0.1)
 
 SPEC REPOS:
   trunk:
     - Apollo
-    - Auth0
-    - FSCalendar
-    - JWTDecode
-    - SimpleKeychain
+    - AppAuth
+    - OktaAuth
 
 SPEC CHECKSUMS:
   Apollo: 56a0aa81b744bf2810a8277e705f155c91ac9055
-  Auth0: 4a49703c66dfb2fc5445aa93296711dd0004fabf
-  FSCalendar: 3a5ed3636e2ba1b83ebebfcf0c2603105a6f5efe
-  JWTDecode: 4bd4da0cdf0f8154fd467fa48499f34ec057fb88
-  SimpleKeychain: 3be49072fd2d82de8fa83d847ef1e548622f8fc5
+  AppAuth: 3e0dc9c00ef333dc62064e4830aa89b597ae8d2f
+  OktaAuth: 95067065bc8827b7f4821a77cd15062c438fb95b
 
-PODFILE CHECKSUM: fea9691dafe2a83abffc0351847ea9d5386538b1
+PODFILE CHECKSUM: 173db5b192ad9c5ae62f3a67884b3032f31219f9
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.9.1

@@ -8,7 +8,6 @@
 
 import Foundation
 import Apollo
-import JWTDecode
 
 enum qlError {
     case ql([GraphQLError])

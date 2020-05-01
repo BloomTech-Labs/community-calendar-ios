@@ -87,6 +87,7 @@
 		4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */; };
 		4571FCBB24527C61001DE2A2 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCBA24527C61001DE2A2 /* MonthView.swift */; };
 		4C098F09244E870B0041E622 /* EasyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C098F08244E870B0041E622 /* EasyEvent.swift */; };
+		4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEB18245B40F300BEECEF /* Okta.plist */; };
 		4C6747D22453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */; };
 		4C6747D42453D87400AE768E /* UIView+DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D32453D87400AE768E /* UIView+DropShadow.swift */; };
 		4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */; };
@@ -199,6 +200,7 @@
 		4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
 		4571FCBA24527C61001DE2A2 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		4C098F08244E870B0041E622 /* EasyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyEvent.swift; sourceTree = "<group>"; };
+		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
 		4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Detail+CalendarCollectionViewCell.swift"; sourceTree = "<group>"; };
 		4C6747D32453D87400AE768E /* UIView+DropShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DropShadow.swift"; sourceTree = "<group>"; };
 		4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CVDelegateFlowLayout.swift"; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */,
 				0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */,
 				0E86D5F623AC1C7800CF7012 /* API.swift */,
+				4C1AEB18245B40F300BEECEF /* Okta.plist */,
 				0ED2657323AC0FB000278980 /* schema.json */,
 			);
 			path = "Community Calendar";
@@ -517,7 +520,7 @@
 			buildConfigurationList = 0EB19D6723A82C6200640A40 /* Build configuration list for PBXNativeTarget "Community Calendar" */;
 			buildPhases = (
 				CEF666C48F8201A5AA28069C /* [CP] Check Pods Manifest.lock */,
-				0E0F277723AC08DD00151365 /* GraphQL Script */,
+				0E0F277723AC08DD00151365 /* Generate Apollo GraphQL API */,
 				0EB19D4C23A82C5B00640A40 /* Sources */,
 				0EB19D4D23A82C5B00640A40 /* Frameworks */,
 				0EB19D4E23A82C5B00640A40 /* Resources */,
@@ -610,6 +613,7 @@
 				0E974A3023C7EE8D00CEE05D /* Butler-Black.ttf in Resources */,
 				0E9FDD6E23A8366F00FD75A0 /* Poppins-ExtraLight.ttf in Resources */,
 				0E9FDD6C23A8366F00FD75A0 /* Poppins-ExtraBold.ttf in Resources */,
+				4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */,
 				0E9FDD6F23A8366F00FD75A0 /* Poppins-Medium.ttf in Resources */,
 				0E9FDD6023A8366F00FD75A0 /* Poppins-Light.ttf in Resources */,
 				0E974A3A23C7EF4000CEE05D /* Butler-Medium.ttf in Resources */,
@@ -624,21 +628,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0E0F277723AC08DD00151365 /* GraphQL Script */ = {
+		0E0F277723AC08DD00151365 /* Generate Apollo GraphQL API */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
 			);
-			name = "GraphQL Script";
+			name = "Generate Apollo GraphQL API";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "SCRIPT_PATH=\"${PODS_ROOT}/Apollo/scripts\"\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n";
 		};

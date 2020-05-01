@@ -9,10 +9,10 @@ target 'Community Calendar' do
   inhibit_all_warnings!
   
   # Pods for Community Calendar
-  pod 'Auth0', '~> 1.19'
-  pod 'JWTDecode', '~> 2.4'
-  pod "Apollo"
   
+  pod "Apollo"
+  pod 'OktaAuth', '~> 0.1'
+
   # Hides "-pie being ignored. It is only used when linking a main executable" warning from frameworks
   post_install do |installer| # Access installer object
     installer.pods_project.targets.each do |target| # Access target object

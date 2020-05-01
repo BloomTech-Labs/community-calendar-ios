@@ -198,17 +198,13 @@ fi
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/OktaAuth/OktaAuth.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/OktaAuth/OktaAuth.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
