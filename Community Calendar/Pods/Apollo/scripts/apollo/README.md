@@ -23,7 +23,7 @@ $ npm install -g apollo
 $ apollo COMMAND
 running command...
 $ apollo (-v|--version|version)
-apollo/2.26.0 linux-x64 node-v10.19.0
+apollo/2.27.2 linux-x64 node-v10.20.1
 $ apollo --help [COMMAND]
 USAGE
   $ apollo COMMAND
@@ -186,8 +186,8 @@ OPTIONS
   --tagName=tagName                          Name of the template literal tag used to identify template literals
                                              containing GraphQL queries in Javascript/Typescript code
 
-  --target=target                            (required) Type of code generator to use (swift | typescript | flow |
-                                             scala)
+  --target=target                            (required) Type of code generator to use (swift | typescript | flow | scala
+                                             | json | json-modern (exposes raw json types))
 
   --tsFileExtension=tsFileExtension          By default, TypeScript will output "ts" files. Set "tsFileExtension" to
                                              specify a different file extension, for example "d.ts"
@@ -656,6 +656,8 @@ OPTIONS
   -g, --graph=graph                  The ID of the graph in Apollo Graph Manager to publish your service to. Overrides
                                      config file if set.
 
+  -v, --variant=variant              The variant to publish your service to in Apollo Graph Manager
+
   --endpoint=endpoint                The URL for the CLI use to introspect your service
 
   --header=header                    Additional header to send to server for introspectionQuery. May be used multiple
@@ -869,4 +871,3 @@ Some integration tests rely on mocked server data (service:check for example). M
 ## Maintainers
 
 - [@JakeDawkins](https://github.com/jakedawkins) (Apollo)
-- [@jbaxleyiii](https://github.com/jbaxleyiii) (Apollo)

@@ -139,6 +139,6 @@ class EventController: HTTPNetworkTransportDelegate {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"]
         
-        return ApolloClient(networkTransport: HTTPNetworkTransport(url: EventController.url, session: URLSession(configuration: configuration)))
+        return ApolloClient(networkTransport: HTTPNetworkTransport(url: EventController.url))
     }
 }

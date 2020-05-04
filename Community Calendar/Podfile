@@ -9,7 +9,6 @@ target 'Community Calendar' do
   inhibit_all_warnings!
   
   # Pods for Community Calendar
-  pod 'Auth0', '~> 1.19'
   pod 'JWTDecode', '~> 2.4'
   pod "Apollo"
   

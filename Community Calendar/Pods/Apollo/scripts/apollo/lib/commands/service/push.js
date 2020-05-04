@@ -148,7 +148,6 @@ ServicePush.flags = Object.assign(Object.assign({}, Command_1.ProjectCommand.fla
     }), variant: command_1.flags.string({
         char: "v",
         description: "The variant to publish your service to in Apollo Graph Manager",
-        hidden: true,
         exclusive: ["tag"]
     }), graph: command_1.flags.string({
         char: "g",

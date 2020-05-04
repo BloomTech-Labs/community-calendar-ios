@@ -126,6 +126,10 @@ function generate(document, schema, outputPath, only, target, tagName, nextToSou
         let output;
         const context = legacyIR_1.compileToLegacyIR(schema, document, options);
         switch (target) {
+            case "json-modern":
+                const ir = compiler_1.compileToIR(schema, document, options);
+                output = serializeToJSON_1.default(ir);
+                break;
             case "json":
                 output = serializeToJSON_1.default(context);
                 break;

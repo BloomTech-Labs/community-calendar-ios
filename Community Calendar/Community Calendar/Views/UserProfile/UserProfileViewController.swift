@@ -19,12 +19,11 @@ class UserProfileViewController: UIViewController {
         return topView
     }()
 
-    let settingButton: UIButton = {
-        let settingButton = UIButton(type: .system)
-        settingButton.translatesAutoresizingMaskIntoConstraints = false
-        settingButton.setImage(UIImage(systemName: "gear"), for: .normal)
-        settingButton.tintColor = .white
-        return settingButton
+    let loginSignupButton: UIButton = {
+        let loginSignupButton = UIButton(type: .system)
+        loginSignupButton.translatesAutoresizingMaskIntoConstraints = false
+        loginSignupButton.setImage(UIImage(systemName: "gear"), for: .normal)
+        return loginSignupButton
     }()
 
     let topInfoVStack: UIStackView = {

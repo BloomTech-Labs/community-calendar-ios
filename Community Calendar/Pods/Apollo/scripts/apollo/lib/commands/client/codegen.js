@@ -29,7 +29,14 @@ class Generate extends Command_1.ClientCommand {
         let write;
         const run = () => this.runTasks(({ flags, args, project, config }) => {
             let inferredTarget = "";
-            if (["json", "swift", "typescript", "flow", "scala"].includes(flags.target)) {
+            if ([
+                "json",
+                "json-modern",
+                "swift",
+                "typescript",
+                "flow",
+                "scala"
+            ].includes(flags.target)) {
                 inferredTarget = flags.target;
             }
             else {
@@ -38,7 +45,7 @@ class Generate extends Command_1.ClientCommand {
             if (!args.output &&
                 inferredTarget != "typescript" &&
                 inferredTarget != "flow") {
-                throw new Error("The output path must be specified in the arguments for Swift and Scala");
+                throw new Error("The output path must be specified in the arguments for targets that aren't TypeScript or Flow");
             }
             if (!flags.outputFlat &&
                 (inferredTarget === "typescript" || inferredTarget === "flow") &&
@@ -84,7 +91,8 @@ class Generate extends Command_1.ClientCommand {
                                 globalTypesFile: flags.globalTypesFile,
                                 tsFileExtension: flags.tsFileExtension,
                                 suppressSwiftMultilineStringLiterals: flags.suppressSwiftMultilineStringLiterals,
-                                omitDeprecatedEnumCases: flags.omitDeprecatedEnumCases
+                                omitDeprecatedEnumCases: flags.omitDeprecatedEnumCases,
+                                exposeTypeNodes: inferredTarget === "json-modern"
                             });
                         };
                         const writtenFiles = write();
@@ -129,7 +137,7 @@ Generate.description = "Generate static types for GraphQL queries. Can use the p
 Generate.flags = Object.assign(Object.assign({}, Command_1.ClientCommand.flags), { watch: command_1.flags.boolean({
         description: "Watch for file changes and reload codegen"
     }), target: command_1.flags.string({
-        description: "Type of code generator to use (swift | typescript | flow | scala)",
+        description: "Type of code generator to use (swift | typescript | flow | scala | json | json-modern (exposes raw json types))",
         required: true
     }), localSchemaFile: command_1.flags.string({
         description: "Path to one or more local GraphQL schema file(s), as introspection result or SDL. Supports comma-separated list of paths (ex. `--localSchemaFile=schema.graphql,extensions.graphql`)"
