@@ -109,3 +109,4 @@ query getUserRSVPs($id: ID) {
     }
   }
 }
+

@@ -89,6 +89,7 @@
 		4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */; };
 		4C098F09244E870B0041E622 /* EasyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C098F08244E870B0041E622 /* EasyEvent.swift */; };
 		4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEB18245B40F300BEECEF /* Okta.plist */; };
+		4C3859CA2460C2DB00ADBBB4 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3859C92460C2DB00ADBBB4 /* AuthController.swift */; };
 		4C6747D22453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */; };
 		4C6747D42453D87400AE768E /* UIView+DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D32453D87400AE768E /* UIView+DropShadow.swift */; };
 		4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */; };
@@ -203,6 +204,8 @@
 		4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		4C098F08244E870B0041E622 /* EasyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyEvent.swift; sourceTree = "<group>"; };
 		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
+		4C3859C92460C2DB00ADBBB4 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
+		4C3859CB2460D3C400ADBBB4 /* instrospectionSchema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instrospectionSchema.json; sourceTree = "<group>"; };
 		4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Detail+CalendarCollectionViewCell.swift"; sourceTree = "<group>"; };
 		4C6747D32453D87400AE768E /* UIView+DropShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DropShadow.swift"; sourceTree = "<group>"; };
 		4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CVDelegateFlowLayout.swift"; sourceTree = "<group>"; };
@@ -259,6 +262,7 @@
 				0E64400123C63DC800A56B22 /* EventController.swift */,
 				0E09806A23E2A526000110AB /* SearchController.swift */,
 				4C9D2DC4244E55BA0028B9D7 /* TMEventController.swift */,
+				4C3859C92460C2DB00ADBBB4 /* AuthController.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -309,6 +313,7 @@
 				0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */,
 				0E86D5F623AC1C7800CF7012 /* API.swift */,
 				4C1AEB18245B40F300BEECEF /* Okta.plist */,
+				4C3859CB2460D3C400ADBBB4 /* instrospectionSchema.json */,
 				0ED2657323AC0FB000278980 /* schema.json */,
 			);
 			path = "Community Calendar";
@@ -740,6 +745,7 @@
 				0EE2AC2923CF5142002B3EB4 /* FilterViewController.swift in Sources */,
 				0EE2AC3123CFFB2C002B3EB4 /* Functions.swift in Sources */,
 				4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */,
+				4C3859CA2460C2DB00ADBBB4 /* AuthController.swift in Sources */,
 				0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */,
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
 				4CE2E9302448D37C005AA6B5 /* EventViewController+CVDataSource.swift in Sources */,

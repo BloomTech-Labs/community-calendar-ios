@@ -198,13 +198,11 @@ fi
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/OktaAuth/OktaAuth.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/OktaOidc/OktaOidc.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/OktaAuth/OktaAuth.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/OktaOidc/OktaOidc.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

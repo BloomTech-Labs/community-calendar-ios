@@ -14,32 +14,13 @@
 //  Store the token in apple's keychain
 
 import UIKit
-import OktaAuth
+import OktaOidc
 
 class LoginViewController: UIViewController, ControllerDelegate {
     // MARK: - Variables
 //    var homeController = HomeViewController()
     var controller: Controller?
-    
-//    var onAuth: ((Result<Credentials>) -> ())!
-//    var credentials: Credentials? {
-//        didSet {
-//            controller?.userToken = self.credentials?.accessToken
-//            getUserInfo()
-//            DispatchQueue.main.async {
-//                if self.credentials == nil {
-//                    self.tabBarController?.tabBarItem.title = "Login"
-//                } else {
-//                    self.tabBarController?.tabBarItem.title = "Profile"
-//                }
-//            }
-//        }
-//    }
-//    var profile: UserInfo? {
-//        didSet {
-//            updateViews()
-//        }
-//    }
+    let authController = AuthController()
     
     // MARK: - IBOutlets
     @IBOutlet weak var LoginButton: UIButton!
@@ -54,26 +35,12 @@ class LoginViewController: UIViewController, ControllerDelegate {
         logOutButton.isHidden = true
         LoginButton.isHidden = true
         
-//        observeImage()
         imageView.layer.cornerRadius = imageView.frame.height / 2
-        OktaAuth.login().start(self) { (response, error) in
-            if let error = error {
-                print("Error signing in: \(error)")
-            }
-            if let tokenResponse = response {
-                OktaAuth.tokens?.set(value: tokenResponse.accessToken!, forKey: "accessToken")
-                OktaAuth.tokens?.set(value: tokenResponse.idToken!, forKey: "idToken")
-                OktaAuth.tokens?.set(value: tokenResponse.refreshToken!, forKey: "refreshToken")
-                if let currentToken = OktaAuth.tokens?.get(forKey: "accessToken") {
-                    print("This is the users current token: \(currentToken)")
-                }
-                print("Login Successful! Access Token: \(String(describing: tokenResponse.accessToken)), ID Token: \(String(describing: tokenResponse.idToken)), Refresh Token: \(String(describing: tokenResponse.refreshToken))")
-                OktaAuth.userinfo { userInfo, error in
-                    let name = userInfo?["name"]
-                    let email = userInfo?["preferred_username"]
-                    print("Name: \(String(describing: name))")
-                    print("Email: \(String(describing: email))")
-                }
+        authController.setupOktaOidc()
+        authController.signIn(viewController: self) {
+            if let accessToken = self.authController.stateManager?.accessToken {
+                print("Access Token: \(accessToken))")
+                self.authController.getUser()
             }
         }
     }
@@ -102,68 +69,20 @@ class LoginViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    private func getUserInfo() {
-//        if credentials == nil {
-//            NSLog("User has signed out")
-//        } else {
-//            guard let accessToken = credentials?.accessToken else {
-//                NSLog("User is not logged in or access token has expired")
-//                return
-//            }
-//            controller?.userToken = accessToken
-//            Auth0.authentication().userInfo(withAccessToken: accessToken).start { result in
-//                switch(result) {
-//                case .success(let profile):
-//                    self.profile = profile
-//                    if let image = profile.picture?.absoluteString {
-//                        self.controller?.fetchImage(for: image)
-//                    }
-//                case .failure(let error):
-//                    print("Error: \(error)")
-//                }
-//            }
-//        }
-    }
+
     
     private func updateViews() {
-//        if let profile = profile {
-//            print("Email: \(profile.email ?? "No email"), name: \(profile.name ?? "No Name")")
-//        }
+
     }
     
     // MARK: - IBAction
     @IBAction func loginOrSignUpButtonPressed(_ sender: Any) {
-//        Auth0.webAuth().scope("openid profile").audience("https://community-calendar.auth0.com/api/v2/").start {
-//            switch $0 {
-//            case .failure(let error):
-//                // Handle the error
-//                print("Error: \(error)")
-//            case .success(let credentials):
-//                self.credentials = credentials
-//                print("Credentials: \(credentials)")
-//                DispatchQueue.main.async {
-//                    self.tabBarItem.title = "Profile"
-//                    self.tabBarController?.selectedIndex = 0
-//                    self.LoginButton.isHidden = true
-//                    self.logOutButton.isHidden = false
-//                }
-//            }
-//        }
+
     }
     
     @IBAction func logoutButtonPressed(_ sender: Any) {
         
-//        Auth0.webAuth().clearSession(federated:false) {
-//            switch $0 {
-//            case true:
-//                self.logOutButton.isHidden = true
-//                self.credentials = nil
-//                self.tabBarItem.title = "Login"
-//                self.logoutAlertController()
-//            case false:
-//                print("User was not able to log out.")
-//            }
-//        }
+
     }
     
 //    @objc

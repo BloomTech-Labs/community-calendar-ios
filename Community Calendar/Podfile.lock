@@ -2,25 +2,29 @@ PODS:
   - Apollo (0.21.0):
     - Apollo/Core (= 0.21.0)
   - Apollo/Core (0.21.0)
-  - AppAuth (0.91.0)
-  - OktaAuth (0.3.0):
-    - AppAuth (~> 0.91.0)
+  - OktaOidc (3.6.1):
+    - OktaOidc/AppAuth (= 3.6.1)
+    - OktaOidc/Okta (= 3.6.1)
+  - OktaOidc/AppAuth (3.6.1)
+  - OktaOidc/Okta (3.6.1):
+    - OktaOidc/AppAuth
+    - OktaOidc/Okta/Classes (= 3.6.1)
+  - OktaOidc/Okta/Classes (3.6.1):
+    - OktaOidc/AppAuth
 
 DEPENDENCIES:
   - Apollo
-  - OktaAuth (~> 0.1)
+  - OktaOidc
 
 SPEC REPOS:
   trunk:
     - Apollo
-    - AppAuth
-    - OktaAuth
+    - OktaOidc
 
 SPEC CHECKSUMS:
   Apollo: 56a0aa81b744bf2810a8277e705f155c91ac9055
-  AppAuth: 3e0dc9c00ef333dc62064e4830aa89b597ae8d2f
-  OktaAuth: 95067065bc8827b7f4821a77cd15062c438fb95b
+  OktaOidc: 1fe96de259f1a80b2a8f83fa1f1ee222e891ebc2
 
-PODFILE CHECKSUM: 173db5b192ad9c5ae62f3a67884b3032f31219f9
+PODFILE CHECKSUM: 3b0a7b122898cbd7f9d380f6083906cf5aa2d35c
 
 COCOAPODS: 1.9.1

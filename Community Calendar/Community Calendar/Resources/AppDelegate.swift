@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import OktaAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Login OktaAuth
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        return OktaAuth.resume(url, options: options)
+        return false
     }
 
     // MARK: UISceneSession Lifecycle
