@@ -138,7 +138,18 @@
           {
             "name": "user",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "where",
+                "description": "",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "UserWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -1090,7 +1101,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1100,7 +1111,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_not",
+            "name": "oktaId_not",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1110,7 +1121,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_in",
+            "name": "oktaId_in",
             "description": "",
             "type": {
               "kind": "LIST",
@@ -1128,7 +1139,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_not_in",
+            "name": "oktaId_not_in",
             "description": "",
             "type": {
               "kind": "LIST",
@@ -1146,7 +1157,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_lt",
+            "name": "oktaId_lt",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1156,7 +1167,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_lte",
+            "name": "oktaId_lte",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1166,7 +1177,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_gt",
+            "name": "oktaId_gt",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1176,7 +1187,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_gte",
+            "name": "oktaId_gte",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1186,7 +1197,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_contains",
+            "name": "oktaId_contains",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1196,7 +1207,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_not_contains",
+            "name": "oktaId_not_contains",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1206,7 +1217,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_starts_with",
+            "name": "oktaId_starts_with",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1216,7 +1227,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_not_starts_with",
+            "name": "oktaId_not_starts_with",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1226,7 +1237,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_ends_with",
+            "name": "oktaId_ends_with",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1236,7 +1247,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_not_ends_with",
+            "name": "oktaId_not_ends_with",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -6955,13 +6966,13 @@
             "deprecationReason": null
           },
           {
-            "name": "auth0Id_ASC",
+            "name": "oktaId_ASC",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "auth0Id_DESC",
+            "name": "oktaId_DESC",
             "description": "",
             "isDeprecated": false,
             "deprecationReason": null
@@ -7027,7 +7038,7 @@
             "deprecationReason": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "args": [],
             "type": {
@@ -9627,7 +9638,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "NON_NULL",
@@ -9637,6 +9648,37 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "UserWhereUniqueInput",
+        "description": "",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "oktaId",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "defaultValue": null
           }
@@ -11683,6 +11725,16 @@
                   "ofType": null
                 },
                 "defaultValue": null
+              },
+              {
+                "name": "where",
+                "description": "",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "UserWhereUniqueInput",
+                  "ofType": null
+                },
+                "defaultValue": null
               }
             ],
             "type": {
@@ -11740,7 +11792,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "NON_NULL",
@@ -12251,7 +12303,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "NON_NULL",
@@ -12715,7 +12767,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "NON_NULL",
@@ -13099,7 +13151,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "NON_NULL",
@@ -13483,7 +13535,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "NON_NULL",
@@ -14046,7 +14098,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "NON_NULL",
@@ -14111,37 +14163,6 @@
           },
           {
             "name": "profileImage",
-            "description": "",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "UserWhereUniqueInput",
-        "description": "",
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "id",
-            "description": "",
-            "type": {
-              "kind": "SCALAR",
-              "name": "ID",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "auth0Id",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -15331,7 +15352,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -17107,7 +17128,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -17855,7 +17876,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -18521,7 +18542,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -19910,7 +19931,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24246,7 +24267,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24256,7 +24277,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_not",
+            "name": "oktaId_not",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24266,7 +24287,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_in",
+            "name": "oktaId_in",
             "description": "",
             "type": {
               "kind": "LIST",
@@ -24284,7 +24305,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_not_in",
+            "name": "oktaId_not_in",
             "description": "",
             "type": {
               "kind": "LIST",
@@ -24302,7 +24323,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_lt",
+            "name": "oktaId_lt",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24312,7 +24333,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_lte",
+            "name": "oktaId_lte",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24322,7 +24343,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_gt",
+            "name": "oktaId_gt",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24332,7 +24353,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_gte",
+            "name": "oktaId_gte",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24342,7 +24363,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_contains",
+            "name": "oktaId_contains",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24352,7 +24373,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_not_contains",
+            "name": "oktaId_not_contains",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24362,7 +24383,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_starts_with",
+            "name": "oktaId_starts_with",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24372,7 +24393,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_not_starts_with",
+            "name": "oktaId_not_starts_with",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24382,7 +24403,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_ends_with",
+            "name": "oktaId_ends_with",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24392,7 +24413,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id_not_ends_with",
+            "name": "oktaId_not_ends_with",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -24682,7 +24703,7 @@
             "defaultValue": null
           },
           {
-            "name": "auth0Id",
+            "name": "oktaId",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -26260,16 +26281,6 @@
           },
           {
             "name": "lastName",
-            "description": "",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "auth0Id",
             "description": "",
             "type": {
               "kind": "SCALAR",
