@@ -6,11 +6,10 @@
 //  Copyright © 2020 Lambda School All rights reserved.
 //
 
-import JWTDecode
 import Apollo
 
-extension JWT { // Used to fetch custom key from Json Web Tokens
-    var ccId: String? {
-        claim(name: "http://cc_id").string
-    }
-}
+//extension JWT { // Used to fetch custom key from Json Web Tokens
+//    var ccId: String? {
+//        claim(name: "http://cc_id").string
+//    }
+//}

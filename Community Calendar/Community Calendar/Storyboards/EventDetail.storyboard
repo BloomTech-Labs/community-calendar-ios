@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xIc-ff-1kb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xIc-ff-1kb">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,42 +28,42 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="xBq-Ta-Dh1">
-                                <rect key="frame" x="20" y="309" width="112.5" height="70"/>
+                                <rect key="frame" x="20" y="309" width="109" height="70"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="b3e-OG-Ba0">
-                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="b3e-OG-Ba0">
+                                        <rect key="frame" x="0.0" y="0.0" width="109" height="29"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Event Title">
                                                 <attributes>
                                                     <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <font key="NSFont" size="24" name="Butler-Bold"/>
+                                                    <font key="NSFont" metaFont="system" size="24"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ZhH-0H-e2e">
-                                        <rect key="frame" x="0.0" y="37" width="112.5" height="33"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ZhH-0H-e2e">
+                                        <rect key="frame" x="0.0" y="38" width="109" height="32"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBj-fy-BZ8">
-                                                <rect key="frame" x="0.0" y="0.0" width="29.5" height="16.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBj-fy-BZ8">
+                                                <rect key="frame" x="0.0" y="0.0" width="30.5" height="17"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Date">
                                                         <attributes>
                                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <font key="NSFont" size="14" name="Poppins-SemiBold"/>
+                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkV-Sb-L3h">
-                                                <rect key="frame" x="0.0" y="16.5" width="52" height="16.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkV-Sb-L3h">
+                                                <rect key="frame" x="0.0" y="17" width="53" height="15"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Address">
                                                         <attributes>
                                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <font key="NSFont" size="14" name="Poppins-Light"/>
+                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -101,12 +101,12 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eC4-RN-Zxr">
-                                                                <rect key="frame" x="17.5" y="54" width="65" height="16.5"/>
+                                                                <rect key="frame" x="16.5" y="54" width="66.5" height="17"/>
                                                                 <attributedString key="attributedText">
                                                                     <fragment content="Hosted by">
                                                                         <attributes>
                                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.50428082191780821" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                         </attributes>
                                                                     </fragment>
@@ -114,12 +114,12 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2C-NT-vCQ">
-                                                                <rect key="frame" x="20.5" y="70.5" width="59" height="33"/>
+                                                                <rect key="frame" x="20" y="71" width="59.5" height="33.5"/>
                                                                 <attributedString key="attributedText">
                                                                     <fragment content="Person's Name">
                                                                         <attributes>
                                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" size="14" name="Poppins-Medium"/>
+                                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                         </attributes>
                                                                     </fragment>
@@ -149,17 +149,17 @@
                                                         <rect key="frame" x="105" y="0.0" width="99.5" height="110"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFk-u9-t5J">
-                                                                <rect key="frame" x="32.5" y="20" width="34.5" height="16.5"/>
+                                                                <rect key="frame" x="31.5" y="18" width="36.5" height="20"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwf-3v-YJc">
-                                                                <rect key="frame" x="20" y="41.5" width="59.5" height="49"/>
+                                                                <rect key="frame" x="19.5" y="43" width="60.5" height="50.5"/>
                                                                 <attributedString key="attributedText">
                                                                     <fragment content="12:30 pm  -  1:45 pm">
                                                                         <attributes>
-                                                                            <font key="NSFont" size="14" name="Poppins-Medium"/>
+                                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                         </attributes>
                                                                     </fragment>
@@ -178,20 +178,20 @@
                                                         <rect key="frame" x="209.5" y="0.0" width="100" height="110"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cO6-Js-fz5">
-                                                                <rect key="frame" x="12.5" y="20" width="75" height="41"/>
+                                                                <rect key="frame" x="10" y="18" width="80" height="45"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ticket Type:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rx-y4-qf9">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="16.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="20"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WB5-tg-EAs">
-                                                                        <rect key="frame" x="23.5" y="24.5" width="27.5" height="16.5"/>
+                                                                        <rect key="frame" x="25.5" y="28" width="29" height="17"/>
                                                                         <attributedString key="attributedText">
                                                                             <fragment content="Free">
                                                                                 <attributes>
-                                                                                    <font key="NSFont" size="14" name="Poppins-Medium"/>
+                                                                                    <font key="NSFont" metaFont="menu" size="14"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -218,7 +218,7 @@
                                                                 <fragment content="Follow Host">
                                                                     <attributes>
                                                                         <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" size="18" name="Poppins-SemiBold"/>
+                                                                        <font key="NSFont" metaFont="system" size="18"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -242,14 +242,14 @@
                                                 </constraints>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqf-gq-gK3">
-                                                <rect key="frame" x="16" y="140" width="82" height="16.5"/>
+                                                <rect key="frame" x="16" y="140" width="84.5" height="16.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="16.5" id="ce8-9p-um0"/>
                                                 </constraints>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Event Details">
                                                         <attributes>
-                                                            <font key="NSFont" size="14" name="Poppins-SemiBold"/>
+                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -265,14 +265,14 @@
                                                     <fragment>
                                                         <string key="content">Buncha text  Buncha text  Buncha text  Buncha text  Buncha text  Buncha text  Buncha text  Buncha text  Buncha text  Buncha text  Buncha text  Buncha text  Buncha text  Buncha text </string>
                                                         <attributes>
-                                                            <font key="NSFont" size="12" name="Poppins-Light"/>
+                                                            <font key="NSFont" metaFont="label" size="12"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFI-Kh-YRi">
-                                                <rect key="frame" x="348" y="185.5" width="50" height="23.5"/>
+                                                <rect key="frame" x="346" y="185.5" width="52" height="23.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="23.5" id="4QN-BP-jbC"/>
                                                 </constraints>
@@ -281,7 +281,7 @@
                                                         <fragment content="Read more">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="0.4039215686" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="10" name="Poppins-Light"/>
+                                                                <font key="NSFont" metaFont="system" size="10"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -303,7 +303,7 @@
                                                                 <fragment content="Open in Maps">
                                                                     <attributes>
                                                                         <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" size="14" name="Poppins-SemiBold"/>
+                                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                                     </attributes>
                                                                 </fragment>
                                                             </attributedString>
@@ -322,7 +322,7 @@
                                                                 <fragment content="Add to Calendar">
                                                                     <attributes>
                                                                         <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" size="14" name="Poppins-SemiBold"/>
+                                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                                     </attributes>
                                                                 </fragment>
                                                             </attributedString>
@@ -346,13 +346,14 @@
                                                         <fragment content="Attend">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="14" name="Poppins-SemiBold"/>
+                                                                <font key="NSFont" metaFont="menu" size="14"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
                                                 </state>
                                                 <connections>
                                                     <action selector="attendEvent:" destination="xIc-ff-1kb" eventType="touchUpInside" id="Raq-U5-UIy"/>
+                                                    <segue destination="8it-V2-FWt" kind="show" identifier="EventsSegue" id="8Mp-Ep-jyn"/>
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discussions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJg-ZI-WOF">
@@ -407,14 +408,14 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="0Kw-c3-xgM">
-                                                                    <rect key="frame" x="27" y="28" width="319" height="44.5"/>
+                                                                    <rect key="frame" x="26.5" y="27" width="319.5" height="46"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5z-b0-m94">
-                                                                            <rect key="frame" x="240" y="0.0" width="79" height="16.5"/>
+                                                                            <rect key="frame" x="239" y="0.0" width="80.5" height="17"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="User's name">
                                                                                     <attributes>
-                                                                                        <font key="NSFont" size="14" name="Butler-Medium"/>
+                                                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
                                                                                 </fragment>
@@ -422,12 +423,12 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFn-xd-f5A">
-                                                                            <rect key="frame" x="0.0" y="16.5" width="319" height="28"/>
+                                                                            <rect key="frame" x="0.0" y="17" width="319.5" height="29"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="User's super extremely long message that no one wants to read">
                                                                                     <attributes>
                                                                                         <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                        <font key="NSFont" size="12" name="Poppins-Regular"/>
+                                                                                        <font key="NSFont" metaFont="label" size="12"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
                                                                                 </fragment>
@@ -466,25 +467,25 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Ezw-8A-z51">
-                                                                    <rect key="frame" x="68" y="28" width="319" height="44.5"/>
+                                                                    <rect key="frame" x="68" y="27" width="319.5" height="46"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmG-uw-IJq">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="79" height="16.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="80.5" height="17"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="User's name">
                                                                                     <attributes>
-                                                                                        <font key="NSFont" size="14" name="Butler-Medium"/>
+                                                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                                                     </attributes>
                                                                                 </fragment>
                                                                             </attributedString>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUQ-vD-nUb">
-                                                                            <rect key="frame" x="0.0" y="16.5" width="319" height="28"/>
+                                                                            <rect key="frame" x="0.0" y="17" width="319.5" height="29"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="User's super extremely long message that no one wants to read">
                                                                                     <attributes>
-                                                                                        <font key="NSFont" size="12" name="Poppins-Regular"/>
+                                                                                        <font key="NSFont" metaFont="label" size="12"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
                                                                                 </fragment>
@@ -603,6 +604,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Ow-jZ-AS9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="382.60869565217394" y="104.12946428571428"/>
+        </scene>
+        <!--Events-->
+        <scene sceneID="RWU-2i-ygs">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Events" id="8it-V2-FWt" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="iPD-lP-Sks"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6KK-Ce-4RW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1280" y="-103"/>
         </scene>
     </scenes>
     <resources>
