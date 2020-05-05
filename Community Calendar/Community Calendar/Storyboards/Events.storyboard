@@ -123,6 +123,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="book" width="24" height="24"/>
+        <image name="calendar" catalog="system" width="128" height="106"/>
     </resources>
 </document>
