@@ -15,7 +15,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     var testing = false                             // Use the test data from Variables.swift
     var repeatCount = 1
     var fetchEventsTimer: Timer?
-    
+    let eventController = EventController()
     var shouldDismissFilterScreen = true
     var controller: Controller?
     private var unfilteredEvents: [Event]? {        // Varible events' data source
@@ -62,19 +62,17 @@ class HomeViewController: UIViewController, ControllerDelegate {
         searchView.controller = controller
         searchView.setUp()
         setUp()
-//        printFonts()
-        
-        print()
-        
-        
+  
+        eventController.fetchEvents { fetchedEvents in
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if testing {
-            unfilteredEvents = testData
+//            unfilteredEvents = testData
         } else {
             setUpTimer()
-            fetchEvents()
         }
         noResultsLabel.isHidden = true
     }
@@ -155,28 +153,28 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     // MARK: - Data Functions
-    private func fetchEvents() {
-        controller?.getEvents { result in
-            switch result {
-            case .success(let eventList):
-                if self.fetchEventsTimer != nil {
-                    self.fetchEventsTimer!.invalidate()
-                    self.fetchEventsTimer = nil
-                    NSLog("Fetched events successfully after \(self.repeatCount) attempt\(self.repeatCount == 1 ? "" : "s")")
-                    self.repeatCount = 1
-                }
-                
-                if self.unfilteredEvents != eventList {
-                    
-                    self.unfilteredEvents = self.fixDates(eventList)
-                    self.featuredCollectionView.reloadData()
-//                    createMockData()
-                }
-            case .failure(let error):
-                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-            }
-        }
-    }
+//    private func fetchEvents() {
+//        controller?.getEvents { result in
+//            switch result {
+//            case .success(let eventList):
+//                if self.fetchEventsTimer != nil {
+//                    self.fetchEventsTimer!.invalidate()
+//                    self.fetchEventsTimer = nil
+//                    NSLog("Fetched events successfully after \(self.repeatCount) attempt\(self.repeatCount == 1 ? "" : "s")")
+//                    self.repeatCount = 1
+//                }
+//
+//                if self.unfilteredEvents != eventList {
+//
+//                    self.unfilteredEvents = self.fixDates(eventList)
+//                    self.featuredCollectionView.reloadData()
+////                    createMockData()
+//                }
+//            case .failure(let error):
+//                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+//            }
+//        }
+//    }
     
     private func fixDates(_ eventsList: [Event]) -> [Event] {
         var events = eventsList

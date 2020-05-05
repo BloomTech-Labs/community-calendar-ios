@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,8 +20,6 @@
 		0E73088F23C69147006B5326 /* EventControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E73088E23C69147006B5326 /* EventControllerTests.swift */; };
 		0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7DD80823C8E844009843BE /* EventDetailViewController.swift */; };
 		0E7DD81E23CA4BAC009843BE /* ImageNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7DD81D23CA4BAC009843BE /* ImageNotification.swift */; };
-		0E86D5F523AC176E00CF7012 /* GetEventsQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */; };
-		0E86D5F723AC1C7900CF7012 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E86D5F623AC1C7800CF7012 /* API.swift */; };
 		0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E974A1D23C7D96900CEE05D /* Cache.swift */; };
 		0E974A2E23C7EE6200CEE05D /* Butler-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A2D23C7EE6200CEE05D /* Butler-Bold.ttf */; };
 		0E974A3023C7EE8D00CEE05D /* Butler-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A2F23C7EE8D00CEE05D /* Butler-Black.ttf */; };
@@ -63,7 +61,6 @@
 		0EB19D5B23A82C5B00640A40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D5923A82C5B00640A40 /* Main.storyboard */; };
 		0EB19D6023A82C6200640A40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D5F23A82C6200640A40 /* Assets.xcassets */; };
 		0EB19D6323A82C6200640A40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */; };
-		0ED2657523AC0FBB00278980 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ED2657323AC0FB000278980 /* schema.json */; };
 		0EE2AC2323CE3B6C002B3EB4 /* Filter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE2AC2223CE3B6C002B3EB4 /* Filter.storyboard */; };
 		0EE2AC2523CE7133002B3EB4 /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2AC2423CE7133002B3EB4 /* CustomPushAnimator.swift */; };
 		0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2AC2623CE7233002B3EB4 /* CustomPopAnimator.swift */; };
@@ -94,8 +91,13 @@
 		4C6747D42453D87400AE768E /* UIView+DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D32453D87400AE768E /* UIView+DropShadow.swift */; };
 		4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */; };
 		4C735F58244F7F61000BF5ED /* UIVIew+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */; };
+		4C92DEDF2461297C0049CC78 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 4C92DEDE2461297C0049CC78 /* Apollo */; };
+		4C92DEE2246139820049CC78 /* Events.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4C92DEE1246139820049CC78 /* Events.graphql */; };
+		4C92DEE424613C330049CC78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92DEE324613C330049CC78 /* API.swift */; };
+		4C92DEE524613C330049CC78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92DEE324613C330049CC78 /* API.swift */; };
 		4C9D2DC3244E556E0028B9D7 /* TicketMasterEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D2DC2244E556E0028B9D7 /* TicketMasterEvent.swift */; };
 		4C9D2DC5244E55BA0028B9D7 /* TMEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D2DC4244E55BA0028B9D7 /* TMEventController.swift */; };
+		4CDBD11C2461C14E0026A539 /* UserUpdate.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4CDBD11B2461C14E0026A539 /* UserUpdate.graphql */; };
 		4CE2E9302448D37C005AA6B5 /* EventViewController+CVDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E92F2448D37C005AA6B5 /* EventViewController+CVDataSource.swift */; };
 		4CE2E9322448D98D005AA6B5 /* EventViewController+CVDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9312448D98D005AA6B5 /* EventViewController+CVDelegate.swift */; };
 		4CE2E9352448E424005AA6B5 /* FeaturedEventLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */; };
@@ -105,7 +107,6 @@
 		4CE2E9412449195E005AA6B5 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9402449195E005AA6B5 /* DateHeader.swift */; };
 		EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF51CC4A23A83E4300FF4E62 /* Login.storyboard */; };
 		EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */; };
-		EFD4D3B023A98E6B00DDE283 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,8 +135,6 @@
 		0E73089023C69147006B5326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E7DD80823C8E844009843BE /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		0E7DD81D23CA4BAC009843BE /* ImageNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNotification.swift; sourceTree = "<group>"; };
-		0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetEventsQuery.graphql; sourceTree = "<group>"; };
-		0E86D5F623AC1C7800CF7012 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0E974A1D23C7D96900CEE05D /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		0E974A2D23C7EE6200CEE05D /* Butler-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-Bold.ttf"; sourceTree = "<group>"; };
 		0E974A2F23C7EE8D00CEE05D /* Butler-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-Black.ttf"; sourceTree = "<group>"; };
@@ -179,7 +178,6 @@
 		0EB19D5F23A82C6200640A40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0EB19D6223A82C6200640A40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0EB19D6423A82C6200640A40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0ED2657323AC0FB000278980 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		0EE2AC2223CE3B6C002B3EB4 /* Filter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Filter.storyboard; path = "Community Calendar/Storyboards/Filter.storyboard"; sourceTree = SOURCE_ROOT; };
 		0EE2AC2423CE7133002B3EB4 /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0EE2AC2623CE7233002B3EB4 /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
@@ -205,13 +203,16 @@
 		4C098F08244E870B0041E622 /* EasyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyEvent.swift; sourceTree = "<group>"; };
 		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
 		4C3859C92460C2DB00ADBBB4 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
-		4C3859CB2460D3C400ADBBB4 /* instrospectionSchema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instrospectionSchema.json; sourceTree = "<group>"; };
 		4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Detail+CalendarCollectionViewCell.swift"; sourceTree = "<group>"; };
 		4C6747D32453D87400AE768E /* UIView+DropShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DropShadow.swift"; sourceTree = "<group>"; };
 		4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CVDelegateFlowLayout.swift"; sourceTree = "<group>"; };
 		4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Constraints.swift"; sourceTree = "<group>"; };
+		4C92DEE024612BB70049CC78 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		4C92DEE1246139820049CC78 /* Events.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Events.graphql; sourceTree = "<group>"; };
+		4C92DEE324613C330049CC78 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		4C9D2DC2244E556E0028B9D7 /* TicketMasterEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketMasterEvent.swift; sourceTree = "<group>"; };
 		4C9D2DC4244E55BA0028B9D7 /* TMEventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMEventController.swift; sourceTree = "<group>"; };
+		4CDBD11B2461C14E0026A539 /* UserUpdate.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UserUpdate.graphql; sourceTree = "<group>"; };
 		4CE2E92F2448D37C005AA6B5 /* EventViewController+CVDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventViewController+CVDataSource.swift"; sourceTree = "<group>"; };
 		4CE2E9312448D98D005AA6B5 /* EventViewController+CVDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventViewController+CVDelegate.swift"; sourceTree = "<group>"; };
 		4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEventLayout.swift; sourceTree = "<group>"; };
@@ -224,7 +225,6 @@
 		97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Community_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF51CC4A23A83E4300FF4E62 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */,
+				4C92DEDF2461297C0049CC78 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,12 +310,11 @@
 				0E73089623C69BB0006B5326 /* Model Controller */,
 				0EE307AA23AC534A0045EFD1 /* Models */,
 				0EE307AB23AC53680045EFD1 /* Helpers */,
-				EFD4D3AF23A98E6B00DDE283 /* Auth0.plist */,
-				0E86D5F423AC176D00CF7012 /* GetEventsQuery.graphql */,
-				0E86D5F623AC1C7800CF7012 /* API.swift */,
 				4C1AEB18245B40F300BEECEF /* Okta.plist */,
-				4C3859CB2460D3C400ADBBB4 /* instrospectionSchema.json */,
-				0ED2657323AC0FB000278980 /* schema.json */,
+				4C92DEE324613C330049CC78 /* API.swift */,
+				4CDBD11B2461C14E0026A539 /* UserUpdate.graphql */,
+				4C92DEE1246139820049CC78 /* Events.graphql */,
+				4C92DEE024612BB70049CC78 /* schema.json */,
 			);
 			path = "Community Calendar";
 			sourceTree = "<group>";
@@ -528,7 +528,7 @@
 			buildConfigurationList = 0EB19D6723A82C6200640A40 /* Build configuration list for PBXNativeTarget "Community Calendar" */;
 			buildPhases = (
 				CEF666C48F8201A5AA28069C /* [CP] Check Pods Manifest.lock */,
-				0E0F277723AC08DD00151365 /* Generate Apollo GraphQL API */,
+				4C8926662460DA8B00AE6D12 /* Generate Apollo GraphQL API */,
 				0EB19D4C23A82C5B00640A40 /* Sources */,
 				0EB19D4D23A82C5B00640A40 /* Frameworks */,
 				0EB19D4E23A82C5B00640A40 /* Resources */,
@@ -539,6 +539,9 @@
 			dependencies = (
 			);
 			name = "Community Calendar";
+			packageProductDependencies = (
+				4C92DEDE2461297C0049CC78 /* Apollo */,
+			);
 			productName = "Community Calendar";
 			productReference = 0EB19D5023A82C5B00640A40 /* Community Calendar.app */;
 			productType = "com.apple.product-type.application";
@@ -571,6 +574,9 @@
 				Base,
 			);
 			mainGroup = 0EB19D4723A82C5B00640A40;
+			packageReferences = (
+				4C92DEDD2461297C0049CC78 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+			);
 			productRefGroup = 0EB19D5123A82C5B00640A40 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -594,19 +600,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */,
-				EFD4D3B023A98E6B00DDE283 /* Auth0.plist in Resources */,
+				4C92DEE2246139820049CC78 /* Events.graphql in Resources */,
 				0EB19D6323A82C6200640A40 /* LaunchScreen.storyboard in Resources */,
 				0E9FDD6423A8366F00FD75A0 /* Poppins-ThinItalic.ttf in Resources */,
 				0E9FDD6323A8366F00FD75A0 /* Poppins-SemiBold.ttf in Resources */,
 				0E9FDD6A23A8366F00FD75A0 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				0E974A2E23C7EE6200CEE05D /* Butler-Bold.ttf in Resources */,
-				0E86D5F523AC176E00CF7012 /* GetEventsQuery.graphql in Resources */,
 				0E974A3223C7EEB000CEE05D /* Butler-ExtraBold.ttf in Resources */,
 				0E09806723E20D2C000110AB /* Events.storyboard in Resources */,
 				0E09806923E20DB1000110AB /* EventDetail.storyboard in Resources */,
 				0E9FDD6923A8366F00FD75A0 /* Poppins-Black.ttf in Resources */,
 				0E9FDD6523A8366F00FD75A0 /* Poppins-ExtraLightItalic.ttf in Resources */,
-				0ED2657523AC0FBB00278980 /* schema.json in Resources */,
 				0E9FDD6823A8366F00FD75A0 /* Poppins-BlackItalic.ttf in Resources */,
 				0E9FDD7023A8366F00FD75A0 /* Poppins-Bold.ttf in Resources */,
 				0EB19D6023A82C6200640A40 /* Assets.xcassets in Resources */,
@@ -616,6 +620,7 @@
 				0E9FDD6B23A8366F00FD75A0 /* Poppins-BoldItalic.ttf in Resources */,
 				0E9FDD6223A8366F00FD75A0 /* Poppins-Thin.ttf in Resources */,
 				0E9FDD6123A8366F00FD75A0 /* Poppins-Italic.ttf in Resources */,
+				4CDBD11C2461C14E0026A539 /* UserUpdate.graphql in Resources */,
 				0E974A3723C7EF4000CEE05D /* Butler-Ultra-Light.ttf in Resources */,
 				0E974A3823C7EF4000CEE05D /* Butler-Light.ttf in Resources */,
 				0E974A3023C7EE8D00CEE05D /* Butler-Black.ttf in Resources */,
@@ -636,9 +641,9 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0E0F277723AC08DD00151365 /* Generate Apollo GraphQL API */ = {
+		4C8926662460DA8B00AE6D12 /* Generate Apollo GraphQL API */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
@@ -650,9 +655,9 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SCRIPT_PATH=\"${PODS_ROOT}/Apollo/scripts\"\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n";
+			shellScript = "# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n";
 		};
 		CEF666C48F8201A5AA28069C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -700,6 +705,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C92DEE524613C330049CC78 /* API.swift in Sources */,
 				0E73088F23C69147006B5326 /* EventControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -727,7 +733,6 @@
 				0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */,
 				4C6747D22453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
-				0E86D5F723AC1C7900CF7012 /* API.swift in Sources */,
 				0E2E723123EA4082006F94D3 /* JWT+Extension.swift in Sources */,
 				0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */,
 				0EA9732223EB2E8700085435 /* EventNavController.swift in Sources */,
@@ -743,6 +748,7 @@
 				EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */,
 				4C098F09244E870B0041E622 /* EasyEvent.swift in Sources */,
 				0EE2AC2923CF5142002B3EB4 /* FilterViewController.swift in Sources */,
+				4C92DEE424613C330049CC78 /* API.swift in Sources */,
 				0EE2AC3123CFFB2C002B3EB4 /* Functions.swift in Sources */,
 				4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */,
 				4C3859CA2460C2DB00ADBBB4 /* AuthController.swift in Sources */,
@@ -1032,6 +1038,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4C92DEDD2461297C0049CC78 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.27.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4C92DEDE2461297C0049CC78 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C92DEDD2461297C0049CC78 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */ = {

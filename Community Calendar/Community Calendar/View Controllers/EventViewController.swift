@@ -62,7 +62,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         myEventsCollectionView.dataSource = self
         myEventsCollectionView.delegate = self
       
-        fetchEvents()
+        
         setupSubViews()
         
         
@@ -74,28 +74,6 @@ class EventViewController: UIViewController, ControllerDelegate {
     }
     
  //MARK: - GraphQL Fetch
-        private func fetchEvents() {
-            controller?.getEvents { result in
-                switch result {
-                case .success(let eventList):
-                    if self.fetchEventsTimer != nil {
-                        self.fetchEventsTimer!.invalidate()
-                        self.fetchEventsTimer = nil
-                        NSLog("Fetched events successfully after \(self.repeatCount) attempt\(self.repeatCount == 1 ? "" : "s")")
-                        self.repeatCount = 1
-                    }
-
-                    if self.unfilteredEvents != eventList {
-
-                        self.unfilteredEvents = self.fixDates(eventList)
-                        self.viewDidLoad()
-                     // createMockData()
-                    }
-                case .failure(let error):
-                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-                }
-            }
-        }
     
     private func fixDates(_ eventsList: [Event]) -> [Event] {
         var events = eventsList

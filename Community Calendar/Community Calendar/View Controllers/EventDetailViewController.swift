@@ -234,35 +234,35 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func attendEvent(_ sender: UIButton) {
-        guard
-            let controller = controller,
-            let event = event
-            else { return }
-        controller.rsvpToEvent(with: event.id) { bool, error in
-            if let error = error {
-                var presentLogin = false
-                switch error {
-                case .ql(let errors):
-//                    for qlrr in errors {
-//                        if let errorMessage = qlrr.message, errorMessage.contains("No token was found in header") {
-                            presentLogin = true
-//                        }
-//                    }
-                case .rr(let singleError):
-                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(singleError)")
-                }
-                if presentLogin {
-                    self.loginAlert(with: "rsvp to an event")
-                }
-            }
-            guard let bool = bool else {
-                // TODO: Handle error
-                return
-            }
-            self.updateRSVP(with: bool)
-        }
-        controller.myEvents.append(event)
-        self.performSegue(withIdentifier: "EventsSegue", sender: self)
+//        guard
+//            let controller = controller,
+//            let event = event
+//            else { return }
+//        controller.rsvpToEvent(with: event.id) { bool, error in
+//            if let error = error {
+//                var presentLogin = false
+//                switch error {
+//                case .ql(let errors):
+////                    for qlrr in errors {
+////                        if let errorMessage = qlrr.message, errorMessage.contains("No token was found in header") {
+//                            presentLogin = true
+////                        }
+////                    }
+//                case .rr(let singleError):
+//                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(singleError)")
+//                }
+//                if presentLogin {
+//                    self.loginAlert(with: "rsvp to an event")
+//                }
+//            }
+//            guard let bool = bool else {
+//                // TODO: Handle error
+//                return
+//            }
+//            self.updateRSVP(with: bool)
+//        }
+//        controller.myEvents.append(event)
+//        self.performSegue(withIdentifier: "EventsSegue", sender: self)
     }
     
     @IBAction func showMore(_ sender: UIButton) {

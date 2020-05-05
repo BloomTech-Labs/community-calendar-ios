@@ -9,9 +9,9 @@ target 'Community Calendar' do
   inhibit_all_warnings!
   
   # Pods for Community Calendar
-  
-  pod "Apollo"
-  pod 'OktaOidc'
+
+ pod 'OktaOidc'
+ 
 
   # Hides "-pie being ignored. It is only used when linking a main executable" warning from frameworks
   post_install do |installer| # Access installer object
