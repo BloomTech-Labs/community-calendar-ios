@@ -38,10 +38,10 @@
             </objects>
             <point key="canvasLocation" x="-1203" y="127"/>
         </scene>
-        <!--LoginID-->
+        <!--Login-->
         <scene sceneID="Ram-Ef-Bak">
             <objects>
-                <viewControllerPlaceholder storyboardName="Login" referencedIdentifier="LoginID" id="yN9-Lq-TfV" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Login" id="yN9-Lq-TfV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" image="person" id="I5F-Ld-WAK"/>
                     <navigationItem key="navigationItem" id="j40-YH-bss"/>
                 </viewControllerPlaceholder>
@@ -289,7 +289,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="DISTRICT NAME">
                                                                     <attributes>
-                                                                        <font key="NSFont" metaFont="label"/>
+                                                                        <font key="NSFont" metaFont="system" size="10"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>

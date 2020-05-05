@@ -72,7 +72,7 @@ class LoginViewController: UIViewController, ControllerDelegate {
 
     
     private func updateViews() {
-
+//        guard let name = response["given_name"] else { return }
     }
     
     // MARK: - IBAction

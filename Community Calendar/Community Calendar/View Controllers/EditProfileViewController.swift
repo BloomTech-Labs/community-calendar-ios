@@ -15,8 +15,6 @@ class EditProfileViewController: UIViewController {
     @IBOutlet var userImage: UIImageView!
     @IBOutlet var userName: UILabel!
     @IBOutlet var userBlackOpacityView: UIView!
-    @IBOutlet weak var addImage: UIButton!
-    @IBOutlet weak var editInfoButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,11 +37,12 @@ class EditProfileViewController: UIViewController {
         userBlackOpacityView.layer.masksToBounds = false
         userBlackOpacityView.clipsToBounds = true
         
-        addImage.layer.cornerRadius = 15
+        
         
     }
+    
 
-
+  
     //MARK: - Save the entire Edit on both User Image & Name
     @IBAction func saveEditButtonTapped(_ sender: Any) {
     }

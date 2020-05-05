@@ -72,6 +72,7 @@
 		0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */; };
 		0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */; };
 		0EE307A923AC53470045EFD1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A723AC53470045EFD1 /* Event.swift */; };
+		0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */; };
 		0EF6DDE423DF479400D8A91B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE323DF479400D8A91B /* Location.swift */; };
 		0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE523DF47AF00D8A91B /* Tag.swift */; };
 		0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE723DF521600D8A91B /* Filter.swift */; };
@@ -79,9 +80,8 @@
 		0EF6DDEF23E0D94F00D8A91B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */; };
 		0EF6DDF523E1FE1600D8A91B /* SearchResults.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */; };
 		0EF6DDF823E200FC00D8A91B /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */; };
-		1A1E78AD2461088C00CB4880 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1E78AC2461088C00CB4880 /* UserProfileViewController.swift */; };
-		1A1E78AE2461088C00CB4880 /* UserProfile+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1E78AB2461088B00CB4880 /* UserProfile+Extension.swift */; };
-		1AE3203824612A9E00435E1B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE3203724612A9E00435E1B /* SettingsViewController.swift */; };
+		1A87B8E924620E0900282274 /* UserProfile+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A87B8E724620E0900282274 /* UserProfile+Extension.swift */; };
+		1A87B8EA24620E0900282274 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A87B8E824620E0900282274 /* UserProfileViewController.swift */; };
 		4571FCB524527A36001DE2A2 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCB424527A36001DE2A2 /* CalendarView.swift */; };
 		4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */; };
 		4571FCBB24527C61001DE2A2 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCBA24527C61001DE2A2 /* MonthView.swift */; };
@@ -89,11 +89,13 @@
 		4C098F09244E870B0041E622 /* EasyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C098F08244E870B0041E622 /* EasyEvent.swift */; };
 		4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEB18245B40F300BEECEF /* Okta.plist */; };
 		4C3859CA2460C2DB00ADBBB4 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3859C92460C2DB00ADBBB4 /* AuthController.swift */; };
+		4C468CE5246207C4004799E3 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 4C468CE4246207C4004799E3 /* Apollo */; };
+		4C468CE7246207C4004799E3 /* ApolloCodegenLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4C468CE6246207C4004799E3 /* ApolloCodegenLib */; };
+		4C468CE9246207C4004799E3 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 4C468CE8246207C4004799E3 /* ApolloWebSocket */; };
 		4C6747D22453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */; };
 		4C6747D42453D87400AE768E /* UIView+DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D32453D87400AE768E /* UIView+DropShadow.swift */; };
 		4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F55244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift */; };
 		4C735F58244F7F61000BF5ED /* UIVIew+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */; };
-		4C92DEDF2461297C0049CC78 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 4C92DEDE2461297C0049CC78 /* Apollo */; };
 		4C92DEE2246139820049CC78 /* Events.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4C92DEE1246139820049CC78 /* Events.graphql */; };
 		4C92DEE424613C330049CC78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92DEE324613C330049CC78 /* API.swift */; };
 		4C92DEE524613C330049CC78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92DEE324613C330049CC78 /* API.swift */; };
@@ -107,7 +109,7 @@
 		4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */; };
 		4CE2E93B24490A7B005AA6B5 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E93A24490A7B005AA6B5 /* DateCollectionViewCell.swift */; };
 		4CE2E9412449195E005AA6B5 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9402449195E005AA6B5 /* DateHeader.swift */; };
-		77A847808E15627F6F590AB4 /* Pods_Community_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10869AF092A9AC333F43A718 /* Pods_Community_Calendar.framework */; };
+		4CF9C5CC2461F9E5000BF914 /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF9C5CB2461F9E5000BF914 /* ApolloClient.swift */; };
 		EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF51CC4A23A83E4300FF4E62 /* Login.storyboard */; };
 		EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
@@ -199,15 +201,12 @@
 		0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResults.storyboard; sourceTree = "<group>"; };
 		0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
-		10869AF092A9AC333F43A718 /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Community_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1A1E78AB2461088B00CB4880 /* UserProfile+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProfile+Extension.swift"; sourceTree = "<group>"; };
-		1A1E78AC2461088C00CB4880 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		1AE3203724612A9E00435E1B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		1A87B8E724620E0900282274 /* UserProfile+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserProfile+Extension.swift"; sourceTree = "<group>"; };
+		1A87B8E824620E0900282274 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		4571FCB424527A36001DE2A2 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
 		4571FCBA24527C61001DE2A2 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
-		473306B209D8932B0ED6A0C6 /* Pods-Community Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		4C098F08244E870B0041E622 /* EasyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyEvent.swift; sourceTree = "<group>"; };
 		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
 		4C3859C92460C2DB00ADBBB4 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
@@ -228,7 +227,10 @@
 		4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Decompression.swift"; sourceTree = "<group>"; };
 		4CE2E93A24490A7B005AA6B5 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		4CE2E9402449195E005AA6B5 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
-		8658E967670BCC42770BF441 /* Pods-Community Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.release.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.release.xcconfig"; sourceTree = "<group>"; };
+		4CF9C5CB2461F9E5000BF914 /* ApolloClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
+		697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.debug.xcconfig"; sourceTree = "<group>"; };
+		81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.release.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.release.xcconfig"; sourceTree = "<group>"; };
+		97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Community_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF51CC4A23A83E4300FF4E62 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -246,7 +248,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */,
-				4C92DEDF2461297C0049CC78 /* Apollo in Frameworks */,
+				4C468CE9246207C4004799E3 /* ApolloWebSocket in Frameworks */,
+				4C468CE7246207C4004799E3 /* ApolloCodegenLib in Frameworks */,
+				4C468CE5246207C4004799E3 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +274,7 @@
 				0E09806A23E2A526000110AB /* SearchController.swift */,
 				4C9D2DC4244E55BA0028B9D7 /* TMEventController.swift */,
 				4C3859C92460C2DB00ADBBB4 /* AuthController.swift */,
+				4CF9C5CB2461F9E5000BF914 /* ApolloClient.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -290,7 +295,7 @@
 				0E73088D23C69147006B5326 /* Community Calendar Tests */,
 				0EB19D5123A82C5B00640A40 /* Products */,
 				AF02A3BECBE0CFBDE342171D /* Pods */,
-				F8B4ACC4B69C879236CD5645 /* Frameworks */,
+				4B1C6C772E89C0E95EBE07DE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -379,8 +384,8 @@
 		0EE3079E23AC527E0045EFD1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */,
 				0EB19D5723A82C5B00640A40 /* HomeViewController.swift */,
+				EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */,
 				0EE2AC2823CF5142002B3EB4 /* FilterViewController.swift */,
 				0E7DD80823C8E844009843BE /* EventDetailViewController.swift */,
 				0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */,
@@ -395,8 +400,7 @@
 		0EE3079F23AC528D0045EFD1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1AE3203624612A9000435E1B /* Settings */,
-				1A1E78AF2461089500CB4880 /* UserProfile */,
+				1A87B8E624620DFC00282274 /* UserProfile */,
 				0E2B119623ED0FCB0072E72E /* SearchView.swift */,
 				4CE2E9402449195E005AA6B5 /* DateHeader.swift */,
 				0E9FDD7423A8567B00FD75A0 /* FeaturedCollectionViewCell.swift */,
@@ -464,21 +468,13 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		1A1E78AF2461089500CB4880 /* UserProfile */ = {
+		1A87B8E624620DFC00282274 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
-				1A1E78AB2461088B00CB4880 /* UserProfile+Extension.swift */,
-				1A1E78AC2461088C00CB4880 /* UserProfileViewController.swift */,
+				1A87B8E724620E0900282274 /* UserProfile+Extension.swift */,
+				1A87B8E824620E0900282274 /* UserProfileViewController.swift */,
 			);
 			path = UserProfile;
-			sourceTree = "<group>";
-		};
-		1AE3203624612A9000435E1B /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				1AE3203724612A9E00435E1B /* SettingsViewController.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		4571FCB1245279A8001DE2A2 /* Custom Calendar Layout */ = {
@@ -489,6 +485,14 @@
 				4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */,
 			);
 			path = "Custom Calendar Layout";
+			sourceTree = "<group>";
+		};
+		4B1C6C772E89C0E95EBE07DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		4CE2E92E2448D316005AA6B5 /* Extensions */ = {
@@ -513,18 +517,10 @@
 		AF02A3BECBE0CFBDE342171D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				473306B209D8932B0ED6A0C6 /* Pods-Community Calendar.debug.xcconfig */,
-				8658E967670BCC42770BF441 /* Pods-Community Calendar.release.xcconfig */,
+				697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */,
+				81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		F8B4ACC4B69C879236CD5645 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				10869AF092A9AC333F43A718 /* Pods_Community_Calendar.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -557,7 +553,7 @@
 				0EB19D4C23A82C5B00640A40 /* Sources */,
 				0EB19D4D23A82C5B00640A40 /* Frameworks */,
 				0EB19D4E23A82C5B00640A40 /* Resources */,
-				563CD4ADFF2CDEBDC46B7ADF /* [CP] Embed Pods Frameworks */,
+				FA21C7BAA215A9B4C3B0E048 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -565,7 +561,9 @@
 			);
 			name = "Community Calendar";
 			packageProductDependencies = (
-				4C92DEDE2461297C0049CC78 /* Apollo */,
+				4C468CE4246207C4004799E3 /* Apollo */,
+				4C468CE6246207C4004799E3 /* ApolloCodegenLib */,
+				4C468CE8246207C4004799E3 /* ApolloWebSocket */,
 			);
 			productName = "Community Calendar";
 			productReference = 0EB19D5023A82C5B00640A40 /* Community Calendar.app */;
@@ -600,7 +598,7 @@
 			);
 			mainGroup = 0EB19D4723A82C5B00640A40;
 			packageReferences = (
-				4C92DEDD2461297C0049CC78 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				4C468CE3246207C4004799E3 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 			);
 			productRefGroup = 0EB19D5123A82C5B00640A40 /* Products */;
 			projectDirPath = "";
@@ -684,7 +682,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n";
 		};
-		3700F358341DB11A42A16F79 /* [CP] Check Pods Manifest.lock */ = {
+		CEF666C48F8201A5AA28069C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -706,7 +704,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		563CD4ADFF2CDEBDC46B7ADF /* [CP] Embed Pods Frameworks */ = {
+		FA21C7BAA215A9B4C3B0E048 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -750,17 +748,17 @@
 				0EF6DDED23DFFB7800D8A91B /* DropDownTextField.swift in Sources */,
 				0EE307A923AC53470045EFD1 /* Event.swift in Sources */,
 				4CE2E9412449195E005AA6B5 /* DateHeader.swift in Sources */,
-				1A1E78AD2461088C00CB4880 /* UserProfileViewController.swift in Sources */,
 				4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */,
 				0E64400223C63DC800A56B22 /* EventController.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
 				0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */,
 				0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */,
+				1A87B8EA24620E0900282274 /* UserProfileViewController.swift in Sources */,
+				4CF9C5CC2461F9E5000BF914 /* ApolloClient.swift in Sources */,
 				0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */,
 				4C6747D22453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
-				1A1E78AE2461088C00CB4880 /* UserProfile+Extension.swift in Sources */,
-				0E86D5F723AC1C7900CF7012 /* API.swift in Sources */,
+				1A87B8E924620E0900282274 /* UserProfile+Extension.swift in Sources */,
 				0E2E723123EA4082006F94D3 /* JWT+Extension.swift in Sources */,
 				0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */,
 				0EA9732223EB2E8700085435 /* EventNavController.swift in Sources */,
@@ -776,6 +774,7 @@
 				EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */,
 				4C098F09244E870B0041E622 /* EasyEvent.swift in Sources */,
 				0EE2AC2923CF5142002B3EB4 /* FilterViewController.swift in Sources */,
+				4C92DEE424613C330049CC78 /* API.swift in Sources */,
 				0EE2AC3123CFFB2C002B3EB4 /* Functions.swift in Sources */,
 				4C735F56244F7D39000BF5ED /* EventVC+CVDelegateFlowLayout.swift in Sources */,
 				4C3859CA2460C2DB00ADBBB4 /* AuthController.swift in Sources */,
@@ -783,7 +782,6 @@
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
 				4CE2E9302448D37C005AA6B5 /* EventViewController+CVDataSource.swift in Sources */,
 				0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */,
-				1AE3203824612A9E00435E1B /* SettingsViewController.swift in Sources */,
 				4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */,
 				0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
@@ -991,7 +989,7 @@
 		};
 		0EB19D6823A82C6200640A40 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 473306B209D8932B0ED6A0C6 /* Pods-Community Calendar.debug.xcconfig */;
+			baseConfigurationReference = 697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1004,7 +1002,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.AaronCleveland.Community-Calendar";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_VERSION = 5.0;
@@ -1014,7 +1012,7 @@
 		};
 		0EB19D6923A82C6200640A40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8658E967670BCC42770BF441 /* Pods-Community Calendar.release.xcconfig */;
+			baseConfigurationReference = 81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1027,7 +1025,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.AaronCleveland.Community-Calendar";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_VERSION = 5.0;
@@ -1068,21 +1066,31 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4C92DEDD2461297C0049CC78 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+		4C468CE3246207C4004799E3 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
 			requirement = {
-				kind = upToNextMinorVersion;
+				kind = upToNextMajorVersion;
 				minimumVersion = 0.27.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4C92DEDE2461297C0049CC78 /* Apollo */ = {
+		4C468CE4246207C4004799E3 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4C92DEDD2461297C0049CC78 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 4C468CE3246207C4004799E3 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
+		};
+		4C468CE6246207C4004799E3 /* ApolloCodegenLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C468CE3246207C4004799E3 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloCodegenLib;
+		};
+		4C468CE8246207C4004799E3 /* ApolloWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C468CE3246207C4004799E3 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloWebSocket;
 		};
 /* End XCSwiftPackageProductDependency section */
 

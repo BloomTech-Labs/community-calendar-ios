@@ -208,7 +208,7 @@
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HSJ-Vs-ree">
                                                         <rect key="frame" x="314.5" y="0.0" width="99.5" height="110"/>
-                                                        <color key="backgroundColor" name="Shark"/>
+                                                        <color key="backgroundColor" red="0.12941176470588234" green="0.14117647058823529" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="110" id="0eg-S2-gUr"/>
                                                         </constraints>
@@ -619,8 +619,5 @@
     <resources>
         <image name="arrow" width="24" height="24"/>
         <image name="user-placeholder" width="96" height="96"/>
-        <namedColor name="Shark">
-            <color red="0.12941176470588234" green="0.14117647058823529" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
 </document>

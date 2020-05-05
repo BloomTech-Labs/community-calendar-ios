@@ -249,15 +249,6 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     private func updateViews() {
 
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SettingSegue" {
-            if segue.destination is SettingsViewController {
-                //todo: pass data to settings view controller?
-            }
-        }
-
-    }
 }
 
 extension UIColor {

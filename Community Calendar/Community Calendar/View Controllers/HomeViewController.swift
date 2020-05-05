@@ -62,8 +62,9 @@ class HomeViewController: UIViewController, ControllerDelegate {
         searchView.controller = controller
         searchView.setUp()
         setUp()
+  
         eventController.fetchEvents { fetchedEvents in
-            //todo: Nothing to pass in here.
+            
         }
     }
     
