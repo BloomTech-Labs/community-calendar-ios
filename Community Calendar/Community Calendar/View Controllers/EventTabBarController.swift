@@ -14,10 +14,8 @@ protocol ControllerDelegate {
 
 class EventTabBarController: UITabBarController {
 
-    @IBOutlet weak var eventTabBarController: UITabBar!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let controller = Controller()
         if let viewControllers = self.viewControllers {
             for viewController in viewControllers {

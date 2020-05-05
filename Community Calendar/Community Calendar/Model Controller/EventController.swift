@@ -8,7 +8,7 @@
 
 import Foundation
 import Apollo
-import OktaOidc
+import JWTDecode
 
 enum qlError {
     case ql([GraphQLError])
@@ -21,50 +21,124 @@ enum qlError {
 // or
 // apollo schema:download --endpoint=https://ccapollo-production.herokuapp.com/schema.graphql schema.json
 
-class EventController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelegate {
+class EventController: HTTPNetworkTransportDelegate {
     
-//    private static let url = URL(string: "https://ccapollo-production.herokuapp.com/graphql")!
-    private static let url = URL(string: "https://apollo.ourcommunitycal.com/")!
-    private var apollo: ApolloClient = ApolloClient(url: EventController.url)
-    var stateManager: OktaOidcStateManager?
-    var oktaOidc: OktaOidc?
+    //  Use staging (https://ccstaging.herokuapp.com/schema.graphql) when developing, use production (https://ccapollo-production.herokuapp.com/graphql) when releasing
+    private static let url = URL(string: "https://ccapollo-production.herokuapp.com/graphql")!
+    private var graphQLClient: ApolloClient = ApolloClient(url: EventController.url)
+    
     var parent: Controller!
     
-    var events = [FetchEventsQuery.Data.Event]()
-    
-    private lazy var networkTransport: HTTPNetworkTransport = {
-        let transport = HTTPNetworkTransport(url: URL(string: "https://apollo.ourcommunitycal.com/")!)
-        transport.delegate = self
-        return transport
-    }()
-    
-    func fetchEvents(completion: @escaping (Swift.Result<[FetchEventsQuery.Data.Event], Error>) -> Void) {
-        apollo.fetch(query: FetchEventsQuery()) { result in
-            guard let data = try? result.get().data else { return }
-            print(data)
+    func getEvents(completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
+        graphQLClient.fetch(query: GetEventsQuery()) { result in
             switch result {
             case .failure(let error):
-                print("Error fetching events: \(error)")
                 completion(.failure(error))
             case .success(let graphQLResult):
-                print("Success! Result: \(graphQLResult)")
-                if let events = graphQLResult.data?.events {
-                    self.events.append(contentsOf: events)
-                    print(self.events.count)
-                    completion(.success(events))
+                guard let data = graphQLResult.data?.events else {
+                    completion(.failure(NetworkError.noData))
+                    return
+                }
+                
+                var events = [Event]()
+                for event in data {
+                    events.append(Event(event: event))
+                }
+                let sortedEvents = events.sorted { a, b -> Bool in
+                    if let aStartDate = a.startDate, let bStartDate = b.startDate {
+                        return aStartDate < bStartDate
+                    } else {
+                        return a.title.lowercased() < b.title.lowercased()
+                    }
+                }
+                completion(.success(sortedEvents))
+            }
+        }
+    }
+    
+    func getEvents(by filters: Filter, completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
+        graphQLClient.fetch(query: GetEventsByFilterQuery(filters: filters.searchFilter)) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                guard let data = graphQLResult.data?.events else {
+                    completion(.failure(NetworkError.noData))
+                    return
+                }
+                
+                var events = [Event]()
+                for event in data {
+                    events.append(Event(event: event))
+                }
+                let sortedEvents = events.sorted { a, b -> Bool in
+                    if let aStartDate = a.startDate, let bStartDate = b.startDate {
+                        return aStartDate < bStartDate
+                    } else {
+                        return a.title.lowercased() < b.title.lowercased()
+                    }
+                }
+                completion(.success(sortedEvents))
+            }
+        }
+    }
+    
+    func fetchTags(completion: @escaping (Swift.Result<[Tag], Error>) -> Void) {
+        graphQLClient.fetch(query: GetTagsQuery()) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let tagData):
+                guard let tagList = tagData.data?.tags else { return }
+                var tags = [Tag]()
+                for tag in tagList {
+                    tags.append(Tag(tag: tag))
+                }
+                completion(.success(tags))
+            }
+        }
+    }
+    
+    func rsvpToEvent(with id: String, completion: @escaping (Bool?, qlError?) -> Void) {
+        graphQLClient = updateApollo()
+        graphQLClient.perform(mutation: RsvpToEventMutation(id: EventIdInput(id: id))) { result in
+            switch result {
+            case .failure(let error):
+                completion(nil, .rr(error))
+            case .success(let data):
+                if let errors = data.errors {
+                    completion(nil, .ql(errors))
+                } else {
+                    completion(data.data?.rsvpEvent, nil)
                 }
             }
         }
     }
     
-    func configureApolloClient(accessToken: String) -> ApolloClient {
-        let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
+    func checkForRsvp(with id: String, completion: @escaping ([String]?, Error?) -> Void) {
+        graphQLClient.fetch(query: GetUserRsvPsQuery(id: id)) { result in
+            switch result {
+            case .failure(let error):
+                completion(nil, error)
+            case .success(let rsvps):
+                if rsvps.data?.users?.isEmpty ?? true {
+                    completion([], nil)
+                } else {
+                    if let userRSVP = rsvps.data?.users?.first {
+                        let rsvpIdList = userRSVP.rsvps?.map { $0.id }
+                        completion(rsvpIdList, nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    func updateApollo() -> ApolloClient {
+        let token = parent.userToken ?? ""
         
-        let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
-        let transport = HTTPNetworkTransport(url: EventController.url, client: client)
-        print("Apollo Client: \(accessToken)")
-
-        return ApolloClient(networkTransport: transport)
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"]
+        
+        return ApolloClient(networkTransport: HTTPNetworkTransport(url: EventController.url, session: URLSession(configuration: configuration)))
     }
 }

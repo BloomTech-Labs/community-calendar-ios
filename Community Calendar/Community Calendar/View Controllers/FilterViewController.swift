@@ -225,19 +225,19 @@ class FilterViewController: UIViewController {
     
     private func addSuggestedFilters() {
         // TODO: Record most used filters and display the top 10. Alternatively use CoreML to learn what kind of filters the user likes and suggest new and used ones appropriately.
-//        if let controller = controller {
-//            controller.fetchTags { result in
-//                switch result {
-//                case .success(let tags):
-//                    self.suggestedFilters = tags
-//                    self.setUpWithFilters()
-//                case .failure(let error):
-//                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error \(error)")
-//                }
-//            }
-//        } else {
-//            suggestedFilters = [Tag(title: "cooking"), Tag(title: "art"), Tag(title: "reading"), Tag(title: "entertainment"), Tag(title: "music"), Tag(title:"family")]
-//        }
+        if let controller = controller {
+            controller.fetchTags { result in
+                switch result {
+                case .success(let tags):
+                    self.suggestedFilters = tags
+                    self.setUpWithFilters()
+                case .failure(let error):
+                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error \(error)")
+                }
+            }
+        } else {
+            suggestedFilters = [Tag(title: "cooking"), Tag(title: "art"), Tag(title: "reading"), Tag(title: "entertainment"), Tag(title: "music"), Tag(title:"family")]
+        }
     }
     
     // MARK: - IBActions

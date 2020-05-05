@@ -22,12 +22,12 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>None</string>
 			<key>CFBundleURLName</key>
-			<string>Okta Auth</string>
+			<string>auth0</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.okta.dev-567622</string>
+				<string>com.mazjap.Community-Calendar</string>
 			</array>
 		</dict>
 	</array>

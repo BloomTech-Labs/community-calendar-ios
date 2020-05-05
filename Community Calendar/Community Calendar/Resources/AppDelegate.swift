@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Auth0
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,9 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // MARK: - Login OktaAuth
+    // MARK: - Login Auth0
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        return false
+        return Auth0.resumeAuth(url, options: options)
     }
 
     // MARK: UISceneSession Lifecycle

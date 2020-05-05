@@ -18,54 +18,52 @@ class Controller {
     private var rsvpIds: [String]?
     public var userToken: String?
     
-    public var myEvents: [Event] = []
-    
     init() {
         eventController.parent = self
     }
     
-//    func getEvents(by filters: Filter? = nil, completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
-//        if let filters = filters {
-//            eventController.getEvents(by: filters) { result in
-//                switch result {
-//                case .success(let events):
-//                    completion(.success(events))
-//                case .failure(let error):
-//                    completion(.failure(error))
-//                }
-//            }
-//        } else {
-//            eventController.getEvents { result in
-//                switch result {
-//                case .success(let events):
-//                    completion(.success(events))
-//                case .failure(let error):
-//                    completion(.failure(error))
-//                }
-//            }
-//        }
-//    }
+    func getEvents(by filters: Filter? = nil, completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
+        if let filters = filters {
+            eventController.getEvents(by: filters) { result in
+                switch result {
+                case .success(let events):
+                    completion(.success(events))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            eventController.getEvents { result in
+                switch result {
+                case .success(let events):
+                    completion(.success(events))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
     
-//    func fetchTags(completion: @escaping (Swift.Result<[Tag], Error>) -> Void) {
-//        eventController.fetchTags { result in
-//            switch result {
-//            case .success(let tags):
-//                completion(.success(tags))
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-//
-//    func rsvpToEvent(with id: String, completion: @escaping (Bool?, qlError?) -> Void) {
-//        eventController.rsvpToEvent(with: id) { bool, errors in
-//            if let errors = errors {
-//                completion(nil, errors)
-//            } else if let bool = bool {
-//                completion(bool, nil)
-//            }
-//        }
-//    }
+    func fetchTags(completion: @escaping (Swift.Result<[Tag], Error>) -> Void) {
+        eventController.fetchTags { result in
+            switch result {
+            case .success(let tags):
+                completion(.success(tags))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func rsvpToEvent(with id: String, completion: @escaping (Bool?, qlError?) -> Void) {
+        eventController.rsvpToEvent(with: id) { bool, errors in
+            if let errors = errors {
+                completion(nil, errors)
+            } else if let bool = bool {
+                completion(bool, nil)
+            }
+        }
+    }
     
     func checkUserRsvps(with id: String?) -> Bool? {
         if let id = id, let rsvpIds = rsvpIds {
@@ -74,16 +72,16 @@ class Controller {
         return nil
     }
     
-//    func fetchUserRsvps(with id: String, completion: @escaping ([String]?, Error?) -> Void) {
-//        eventController.checkForRsvp(with: id) { ids, error in
-//            if let error = error {
-//                completion(nil, error)
-//            } else if let ids = ids {
-//                self.rsvpIds = ids
-//                completion(ids, nil)
-//            }
-//        }
-//    }
+    func fetchUserRsvps(with id: String, completion: @escaping ([String]?, Error?) -> Void) {
+        eventController.checkForRsvp(with: id) { ids, error in
+            if let error = error {
+                completion(nil, error)
+            } else if let ids = ids {
+                self.rsvpIds = ids
+                completion(ids, nil)
+            }
+        }
+    }
     
     func fetchImage(for key: String) {
         if let image = cache.fetch(key: key) {

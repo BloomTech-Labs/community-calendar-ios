@@ -9,17 +9,17 @@
 import Foundation
 
 struct Tag: Codable, Equatable {
-//    init(tag: GetEventsQuery.Data.Event.Tag) {
-//        self.init(title: tag.title, id: tag.id)
-//    }
-//    
-//    init(tag: GetEventsByFilterQuery.Data.Event.Tag) {
-//        self.init(title: tag.title, id: tag.id)
-//    }
-//    
-//    init(tag: GetTagsQuery.Data.Tag) {
-//        self.init(title: tag.title, id: tag.id)
-//    }
+    init(tag: GetEventsQuery.Data.Event.Tag) {
+        self.init(title: tag.title, id: tag.id)
+    }
+    
+    init(tag: GetEventsByFilterQuery.Data.Event.Tag) {
+        self.init(title: tag.title, id: tag.id)
+    }
+    
+    init(tag: GetTagsQuery.Data.Tag) {
+        self.init(title: tag.title, id: tag.id)
+    }
     
     init(title: String, id: String? = nil) {
         self.title = title
