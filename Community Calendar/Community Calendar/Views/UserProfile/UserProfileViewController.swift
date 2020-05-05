@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import OktaOidc
 
-class UserProfileViewController: UIViewController {
+class UserProfileViewController: UIViewController, ControllerDelegate {
+
+    var controller: Controller?
+    var authController = AuthController()
 
     //=======================
     // MARK: - TopView
@@ -19,11 +23,24 @@ class UserProfileViewController: UIViewController {
         return topView
     }()
 
-    let loginSignupButton: UIButton = {
-        let loginSignupButton = UIButton(type: .system)
-        loginSignupButton.translatesAutoresizingMaskIntoConstraints = false
-        loginSignupButton.setImage(UIImage(systemName: "gear"), for: .normal)
-        return loginSignupButton
+    let settingsButton: UIButton = {
+        let settingsButton = UIButton()
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
+        settingsButton.setImage(UIImage(systemName: "gear"), for: .normal)
+        settingsButton.tintColor = .white
+        settingsButton.isUserInteractionEnabled = true
+        settingsButton.addTarget(self, action: #selector(settingsPressed), for: .touchUpInside)
+        return settingsButton
+    }()
+
+    let buttonLogout: UIButton = {
+        let buttonLogout = UIButton(type: .system)
+        buttonLogout.translatesAutoresizingMaskIntoConstraints = false
+        buttonLogout.setTitle("Logout", for: .normal)
+        buttonLogout.setTitleColor(.white, for: .normal)
+        buttonLogout.isUserInteractionEnabled = true
+        buttonLogout.addTarget(self, action: #selector(logoutButtonPressed(_:)), for: .touchUpInside)
+        return buttonLogout
     }()
 
     let topInfoVStack: UIStackView = {
@@ -176,10 +193,70 @@ class UserProfileViewController: UIViewController {
         return tableview
     }()
 
+    let topHStack: UIStackView = {
+        let topHStack = UIStackView()
+        topHStack.translatesAutoresizingMaskIntoConstraints = false
+        topHStack.axis = .horizontal
+        topHStack.distribution = .fillEqually
+        topHStack.alignment = .fill
+        topHStack.spacing = 12
+        return topHStack
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubviews()
         setupConstraints()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        loginUser()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        print(buttonLogout.bounds)
+    }
+
+    func loginUser() {
+        authController.setupOktaOidc()
+        authController.signIn(viewController: self) {
+            if let accessToken = self.authController.stateManager?.accessToken {
+                print("Access Token: \(accessToken)")
+                self.authController.getUser()
+            }
+        }
+    }
+
+    @objc func logoutButtonPressed(_ sender: UIButton) {
+        print("LOGOUT PRESSED")
+        let alert = UIAlertController(title: "Success", message: "You have successfully logged out", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (_) in
+            DispatchQueue.main.async {
+                self.tabBarController?.selectedIndex = 0
+            }
+        }))
+    }
+
+    @objc func settingsPressed() {
+        print("SETTINGS PRESSED")
+        self.performSegue(withIdentifier: "SettingSegue", sender: self)
+    }
+
+    //=======================
+    // MARK: - Helper Functions
+    private func updateViews() {
+
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SettingSegue" {
+            if segue.destination is SettingsViewController {
+                //todo: pass data to settings view controller?
+            }
+        }
+
     }
 }
 

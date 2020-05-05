@@ -38,14 +38,14 @@
             </objects>
             <point key="canvasLocation" x="-1203" y="127"/>
         </scene>
-        <!--Login-->
+        <!--LoginID-->
         <scene sceneID="Ram-Ef-Bak">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iF4-Go-5zb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <viewControllerPlaceholder storyboardName="Login" id="yN9-Lq-TfV" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Login" referencedIdentifier="LoginID" id="yN9-Lq-TfV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" image="person" id="I5F-Ld-WAK"/>
                     <navigationItem key="navigationItem" id="j40-YH-bss"/>
                 </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iF4-Go-5zb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-614" y="-256"/>
         </scene>
@@ -289,7 +289,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="DISTRICT NAME">
                                                                     <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="10"/>
+                                                                        <font key="NSFont" metaFont="label"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -857,22 +857,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5Q-c0-ety" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1424" y="649"/>
-        </scene>
-        <!--Profile-->
-        <scene sceneID="RDT-xE-T4O">
-            <objects>
-                <viewController id="H77-IT-jtx" customClass="UserProfileViewController" customModule="Community_Calendar" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LEo-fk-wPa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="oW7-7h-Dmg"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Profile" id="5Rx-g3-BRa"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="go0-hr-GPo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-704" y="898"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

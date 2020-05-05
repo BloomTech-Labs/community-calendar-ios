@@ -11,9 +11,14 @@ import UIKit
 
 extension UserProfileViewController {
     func setupSubviews() {
-        topInfoVStack.addArrangedSubview(profileImage)
+        topInfoVStack.addArrangedSubview(topHStack)
+        topHStack.addArrangedSubview(buttonLogout)
+        topHStack.addArrangedSubview(profileImage)
+        topHStack.addArrangedSubview(settingsButton)
+
         topInfoVStack.addArrangedSubview(userName)
         topInfoVStack.addArrangedSubview(userTitle)
+        topInfoVStack.addArrangedSubview(topInfoHStack)
 
         topInfoHStack.addArrangedSubview(userEventsVStack)
         userEventsVStack.addArrangedSubview(userEvents)
@@ -27,11 +32,11 @@ extension UserProfileViewController {
         tableFilterHStack.addArrangedSubview(savedEventsLabel)
         tableFilterHStack.addArrangedSubview(createdEventsLabel)
 
+        topView.addSubview(topInfoVStack)
+
         bottomView.addSubview(tableView)
         bottomView.addSubview(tableFilterHStack)
-        topView.addSubview(loginSignupButton)
-        topView.addSubview(topInfoHStack)
-        topView.addSubview(topInfoVStack)
+
         view.addSubview(bottomView)
         view.addSubview(topView)
     }
@@ -50,7 +55,7 @@ extension UserProfileViewController {
             profileImage.heightAnchor.constraint(equalToConstant: 100),
             profileImage.widthAnchor.constraint(equalToConstant: 100),
 
-            topInfoHStack.topAnchor.constraint(equalTo: topInfoVStack.bottomAnchor, constant: 8),
+            topInfoHStack.topAnchor.constraint(equalTo: userTitle.bottomAnchor, constant: 8),
             topInfoHStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             topInfoHStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 
