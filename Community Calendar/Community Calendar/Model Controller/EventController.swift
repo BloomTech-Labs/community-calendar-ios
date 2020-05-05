@@ -8,7 +8,7 @@
 
 import Foundation
 import Apollo
-import JWTDecode
+import OktaOidc
 
 enum qlError {
     case ql([GraphQLError])
@@ -24,9 +24,11 @@ enum qlError {
 class EventController: HTTPNetworkTransportDelegate {
     
     //  Use staging (https://ccstaging.herokuapp.com/schema.graphql) when developing, use production (https://ccapollo-production.herokuapp.com/graphql) when releasing
-    private static let url = URL(string: "https://ccapollo-production.herokuapp.com/graphql")!
+//    private static let url = URL(string: "https://ccapollo-production.herokuapp.com/graphql")!
+    private static let url = URL(string: "https://apollo.ourcommunitycal.com/")!
     private var graphQLClient: ApolloClient = ApolloClient(url: EventController.url)
-    
+    var stateManager: OktaOidcStateManager?
+    var oktaOidc: OktaOidc?
     var parent: Controller!
     
     func getEvents(completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
@@ -100,7 +102,14 @@ class EventController: HTTPNetworkTransportDelegate {
     }
     
     func rsvpToEvent(with id: String, completion: @escaping (Bool?, qlError?) -> Void) {
-        graphQLClient = updateApollo()
+        do {
+            self.oktaOidc =  try OktaOidc()
+        } catch {
+            print("Error creating oktaOidc object.")
+        }
+        
+        self.stateManager = OktaOidcStateManager.readFromSecureStorage(for: oktaOidc!.configuration)
+        graphQLClient = configureApolloClient(stateManager: self.stateManager!)
         graphQLClient.perform(mutation: RsvpToEventMutation(id: EventIdInput(id: id))) { result in
             switch result {
             case .failure(let error):
@@ -133,11 +142,14 @@ class EventController: HTTPNetworkTransportDelegate {
         }
     }
     
-    func updateApollo() -> ApolloClient {
+    func configureApolloClient(stateManager: OktaOidcStateManager) -> ApolloClient {
+        guard let accessToken = stateManager.accessToken else { return ApolloClient(url: EventController.url)}
+        print("Apollo Client: \(accessToken)")
+    
         let token = parent.userToken ?? ""
         
         let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"]
+        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
         
         return ApolloClient(networkTransport: HTTPNetworkTransport(url: EventController.url))
     }

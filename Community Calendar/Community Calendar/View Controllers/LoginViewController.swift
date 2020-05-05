@@ -14,33 +14,13 @@
 //  Store the token in apple's keychain
 
 import UIKit
+import OktaOidc
 
 class LoginViewController: UIViewController, ControllerDelegate {
-    var controller: Controller?
-    
-//    // MARK: - Variables
+    // MARK: - Variables
 //    var homeController = HomeViewController()
-//    var controller: Controller?
-//
-//    var onAuth: ((Result<Credentials>) -> ())!
-//    var credentials: Credentials? {
-//        didSet {
-//            controller?.userToken = self.credentials?.accessToken
-//            getUserInfo()
-//            DispatchQueue.main.async {
-//                if self.credentials == nil {
-//                    self.tabBarController?.tabBarItem.title = "Login"
-//                } else {
-//                    self.tabBarController?.tabBarItem.title = "Profile"
-//                }
-//            }
-//        }
-//    }
-//    var profile: UserInfo? {
-//        didSet {
-//            updateViews()
-//        }
-//    }
+    var controller: Controller?
+    let authController = AuthController()
     
     // MARK: - IBOutlets
     @IBOutlet weak var LoginButton: UIButton!
@@ -55,8 +35,14 @@ class LoginViewController: UIViewController, ControllerDelegate {
         logOutButton.isHidden = true
         LoginButton.isHidden = true
         
-//        observeImage()
         imageView.layer.cornerRadius = imageView.frame.height / 2
+        authController.setupOktaOidc()
+        authController.signIn(viewController: self) {
+            if let accessToken = self.authController.stateManager?.accessToken {
+                print("Access Token: \(accessToken))")
+                self.authController.getUser()
+            }
+        }
     }
 //
 //    override func viewWillAppear(_ animated: Bool) {
@@ -125,41 +111,46 @@ class LoginViewController: UIViewController, ControllerDelegate {
 //        }
 //    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
+    }
+    
+    // MARK: - Functions
+    private func logoutAlertController() {
+        let alert = UIAlertController(title: "Success", message: "You have successfully logged out", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default) { _ in
+            DispatchQueue.main.async {
+                self.tabBarController?.selectedIndex = 0
+            }
+        })
+        
+        DispatchQueue.main.async{
+            self.presentedViewController?.dismiss(animated: false) {
+                OperationQueue.main.addOperation {
+                    self.present(alert, animated: true)
+                }
+            }
+        }
+    }
+    
+
+    
+    private func updateViews() {
+
+    }
+    
     // MARK: - IBAction
-//    @IBAction func loginOrSignUpButtonPressed(_ sender: Any) {
-//        Auth0.webAuth().scope("openid profile").audience("https://community-calendar.auth0.com/api/v2/").start {
-//            switch $0 {
-//            case .failure(let error):
-//                // Handle the error
-//                print("Error: \(error)")
-//            case .success(let credentials):
-//                self.credentials = credentials
-//                print("Credentials: \(credentials)")
-//                DispatchQueue.main.async {
-//                    self.tabBarItem.title = "Profile"
-//                    self.tabBarController?.selectedIndex = 0
-//                    self.LoginButton.isHidden = true
-//                    self.logOutButton.isHidden = false
-//                }
-//            }
-//        }
-//    }
-//    
-//    @IBAction func logoutButtonPressed(_ sender: Any) {
-//        
-//        Auth0.webAuth().clearSession(federated:false) {
-//            switch $0 {
-//            case true:
-//                self.logOutButton.isHidden = true
-//                self.credentials = nil
-//                self.tabBarItem.title = "Login"
-//                self.logoutAlertController()
-//            case false:
-//                print("User was not able to log out.")
-//            }
-//        }
-//    }
-//    
+    @IBAction func loginOrSignUpButtonPressed(_ sender: Any) {
+
+    }
+    
+    @IBAction func logoutButtonPressed(_ sender: Any) {
+        
+
+    }
+    
 //    @objc
 //    func receiveImage(_ notification: Notification) {
 //        guard let imageNot = notification.object as? ImageNotification else {
@@ -172,7 +163,7 @@ class LoginViewController: UIViewController, ControllerDelegate {
 //            }
 //        }
 //    }
-//    
+    
 //    func observeImage() {
 //        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
 //    }

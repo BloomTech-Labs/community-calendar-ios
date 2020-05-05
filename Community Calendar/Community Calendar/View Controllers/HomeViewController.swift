@@ -65,6 +65,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
 //        printFonts()
         
         print()
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -461,7 +463,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == eventCollectionView {
             guard let cell = eventCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell,
             let events = events else { return UICollectionViewCell() }
-            
+            print(events.count)
             cell.indexPath = indexPath
             cell.controller = controller
             cell.event = events[indexPath.row]

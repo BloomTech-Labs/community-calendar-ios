@@ -18,6 +18,8 @@ class Controller {
     private var rsvpIds: [String]?
     public var userToken: String?
     
+    public var myEvents: [Event] = []
+    
     init() {
         eventController.parent = self
     }
