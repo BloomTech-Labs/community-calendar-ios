@@ -62,9 +62,17 @@ class HomeViewController: UIViewController, ControllerDelegate {
         searchView.controller = controller
         searchView.setUp()
         setUp()
+<<<<<<< HEAD
+//        printFonts()
+        
+        print()
+        
+        
+=======
         eventController.fetchEvents { fetchedEvents in
             //todo: Nothing to pass in here.
         }
+>>>>>>> master
     }
     
     override func viewWillAppear(_ animated: Bool) {

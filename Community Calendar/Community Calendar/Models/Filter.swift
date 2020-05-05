@@ -29,29 +29,29 @@ struct Filter: Codable, Equatable {
     var ticketPrice: TicketPriceFilter?
     var dateRange: DateRangeFilter?
     
-    var searchFilter: SearchFilters? {
-        let locationFilter: LocationSearchInput?
-        let dateRangeFilter: DateRangeSearchInput?
-        var ticketPriceFilter: [TicketPriceSearchInput]?
-        
-        if let location = location {
-            locationFilter = LocationSearchInput(userLongitude: location.longitude, userLatitude: location.latitude, radius: location.radius)
-        } else { locationFilter = nil }
-        
-        if let dateRange = dateRange {
-            dateRangeFilter = DateRangeSearchInput(start: backendDateFormatter.string(from: dateRange.min), end: backendDateFormatter.string(from: dateRange.max))
-        } else { dateRangeFilter = nil }
-        
-        if let ticketRange = ticketPrice {
-            ticketPriceFilter = [TicketPriceSearchInput(minPrice: ticketRange.min, maxPrice: ticketRange.max)]
-        } else { ticketPriceFilter = nil }
-        
-        if index == nil && locationFilter == nil && dateRangeFilter == nil && ticketPriceFilter == nil && (tags == nil || tags?.count == 0) {
-            return nil
-        }
-        
-        return SearchFilters(index: index, location: locationFilter, tags: self.tags?.map({ $0.title }), ticketPrice: ticketPriceFilter, dateRange: dateRangeFilter)
-    }
+//    var searchFilter: SearchFilters? {
+//        let locationFilter: LocationSearchInput?
+//        let dateRangeFilter: DateRangeSearchInput?
+//        var ticketPriceFilter: [TicketPriceSearchInput]?
+//
+//        if let location = location {
+//            locationFilter = LocationSearchInput(userLongitude: location.longitude, userLatitude: location.latitude, radius: location.radius)
+//        } else { locationFilter = nil }
+//
+//        if let dateRange = dateRange {
+//            dateRangeFilter = DateRangeSearchInput(start: backendDateFormatter.string(from: dateRange.min), end: backendDateFormatter.string(from: dateRange.max))
+//        } else { dateRangeFilter = nil }
+//
+//        if let ticketRange = ticketPrice {
+//            ticketPriceFilter = [TicketPriceSearchInput(minPrice: ticketRange.min, maxPrice: ticketRange.max)]
+//        } else { ticketPriceFilter = nil }
+//
+//        if index == nil && locationFilter == nil && dateRangeFilter == nil && ticketPriceFilter == nil && (tags == nil || tags?.count == 0) {
+//            return nil
+//        }
+//
+//        return SearchFilters(index: index, location: locationFilter, tags: self.tags?.map({ $0.title }), ticketPrice: ticketPriceFilter, dateRange: dateRangeFilter)
+//    }
     
     static func == (lhs: Filter, rhs: Filter) -> Bool {
         return lhs.index == rhs.index &&
@@ -61,14 +61,14 @@ struct Filter: Codable, Equatable {
             lhs.tags == rhs.tags
     }
     
-    static func == (lhs: Filter, rhs: Filter?) -> Bool { // To check if object is nil
-        // Object can be initialized, but it will return true if the searchFilter is nil
-        if let rhs = rhs {
-            return lhs == rhs
-        } else {
-            return lhs.searchFilter != nil
-        }
-    }
+//    static func == (lhs: Filter, rhs: Filter?) -> Bool { // To check if object is nil
+//        // Object can be initialized, but it will return true if the searchFilter is nil
+//        if let rhs = rhs {
+//            return lhs == rhs
+//        } else {
+//            return lhs.searchFilter != nil
+//        }
+//    }
 }
 
 struct TicketPriceFilter: Codable, Equatable {

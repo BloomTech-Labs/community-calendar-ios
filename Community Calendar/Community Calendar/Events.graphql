@@ -1,0 +1,28 @@
+query FetchEvents {
+  events {
+    id
+    title
+    description
+    start
+    end
+    ticketPrice
+    eventImages {
+      url
+    }
+    creator {
+      id
+      firstName
+      lastName
+    }
+    locations {
+      name
+      streetAddress
+      streetAddress2
+      city
+      state
+      zipcode
+      longitude
+      latitude
+    }
+  }
+}

@@ -88,29 +88,29 @@ class SearchResultViewController: UIViewController {
 
     private func fetchFilteredEvents() {
         guard let filter = filter, let controller = controller else { return }
-        controller.getEvents(by: filter) { result in
-            switch result {
-            case .success(var filteredEvents):
-                if let zip = filter.zipCode {
-                    filteredEvents = filteredEvents.filter {
-                        for location in $0.locations {
-                            if location.zipcode == zip {
-                                return true
-                            }
-                        }
-                        return false
-                    }
-                }
-                self.events = filteredEvents
-                if self.events?.count == 0 {
-                    DispatchQueue.main.async {
-                        self.noResultsLabel.isHidden = false
-                    }
-                }
-            case .failure(let error):
-                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-            }
-        }
+//        controller.getEvents(by: filter) { result in
+//            switch result {
+//            case .success(var filteredEvents):
+//                if let zip = filter.zipCode {
+//                    filteredEvents = filteredEvents.filter {
+//                        for location in $0.locations {
+//                            if location.zipcode == zip {
+//                                return true
+//                            }
+//                        }
+//                        return false
+//                    }
+//                }
+//                self.events = filteredEvents
+//                if self.events?.count == 0 {
+//                    DispatchQueue.main.async {
+//                        self.noResultsLabel.isHidden = false
+//                    }
+//                }
+//            case .failure(let error):
+//                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+//            }
+//        }
     }
     
     private func setFilterLabel() {
