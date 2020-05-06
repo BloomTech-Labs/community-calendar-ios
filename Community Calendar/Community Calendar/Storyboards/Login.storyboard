@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -129,17 +130,19 @@
                                             <action selector="editUserNameButtonTapped:" destination="CDJ-Og-M6s" eventType="touchUpInside" id="GaP-h2-YUV"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j7c-1L-o20">
-                                        <rect key="frame" x="137" y="224" width="140" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j7c-1L-o20">
+                                        <rect key="frame" x="134" y="224" width="146" height="25.5"/>
+                                        <color key="backgroundColor" name="Shark"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="0.17278988009999999" green="0.21882292240000001" blue="0.28800389389999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="Shark"/>
                                 <constraints>
                                     <constraint firstItem="KAG-CW-eZq" firstAttribute="top" secondItem="qmF-8j-cnE" secondAttribute="bottom" constant="14" id="0Dv-T3-EZt"/>
                                     <constraint firstItem="mDw-DC-z95" firstAttribute="leading" secondItem="KAG-CW-eZq" secondAttribute="trailing" constant="82" id="1Ku-f4-BT0"/>
-                                    <constraint firstItem="M0J-lJ-udo" firstAttribute="leading" secondItem="j7c-1L-o20" secondAttribute="trailing" constant="54" id="4vu-dR-Z5k"/>
+                                    <constraint firstItem="M0J-lJ-udo" firstAttribute="leading" secondItem="j7c-1L-o20" secondAttribute="trailing" constant="51" id="2Vt-5E-UzS"/>
                                     <constraint firstAttribute="trailing" secondItem="3tA-WH-GNF" secondAttribute="trailing" constant="20" id="7pK-6d-jlJ"/>
                                     <constraint firstItem="t9f-CV-7Mj" firstAttribute="leading" secondItem="g1e-5i-7RD" secondAttribute="trailing" constant="152" id="8vq-Nn-eab"/>
                                     <constraint firstAttribute="trailing" secondItem="o1H-ge-Xn4" secondAttribute="trailing" constant="137" id="A2c-Gv-mOU"/>
@@ -151,7 +154,7 @@
                                     <constraint firstAttribute="trailing" secondItem="gWE-ZZ-MDM" secondAttribute="trailing" constant="137" id="Kde-pz-lsR"/>
                                     <constraint firstItem="t9f-CV-7Mj" firstAttribute="top" secondItem="mDw-DC-z95" secondAttribute="bottom" constant="4" id="Lv2-yR-XWj"/>
                                     <constraint firstItem="M0J-lJ-udo" firstAttribute="top" secondItem="wWZ-As-lM0" secondAttribute="bottom" constant="142" id="Mbv-9Z-eU2"/>
-                                    <constraint firstItem="j7c-1L-o20" firstAttribute="leading" secondItem="ffn-VF-gO8" secondAttribute="leading" constant="137" id="NkZ-Me-ybK"/>
+                                    <constraint firstItem="j7c-1L-o20" firstAttribute="leading" secondItem="ffn-VF-gO8" secondAttribute="leading" constant="134" id="PSC-sT-UkD"/>
                                     <constraint firstItem="gWE-ZZ-MDM" firstAttribute="leading" secondItem="ffn-VF-gO8" secondAttribute="leading" constant="137" id="SdR-IW-ZeW"/>
                                     <constraint firstItem="wWZ-As-lM0" firstAttribute="top" secondItem="ffn-VF-gO8" secondAttribute="top" constant="44" id="UYg-Sp-1Qg"/>
                                     <constraint firstItem="KAG-CW-eZq" firstAttribute="leading" secondItem="ffn-VF-gO8" secondAttribute="leading" constant="60" id="UZ4-r9-VtP"/>
@@ -163,8 +166,8 @@
                                     <constraint firstItem="qmF-8j-cnE" firstAttribute="leading" secondItem="ffn-VF-gO8" secondAttribute="leading" constant="20" id="bsY-Z2-AcN"/>
                                     <constraint firstAttribute="trailing" secondItem="M0J-lJ-udo" secondAttribute="trailing" constant="29" id="byk-Dy-XVJ"/>
                                     <constraint firstItem="mDw-DC-z95" firstAttribute="leading" secondItem="KAG-CW-eZq" secondAttribute="trailing" constant="82" id="cfa-EX-hgD"/>
-                                    <constraint firstItem="j7c-1L-o20" firstAttribute="top" secondItem="o1H-ge-Xn4" secondAttribute="bottom" constant="9" id="d8m-B3-3qy"/>
                                     <constraint firstAttribute="trailing" secondItem="qmF-8j-cnE" secondAttribute="trailing" constant="20" id="mK0-9Z-PjM"/>
+                                    <constraint firstItem="j7c-1L-o20" firstAttribute="top" secondItem="o1H-ge-Xn4" secondAttribute="bottom" constant="9" id="mZR-CN-LGZ"/>
                                     <constraint firstAttribute="trailing" secondItem="wWZ-As-lM0" secondAttribute="trailing" constant="15" id="pde-g4-gny"/>
                                     <constraint firstItem="gWE-ZZ-MDM" firstAttribute="top" secondItem="ffn-VF-gO8" secondAttribute="top" constant="75" id="qrE-Za-YNA"/>
                                     <constraint firstItem="o1H-ge-Xn4" firstAttribute="leading" secondItem="ffn-VF-gO8" secondAttribute="leading" constant="137" id="tZV-6R-UKD"/>
@@ -201,5 +204,8 @@
     <resources>
         <image name="UserMock" width="316" height="323"/>
         <image name="person" width="24" height="24"/>
+        <namedColor name="Shark">
+            <color red="0.1289999932050705" green="0.14100000262260437" blue="0.17299999296665192" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
