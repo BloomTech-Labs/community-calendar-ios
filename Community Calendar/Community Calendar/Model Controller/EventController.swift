@@ -58,6 +58,38 @@ class EventController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelegat
         }
     }
     
+    // MARK: - User Fetch + Update User Image //TODO: Add UpdateUserName Func? 
+    
+    func fetchUserID(oktaID: String, completion: @escaping (Swift.Result<FetchUserIdQuery.Data.User, Error>) -> Void) {
+        apollo.fetch(query: FetchUserIdQuery(oktaId: oktaID)) { result in
+            switch result {
+            case .failure(let error):
+                print("Error getting user ID: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let userID = graphQLResult.data?.user {
+                    print("Current Users backend ID: \(userID)")
+                    completion(.success(userID))
+                }
+            }
+        }
+    }
+    
+    func updateProfilePic(url: String, graphQLID: String, completion: @escaping (Swift.Result<AddProfilePicMutation.Data.UpdateUser, Error>) -> Void) {
+        apollo.perform(mutation: AddProfilePicMutation(profileImage: url, id: graphQLID)) { result in
+            switch result {
+            case .failure(let error):
+                print("Error updating users profile picture: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let userID = graphQLResult.data?.updateUser {
+                    print("Updated profile picture successfully for user: \(userID)")
+                    completion(.success(userID))
+                }
+            }
+        }
+    }
+    
     
 //    func getEvents(completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
 //        graphQLClient.fetch(query: GetEventsQuery()) { result in
