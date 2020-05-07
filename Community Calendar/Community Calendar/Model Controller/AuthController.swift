@@ -44,20 +44,26 @@ class AuthController {
         })
     }
     
-    func getUser() {
+    func getUser(completion: @escaping (Swift.Result<String, Error>) -> Void) {
         self.stateManager?.getUser({ [weak self] response, error in
-            guard let response = response else {
-                print("Returned out of guard let of get user response.")
-                return
+            if let error = error {
+                print("Error retrieving user info: \(error)")
+                completion(.failure(error))
             }
-            print(response)
-            let name = response["given_name"]
-            let username = response["preferred_username"]
-            let timezone = response["zoneinfo"]
-            print("Current users Name: \(String(describing: name)), Current users username: \(String(describing: username)), Current users timezone: \(String(describing: timezone))")
-            print("Access Token: \(String(describing: self?.stateManager?.accessToken))")
-            print("ID Token: \(String(describing: self?.stateManager?.idToken))")
-            print("Refresh Token: \(String(describing: self?.stateManager?.refreshToken))")
+            if let response = response {
+                if let oktaID = response["sub"] as? String {
+                    print("Okta ID: \(String(describing: oktaID))")
+                    
+                    let name = response["given_name"]
+                    let username = response["preferred_username"]
+                    let timezone = response["zoneinfo"]
+                    print("Current users Name: \(String(describing: name)), Current users username: \(String(describing: username)), Current users timezone: \(String(describing: timezone))")
+                    print("Access Token: \(String(describing: self?.stateManager?.accessToken))")
+                    print("ID Token: \(String(describing: self?.stateManager?.idToken))")
+                    print("Refresh Token: \(String(describing: self?.stateManager?.refreshToken))")
+                    completion(.success(oktaID))
+                }
+            }
         })
     }
 }

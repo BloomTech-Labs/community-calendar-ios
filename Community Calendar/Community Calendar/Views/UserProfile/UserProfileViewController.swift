@@ -13,7 +13,8 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
 
     var controller: Controller?
     var authController = AuthController()
-
+    let eventController = EventController()
+    
     //=======================
     // MARK: - TopView
     let topView: UIView = {
@@ -33,14 +34,14 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         return settingsButton
     }()
 
-    let buttonLogout: UIButton = {
-        let buttonLogout = UIButton(type: .system)
-        buttonLogout.translatesAutoresizingMaskIntoConstraints = false
-        buttonLogout.setTitle("Logout", for: .normal)
-        buttonLogout.setTitleColor(.white, for: .normal)
-        buttonLogout.isUserInteractionEnabled = true
-        buttonLogout.addTarget(self, action: #selector(logoutButtonPressed(_:)), for: .touchUpInside)
-        return buttonLogout
+    let logOutAndInButton: UIButton = {
+        let logOutAndInButton = UIButton(type: .system)
+        logOutAndInButton.translatesAutoresizingMaskIntoConstraints = false
+        logOutAndInButton.setTitle("Logout", for: .normal)
+        logOutAndInButton.setTitleColor(.white, for: .normal)
+        logOutAndInButton.isUserInteractionEnabled = true
+        logOutAndInButton.addTarget(self, action: #selector(logoutButtonPressed(_:)), for: .touchUpInside)
+        return logOutAndInButton
     }()
 
     let topInfoVStack: UIStackView = {
@@ -53,11 +54,13 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         return topInfoVStack
     }()
 
-    let profileImage: UIButton = {
-        let profileImage = UIButton()
+    let profileImage: UIImageView = {
+        let profileImage = UIImageView()
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         profileImage.backgroundColor = .gray
         profileImage.layer.cornerRadius = 50
+        profileImage.layer.masksToBounds = true
+        profileImage.contentMode = .scaleAspectFill
         return profileImage
     }()
 
@@ -65,7 +68,7 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         let userName = UILabel()
         userName.translatesAutoresizingMaskIntoConstraints = false
         userName.font = .systemFont(ofSize: 16, weight: .medium)
-        userName.text = "Aaron Cleveland"
+        userName.text = "No User Signed In"
         userName.textColor = .white
         return userName
     }()
@@ -103,6 +106,7 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         userEvents.font = .systemFont(ofSize: 16, weight: .ultraLight)
         userEvents.text = "Events Created"
         userEvents.textColor = .lightGray
+        userEvents.isHidden = true
         return userEvents
     }()
 
@@ -112,6 +116,7 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         userEventsCount.font = .systemFont(ofSize: 16, weight: .light)
         userEventsCount.text = "69"
         userEventsCount.textColor = .white
+        userEventsCount.isHidden = true
         return userEventsCount
     }()
 
@@ -130,6 +135,7 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         userFollowers.font = .systemFont(ofSize: 16, weight: .ultraLight)
         userFollowers.text = "Followers"
         userFollowers.textColor = .lightGray
+        userFollowers.isHidden = true
         return userFollowers
     }()
 
@@ -139,6 +145,7 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         userFollowersCount.font = .systemFont(ofSize: 16, weight: .light)
         userFollowersCount.text = "1337"
         userFollowersCount.textColor = .white
+        userFollowersCount.isHidden = true
         return userFollowersCount
     }()
 
@@ -216,7 +223,7 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        print(buttonLogout.bounds)
+        print(logOutAndInButton.bounds)
     }
 
     func loginUser() {
@@ -224,7 +231,19 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         authController.signIn(viewController: self) {
             if let accessToken = self.authController.stateManager?.accessToken {
                 print("Access Token: \(accessToken)")
-                self.authController.getUser()
+                self.authController.getUser { result in
+                    guard let oktaID = try? result.get() else {
+                        print("No Okta ID")
+                        return
+                    }
+                    self.eventController.apollo = self.eventController.configureApolloClient(accessToken: accessToken)
+                    self.eventController.fetchUserID(oktaID: oktaID) { result in
+                        if let user = try? result.get() {
+                            print("First Name: \(String(describing: user.firstName)), Last Name: \(String(describing: user.lastName)), profileImage: \(String(describing: user.profileImage))")
+                            self.updateViews(user: user)
+                        }
+                    }
+                }
             }
         }
     }
@@ -246,8 +265,22 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
 
     //=======================
     // MARK: - Helper Functions
-    private func updateViews() {
-
+    private func updateViews(user: FetchUserIdQuery.Data.User) {
+        guard
+            let urlString = user.profileImage,
+            let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url),
+            let firstName = user.firstName,
+            let lastName = user.lastName
+            else { return }
+//        let base64Data = try? Data(base64Encoded: data)
+//        eventController.perform(AddProfilePicMutation(image: base64Data, id: user.id)) { result in
+//
+//        }
+        DispatchQueue.main.async {
+            self.profileImage.image = UIImage(data: data)
+            self.userName.text = "\(firstName) \(lastName)"
+        }
     }
 }
 

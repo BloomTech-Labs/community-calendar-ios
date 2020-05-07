@@ -19,9 +19,13 @@ import OktaOidc
 class LoginViewController: UIViewController, ControllerDelegate {
     // MARK: - Variables
 //    var homeController = HomeViewController()
-    var controller: Controller?
+    var controller: Controller? {
+        didSet {
+            print("LoginVC controller: \(String(describing: controller))")
+        }
+    }
     let authController = AuthController()
-    
+    let eventController = EventController()
     // MARK: - IBOutlets
     @IBOutlet weak var LoginButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
@@ -40,7 +44,9 @@ class LoginViewController: UIViewController, ControllerDelegate {
         authController.signIn(viewController: self) {
             if let accessToken = self.authController.stateManager?.accessToken {
                 print("Access Token: \(accessToken))")
-                self.authController.getUser()
+                self.authController.getUser { (_) in
+                    
+                }
             }
         }
     }

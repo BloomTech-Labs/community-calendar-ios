@@ -12,7 +12,7 @@ import UIKit
 extension UserProfileViewController {
     func setupSubviews() {
         topInfoVStack.addArrangedSubview(topHStack)
-        topHStack.addArrangedSubview(buttonLogout)
+        topHStack.addArrangedSubview(logOutAndInButton)
         topHStack.addArrangedSubview(profileImage)
         topHStack.addArrangedSubview(settingsButton)
 
