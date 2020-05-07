@@ -201,12 +201,13 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = eventResultsTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell,
-        let events = events else { return UITableViewCell() }
+        guard let cell = eventResultsTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell
+//        let events = events
+            else { return UITableViewCell() }
         
         cell.indexPath = indexPath
         cell.controller = controller
-        cell.event = events[indexPath.row]
+//        cell.event = events[indexPath.row]
         
         return cell
     }

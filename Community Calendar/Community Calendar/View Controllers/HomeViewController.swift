@@ -64,7 +64,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         setUp()
   
         eventController.fetchEvents { fetchedEvents in
-            
+            self.eventTableView.reloadData()
         }
     }
     
@@ -381,25 +381,27 @@ class HomeViewController: UIViewController, ControllerDelegate {
 // MARK: - Table View Extension
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == eventTableView {
-            if events?.count == 0 || events == nil {
-                noResultsLabel.isHidden = false
-            } else {
-                noResultsLabel.isHidden = true
-            }
-            return events?.count ?? 0
-        }
-        return 0
+        eventController.events.count
+//        if tableView == eventTableView {
+//            if events?.count == 0 || events == nil {
+//                noResultsLabel.isHidden = false
+//            } else {
+//                noResultsLabel.isHidden = true
+//            }
+//            return events?.count ?? 0
+//        }
+//        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == eventTableView {
-            guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell,
-            let events = events else { return UITableViewCell() }
+            guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell
+                else { return UITableViewCell() }
             
-            cell.indexPath = indexPath
-            cell.controller = controller
-            cell.event = events[indexPath.row]
+            let events = eventController.events[indexPath.row]
+//            cell.event = indexPath
+//            cell.controller = controller
+            cell.event = events 
             
             return cell
         }

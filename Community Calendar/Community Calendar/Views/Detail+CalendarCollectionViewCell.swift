@@ -35,10 +35,6 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     let eventDateLabel = UILabel()
     let eventVenueLabel = UILabel()
     
-//    @IBOutlet weak var detailCalendarView: UIView!
-//    @IBOutlet weak var eventImageView: UIImageView!
-    
-    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
