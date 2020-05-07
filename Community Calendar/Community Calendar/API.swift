@@ -397,8 +397,8 @@ public final class AddProfilePicMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    mutation AddProfilePic($profileImage: String!, $id: ID) {
-      updateUser(data: {profileImage: $profileImage}, where: {id: $id}) {
+    mutation AddProfilePic($image: Upload!, $id: ID) {
+      updateUser(image: $image, where: {id: $id}) {
         __typename
         id
       }
@@ -407,23 +407,23 @@ public final class AddProfilePicMutation: GraphQLMutation {
 
   public let operationName: String = "AddProfilePic"
 
-  public var profileImage: String
+  public var image: String
   public var id: GraphQLID?
 
-  public init(profileImage: String, id: GraphQLID? = nil) {
-    self.profileImage = profileImage
+  public init(image: String, id: GraphQLID? = nil) {
+    self.image = image
     self.id = id
   }
 
   public var variables: GraphQLMap? {
-    return ["profileImage": profileImage, "id": id]
+    return ["image": image, "id": id]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes: [String] = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("updateUser", arguments: ["data": ["profileImage": GraphQLVariable("profileImage")], "where": ["id": GraphQLVariable("id")]], type: .nonNull(.object(UpdateUser.selections))),
+      GraphQLField("updateUser", arguments: ["image": GraphQLVariable("image"), "where": ["id": GraphQLVariable("id")]], type: .nonNull(.object(UpdateUser.selections))),
     ]
 
     public private(set) var resultMap: ResultMap

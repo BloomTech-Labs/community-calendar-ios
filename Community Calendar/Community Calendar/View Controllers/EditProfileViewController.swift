@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import OktaOidc
+
+
 
 class EditProfileViewController: UIViewController {
 
     //MARK: - TODO: Pass the stateManager to access the Users Token
-    
+
     
     //MARK: - TODO: Pass the EventController to access the Mutations
     
@@ -27,10 +30,10 @@ class EditProfileViewController: UIViewController {
     
     //MARK: - Properties
     var eventController: EventController?
+    var stateManager: OktaOidcStateManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Green Save Button
         // This Button Will need to be hidden upon initial viewing
         saveButton.layer.cornerRadius = 15
@@ -51,8 +54,6 @@ class EditProfileViewController: UIViewController {
         
         hideSaveButton()
         hideTextFields()
-        
-        
         
     }
     

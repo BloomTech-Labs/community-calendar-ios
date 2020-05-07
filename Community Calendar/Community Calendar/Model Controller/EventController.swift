@@ -33,11 +33,6 @@ class EventController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelegat
     
     var events = [FetchEventsQuery.Data.Event]()
     
-    private lazy var networkTransport: HTTPNetworkTransport = {
-        let transport = HTTPNetworkTransport(url: URL(string: "https://apollo.ourcommunitycal.com/")!)
-        transport.delegate = self
-        return transport
-    }()
     
     func fetchEvents(completion: @escaping (Swift.Result<[FetchEventsQuery.Data.Event], Error>) -> Void) {
         apollo.fetch(query: FetchEventsQuery()) { result in
@@ -76,7 +71,7 @@ class EventController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelegat
     }
     
     func updateProfilePic(url: String, graphQLID: String, completion: @escaping (Swift.Result<AddProfilePicMutation.Data.UpdateUser, Error>) -> Void) {
-        apollo.perform(mutation: AddProfilePicMutation(profileImage: url, id: graphQLID)) { result in
+        apollo.perform(mutation: AddProfilePicMutation(image: url, id: graphQLID)) { result in
             switch result {
             case .failure(let error):
                 print("Error updating users profile picture: \(error)")
@@ -202,15 +197,16 @@ class EventController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelegat
 //        }
 //    }
     
-//    func configureApolloClient(accessToken: String) -> ApolloClient {
-//        let configuration = URLSessionConfiguration.default
-//        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
-//
-//        let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
-//        let transport = HTTPNetworkTransport(url: EventController.url, client: client)
-//        print("Apollo Client: \(accessToken)")
-//
-//        return ApolloClient(networkTransport: transport)
-//        return ApolloClient(networkTransport: HTTPNetworkTransport(url: EventController.url, session: URLSession(configuration: configuration), delegate: self))
-//    }
+    func configureApolloClient(accessToken: String) -> ApolloClient {
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
+
+        let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
+        let transport = HTTPNetworkTransport(url: EventController.url, client: client)
+        transport.delegate = self
+        print("Apollo Client: \(accessToken)")
+
+        return ApolloClient(networkTransport: transport)
+    
+    }
 }
