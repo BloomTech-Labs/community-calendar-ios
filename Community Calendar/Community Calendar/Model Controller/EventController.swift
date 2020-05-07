@@ -202,16 +202,16 @@ class EventController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelegat
 //        }
 //    }
     
-    func configureApolloClient(accessToken: String) -> ApolloClient {
-        let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
-
-        let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
-        let transport = HTTPNetworkTransport(url: EventController.url, client: client)
-        transport.delegate = self
-        print("Apollo Client: \(accessToken)")
-
-        return ApolloClient(networkTransport: transport)
-    
-    }
+//    func configureApolloClient(accessToken: String) -> ApolloClient {
+//        let configuration = URLSessionConfiguration.default
+//        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
+//
+//        let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
+//        let transport = HTTPNetworkTransport(url: EventController.url, client: client)
+//        transport.delegate = self
+//        print("Apollo Client: \(accessToken)")
+//
+//        return ApolloClient(networkTransport: transport)
+//    
+//    }
 }
