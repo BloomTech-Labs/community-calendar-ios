@@ -40,7 +40,7 @@ class EditProfileViewController: UIViewController {
         
         // Users Image
         userImage.layer.borderWidth = 1
-        userImage.layer.borderColor = UIColor.black.cgColor
+        userImage.layer.borderColor = UIColor.white.cgColor
         userImage.contentMode = .scaleAspectFill
         userImage.layer.cornerRadius = userImage.frame.height / 2
         userImage.layer.masksToBounds = false

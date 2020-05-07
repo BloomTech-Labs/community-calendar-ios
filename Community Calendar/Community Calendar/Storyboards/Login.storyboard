@@ -111,7 +111,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.62425085616438358" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.39292594178082191" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Rax-3f-Pel" secondAttribute="trailing" constant="43" id="Cqp-H1-okB"/>
                                             <constraint firstItem="Rax-3f-Pel" firstAttribute="top" secondItem="gWE-ZZ-MDM" secondAttribute="top" constant="49" id="Qoy-ia-xFx"/>
@@ -176,12 +176,33 @@
                                     <constraint firstAttribute="trailing" secondItem="mDw-DC-z95" secondAttribute="trailing" constant="94" id="ykK-qc-FV9"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TableViewMock" translatesAutoresizingMaskIntoConstraints="NO" id="a38-3F-AlH">
+                                <rect key="frame" x="0.0" y="354" width="414" height="488"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="488" id="7Jq-Dg-PUs"/>
+                                    <constraint firstAttribute="width" constant="414" id="Avm-2j-Ry7"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h8m-gU-EJP">
+                                <rect key="frame" x="0.0" y="354" width="414" height="488"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.52576519691780821" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="414" id="ace-5Q-tMn"/>
+                                    <constraint firstAttribute="height" constant="488" id="jY9-cP-6gw"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="ffn-VF-gO8" firstAttribute="trailing" secondItem="oYR-DD-BIB" secondAttribute="trailing" id="8Or-zd-LlF"/>
                             <constraint firstItem="ffn-VF-gO8" firstAttribute="leading" secondItem="oYR-DD-BIB" secondAttribute="leading" id="A73-0L-wBs"/>
+                            <constraint firstAttribute="bottom" secondItem="a38-3F-AlH" secondAttribute="bottom" id="LTI-t8-gEQ"/>
+                            <constraint firstItem="h8m-gU-EJP" firstAttribute="trailing" secondItem="oYR-DD-BIB" secondAttribute="trailing" id="T7c-xG-pyh"/>
+                            <constraint firstItem="a38-3F-AlH" firstAttribute="trailing" secondItem="oYR-DD-BIB" secondAttribute="trailing" id="TkX-RT-1o3"/>
                             <constraint firstItem="ffn-VF-gO8" firstAttribute="top" secondItem="xz2-s3-k3U" secondAttribute="top" id="YDj-Tk-o4P"/>
+                            <constraint firstItem="h8m-gU-EJP" firstAttribute="leading" secondItem="oYR-DD-BIB" secondAttribute="leading" id="qYr-ea-YXM"/>
+                            <constraint firstAttribute="bottom" secondItem="h8m-gU-EJP" secondAttribute="bottom" id="sdz-04-2rH"/>
+                            <constraint firstItem="a38-3F-AlH" firstAttribute="leading" secondItem="oYR-DD-BIB" secondAttribute="leading" id="sp9-6H-WL6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oYR-DD-BIB"/>
                     </view>
@@ -202,6 +223,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="TableViewMock" width="313" height="410"/>
         <image name="UserMock" width="316" height="323"/>
         <image name="person" width="24" height="24"/>
         <namedColor name="Shark">
