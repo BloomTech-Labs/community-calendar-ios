@@ -44,16 +44,16 @@ class AuthController {
         })
     }
     
-    func getUser(completion: @escaping (Swift.Result<String, Error>) -> Void) {
+    func getUser(completion: @escaping (Swift.Result<[String], Error>) -> Void) {
         self.stateManager?.getUser({ [weak self] response, error in
             if let error = error {
                 print("Error retrieving user info: \(error)")
                 completion(.failure(error))
             }
             if let response = response {
-                if let oktaID = response["sub"] as? String {
+                if let oktaID = response["sub"] as? String, let username = response["preferred_username"] as? String {
                     print("Okta ID: \(String(describing: oktaID))")
-                    
+                    let userInfo: [String] = [oktaID, username]
                     let name = response["given_name"]
                     let username = response["preferred_username"]
                     let timezone = response["zoneinfo"]
@@ -61,7 +61,7 @@ class AuthController {
                     print("Access Token: \(String(describing: self?.stateManager?.accessToken))")
                     print("ID Token: \(String(describing: self?.stateManager?.idToken))")
                     print("Refresh Token: \(String(describing: self?.stateManager?.refreshToken))")
-                    completion(.success(oktaID))
+                    completion(.success(userInfo))
                 }
             }
         })
