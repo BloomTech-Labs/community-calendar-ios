@@ -6,19 +6,22 @@
 //  Copyright © 2020 Mazjap Co. All rights reserved.
 //
 
-import Foundation
-
+//import Foundation
+//import Apollo
+//import OktaOidc
+//
 //class ApolloClient: NSObject, HTTPNetworkTransportDelegate, URLSessionDelegate {
-//    
-//    
+//
+//
 //    func configureApolloClient(accessToken: String) -> ApolloClient {
 //        let configuration = URLSessionConfiguration.default
 //        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
-//        
+//
 //        let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
 //        let transport = HTTPNetworkTransport(url: EventController.url, client: client)
+//        transport.delegate = self?
 //        print("Apollo Client: \(accessToken)")
-//        
+//
 //        return ApolloClient(networkTransport: transport)
 //        //        return ApolloClient(networkTransport: HTTPNetworkTransport(url: EventController.url, session: URLSession(configuration: configuration), delegate: self))
 //    }
