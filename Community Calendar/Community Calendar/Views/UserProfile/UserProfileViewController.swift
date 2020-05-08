@@ -8,6 +8,7 @@
 
 import UIKit
 import OktaOidc
+import MapKit
 
 class UserProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ControllerDelegate {
 
@@ -16,8 +17,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     let eventController = EventController()
     
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var backGroundView: UIView!
-    @IBOutlet weak var logoutButton: UIButton!
+
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -26,8 +26,9 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet var editNameTextField: UITextField!
     
     @IBOutlet var cameraButton: UIButton!
-    @IBOutlet var blackOpacityViewForTV: UIView!
+   
     
+    @IBOutlet var userMapView: MKMapView!
     
     
     //=======================
@@ -236,7 +237,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        backGroundView.backgroundColor = UIColor(named: "Shark")
+     
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -253,20 +254,22 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBAction func settingsTapped(_ sender: Any) {
         editButton.isHidden = true
         saveEditButton.isHidden = false
-        blackOpacityViewForTV.isHidden = false
+       
         loginButton.isHidden = true
         editNameTextField.isHidden = false
         cameraButton.isHidden = false
+        userMapView.isHidden = false
     }
     
     
     @IBAction func saveEditTapped(_ sender: Any) {
         editButton.isHidden = false
         saveEditButton.isHidden = true
-        blackOpacityViewForTV.isHidden = true
+      
         editNameTextField.isHidden = true
         loginButton.isHidden = false
         cameraButton.isHidden = true
+        userMapView.isHidden = true
     }
     
     
@@ -283,19 +286,20 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         profileImageView.layer.masksToBounds = true
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.isHidden = true
-        logoutButton.isHidden = true
+      //  logoutButton.isHidden = true
         userNameLabel.isHidden = true
         nameLabel.isHidden = true
     //  editButton.isHidden = true
         saveEditButton.isHidden = true
-        logoutButton.layer.cornerRadius = 15
+      //  logoutButton.layer.cornerRadius = 15
         saveEditButton.layer.cornerRadius = 15
-        blackOpacityViewForTV.isHidden = true
-        logoutButton.layer.cornerRadius = 15
+      
+      //  logoutButton.layer.cornerRadius = 15
         loginButton.layer.cornerRadius = 15
         editNameTextField.isHidden = true
         cameraButton.isHidden = true
-        
+        userMapView.layer.cornerRadius = 15
+        userMapView.isHidden = true
     }
     
     
@@ -361,7 +365,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
             self.editButton.isHidden = false
             self.nameLabel.isHidden = false
             self.profileImageView.isHidden = false
-            self.logoutButton.isHidden = false
+          //  self.logoutButton.isHidden = false
             self.loginButton.isHidden = true
             
         }
