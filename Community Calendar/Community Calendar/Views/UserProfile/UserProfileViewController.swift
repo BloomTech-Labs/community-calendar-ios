@@ -27,6 +27,8 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBOutlet var cameraButton: UIButton!
    
+    @IBOutlet var eventsCreatedLabel: UILabel!
+    @IBOutlet var numberOfEventsCreatedLabel: UILabel!
     
     @IBOutlet var userMapView: MKMapView!
     
@@ -259,6 +261,8 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         editNameTextField.isHidden = false
         cameraButton.isHidden = false
         userMapView.isHidden = false
+        eventsCreatedLabel.isHidden = false
+        numberOfEventsCreatedLabel.isHidden = false
     }
     
     
@@ -300,6 +304,8 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         cameraButton.isHidden = true
         userMapView.layer.cornerRadius = 15
         userMapView.isHidden = true
+        eventsCreatedLabel.isHidden = true
+        numberOfEventsCreatedLabel.isHidden = true
     }
     
     
@@ -310,6 +316,8 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
             if let accessToken = self.authController.stateManager?.accessToken {
                 print("Access Token: \(accessToken)")
                 self.loginButton.isHidden = true
+                self.eventsCreatedLabel.isHidden = false
+                self.numberOfEventsCreatedLabel.isHidden = false
                 self.authController.getUser { result in
                     guard let userInfo = try? result.get() else {
                         print("No Okta Auth User Info")
