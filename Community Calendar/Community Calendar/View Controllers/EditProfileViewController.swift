@@ -29,7 +29,7 @@ class EditProfileViewController: UIViewController {
     @IBOutlet var editNameTextField: UITextField!
     
     //MARK: - Properties
-    var eventController: EventController?
+//    var eventController: EventController?
     var stateManager: OktaOidcStateManager?
     
     override func viewDidLoad() {

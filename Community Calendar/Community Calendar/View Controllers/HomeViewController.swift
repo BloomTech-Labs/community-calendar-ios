@@ -9,15 +9,28 @@
 //  "If you can't fix it, it's a feature."
 
 import UIKit
+import OktaOidc
 
 class HomeViewController: UIViewController, ControllerDelegate {
-    // MARK: - Varibles
-    var testing = false                             // Use the test data from Variables.swift
+    
+    // MARK: - Properties
+    
+    var apolloController: ApolloController? {
+        didSet {
+            print("Home View Controller ApolloController: \(String(describing: apolloController))")
+        }
+    }
+    var authController: AuthController? {
+        didSet {
+            print("Home View Controller AuthController: \(String(describing: authController))")
+        }
+    }
+    var controller: Controller?
+    var testing = false
     var repeatCount = 1
     var fetchEventsTimer: Timer?
-    let eventController = EventController()
+//    let eventController = EventController()
     var shouldDismissFilterScreen = true
-    var controller: Controller?
     private var unfilteredEvents: [Event]? {        // Varible events' data source
         didSet {
             todayTapped(UIButton())
@@ -63,9 +76,9 @@ class HomeViewController: UIViewController, ControllerDelegate {
         searchView.setUp()
         setUp()
   
-        eventController.fetchEvents { fetchedEvents in
-            self.eventTableView.reloadData()
-        }
+//        eventController.fetchEvents { fetchedEvents in
+//            self.eventTableView.reloadData()
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -381,7 +394,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
 // MARK: - Table View Extension
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        eventController.events.count
+//        eventController.events.count
 //        if tableView == eventTableView {
 //            if events?.count == 0 || events == nil {
 //                noResultsLabel.isHidden = false
@@ -390,7 +403,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 //            }
 //            return events?.count ?? 0
 //        }
-//        return 0
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -398,10 +411,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell
                 else { return UITableViewCell() }
             
-            let events = eventController.events[indexPath.row]
+//            let events = eventController.events[indexPath.row]
 //            cell.event = indexPath
 //            cell.controller = controller
-            cell.event = events 
+//            cell.event = events 
             
             return cell
         }

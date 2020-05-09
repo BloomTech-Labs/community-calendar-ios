@@ -16,7 +16,9 @@
 import UIKit
 import OktaOidc
 
-class LoginViewController: UIViewController, ControllerDelegate {
+class LoginViewController: UIViewController {
+    var apolloController: ApolloController?
+    
     // MARK: - Variables
 //    var homeController = HomeViewController()
     var controller: Controller? {

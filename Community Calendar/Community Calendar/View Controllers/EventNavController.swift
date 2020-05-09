@@ -7,8 +7,21 @@
 //
 
 import UIKit
+import OktaOidc
 
 class EventNavController: UINavigationController, ControllerDelegate {
+    var authController: AuthController? {
+        didSet {
+            passController()
+        }
+    }
+    
+    var apolloController: ApolloController? {
+        didSet {
+            passController()
+        }
+    }
+    
     var controller: Controller? {
         didSet {
             passController()
@@ -22,10 +35,16 @@ class EventNavController: UINavigationController, ControllerDelegate {
     }
     
     func passController() {
-        guard let controller = controller else { return }
+        guard
+            let controller = controller,
+            let apolloController = apolloController,
+            let authController = authController
+            else { return }
         for viewController in self.viewControllers {
             if var VC = viewController as? ControllerDelegate {
                 VC.controller = controller
+                VC.apolloController = apolloController
+                VC.authController = authController
             }
         }
     }

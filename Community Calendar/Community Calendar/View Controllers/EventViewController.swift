@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import OktaOidc
 
 enum MyTheme {
       case light
@@ -15,8 +15,43 @@ enum MyTheme {
   }
 
 class EventViewController: UIViewController, ControllerDelegate {
-   
+    
+    
+    //MARK: - Properties
+    
+    var authController: AuthController? {
+        didSet {
+            print("Event View Controller Auth Controller: \(String(describing: authController))")
+        }
+    }
+    var apolloController: ApolloController? {
+        didSet {
+            print("Event View Controller Apollo Controller: \(String(describing: apolloController))")
+        }
+    }
+    
+    let tmController = TMEventController()
+    //    var eventController: EventController?
+    var controller: Controller?
+    var events: [Event]?
+    var detailEvent: EasyEvent? {
+        didSet {
+            self.detailAndCalendarCollectionView.reloadData()
+        }
+    }
+    
+    var featuredIndexPath: IndexPath? {
+        didSet {
+            if let indexPath = featuredIndexPath {
+                self.detailEvent = tmController.events[indexPath.item]
+            }
+        }
+    }
+    
+    
+    
     //MARK: - IBOutlets
+    
     @IBOutlet weak var myEventsCollectionView: UICollectionView!
     @IBOutlet weak var calendarView: UIView!
     @IBOutlet weak var detailAndCalendarCollectionView: UICollectionView!
@@ -25,23 +60,7 @@ class EventViewController: UIViewController, ControllerDelegate {
   
     
     
-    //MARK: - Properties
-    let tmController = TMEventController()
-    var eventController: EventController?
-    var controller: Controller?
-    var events: [Event]?
-    var detailEvent: EasyEvent? {
-        didSet {
-            self.detailAndCalendarCollectionView.reloadData()
-        }
-    }
-    var featuredIndexPath: IndexPath? {
-        didSet {
-            if let indexPath = featuredIndexPath {
-                self.detailEvent = tmController.events[indexPath.item]
-            }
-        }
-    }
+    
     
     
     var repeatCount = 1

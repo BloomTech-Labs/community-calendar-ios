@@ -8,12 +8,12 @@
 
 import Foundation
 import OktaOidc
-import Apollo
+//import Apollo
 
-enum qlError {
-    case ql([GraphQLError])
-    case rr(Error)
-}
+//enum qlError {
+//    case ql([GraphQLError])
+//    case rr(Error)
+//}
 
 // Run this command in terminal to generate an updated schema.json:
 // (You must have apollo installed)
@@ -21,75 +21,75 @@ enum qlError {
 // or
 // apollo schema:download --endpoint=https://ccapollo-production.herokuapp.com/schema.graphql schema.json
 
-class EventController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelegate {
-    
-    private static let url = URL(string: "https://apollo.ourcommunitycal.com/")!
-    var apollo: ApolloClient = ApolloClient(url: EventController.url)
-    var stateManager: OktaOidcStateManager?
-    var oktaOidc: OktaOidc?
-    var parent: Controller!
-    
-    var events = [FetchEventsQuery.Data.Event]()
-    
-    
-    func fetchEvents(completion: @escaping (Swift.Result<[FetchEventsQuery.Data.Event], Error>) -> Void) {
-        apollo.fetch(query: FetchEventsQuery()) { result in
-            switch result {
-            case .failure(let error):
-                print("Error fetching events: \(error)")
-                completion(.failure(error))
-            case .success(let graphQLResult):
-                if let events = graphQLResult.data?.events {
-                    self.events.append(contentsOf: events)
-                    print(self.events.count)
-                    completion(.success(events))
-                }
-            }
-        }
-    }
-    
-    func fetchUserID(oktaID: String, completion: @escaping (Swift.Result<FetchUserIdQuery.Data.User, Error>) -> Void) {
-        apollo.fetch(query: FetchUserIdQuery(oktaId: oktaID)) { result in
-            switch result {
-            case .failure(let error):
-                print("Error getting user ID: \(error)")
-                completion(.failure(error))
-            case .success(let graphQLResult):
-                if let userID = graphQLResult.data?.user {
-                    print("Current Users backend ID: \(userID)")
-                    completion(.success(userID))
-                }
-            }
-        }
-    }
-    
-    func updateProfilePic(image: String, graphQLID: String, completion: @escaping (Swift.Result<AddProfilePicMutation.Data.UpdateUser, Error>) -> Void) {
-        apollo.perform(mutation: AddProfilePicMutation(image: image, id: graphQLID)) { result in
-            switch result {
-            case .failure(let error):
-                print("Error updating users profile picture: \(error)")
-                completion(.failure(error))
-            case .success(let graphQLResult):
-                if let userID = graphQLResult.data?.updateUser {
-                    print("Updated profile picture successfully for user: \(userID)")
-                    completion(.success(userID))
-                }
-            }
-        }
-    }
-    
-    func configureApolloClient(accessToken: String) -> ApolloClient {
-        let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
-        
-        let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
-        let transport = HTTPNetworkTransport(url: EventController.url, client: client)
-        
-        transport.delegate = self
-        print("Apollo Client: \(accessToken)")
-        
-        return ApolloClient(networkTransport: transport)
-    }
+class EventController: NSObject, URLSessionDelegate {
+//    
+//    private static let url = URL(string: "https://apollo.ourcommunitycal.com/")!
+//    var apollo: ApolloClient = ApolloClient(url: EventController.url)
+//    var stateManager: OktaOidcStateManager?
+//    var oktaOidc: OktaOidc?
+//    var parent: Controller!
+//
+//    var events = [FetchEventsQuery.Data.Event]()
+//
+//
+//    func fetchEvents(completion: @escaping (Swift.Result<[FetchEventsQuery.Data.Event], Error>) -> Void) {
+//        apollo.fetch(query: FetchEventsQuery()) { result in
+//            switch result {
+//            case .failure(let error):
+//                print("Error fetching events: \(error)")
+//                completion(.failure(error))
+//            case .success(let graphQLResult):
+//                if let events = graphQLResult.data?.events {
+//                    self.events.append(contentsOf: events)
+//                    print(self.events.count)
+//                    completion(.success(events))
+//                }
+//            }
+//        }
+//    }
+//
+//    func fetchUserID(oktaID: String, completion: @escaping (Swift.Result<FetchUserIdQuery.Data.User, Error>) -> Void) {
+//        apollo.fetch(query: FetchUserIdQuery(oktaId: oktaID)) { result in
+//            switch result {
+//            case .failure(let error):
+//                print("Error getting user ID: \(error)")
+//                completion(.failure(error))
+//            case .success(let graphQLResult):
+//                if let userID = graphQLResult.data?.user {
+//                    print("Current Users backend ID: \(userID)")
+//                    completion(.success(userID))
+//                }
+//            }
+//        }
+//    }
+//
+//    func updateProfilePic(image: String, graphQLID: String, completion: @escaping (Swift.Result<AddProfilePicMutation.Data.UpdateUser, Error>) -> Void) {
+//        apollo.perform(mutation: AddProfilePicMutation(image: image, id: graphQLID)) { result in
+//            switch result {
+//            case .failure(let error):
+//                print("Error updating users profile picture: \(error)")
+//                completion(.failure(error))
+//            case .success(let graphQLResult):
+//                if let userID = graphQLResult.data?.updateUser {
+//                    print("Updated profile picture successfully for user: \(userID)")
+//                    completion(.success(userID))
+//                }
+//            }
+//        }
+//    }
+//
+//    func configureApolloClient(accessToken: String) -> ApolloClient {
+//        let configuration = URLSessionConfiguration.default
+//        configuration.httpAdditionalHeaders = ["Authorization": "Bearer \(accessToken)"]
+//
+//        let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
+//        let transport = HTTPNetworkTransport(url: EventController.url, client: client)
+//
+//        transport.delegate = self
+//        print("Apollo Client: \(accessToken)")
+//
+//        return ApolloClient(networkTransport: transport)
+//    }
     
 //    func getEvents(completion: @escaping (Swift.Result<[Event], Error>) -> Void) {
 //        graphQLClient.fetch(query: GetEventsQuery()) { result in

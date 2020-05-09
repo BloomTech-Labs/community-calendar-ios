@@ -10,6 +10,19 @@ import UIKit
 import CoreLocation
 
 class SearchView: UIView, ControllerDelegate {
+    
+    var authController: AuthController? {
+        didSet {
+            print("Search View Auth Controller: \(String(describing: authController))")
+        }
+    }
+    
+    var apolloController: ApolloController? {
+        didSet {
+            print("Search View Apollo Controller: \(String(describing: apolloController))")
+        }
+    }
+    
     //MARK: - Variables
     var homeVC: HomeViewController?
     var controller: Controller?

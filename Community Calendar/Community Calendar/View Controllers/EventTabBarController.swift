@@ -7,28 +7,38 @@
 //
 
 import UIKit
+import OktaOidc
 
 protocol ControllerDelegate {
     var controller: Controller? { get set }
+    var apolloController: ApolloController? { get set }
+    var authController: AuthController? { get set }
 }
 
 class EventTabBarController: UITabBarController {
 
+    let apolloController = ApolloController()
+    let authController = AuthController()
+    let controller = Controller()
+    var oktaOidc: OktaOidc?
+    var stateManager: OktaOidcStateManager?
+    
     @IBOutlet weak var eventTabBarController: UITabBar!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let controller = Controller()
+        authController.setupOktaOidc()
         if let viewControllers = self.viewControllers {
             for viewController in viewControllers {
                 if var VC = viewController as? ControllerDelegate {
                     VC.controller = controller
+                    VC.apolloController = apolloController
+                    VC.authController = authController
                 }
             }
         }
     }
     
-
     /*
     // MARK: - Navigation
 
