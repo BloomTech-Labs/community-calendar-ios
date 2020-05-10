@@ -10,6 +10,19 @@ import UIKit
 import OktaOidc
 
 class EventNavController: UINavigationController, ControllerDelegate {
+    
+    var user: FetchUserIdQuery.Data.User? {
+        didSet {
+            passController()
+        }
+    }
+    
+    var oktaUserInfo: [String]? {
+        didSet {
+            passController()
+        }
+    }
+    
     var authController: AuthController? {
         didSet {
             passController()
@@ -22,42 +35,25 @@ class EventNavController: UINavigationController, ControllerDelegate {
         }
     }
     
-    var controller: Controller? {
-        didSet {
-            passController()
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         passController()
     }
     
     func passController() {
         guard
-            let controller = controller,
             let apolloController = apolloController,
-            let authController = authController
+            let authController = authController,
+            let user = user,
+            let oktaUserInfo = oktaUserInfo
             else { return }
         for viewController in self.viewControllers {
             if var VC = viewController as? ControllerDelegate {
-                VC.controller = controller
                 VC.apolloController = apolloController
                 VC.authController = authController
+                VC.user = user
+                VC.oktaUserInfo = oktaUserInfo
             }
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

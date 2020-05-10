@@ -10,7 +10,9 @@ import UIKit
 import EventKit
 
 class EventDetailViewController: UIViewController, UIScrollViewDelegate {
-    // MARK: - Variables
+    
+    // MARK: - Properties
+    
     var event: Event? {
         didSet {
             updateViews()
@@ -21,6 +23,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     let eventStore = EKEventStore()
     
     // MARK: - IBOutlets
+    
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var eventImageView: UIImageView!
     @IBOutlet private weak var attendButton: UIButton!
@@ -39,6 +42,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet private var descLabelHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Lifecycle Functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -224,7 +228,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EventsSegue" {
             guard let eventVC = segue.destination as? EventViewController else { return }
-            eventVC.controller = controller
+//            eventVC.controller = controller
         }
     }
     

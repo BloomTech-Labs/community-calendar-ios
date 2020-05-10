@@ -17,17 +17,7 @@ import UIKit
 import OktaOidc
 
 class LoginViewController: UIViewController {
-    var apolloController: ApolloController?
     
-    // MARK: - Variables
-//    var homeController = HomeViewController()
-    var controller: Controller? {
-        didSet {
-            print("LoginVC controller: \(String(describing: controller))")
-        }
-    }
-    let authController = AuthController()
-    let eventController = EventController()
     // MARK: - IBOutlets
     @IBOutlet weak var LoginButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
@@ -38,19 +28,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        logOutButton.isHidden = true
-        LoginButton.isHidden = true
-        
-        imageView.layer.cornerRadius = imageView.frame.height / 2
-        authController.setupOktaOidc()
-        authController.signIn(viewController: self) {
-            if let accessToken = self.authController.stateManager?.accessToken {
-                print("Access Token: \(accessToken))")
-                self.authController.getUser { (_) in
-                    
-                }
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,22 +69,4 @@ class LoginViewController: UIViewController {
         
 
     }
-    
-//    @objc
-//    func receiveImage(_ notification: Notification) {
-//        guard let imageNot = notification.object as? ImageNotification else {
-//            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
-//            return
-//        }
-//        if let imageURL = profile?.picture?.absoluteString, imageNot.url == imageURL {
-//            DispatchQueue.main.async {
-//                self.imageView.image = imageNot.image
-//            }
-//        }
-//    }
-    
-//    func observeImage() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
-//    }
-
 }

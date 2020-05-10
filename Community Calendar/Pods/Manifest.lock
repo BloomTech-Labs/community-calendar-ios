@@ -1,4 +1,7 @@
 PODS:
+  - Cloudinary (2.9.0):
+    - Cloudinary/ios (= 2.9.0)
+  - Cloudinary/ios (2.9.0)
   - OktaOidc (3.6.1):
     - OktaOidc/AppAuth (= 3.6.1)
     - OktaOidc/Okta (= 3.6.1)
@@ -10,15 +13,18 @@ PODS:
     - OktaOidc/AppAuth
 
 DEPENDENCIES:
+  - Cloudinary (~> 2.0)
   - OktaOidc
 
 SPEC REPOS:
   trunk:
+    - Cloudinary
     - OktaOidc
 
 SPEC CHECKSUMS:
+  Cloudinary: 8e9511826bd58df6b14f0c6c042f2c5a034081f4
   OktaOidc: 1fe96de259f1a80b2a8f83fa1f1ee222e891ebc2
 
-PODFILE CHECKSUM: 73a1feebc907883de5a1e2e302f2be23c8f2688e
+PODFILE CHECKSUM: 1fd907aeb8e28399fff91486eba745f29881ba91
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.9.1

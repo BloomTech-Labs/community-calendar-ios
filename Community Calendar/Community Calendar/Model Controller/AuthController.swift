@@ -27,11 +27,11 @@ class AuthController {
         }
     }
     
-    func signIn(viewController: UIViewController, completion: @escaping () -> Void) {
+    func signIn(viewController: UIViewController, completion: @escaping (Swift.Result<OktaOidcStateManager, Error>) -> Void) {
         oktaOidc?.signInWithBrowser(from: viewController, callback: { [weak self] stateManager, error in
             if let error = error {
                 print("Error signing in: \(error)")
-                completion()
+                completion(.failure(error))
                 return
             }
             if let stateManager = stateManager {
@@ -39,7 +39,40 @@ class AuthController {
                 stateManager.writeToSecureStorage()
                 self?.stateManager = stateManager
                 self?.stateManager = OktaOidcStateManager.readFromSecureStorage(for: (self?.oktaOidc!.configuration)!)
-                completion()
+                completion(.success(stateManager))
+            }
+        })
+    }
+    
+    func validateAccessToken(accessToken: String, completion: @escaping (Swift.Result<Bool, Error>) -> Void) {
+        stateManager?.introspect(token: accessToken, callback: { payload, error in
+            if let error = error {
+                print("Error validating users access token: \(error)")
+                completion(.failure(error))
+                return
+            }
+            guard let isValid = payload?["active"] as? Bool else {
+                print("Error validating access token returned out of guard let: \(String(describing: error))")
+                completion(.failure(error!))
+                return
+            }
+            print("Token is valid: \(isValid)")
+            completion(.success(isValid))
+        })
+    }
+    
+    func refreshAccessToken(completion: @escaping (Swift.Result<OktaOidcStateManager, Error>) -> Void) {
+        stateManager?.renew(callback: { [weak self] stateManager, error in
+            if let error = error {
+                print("Error refreshing access token: \(error)")
+                completion(.failure(error))
+                return
+            }
+            if let stateManager = stateManager {
+                stateManager.writeToSecureStorage()
+                self?.stateManager = stateManager
+                self?.stateManager = OktaOidcStateManager.readFromSecureStorage(for: (self?.oktaOidc!.configuration)!)
+                completion(.success(stateManager))
             }
         })
     }
@@ -65,5 +98,27 @@ class AuthController {
                 }
             }
         })
+    }
+    
+    func signOut(viewController: UIViewController, completion: @escaping (Error?) -> Void) {
+        guard let stateManager = stateManager, let oktaOidc = oktaOidc else { return }
+        let options: OktaSignOutOptions = .allOptions
+        oktaOidc.signOut(with: options, authStateManager: stateManager, from: viewController, progressHandler: { currentOption in
+            if currentOption.contains(.revokeAccessToken) {
+                print("Revoking access token: \(currentOption)")
+            } else if currentOption.contains(.revokeRefreshToken) {
+                print("Revoking refresh token: \(currentOption)")
+            } else if currentOption.contains(.removeTokensFromStorage) {
+                print("Removing tokens from storage: \(currentOption)")
+            } else if currentOption.contains(.signOutFromOkta) {
+                print("Signing out: \(currentOption)")
+            }
+        }) { success, failedOptions in
+            if success {
+                print("Successfully signed out!")
+            } else {
+                print("Unable to perform all sign out options. Failed sign out options: \(failedOptions)")
+            }
+        }
     }
 }

@@ -15,6 +15,18 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     // MARK: - Properties
     
+    var user: FetchUserIdQuery.Data.User? {
+        didSet {
+            print("Home View Controller User: \(String(describing: user))")
+        }
+    }
+    
+    var oktaUserInfo: [String]? {
+        didSet {
+            print("Home View Controller Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
+        }
+    }
+    
     var apolloController: ApolloController? {
         didSet {
             print("Home View Controller ApolloController: \(String(describing: apolloController))")
@@ -25,11 +37,9 @@ class HomeViewController: UIViewController, ControllerDelegate {
             print("Home View Controller AuthController: \(String(describing: authController))")
         }
     }
-    var controller: Controller?
     var testing = false
     var repeatCount = 1
     var fetchEventsTimer: Timer?
-//    let eventController = EventController()
     var shouldDismissFilterScreen = true
     private var unfilteredEvents: [Event]? {        // Varible events' data source
         didSet {
@@ -72,13 +82,9 @@ class HomeViewController: UIViewController, ControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchView.homeVC = self
-        searchView.controller = controller
+//        searchView.controller = controller
         searchView.setUp()
         setUp()
-  
-//        eventController.fetchEvents { fetchedEvents in
-//            self.eventTableView.reloadData()
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,28 +172,6 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     // MARK: - Data Functions
-//    private func fetchEvents() {
-//        controller?.getEvents { result in
-//            switch result {
-//            case .success(let eventList):
-//                if self.fetchEventsTimer != nil {
-//                    self.fetchEventsTimer!.invalidate()
-//                    self.fetchEventsTimer = nil
-//                    NSLog("Fetched events successfully after \(self.repeatCount) attempt\(self.repeatCount == 1 ? "" : "s")")
-//                    self.repeatCount = 1
-//                }
-//
-//                if self.unfilteredEvents != eventList {
-//
-//                    self.unfilteredEvents = self.fixDates(eventList)
-//                    self.featuredCollectionView.reloadData()
-////                    createMockData()
-//                }
-//            case .failure(let error):
-//                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-//            }
-//        }
-//    }
     
     private func fixDates(_ eventsList: [Event]) -> [Event] {
         var events = eventsList
@@ -351,40 +335,40 @@ class HomeViewController: UIViewController, ControllerDelegate {
             guard let detailVC = segue.destination as? EventDetailViewController,
                 let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
                 let events = unfilteredEvents else { return }
-            detailVC.controller = controller
+//            detailVC.controller = controller
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "ShowEventsTableDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventTableView.indexPathForSelectedRow,
             let events = events else { return }
-            detailVC.controller = controller
+//            detailVC.controller = controller
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
             let events = events else { return }
-            detailVC.controller = controller
+//            detailVC.controller = controller
             detailVC.indexPath = indexPath
             detailVC.event = events[indexPath.row]
         } else if segue.identifier == "CustomShowFilterSegue" {
             shouldDismissFilterScreen = false
             guard let filterVC = segue.destination as? FilterViewController else { return }
             filterVC.events = unfilteredEvents
-            filterVC.controller = controller
+//            filterVC.controller = controller
             if let filter = self.currentFilter {
                 filterVC.filter = filter
             }
             filterVC.delegate = self
         } else if segue.identifier == "ShowSearchResultsSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
-            resultsVC.controller = controller
+//            resultsVC.controller = controller
             resultsVC.filter = currentFilter
             currentFilter = nil
         } else if segue.identifier == "ByDistanceSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
-            resultsVC.controller = controller
+//            resultsVC.controller = controller
             resultsVC.events = unfilteredEvents
             currentFilter = nil
         }
@@ -478,7 +462,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let events = events else { return UICollectionViewCell() }
             print(events.count)
             cell.indexPath = indexPath
-            cell.controller = controller
+//            cell.controller = controller
             cell.event = events[indexPath.row]
             
             return cell
@@ -488,7 +472,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let events = unfilteredEvents else { return UICollectionViewCell() }
             
             cell.indexPath = indexPath
-            cell.controller = controller
+//            cell.controller = controller
             cell.event = events[indexPath.row]
             
             return cell
@@ -512,7 +496,7 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let currentFilter = currentFilter {
             performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
-            controller?.save(filteredSearch: currentFilter)
+//            controller?.save(filteredSearch: currentFilter)
             searchView.insertFilter(currentFilter)
         }
         shouldDismissFilterScreen = true

@@ -15,9 +15,20 @@ enum MyTheme {
   }
 
 class EventViewController: UIViewController, ControllerDelegate {
-    
-    
+ 
     //MARK: - Properties
+    
+    var user: FetchUserIdQuery.Data.User? {
+        didSet {
+            print("Event View Controller User: \(String(describing: user))")
+        }
+    }
+    
+    var oktaUserInfo: [String]? {
+        didSet {
+            print("Event View Controller Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
+        }
+    }
     
     var authController: AuthController? {
         didSet {
@@ -31,8 +42,6 @@ class EventViewController: UIViewController, ControllerDelegate {
     }
     
     let tmController = TMEventController()
-    //    var eventController: EventController?
-    var controller: Controller?
     var events: [Event]?
     var detailEvent: EasyEvent? {
         didSet {
@@ -47,8 +56,6 @@ class EventViewController: UIViewController, ControllerDelegate {
             }
         }
     }
-    
-    
     
     //MARK: - IBOutlets
     

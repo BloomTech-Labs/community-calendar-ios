@@ -11,11 +11,21 @@ import OktaOidc
 import MapKit
 
 class UserProfileViewController: UIViewController, ControllerDelegate {
-    
-    
-
+ 
     //MARK: - Properties
     
+    var user: FetchUserIdQuery.Data.User? {
+        didSet {
+            print("User Profile View Controller User: \(String(describing: user))")
+        }
+    }
+
+    var oktaUserInfo: [String]? {
+        didSet {
+            print("User Profile View Controller Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
+        }
+    }
+   
     var authController: AuthController? {
         didSet {
             print("User Profile View Controller Auth Controller: \(String(describing: authController))")
@@ -26,8 +36,6 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
             print("User Profile View Controller Apollo Controller: \(String(describing: apolloController))")
         }
     }
-    var controller: Controller?
-//    var authController = AuthController()
     var currentUserName: String?
     var isEditingUser: Bool = false
     
@@ -47,6 +55,7 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubView()
+        
     }
     
     // MARK: - IBActions
@@ -55,9 +64,13 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         loginUser()
     }
     
+    @IBAction func logoutTapped(_ sender: Any) {
+        logoutUser()
+    }
+    
+    
     @IBAction func saveEditTapped(_ sender: Any) {
         self.isEditingUser.toggle()
-        print(isEditingUser)
         if isEditingUser {
             editingUserProfile()
         } else {

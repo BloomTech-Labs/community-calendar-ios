@@ -9,13 +9,14 @@
 import Foundation
 import Apollo
 import OktaOidc
+import Cloudinary
 
 class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelegate {
 
     private static let url = URL(string: "https://apollo.ourcommunitycal.com/")!
     var apollo: ApolloClient = ApolloClient(url: ApolloController.url)
     var parent: Controller!
-    
+    var currentUserID: GraphQLID?
     var events = [FetchEventsQuery.Data.Event]()
     
     func fetchEvents(completion: @escaping (Swift.Result<[FetchEventsQuery.Data.Event], Error>) -> Void) {
@@ -41,24 +42,46 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                 print("Error getting user ID: \(error)")
                 completion(.failure(error))
             case .success(let graphQLResult):
-                if let userID = graphQLResult.data?.user {
-                    print("Current Users backend ID: \(userID)")
-                    completion(.success(userID))
+                if let user = graphQLResult.data?.user {
+                    print("Current User: \(user)")
+                    self.currentUserID = user.id
+                    completion(.success(user))
                 }
             }
         }
     }
     
-    func updateProfilePic(image: String, graphQLID: String, completion: @escaping (Swift.Result<AddProfilePicMutation.Data.UpdateUser, Error>) -> Void) {
-        apollo.perform(mutation: AddProfilePicMutation(image: image, id: graphQLID)) { result in
+    func updateProfilePic(image: String, graphQLID: String, accessToken: String, file: GraphQLFile, completion: @escaping (Swift.Result<AddProfilePicMutation.Data.UpdateUser, Error>) -> Void) {
+        apollo = configureApolloClient(accessToken: accessToken)
+        apollo.upload(operation: AddProfilePicMutation(image: image, id: graphQLID), files: [file]) { result in
             switch result {
             case .failure(let error):
                 print("Error updating users profile picture: \(error)")
                 completion(.failure(error))
             case .success(let graphQLResult):
-                if let userID = graphQLResult.data?.updateUser {
-                    print("Updated profile picture successfully for user: \(userID)")
-                    completion(.success(userID))
+                if let user = graphQLResult.data?.updateUser {
+                    let userID = user.id
+                    let profileImage = user.profileImage
+                    print("Success! User ID: \(userID), Profile Image: \(String(describing: profileImage))")
+                    completion(.success(user))
+                }
+            }
+        }
+    }
+    
+    func updateProfileImage(urlString: String, graphQLID: String, accessToken: String, completion: @escaping (Swift.Result<UpdateUserInfoMutation.Data.UpdateUser, Error>) -> Void) {
+        apollo = configureApolloClient(accessToken: accessToken)
+        apollo.perform(mutation: UpdateUserInfoMutation(profileImage: urlString, id: graphQLID)) { result in
+            switch result {
+            case .failure(let error):
+                print("Error updating users profile picture on back end: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let response = graphQLResult.data?.updateUser {
+                    let profileImage = response.profileImage
+                    let userID = response.id
+                    print("Successfully updated users profile image: \(String(describing: profileImage)), for user ID: \(userID)")
+                    completion(.success(response))
                 }
             }
         }
@@ -70,10 +93,23 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
         
         let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
         let transport = HTTPNetworkTransport(url: ApolloController.url, client: client)
-        
         transport.delegate = self
-        print("Apollo Client: \(accessToken)")
         
         return ApolloClient(networkTransport: transport)
+    }
+    
+    func hostImage(imageData: Data, completion: @escaping (Swift.Result<String, Error>) -> Void) {
+        let config = CLDConfiguration(cloudName: "communitycalendar1")
+        let cloudinary = CLDCloudinary(configuration: config)
+        cloudinary.createUploader().upload(data: imageData, uploadPreset: "ComCal") { response, error in
+            if let error = error {
+                print("Error hosting image: \(error)")
+                completion(.failure(error))
+            }
+            if let response = response, let urlString = response.secureUrl {
+                print("Cloudinary response: \(response)")
+                completion(.success(urlString))
+            }
+        }
     }
 }
