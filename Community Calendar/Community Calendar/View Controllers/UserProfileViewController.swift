@@ -13,7 +13,6 @@ import MapKit
 class UserProfileViewController: UIViewController, ControllerDelegate {
  
     //MARK: - Properties
-    
     var user: FetchUserIdQuery.Data.User? {
         didSet {
             print("User Profile View Controller User: \(String(describing: user))")
@@ -40,7 +39,6 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     var isEditingUser: Bool = false
     
     // MARK: - IBOutlets
-    
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -52,14 +50,13 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     @IBOutlet weak var numberOfEventsCreatedLabel: UILabel!
     @IBOutlet weak var userEventsCollectionView: UICollectionView!
     
+    // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubView()
-        
     }
     
     // MARK: - IBActions
-    
     @IBAction func loginButtonTapped(_ sender: Any) {
         loginUser()
     }
@@ -67,7 +64,6 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     @IBAction func logoutTapped(_ sender: Any) {
         logoutUser()
     }
-    
     
     @IBAction func saveEditTapped(_ sender: Any) {
         self.isEditingUser.toggle()

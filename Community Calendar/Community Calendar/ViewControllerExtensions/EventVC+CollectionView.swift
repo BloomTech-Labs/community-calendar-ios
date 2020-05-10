@@ -11,7 +11,7 @@ import UIKit
 extension EventViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == myEventsCollectionView {
-            return tmController.events.count
+            return apolloController?.events.count ?? 1
         }
         if collectionView == detailAndCalendarCollectionView {
             
@@ -24,7 +24,7 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
         if collectionView == myEventsCollectionView {
             guard let cell = myEventsCollectionView.dequeueReusableCell(withReuseIdentifier: "MyEventCell", for: indexPath) as? MyEventCollectionViewCell else { return UICollectionViewCell() }
             
-            let event = tmController.events[indexPath.item]
+            let event = apolloController?.events[indexPath.item]
             
             cell.event = event
             return cell
@@ -38,9 +38,6 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
                     cell.detailView.isHidden = true
                 } else {
                     cell.detailView.isHidden = false
-                }
-                if tmController.events.count > 0 {
-                    cell.event = self.detailEvent
                 }
             case 1:
                 cell.viewType = .calendar

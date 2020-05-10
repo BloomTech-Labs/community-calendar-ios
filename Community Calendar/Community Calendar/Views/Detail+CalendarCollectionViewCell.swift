@@ -11,7 +11,8 @@ import UIKit
 
 class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     
-    var event: EasyEvent? {
+    // MARK: - Properties
+    var event: FetchEventsQuery.Data.Event? {
         didSet {
             updateDetailView()
         }
@@ -23,34 +24,35 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    // MARK: View(s) Properties
-    //View 1
-    let detailView = UIView()
-    //View 2
-    let calendarView = CalenderView()
+    lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter
+    }()
     
-    // View 1 Properties
     let eventImageView = UIImageView()
     let eventNameLabel = UILabel()
     let eventDateLabel = UILabel()
-    let eventVenueLabel = UILabel()
+    let eventLocationLabel = UILabel()
+    
+    // MARK: - View 1
+    let detailView = UIView()
+    // MARK: - View 2
+    let calendarView = CalenderView()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
         constraintsDetailView()
         constraintCalendarView()
-        // Call it here
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
     }
-    
-    
-    
-    
+  
     func updateViews() {
         if viewType == .detail {
             calendarView.isHidden = true
@@ -59,16 +61,24 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
             eventImageView.isHidden = true
             eventNameLabel.isHidden = true
             eventDateLabel.isHidden = true
-            eventVenueLabel.isHidden = true
+            eventLocationLabel.isHidden = true
         }
     }
     
     func updateDetailView() {
-        guard let event = event else { return }
-        eventImageView.image = event.eventImage
-        eventNameLabel.text = event.eventName
-        eventDateLabel.text = event.stringEventDate
-        eventVenueLabel.text = event.venueName
+        guard
+            let event = event,
+            let urlString = event.eventImages?.first?.url,
+            let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url)
+            else { return }
+        
+        self.eventImageView.image = UIImage(data: data)
+        self.eventNameLabel.text = event.title
+        if let city = event.locations?.first?.city, let state = event.locations?.first?.state, let date = self.dateFormatter.date(from: event.start) {
+            self.eventDateLabel.text = self.dateFormatter.string(from: date)
+            self.eventLocationLabel.text = "\(city), \(state)"
+        }
     }
     
     //MARK: - Clendar View
@@ -96,7 +106,7 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         detailView.addSubview(eventImageView)
         detailView.addSubview(eventNameLabel)
         detailView.addSubview(eventDateLabel)
-        detailView.addSubview(eventVenueLabel)
+        detailView.addSubview(eventLocationLabel)
         
         // MARK: - Event Image View
         
@@ -127,12 +137,12 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         
         // MARK: - Event Venue Label
         
-        eventVenueLabel.anchor(top: eventDateLabel.bottomAnchor, leading: eventImageView.trailingAnchor, trailing: detailView.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 8, bottom: 0, right: -8), size: .zero)
+        eventLocationLabel.anchor(top: eventDateLabel.bottomAnchor, leading: eventImageView.trailingAnchor, trailing: detailView.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 8, bottom: 0, right: -8), size: .zero)
         
-        eventVenueLabel.textAlignment = .center
-        eventVenueLabel.numberOfLines = 1
-        eventVenueLabel.adjustsFontSizeToFitWidth = true
-        eventVenueLabel.allowsDefaultTighteningForTruncation = true
-        eventVenueLabel.font = UIFont(name: "Poppins-Light", size: 15)
+        eventLocationLabel.textAlignment = .center
+        eventLocationLabel.numberOfLines = 1
+        eventLocationLabel.adjustsFontSizeToFitWidth = true
+        eventLocationLabel.allowsDefaultTighteningForTruncation = true
+        eventLocationLabel.font = UIFont(name: "Poppins-Light", size: 15)
     }
 }

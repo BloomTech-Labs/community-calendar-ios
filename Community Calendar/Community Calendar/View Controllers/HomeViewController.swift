@@ -41,12 +41,20 @@ class HomeViewController: UIViewController, ControllerDelegate {
     var repeatCount = 1
     var fetchEventsTimer: Timer?
     var shouldDismissFilterScreen = true
-    private var unfilteredEvents: [Event]? {        // Varible events' data source
+    var unfilteredEvents: [Event]? {        // Varible events' data source
         didSet {
             todayTapped(UIButton())
         }
     }
-    private var events: [Event]?                    // Table/Collection view data source
+    var events: [FetchEventsQuery.Data.Event]? {
+        didSet {
+            guard isViewLoaded else { return }
+            self.featuredCollectionView.reloadData()
+            self.eventCollectionView.reloadData()
+            self.eventTableView.reloadData()
+        }
+    }
+    
     var currentFilter: Filter? {
         didSet {
             updateFilterCount()
@@ -54,27 +62,27 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     // MARK: - Lists IBOutles
-    @IBOutlet private weak var featuredCollectionView: UICollectionView!
-    @IBOutlet private weak var eventCollectionView: UICollectionView!
-    @IBOutlet private weak var eventTableView: UITableView!
+    @IBOutlet weak var featuredCollectionView: UICollectionView!
+    @IBOutlet weak var eventCollectionView: UICollectionView!
+    @IBOutlet weak var eventTableView: UITableView!
     
-    @IBOutlet private weak var collectionViewButton: UIButton!
-    @IBOutlet private weak var tableViewButton: UIButton!
-    @IBOutlet private weak var seperatorView: UIView!
-    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet weak var collectionViewButton: UIButton!
+    @IBOutlet weak var tableViewButton: UIButton!
+    @IBOutlet weak var seperatorView: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
     
     @IBOutlet private weak var noResultsLabel: UILabel!
     
     // MARK: - Filter Buttons IBOutles
-    @IBOutlet private weak var thisWeekendButton: UIButton!
-    @IBOutlet private weak var allUpcomingButton: UIButton!
-    @IBOutlet private weak var tomorrowButton: UIButton!
-    @IBOutlet private weak var todayButton: UIButton!
-    @IBOutlet private weak var seeAllButton: UIButton!
+    @IBOutlet weak var thisWeekendButton: UIButton!
+    @IBOutlet weak var allUpcomingButton: UIButton!
+    @IBOutlet weak var tomorrowButton: UIButton!
+    @IBOutlet weak var todayButton: UIButton!
+    @IBOutlet weak var seeAllButton: UIButton!
     
     // MARK: - Search IBOutles
     @IBOutlet weak var eventSearchBar: UISearchBar!
-    @IBOutlet private weak var searchView: SearchView!
+    @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var searchBarCancelButton: UIButton!
     @IBOutlet weak var searchBarTrailingConstraint: NSLayoutConstraint!
     
@@ -82,9 +90,22 @@ class HomeViewController: UIViewController, ControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchView.homeVC = self
-//        searchView.controller = controller
         searchView.setUp()
         setUp()
+        
+        self.featuredCollectionView.reloadData()
+        self.eventCollectionView.reloadData()
+        self.eventTableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        apolloController?.fetchEvents(completion: { result in
+            self.featuredCollectionView.reloadData()
+            self.eventCollectionView.reloadData()
+            self.eventTableView.reloadData()
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -223,16 +244,16 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     // MARK: - Search/Filter Functions
-    private func shouldShowSearchView(_ bool: Bool, shouldAnimate: Bool = true) {
+    func shouldShowSearchView(_ bool: Bool, shouldAnimate: Bool = true) {
         searchView.shouldShowSearchView(bool, shouldAnimate: shouldAnimate)
     }
     
-    private func updateFilterCount() {
+    func updateFilterCount() {
         searchView.updateFilterCount(filter: currentFilter)
     }
     
     // MARK: - Helper Functions
-    private func printFonts() {
+    func printFonts() {
         // To test if fonts were added correctly: (Common mistakes: Incorrect/no target membership, not listed in info.plist)
         for fam in UIFont.familyNames {
             print("Family: \(fam)")
@@ -243,7 +264,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    private func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
+    func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
         guard let font = UIFont(name: fontName, size: 14) else { return NSAttributedString() }
         let attrString = NSAttributedString(string: title,
             attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font])
@@ -278,7 +299,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-        events = unfilteredEvents?.filter({ Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0)) == Calendar.current.dateComponents([.day, .month, .year], from: Date()) })
+//        events = unfilteredEvents?.filter({ Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0)) == Calendar.current.dateComponents([.day, .month, .year], from: Date()) })
         eventTableView.reloadData()
         dateLabel.text = todayDateFormatter.string(from: Date())
     }
@@ -288,41 +309,41 @@ class HomeViewController: UIViewController, ControllerDelegate {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-        let filterDate = Calendar.current.dateComponents([.day, .month, .year], from: Date().tomorrow)
-        events = unfilteredEvents?.filter({
-            return filterDate == Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
-        })
+//        let filterDate = Calendar.current.dateComponents([.day, .month, .year], from: Date().tomorrow)
+//        events = unfilteredEvents?.filter({
+//            return filterDate == Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
+//        })
         eventTableView.reloadData()
         dateLabel.text = todayDateFormatter.string(from: Date().tomorrow)
     }
     
     @IBAction func thisWeekendTapped(_ sender: UIButton) {
-        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
-        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-        
-        let arrWeekDays = Date().getWeekDays()
-        let saturdayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 2])
-        let sundayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 1])
-        events = unfilteredEvents?.filter({
-            let comp = Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
-            return saturdayFilterDate == comp || sundayFilterDate == comp
-        })
-        eventTableView.reloadData()
-        dateLabel.text = "\(weekdayDateFormatter.string(from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 2])) - \(todayDateFormatter.string(from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 1]))"
+//        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+//        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+//        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+//        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+//
+//        let arrWeekDays = Date().getWeekDays()
+//        let saturdayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 2])
+//        let sundayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 1])
+//        events = unfilteredEvents?.filter({
+//            let comp = Calendar.current.dateComponents([.day, .month, .year], from: $0.startDate ?? Date(timeIntervalSince1970: 0))
+//            return saturdayFilterDate == comp || sundayFilterDate == comp
+//        })
+//        eventTableView.reloadData()
+//        dateLabel.text = "\(weekdayDateFormatter.string(from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 2])) - \(todayDateFormatter.string(from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 1]))"
     }
     
     @IBAction func allUpcomingTapped(_ sender: UIButton) {
-        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
-        events = unfilteredEvents?.filter {
-            return Date() < $0.endDate ?? Date(timeIntervalSince1970: 0)
-        }
-        eventTableView.reloadData()
-        dateLabel.text = "\(todayDateFormatter.string(from: Date()))+"
+//        todayButton.setAttributedTitle(createAttrText(with: "Today", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+//        tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+//        thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+//        allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+//        events = unfilteredEvents?.filter {
+//            return Date() < $0.endDate ?? Date(timeIntervalSince1970: 0)
+//        }
+//        eventTableView.reloadData()
+//        dateLabel.text = "\(todayDateFormatter.string(from: Date()))+"
     }
     
     // MARK: - Search IBActions
@@ -337,14 +358,14 @@ class HomeViewController: UIViewController, ControllerDelegate {
                 let events = unfilteredEvents else { return }
 //            detailVC.controller = controller
             detailVC.indexPath = indexPath
-            detailVC.event = events[indexPath.row]
+            detailVC.event = apolloController?.events[indexPath.row]
         } else if segue.identifier == "ShowEventsTableDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventTableView.indexPathForSelectedRow,
             let events = events else { return }
 //            detailVC.controller = controller
             detailVC.indexPath = indexPath
-            detailVC.event = events[indexPath.row]
+            detailVC.event = apolloController?.events[indexPath.row]
         } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
@@ -374,194 +395,6 @@ class HomeViewController: UIViewController, ControllerDelegate {
         }
     }
 }
-
-// MARK: - Table View Extension
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        eventController.events.count
-//        if tableView == eventTableView {
-//            if events?.count == 0 || events == nil {
-//                noResultsLabel.isHidden = false
-//            } else {
-//                noResultsLabel.isHidden = true
-//            }
-//            return events?.count ?? 0
-//        }
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == eventTableView {
-            guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell
-                else { return UITableViewCell() }
-            
-//            let events = eventController.events[indexPath.row]
-//            cell.event = indexPath
-//            cell.controller = controller
-//            cell.event = events 
-            
-            return cell
-        }
-        
-        return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if tableView == eventTableView {
-            return true
-        }
-        return false
-    }
-    
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if tableView == eventTableView {
-            let favoriteAction = UIContextualAction(style: .normal, title: "Favorite") { (action, view, handler) in
-                print("Favorite tapped")
-                // TODO: Add event to favorites
-            }
-            favoriteAction.backgroundColor = UIColor.systemPink
-            let configuration = UISwipeActionsConfiguration(actions: [favoriteAction])
-            return configuration
-        }
-        return nil
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if tableView == eventTableView {
-            let hideAction = UIContextualAction(style: .destructive, title: "Hide") { (action, view, handler) in
-                print("Hide tapped")
-                self.events?.remove(at: indexPath.row)
-                self.eventTableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            hideAction.backgroundColor = UIColor.blue
-            let configuration = UISwipeActionsConfiguration(actions: [hideAction])
-            return configuration
-        }
-        return nil
-    }
-}
-
-// MARK: - Collection View Extension
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == eventCollectionView {
-            return events?.count ?? 0
-        } else if collectionView == featuredCollectionView {
-            return unfilteredEvents?.count ?? 0
-        }
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == eventCollectionView {
-            guard let cell = eventCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell,
-            let events = events else { return UICollectionViewCell() }
-            print(events.count)
-            cell.indexPath = indexPath
-//            cell.controller = controller
-            cell.event = events[indexPath.row]
-            
-            return cell
-            
-        } else if collectionView == featuredCollectionView {
-            guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell,
-            let events = unfilteredEvents else { return UICollectionViewCell() }
-            
-            cell.indexPath = indexPath
-//            cell.controller = controller
-            cell.event = events[indexPath.row]
-            
-            return cell
-        }
-        return UICollectionViewCell()
-    }
-}
-
-// MARK: - Search Bar Extension
-extension HomeViewController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        shouldShowSearchView(true)
-        searchBarTrailingConstraint.constant = -searchBarCancelButton.frame.width - 32
-        UIView.animate(withDuration: 0.25) {
-            searchBar.layoutIfNeeded()
-            searchBar.superview?.layoutIfNeeded()
-        }
-        shouldDismissFilterScreen = true
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let currentFilter = currentFilter {
-            performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
-//            controller?.save(filteredSearch: currentFilter)
-            searchView.insertFilter(currentFilter)
-        }
-        shouldDismissFilterScreen = true
-        searchBar.endEditing(true)
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        shouldDismissFilterScreen = true
-        searchBar.endEditing(true)
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        if shouldDismissFilterScreen {
-            searchBar.setShowsCancelButton(false, animated: true)
-            shouldShowSearchView(false)
-            searchBarTrailingConstraint.constant = -16
-            UIView.animate(withDuration: 0.25) {
-                searchBar.layoutIfNeeded()
-                searchBar.superview?.layoutIfNeeded()
-            }
-        }
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if currentFilter != nil {
-            if searchText == "" {
-                currentFilter?.index = nil
-            } else {
-                self.currentFilter?.index = searchText
-            }
-        } else {
-            currentFilter = Filter(index: searchText)
-        }
-    }
-    
-    func setSearchBarText(to text: String = "") {
-        eventSearchBar.text = text
-    }
-}
-
-// MARK: - Navigation Extension
-extension HomeViewController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard let view = self.navigationController?.view else { return nil }
-        // This function calls a custom segue animation when transitioning to an instance of FilterViewController
-        switch operation {
-        case .push:
-            view.endEditing(true)
-            if let _ = toVC as? FilterViewController {
-                return CustomPushAnimator(view: view)
-            } else {
-                return nil
-            }
-        case .pop:
-            if let _ = fromVC as? FilterViewController {
-                eventSearchBar.becomeFirstResponder()
-                return CustomPopAnimator(view: view)
-            }
-            return nil
-        default:
-            return nil
-        }
-    }
-}
-
 // MARK: - Filter Extension
 extension HomeViewController: FilterDelegate {
     func receive(filters: Filter) {

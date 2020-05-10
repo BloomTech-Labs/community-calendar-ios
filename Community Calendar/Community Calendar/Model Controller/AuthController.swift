@@ -14,7 +14,7 @@ class AuthController {
     var oktaOidc: OktaOidc?
     var stateManager: OktaOidcStateManager?
     
-    func setupOktaOidc() {
+    func setupOktaOidc(completion: @escaping () -> Void) {
         do {
             self.oktaOidc = try OktaOidc()
         } catch {
@@ -100,7 +100,7 @@ class AuthController {
         })
     }
     
-    func signOut(viewController: UIViewController, completion: @escaping (Error?) -> Void) {
+    func signOut(viewController: UIViewController, completion: @escaping () -> Void) {
         guard let stateManager = stateManager, let oktaOidc = oktaOidc else { return }
         let options: OktaSignOutOptions = .allOptions
         oktaOidc.signOut(with: options, authStateManager: stateManager, from: viewController, progressHandler: { currentOption in
@@ -116,8 +116,10 @@ class AuthController {
         }) { success, failedOptions in
             if success {
                 print("Successfully signed out!")
+                completion()
             } else {
                 print("Unable to perform all sign out options. Failed sign out options: \(failedOptions)")
+                completion()
             }
         }
     }

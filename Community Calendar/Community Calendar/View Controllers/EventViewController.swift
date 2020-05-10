@@ -17,7 +17,6 @@ enum MyTheme {
 class EventViewController: UIViewController, ControllerDelegate {
  
     //MARK: - Properties
-    
     var user: FetchUserIdQuery.Data.User? {
         didSet {
             print("Event View Controller User: \(String(describing: user))")
@@ -41,9 +40,13 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    let tmController = TMEventController()
-    var events: [Event]?
-    var detailEvent: EasyEvent? {
+    var events: [FetchEventsQuery.Data.Event]? {
+        didSet {
+            self.myEventsCollectionView.reloadData()
+            self.detailAndCalendarCollectionView.reloadData()
+        }
+    }
+    var detailEvent: FetchEventsQuery.Data.Event? {
         didSet {
             self.detailAndCalendarCollectionView.reloadData()
         }
@@ -52,7 +55,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     var featuredIndexPath: IndexPath? {
         didSet {
             if let indexPath = featuredIndexPath {
-                self.detailEvent = tmController.events[indexPath.item]
+                self.detailEvent = apolloController?.events[indexPath.item]
             }
         }
     }
@@ -62,24 +65,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     @IBOutlet weak var myEventsCollectionView: UICollectionView!
     @IBOutlet weak var calendarView: UIView!
     @IBOutlet weak var detailAndCalendarCollectionView: UICollectionView!
-    
-    
-  
-    
-    
-    
-    
-    
-    var repeatCount = 1
-    
-    var fetchEventsTimer: Timer?
-    
-    private var unfilteredEvents: [Event]? {        // Varible events' data source
-        didSet {
-            //todayTapped(UIButton())
-        }
-    }
-
+   
     //MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -87,16 +73,18 @@ class EventViewController: UIViewController, ControllerDelegate {
 
         myEventsCollectionView.dataSource = self
         myEventsCollectionView.delegate = self
-      
         
+        self.myEventsCollectionView.reloadData()
+        self.detailAndCalendarCollectionView.reloadData()
         setupSubViews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        self.myEventsCollectionView.reloadData()
+        self.detailAndCalendarCollectionView.reloadData()
         
-        tmController.getEvents { _, _ in
-            self.myEventsCollectionView.reloadData()
-            self.detailAndCalendarCollectionView.reloadData()
-            
-        }
     }
     
  //MARK: - GraphQL Fetch
@@ -131,29 +119,6 @@ class EventViewController: UIViewController, ControllerDelegate {
         scrollView.bouncesZoom = true
     }
     
-    private func setUpTimer() {
-           fetchEventsTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
-               if self.repeatCount >= 4 {
-                   timer.invalidate()
-                   self.fetchEventsTimer = nil
-                   self.repeatCount = 1
-                   if self.unfilteredEvents == nil || self.unfilteredEvents?.isEmpty ?? true {
-                       NSLog("Unable to fetch events, all attemps failed. Is device connected to internet?")
-                       let alert = UIAlertController(title: "Unable to get events", message: "Please make sure your device is connect to wifi or cellular data.", preferredStyle: .alert)
-                       DispatchQueue.main.async { self.present(alert, animated: true) }
-                       Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { _ in
-                           alert.dismiss(animated: true, completion: nil)
-                       }
-                   } else {
-                       NSLog("Timer is nil, but selector was called. Possible concurrency issue")
-                   }
-               } else {
-                   print("Timer #\(self.repeatCount) ended")
-                   self.repeatCount += 1
-               }
-           }
-       }
-    
     func setupSubViews() {
         myEventsCollectionView.dataSource = self
         myEventsCollectionView.delegate = self
@@ -171,8 +136,6 @@ class EventViewController: UIViewController, ControllerDelegate {
     }
  
     //MARK:- Custom Calendar
-
-    
     var theme = MyTheme.light
     
     func calendarViewDidLoad() {

@@ -1,11 +1,11 @@
-mutation AddProfilePic($image: Upload, $id:ID) {
+mutation AddProfilePic($image:Upload, $id:ID) {
   updateUser(image: $image where: {id:$id }) {
     id
     profileImage
   }
 }
 
-query fetchUserID($oktaId: String) {
+query fetchUserID($oktaId:String) {
   user(where: {oktaId: $oktaId }) {
     id
     firstName
@@ -14,7 +14,16 @@ query fetchUserID($oktaId: String) {
   }
 }
 
-mutation UpdateUserInfo($profileImage: String, $id: ID!) {
+mutation UpdateUserInfo($profileImage:String, $firstName:String, $lastName:String, $id:ID!) {
+  updateUser(data:{profileImage:$profileImage, firstName:$firstName, lastName:$lastName }, where:{id:$id}) {
+    id
+    profileImage
+    firstName
+    lastName
+  }
+}
+
+mutation UpdateProfileImage($profileImage:String, $id:ID!) {
   updateUser(data:{profileImage:$profileImage}, where:{id:$id}) {
     id
     profileImage

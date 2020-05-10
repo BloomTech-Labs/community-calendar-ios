@@ -35,6 +35,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
         ])
         
         //MARK: - Delegates
+        
         nameTextField.delegate = self
         
         profileImageView.layer.cornerRadius = 62.5
@@ -46,9 +47,10 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
         nameTextField.layer.cornerRadius = 12
         nameTextField.borderStyle = .none
         nameTextField.isEnabled = false
+        cameraButton.isHidden = true    
         
         if let user = user {
-            updateViews(user: user)
+            updateViewsLogin(user: user)
         } else {
             loginButton.isHidden = false
             profileImageView.isHidden = true
@@ -80,7 +82,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
                             if let user = try? result.get() {
                                 print("First Name: \(String(describing: user.firstName)), Last Name: \(String(describing: user.lastName)), profileImage: \(String(describing: user.profileImage))")
                                 DispatchQueue.main.async {
-                                    self.updateViews(user: user)
+                                    self.updateViewsLogin(user: user)
                                 }
                             }
                         }
@@ -91,30 +93,27 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func logoutUser() {
-        authController?.signOut(viewController: self, completion: { error in
-            if let error = error {
-                print("Error logging user out: \(error)")
-                DispatchQueue.main.async {
-                    self.presentUserInfoAlert(title: "Error!", message: "Unable to sign out.")
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.presentUserInfoAlert(title: "Success!", message: "You have been successfully logged out.")
-                    self.loginButton.isHidden = false
-                    self.profileImageView.isHidden = true
-                    self.logoutButton.isHidden = true
-                    self.emailLabel.isHidden = true
-                    self.saveEditButton.isHidden = true
-                    self.nameTextField.isHidden = true
-                    self.eventsCreatedLabel.isHidden = true
-                    self.cameraButton.isHidden = true
-                    self.numberOfEventsCreatedLabel.isHidden = true
-                }
+        authController?.signOut(viewController: self, completion: {
+            DispatchQueue.main.async {
+                self.presentUserInfoAlert(title: "Success!", message: "You have been successfully logged out.")
             }
+            self.updateViewsLogout()
         })
     }
     
-    func updateViews(user: FetchUserIdQuery.Data.User) {
+    func updateViewsLogout() {
+        self.loginButton.isHidden = false
+        self.profileImageView.isHidden = true
+        self.logoutButton.isHidden = true
+        self.emailLabel.isHidden = true
+        self.saveEditButton.isHidden = true
+        self.nameTextField.isHidden = true
+        self.eventsCreatedLabel.isHidden = true
+        self.cameraButton.isHidden = true
+        self.numberOfEventsCreatedLabel.isHidden = true
+    }
+    
+    func updateViewsLogin(user: FetchUserIdQuery.Data.User) {
         guard
             let urlString = user.profileImage,
             let url = URL(string: urlString),
@@ -146,14 +145,19 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func saveTapped() {
-        if let imageData = profileImageView.image?.pngData(), let graphQLID = apolloController?.currentUserID, let accessToken = authController?.stateManager?.accessToken {
+        let fullName = nameTextField.text
+        let nameArray = fullName?.components(separatedBy: " ")
+        
+        if let imageData = profileImageView.image?.pngData(), let graphQLID = apolloController?.currentUserID, let accessToken = authController?.stateManager?.accessToken, let firstName = nameArray?.first, let lastName = nameArray?.last {
             apolloController?.hostImage(imageData: imageData, completion: { result in
                 guard let urlString = try? result.get() else { return }
                 print(urlString)
-                self.apolloController?.updateProfileImage(urlString: urlString, graphQLID: graphQLID, accessToken: accessToken, completion: { result in
+                self.apolloController?.updateUserInfo(urlString: urlString, firstName: firstName, lastName: lastName, graphQLID: graphQLID, accessToken: accessToken, completion: { result in
                     guard let response = try? result.get() else { return }
                     let updatedImageURL = response.profileImage
-                    print("Sweet! New Profile Image String: \(String(describing: updatedImageURL))")
+                    let newFirstName = response.firstName
+                    let newLastName = response.lastName
+                    print("New Profile Image String: \(String(describing: updatedImageURL)), New First Name: \(String(describing: newFirstName)), New Last Name: \(String(describing: newLastName))")
                 })
             })
         }

@@ -50,10 +50,7 @@ struct Style {
 // Calendar Collection View Set Up
 class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MonthViewDelegate {
     
-    // Calendar Properties
-    let tmController = TMEventController.shared
-   
-    
+    // MARK: - Calendar Properties
     var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]
     var currentMonthIndex: Int = 0
     var currentYear: Int = 0
@@ -80,7 +77,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         initializeView()
     }
     
-    
     func changeTheme() {
         myCollectionView.reloadData()
         
@@ -93,7 +89,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
     }
     
-    //
     func initializeView() {
         currentMonthIndex = Calendar.current.component(.month, from: Date())
         currentYear = Calendar.current.component(.year, from: Date())
@@ -119,7 +114,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tmController.events.count + numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
+//        return tmController.events.count + numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
+        1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -127,23 +123,20 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         // MARK: - TODO/ FIXME: For every Event that is counted, add a red background color to the cell
         // One specific Event Date, just called dates(s) for difference
-       let eventDates = tmController.eventDates
+       
         
         //FIXME: This For Loop doesn't run, eventDates is 0. Why?
-        for event in eventDates {
-           
-            // The Calc date is the date day from 1-31. See below as calcDate creates the date label
-            let calcDate = indexPath.row - firstWeekDayOfMonth+2
-            let eventDay = Calendar.current.component(.day, from: event)
-            print(eventDay) // This never gets printed becuase for loop doesn't execute, compare to TMEventController for loop print statement 
-            if eventDay == calcDate {
-                cell.backgroundColor = UIColor.red
-            }
-   
-        }
-        
-        
-        
+//        for event in eventDates {
+//           
+//            // The Calc date is the date day from 1-31. See below as calcDate creates the date label
+//            let calcDate = indexPath.row - firstWeekDayOfMonth+2
+//            let eventDay = Calendar.current.component(.day, from: event)
+//            print(eventDay) // This never gets printed becuase for loop doesn't execute, compare to TMEventController for loop print statement 
+//            if eventDay == calcDate {
+//                cell.backgroundColor = UIColor.red
+//            }
+//   
+//        }
         
         cell.backgroundColor = UIColor.clear
         if indexPath.item <= firstWeekDayOfMonth - 2 {
@@ -212,7 +205,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             }
         }
         //end
-        
         firstWeekDayOfMonth=getFirstWeekDay()
         
         myCollectionView.reloadData()

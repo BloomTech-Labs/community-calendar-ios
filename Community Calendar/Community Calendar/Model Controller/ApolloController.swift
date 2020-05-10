@@ -27,7 +27,8 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                 completion(.failure(error))
             case .success(let graphQLResult):
                 if let events = graphQLResult.data?.events {
-                    self.events.append(contentsOf: events)
+                    self.events = events
+                    print(self.events)
                     print(self.events.count)
                     completion(.success(events))
                 }
@@ -69,9 +70,9 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
         }
     }
     
-    func updateProfileImage(urlString: String, graphQLID: String, accessToken: String, completion: @escaping (Swift.Result<UpdateUserInfoMutation.Data.UpdateUser, Error>) -> Void) {
+    func updateProfileImage(urlString: String, graphQLID: String, accessToken: String, completion: @escaping (Swift.Result<UpdateProfileImageMutation.Data.UpdateUser, Error>) -> Void) {
         apollo = configureApolloClient(accessToken: accessToken)
-        apollo.perform(mutation: UpdateUserInfoMutation(profileImage: urlString, id: graphQLID)) { result in
+        apollo.perform(mutation: UpdateProfileImageMutation(profileImage: urlString, id: graphQLID)) { result in
             switch result {
             case .failure(let error):
                 print("Error updating users profile picture on back end: \(error)")
@@ -98,6 +99,27 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
         return ApolloClient(networkTransport: transport)
     }
     
+    func updateUserInfo(urlString: String?, firstName: String?, lastName: String?, graphQLID: String, accessToken: String, completion: @escaping (Swift.Result<UpdateUserInfoMutation.Data.UpdateUser, Error>) -> Void) {
+        apollo = configureApolloClient(accessToken: accessToken)
+        apollo.perform(mutation: UpdateUserInfoMutation(profileImage: urlString, firstName: firstName, lastName: lastName, id: graphQLID)) { result in
+            switch result {
+            case .failure(let error):
+                print("Error updating users profile info: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let response = graphQLResult.data?.updateUser {
+                    let userID = response.id
+                    let profileImage = response.profileImage
+                    let firstName = response.firstName
+                    let lastName = response.lastName
+                    print("Successfully updated user information for User ID: \(userID), Profile Image: \(String(describing: profileImage)), First Name: \(String(describing: firstName)), Last Name: \(String(describing: lastName))")
+                    completion(.success(response))
+                }
+            }
+        }
+    }
+    
+    // MARK: - Cloudinary Host Image Function
     func hostImage(imageData: Data, completion: @escaping (Swift.Result<String, Error>) -> Void) {
         let config = CLDConfiguration(cloudName: "communitycalendar1")
         let cloudinary = CLDCloudinary(configuration: config)

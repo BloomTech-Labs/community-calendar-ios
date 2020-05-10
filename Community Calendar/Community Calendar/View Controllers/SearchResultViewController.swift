@@ -170,10 +170,10 @@ class SearchResultViewController: UIViewController {
         detailVC.controller = controller
         if segue.identifier == "ShowDetailFromTable" {
             guard let indexPath = eventResultsTableView.indexPathForSelectedRow else { return }
-            detailVC.event = events?[indexPath.row]
+//            detailVC.event = events?[indexPath.row]
         } else if segue.identifier == "ShowDetailFromCollection" {
             guard let indexPaths = eventResultsCollectionView.indexPathsForSelectedItems, let indexPath = indexPaths.first else { return }
-            detailVC.event = events?[indexPath.row]
+//            detailVC.event = events?[indexPath.row]
         }
     }
 }
@@ -184,12 +184,9 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = eventResultsCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell,
-        let events = events else { return UICollectionViewCell() }
+        guard let cell = eventResultsCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.indexPath = indexPath
-        cell.controller = controller
-        cell.event = events[indexPath.row]
+//        cell.event =  [indexPath.row]
         
         return cell
     }
@@ -197,7 +194,8 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
 
 extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events?.count ?? 0
+//        return events?.count ?? 0
+        0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -205,8 +203,8 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
 //        let events = events
             else { return UITableViewCell() }
         
-        cell.indexPath = indexPath
-        cell.controller = controller
+        
+//        cell.controller = controller
 //        cell.event = events[indexPath.row]
         
         return cell

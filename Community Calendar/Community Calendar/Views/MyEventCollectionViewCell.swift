@@ -11,12 +11,21 @@ import MapKit
 
 class MyEventCollectionViewCell: UICollectionViewCell {
     
-    var event: EasyEvent? {
+    // MARK: - Properties
+    var event: FetchEventsQuery.Data.Event? {
         didSet {
             updateViews()
         }
     }
 
+    lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var eventNameLabel: UILabel!
     @IBOutlet weak var eventDateLabel: UILabel!
     @IBOutlet weak var eventLocationLabel: UILabel!
@@ -52,18 +61,22 @@ class MyEventCollectionViewCell: UICollectionViewCell {
     func updateViews() {
         guard
             let event = event,
-            let city = event.city,
-            let state = event.state,
-            let venue = event.venueName
+            let urlString = event.eventImages?.first?.url,
+            let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url),
+            let city = event.locations?.first?.city,
+            let state = event.locations?.first?.state,
+            let date = dateFormatter.date(from: event.start)
             else { return }
         
-        eventNameLabel.text = event.eventName
-        eventDateLabel.text = event.stringEventDate
-        eventLocationLabel.text = "\(venue) - \(city), \(state)"
-        eventImageView.image = event.eventImage
+        self.eventImageView.image = UIImage(data: data)
+        self.eventNameLabel.text = event.title
+        self.eventLocationLabel.text = "\(city), \(state)"
+        self.eventDateLabel.text = self.dateFormatter.string(from: date)
+        
+//        DispatchQueue.main.async {
+            
+//        }
         eventImageView.layer.cornerRadius = 7
-//        self.layer.cornerRadius = 7
-//        self.layer.borderWidth = 1.5
-//        self.layer.borderColor = UIColor.black.cgColor
     }
 }
