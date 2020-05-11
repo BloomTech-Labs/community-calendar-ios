@@ -17,12 +17,19 @@ class MyEventCollectionViewCell: UICollectionViewCell {
             updateViews()
         }
     }
-
+    
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         return formatter
+    }()
+    
+    lazy var backendDateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.timeZone = TimeZone(abbreviation: "MST")
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        return df
     }()
     
     // MARK: - IBOutlets
@@ -58,6 +65,17 @@ class MyEventCollectionViewCell: UICollectionViewCell {
 //        
 //    }
     
+//    func decodeDate(dateString: String) -> Date {
+//        let decoder = JSONDecoder()
+//        decoder.dateDecodingStrategy = .iso8601
+//        do {
+//            let date = try decoder.decode(String.self, from: dateString)
+//        } catch {
+//
+//        }
+//    }
+    
+    /// <#Description#>
     func updateViews() {
         guard
             let event = event,
@@ -65,18 +83,37 @@ class MyEventCollectionViewCell: UICollectionViewCell {
             let url = URL(string: urlString),
             let data = try? Data(contentsOf: url),
             let city = event.locations?.first?.city,
-            let state = event.locations?.first?.state,
-            let date = dateFormatter.date(from: event.start)
+            let state = event.locations?.first?.state
             else { return }
         
-        self.eventImageView.image = UIImage(data: data)
-        self.eventNameLabel.text = event.title
-        self.eventLocationLabel.text = "\(city), \(state)"
-        self.eventDateLabel.text = self.dateFormatter.string(from: date)
         
-//        DispatchQueue.main.async {
-            
-//        }
+        DispatchQueue.main.async {
+            self.eventImageView.image = UIImage(data: data)
+            self.eventNameLabel.text = event.title
+            self.eventLocationLabel.text = "\(city), \(state)"
+//            self.eventDateLabel.text = event.start
+            let dateString = event.start
+            if let date = self.backendDateFormatter.date(from: dateString) {
+                let time = self.getEventTime(date: date)
+                let timeString = self.dateFormatter.string(from: time)
+                self.eventDateLabel.text = timeString
+            }
+        }
+
         eventImageView.layer.cornerRadius = 7
+    }
+    
+    func getEventDate(date: Date) -> Date {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+        guard let timeComponents = calendar.date(from: dateComponents) else { return date }
+        return timeComponents
+    }
+    
+    func getEventTime(date: Date) -> Date {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.hour, .minute, .second], from: date)
+        guard let timeComponents = calendar.date(from: dateComponents) else { return date }
+        return timeComponents
     }
 }

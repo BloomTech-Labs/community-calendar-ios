@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -22,26 +21,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iYc-7f-nBJ">
-                                <rect key="frame" x="0.0" y="367" width="414" height="446"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kAN-UZ-ues">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="xFS-m1-cTT">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="BEy-84-mNk">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceD-Xh-On4">
                                 <rect key="frame" x="356" y="64" width="38" height="32"/>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -125,16 +104,12 @@
                             <constraint firstItem="fq0-a4-dlK" firstAttribute="leading" secondItem="lFR-Mm-pzB" secondAttribute="leading" constant="20" id="2Pb-BS-hEj"/>
                             <constraint firstItem="lFR-Mm-pzB" firstAttribute="trailing" secondItem="ceD-Xh-On4" secondAttribute="trailing" constant="20" id="88m-1F-wLn"/>
                             <constraint firstItem="lFR-Mm-pzB" firstAttribute="trailing" secondItem="fq0-a4-dlK" secondAttribute="trailing" constant="20" id="8UK-AQ-Tnv"/>
-                            <constraint firstItem="iYc-7f-nBJ" firstAttribute="leading" secondItem="lFR-Mm-pzB" secondAttribute="leading" id="9ZO-Hc-Lwh"/>
                             <constraint firstItem="DqR-04-dme" firstAttribute="bottom" secondItem="ceD-Xh-On4" secondAttribute="bottom" id="AMd-3W-Q7M"/>
                             <constraint firstItem="DqR-04-dme" firstAttribute="top" secondItem="ceD-Xh-On4" secondAttribute="top" id="BKj-jc-CVh"/>
-                            <constraint firstItem="iYc-7f-nBJ" firstAttribute="trailing" secondItem="lFR-Mm-pzB" secondAttribute="trailing" id="EWo-6o-nVe"/>
                             <constraint firstItem="oWd-MN-cba" firstAttribute="top" secondItem="Ms4-Vp-NI8" secondAttribute="bottom" constant="8" id="LA5-Pn-6zH"/>
                             <constraint firstItem="DqR-04-dme" firstAttribute="top" secondItem="lFR-Mm-pzB" secondAttribute="top" constant="20" id="MVR-rE-7oL"/>
-                            <constraint firstItem="iYc-7f-nBJ" firstAttribute="top" secondItem="fq0-a4-dlK" secondAttribute="bottom" constant="8" id="MYh-7k-mtr"/>
                             <constraint firstItem="lFR-Mm-pzB" firstAttribute="trailing" secondItem="oWd-MN-cba" secondAttribute="trailing" constant="20" id="Mo4-CB-CdS"/>
                             <constraint firstItem="IWX-75-h7g" firstAttribute="centerY" secondItem="dXB-cv-WTT" secondAttribute="centerY" constant="-40" id="Pzl-cm-UoZ"/>
-                            <constraint firstItem="iYc-7f-nBJ" firstAttribute="bottom" secondItem="lFR-Mm-pzB" secondAttribute="bottom" id="Rwd-7l-QDH"/>
                             <constraint firstItem="lFR-Mm-pzB" firstAttribute="trailing" secondItem="Ms4-Vp-NI8" secondAttribute="trailing" constant="20" id="SHx-GY-ExQ"/>
                             <constraint firstItem="DqR-04-dme" firstAttribute="leading" secondItem="lFR-Mm-pzB" secondAttribute="leading" constant="20" id="Umg-qy-lOD"/>
                             <constraint firstItem="fq0-a4-dlK" firstAttribute="top" secondItem="oWd-MN-cba" secondAttribute="bottom" id="X0v-Iz-gaX"/>
@@ -162,7 +137,6 @@
                         <outlet property="numberOfEventsCreatedLabel" destination="fq0-a4-dlK" id="1Ru-7o-3bQ"/>
                         <outlet property="profileImageView" destination="bhX-Gk-24s" id="RIm-CF-Gls"/>
                         <outlet property="saveEditButton" destination="ceD-Xh-On4" id="26m-zl-88J"/>
-                        <outlet property="userEventsCollectionView" destination="iYc-7f-nBJ" id="zH2-VW-LUp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xE7-7h-0Ii" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -45,17 +45,18 @@ class EventTabBarController: UITabBarController {
         homeVC.user = self.user
         homeVC.oktaUserInfo = self.oktaUserInfo
         
-        self.checkAuthStatus {
-            if let viewControllers = self.viewControllers {
-                for viewController in viewControllers {
-                    if var VC = viewController as? ControllerDelegate {
-                        VC.apolloController = self.apolloController
-                        VC.authController = self.authController
-                        VC.user = self.user
-                        VC.oktaUserInfo = self.oktaUserInfo
-                    }
+        if let viewControllers = self.viewControllers {
+            for viewController in viewControllers {
+                if var VC = viewController as? ControllerDelegate {
+                    VC.apolloController = self.apolloController
+                    VC.authController = self.authController
+                    VC.user = self.user
+                    VC.oktaUserInfo = self.oktaUserInfo
                 }
             }
+        }
+        self.checkAuthStatus {
+            
         }
         
         apolloController.fetchEvents { _ in

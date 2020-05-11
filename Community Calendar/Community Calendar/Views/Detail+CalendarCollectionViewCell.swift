@@ -70,15 +70,16 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
             let event = event,
             let urlString = event.eventImages?.first?.url,
             let url = URL(string: urlString),
-            let data = try? Data(contentsOf: url)
+            let data = try? Data(contentsOf: url),
+            let city = event.locations?.first?.city,
+            let state = event.locations?.first?.state
             else { return }
         
+        let date = self.dateFormatter.date(from: event.start)
         self.eventImageView.image = UIImage(data: data)
         self.eventNameLabel.text = event.title
-        if let city = event.locations?.first?.city, let state = event.locations?.first?.state, let date = self.dateFormatter.date(from: event.start) {
-            self.eventDateLabel.text = self.dateFormatter.string(from: date)
-            self.eventLocationLabel.text = "\(city), \(state)"
-        }
+//        self.eventDateLabel.text = self.dateFormatter.string(from: date)
+        self.eventLocationLabel.text = "\(city), \(state)"
     }
     
     //MARK: - Clendar View
@@ -115,7 +116,7 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         eventImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3).isActive = true
         eventImageView.layer.masksToBounds = true
         eventImageView.layer.cornerRadius = 12
-        eventImageView.contentMode = .scaleAspectFill
+        eventImageView.contentMode = .scaleToFill
         
         // MARK: - Event Name Label
         

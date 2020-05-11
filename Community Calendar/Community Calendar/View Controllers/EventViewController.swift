@@ -70,9 +70,6 @@ class EventViewController: UIViewController, ControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        myEventsCollectionView.dataSource = self
-        myEventsCollectionView.delegate = self
         
         self.myEventsCollectionView.reloadData()
         self.detailAndCalendarCollectionView.reloadData()
@@ -83,7 +80,9 @@ class EventViewController: UIViewController, ControllerDelegate {
         super.viewDidAppear(animated)
         
         self.myEventsCollectionView.reloadData()
+        print("My Events Collection View reloaded data")
         self.detailAndCalendarCollectionView.reloadData()
+        print("Detail and Calendar Collection View reloaded data")
         
     }
     
@@ -112,11 +111,13 @@ class EventViewController: UIViewController, ControllerDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard let featuredIndexPath = self.myEventsCollectionView.indexPathsForVisibleItems.first else { return }
-        self.featuredIndexPath = featuredIndexPath
-        print("This is the inside featuredIndexPath: \(String(describing: featuredIndexPath))")
-        print("This is the outside featuredIndexPath: \(String(describing: self.featuredIndexPath))")
-        scrollView.decelerationRate = .fast
-        scrollView.bouncesZoom = true
+        if scrollView == myEventsCollectionView {
+            self.featuredIndexPath = featuredIndexPath
+            print("This is the inside featuredIndexPath: \(String(describing: featuredIndexPath))")
+            print("This is the outside featuredIndexPath: \(String(describing: self.featuredIndexPath))")
+            scrollView.decelerationRate = .fast
+            scrollView.bouncesZoom = true
+        }
     }
     
     func setupSubViews() {
@@ -133,6 +134,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
         
         detailAndCalendarCollectionView.register(Detail_CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "DetailCalendarCell")
+//        myEventsCollectionView.register(MyEventCollectionViewCell.self, forCellWithReuseIdentifier: "MyEventCell")
     }
  
     //MARK:- Custom Calendar

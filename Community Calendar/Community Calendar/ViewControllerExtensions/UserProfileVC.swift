@@ -38,6 +38,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
         
         nameTextField.delegate = self
         
+        
         profileImageView.layer.cornerRadius = 62.5
         profileImageView.layer.masksToBounds = true
         profileImageView.contentMode = .scaleAspectFill
@@ -52,6 +53,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
         if let user = user {
             updateViewsLogin(user: user)
         } else {
+//            updateViewsLogout()
             loginButton.isHidden = false
             profileImageView.isHidden = true
             logoutButton.isHidden = true
