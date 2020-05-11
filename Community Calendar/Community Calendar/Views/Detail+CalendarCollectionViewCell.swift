@@ -11,7 +11,8 @@ import UIKit
 
 class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     
-    var event: EasyEvent? {
+    // MARK: - Properties
+    var event: FetchEventsQuery.Data.Event? {
         didSet {
             updateDetailView()
         }
@@ -23,38 +24,36 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    // MARK: View(s) Properties
-    //View 1
-    let detailView = UIView()
-    //View 2
-    let calendarView = CalenderView()
+    lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter
+    }()
     
-    // View 1 Properties
     let eventImageView = UIImageView()
     let eventNameLabel = UILabel()
     let eventDateLabel = UILabel()
-    let eventVenueLabel = UILabel()
+    let eventLocationLabel = UILabel()
+    let eventDescriptionTextView = UITextView()
     
-//    @IBOutlet weak var detailCalendarView: UIView!
-//    @IBOutlet weak var eventImageView: UIImageView!
-    
+    // MARK: - View 1
+    let detailView = UIView()
+    // MARK: - View 2
+    let calendarView = CalenderView()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
         constraintsDetailView()
         constraintCalendarView()
-        // Call it here
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
     }
-    
-    
-    
-    
+  
     func updateViews() {
         if viewType == .detail {
             calendarView.isHidden = true
@@ -63,16 +62,30 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
             eventImageView.isHidden = true
             eventNameLabel.isHidden = true
             eventDateLabel.isHidden = true
-            eventVenueLabel.isHidden = true
+            eventLocationLabel.isHidden = true
+            eventDescriptionTextView.isHidden = true
         }
     }
     
     func updateDetailView() {
-        guard let event = event else { return }
-        eventImageView.image = event.eventImage
-        eventNameLabel.text = event.eventName
-        eventDateLabel.text = event.stringEventDate
-        eventVenueLabel.text = event.venueName
+        guard
+            let event = event,
+            let urlString = event.eventImages?.first?.url,
+            let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url),
+            let city = event.locations?.first?.city,
+            let state = event.locations?.first?.state,
+            let serverDate = backendDateFormatter.date(from: event.start)
+            else { return }
+        
+        DispatchQueue.main.async {
+            self.eventImageView.image = UIImage(data: data)
+            self.eventNameLabel.text = event.title
+            self.eventLocationLabel.text = "\(city), \(state)"
+            let date = self.dateFormatter.string(from: serverDate)
+            self.eventDateLabel.text = date
+            self.eventDescriptionTextView.text = event.description
+        }
     }
     
     //MARK: - Clendar View
@@ -100,7 +113,8 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         detailView.addSubview(eventImageView)
         detailView.addSubview(eventNameLabel)
         detailView.addSubview(eventDateLabel)
-        detailView.addSubview(eventVenueLabel)
+        detailView.addSubview(eventLocationLabel)
+        detailView.addSubview(eventDescriptionTextView)
         
         // MARK: - Event Image View
         
@@ -109,7 +123,7 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         eventImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3).isActive = true
         eventImageView.layer.masksToBounds = true
         eventImageView.layer.cornerRadius = 12
-        eventImageView.contentMode = .scaleAspectFill
+        eventImageView.contentMode = .scaleToFill
         
         // MARK: - Event Name Label
         
@@ -119,6 +133,7 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         eventNameLabel.adjustsFontSizeToFitWidth = true
         eventNameLabel.allowsDefaultTighteningForTruncation = true
         eventNameLabel.font = UIFont(name: "Poppins-SemiBold", size: 18)
+        eventNameLabel.textColor = .black
         
         // MARK: - Event Date Label
         
@@ -128,15 +143,25 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         eventDateLabel.adjustsFontSizeToFitWidth = true
         eventDateLabel.allowsDefaultTighteningForTruncation = true
         eventDateLabel.font = UIFont(name: "Poppins-Light", size: 15)
+        eventDateLabel.textColor = .black
         
         // MARK: - Event Venue Label
         
-        eventVenueLabel.anchor(top: eventDateLabel.bottomAnchor, leading: eventImageView.trailingAnchor, trailing: detailView.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 8, bottom: 0, right: -8), size: .zero)
+        eventLocationLabel.anchor(top: eventDateLabel.bottomAnchor, leading: eventImageView.trailingAnchor, trailing: detailView.trailingAnchor, bottom: eventDescriptionTextView.topAnchor, centerX: nil, centerY: nil, padding: .init(top: 8, left: 8, bottom: -20, right: -8), size: .zero)
         
-        eventVenueLabel.textAlignment = .center
-        eventVenueLabel.numberOfLines = 1
-        eventVenueLabel.adjustsFontSizeToFitWidth = true
-        eventVenueLabel.allowsDefaultTighteningForTruncation = true
-        eventVenueLabel.font = UIFont(name: "Poppins-Light", size: 15)
+        eventLocationLabel.textAlignment = .center
+        eventLocationLabel.numberOfLines = 1
+        eventLocationLabel.adjustsFontSizeToFitWidth = true
+        eventLocationLabel.allowsDefaultTighteningForTruncation = true
+        eventLocationLabel.font = UIFont(name: "Poppins-Light", size: 15)
+        eventLocationLabel.textColor = .black
+        
+        // MARK: - Event Description Text View
+        
+        eventDescriptionTextView.anchor(top: eventImageView.bottomAnchor, leading: detailView.leadingAnchor, trailing: detailView.trailingAnchor, bottom: detailView.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 20, left: 8, bottom: -8, right: -8), size: .zero)
+        eventDescriptionTextView.font = UIFont(name: "Poppins-Light", size: 15)
+        eventDescriptionTextView.textColor = .black
+        eventDescriptionTextView.backgroundColor = .white
+        eventDescriptionTextView.isEditable = false
     }
 }

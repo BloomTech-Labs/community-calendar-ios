@@ -10,8 +10,10 @@ import UIKit
 import EventKit
 
 class EventDetailViewController: UIViewController, UIScrollViewDelegate {
-    // MARK: - Variables
-    var event: Event? {
+    
+    // MARK: - Properties
+    
+    var event: FetchEventsQuery.Data.Event? {
         didSet {
             updateViews()
         }
@@ -21,28 +23,29 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     let eventStore = EKEventStore()
     
     // MARK: - IBOutlets
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var eventImageView: UIImageView!
-    @IBOutlet private weak var attendButton: UIButton!
-    @IBOutlet private weak var openInMapsButton: UIButton!
-    @IBOutlet private weak var addToCalendarButton: UIButton!
     
-    @IBOutlet private weak var hostImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var eventImageView: UIImageView!
+    @IBOutlet weak var attendButton: UIButton!
+    @IBOutlet weak var openInMapsButton: UIButton!
+    @IBOutlet weak var addToCalendarButton: UIButton!
+    @IBOutlet weak var hostImageView: UIImageView!
     @IBOutlet weak var hostShadowView: UIView!
-    @IBOutlet private weak var hostNameLabel: UILabel!
-    @IBOutlet private weak var timeLabel: UILabel! // Three lines
-    @IBOutlet private weak var priceLabel: UILabel! // Red if free
-    @IBOutlet private weak var eventDescTextView: UILabel!
-    @IBOutlet private weak var dateLabel: UILabel!
-    @IBOutlet private weak var addressLabel: UILabel!
-    @IBOutlet private weak var scrollView: UIScrollView!
-    @IBOutlet private var descLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var hostNameLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel! // Three lines
+    @IBOutlet weak var priceLabel: UILabel! // Red if free
+    @IBOutlet weak var eventDescTextView: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet var descLabelHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Lifecycle Functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        observeImage()
+//        observeImage()
         setUp()
     }
     
@@ -58,61 +61,79 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func fetchProfileImage() {
-        if let controller = controller, let event = event,
-            let key = event.profileImageURL {
-            controller.fetchImage(for: key)
-        }
+//        if let controller = controller, let event = event,
+//            let key = event.profileImageURL {
+//            controller.fetchImage(for: key)
+//        }
     }
     
     private func updateViews() {
-        guard isViewLoaded, let event = event else { return }
-        
-        titleLabel.text = event.title
-        let height = event.description.height(with: view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
-        height < 100 ? (descLabelHeightConstraint.constant = height) : (descLabelHeightConstraint.constant = 100.0)
-        eventDescTextView.text = event.description
-        hostNameLabel.text = event.creator
-        hostImageView.layer.cornerRadius = hostImageView.frame.height/2
-        hostShadowView.layer.cornerRadius = hostShadowView.frame.height/2
-        hostShadowView.layer.shadowColor = UIColor.darkGray.cgColor
-        hostShadowView.layer.shadowOpacity = 1.0
-        hostShadowView.layer.shadowRadius = 1.5
-        hostShadowView.layer.shadowOffset = CGSize(width: -1, height: 1)
-        addressLabel.text = "\(event.locations.first?.streetAddress ?? ""), \(event.locations.first?.city ?? "")"
-        if let startDate = event.startDate, let endDate = event.endDate {
-            timeLabel.text = "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))".lowercased()
-            dateLabel.text = todayDateFormatter.string(from: startDate)
-        } else {
-            timeLabel.text = "No time given"
+        guard
+            let event = event,
+            let hostFirstName = event.creator?.firstName,
+            let hostLastName = event.creator?.lastName,
+            let urlString = event.eventImages?.first?.url,
+            let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url)
+            else { return }
+        DispatchQueue.main.async {
+            self.eventImageView.image = UIImage(data: data)
+            self.titleLabel.text = event.title
+            self.eventDescTextView.text = event.description
+            self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
+            if let startDateString = backendDateFormatter.date(from: event.start) {
+                let startDate = dateFormatter.string(from: startDateString)
+                self.timeLabel.text = startDate
+            }
+            self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
+            self.hostImageView.layer.cornerRadius = self.hostImageView.frame.height / 2
+            self.hostShadowView.layer.cornerRadius = self.hostShadowView.frame.height / 2
+            self.hostShadowView.layer.shadowColor = UIColor.darkGray.cgColor
+            self.hostShadowView.layer.shadowOpacity = 1.0
+            self.hostShadowView.layer.shadowRadius = 1.5
+            self.hostShadowView.layer.shadowOffset = CGSize(width: -1, height: 1)
+            self.addressLabel.text = "\(event.locations?.first?.streetAddress ?? ""), \(event.locations?.first?.city ?? "")"
+            let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
+            height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)
+            self.attendButton.layer.cornerRadius = 6
+            self.attendButton.layer.borderWidth = 1
+            self.attendButton.layer.borderColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1).cgColor
+            
+            self.openInMapsButton.setTitleColor(.white, for: .normal)
+            self.openInMapsButton.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
+            self.openInMapsButton.layer.cornerRadius = 6
+            
+            self.addToCalendarButton.setTitleColor(.white, for: .normal)
+            self.addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
+            self.addToCalendarButton.layer.cornerRadius = 6
         }
-        priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
+        
+        
+        
+//            "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))".lowercased()
+//        dateLabel.text =
+//            todayDateFormatter.string(from: startDate)
+        
+//        timeLabel.text = "No time given"
+        
+        
         
         
 //        checkForRSVP()
-        attendButton.layer.cornerRadius = 6
-        attendButton.layer.borderWidth = 1
-        attendButton.layer.borderColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1).cgColor
         
-        openInMapsButton.setTitleColor(.white, for: .normal)
-        openInMapsButton.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
-        openInMapsButton.layer.cornerRadius = 6
         
-        addToCalendarButton.setTitleColor(.white, for: .normal)
-        addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
-        addToCalendarButton.layer.cornerRadius = 6
-        
-        if let imageURL = event.images.first, !imageURL.isEmpty {
-            if controller?.cache.fetch(key: imageURL) == nil {
-                eventImageView.image = nil
-            }
-            controller?.fetchImage(for: imageURL)
-        } else {
-            if let indexPath = indexPath {
-                eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
-            } else {
-                eventImageView.image = UIImage(named: "lambda")
-            }
-        }
+//        if let imageURL = event.images.first, !imageURL.isEmpty {
+//            if controller?.cache.fetch(key: imageURL) == nil {
+//                eventImageView.image = nil
+//            }
+//            controller?.fetchImage(for: imageURL)
+//        } else {
+//            if let indexPath = indexPath {
+//                eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
+//            } else {
+//                eventImageView.image = UIImage(named: "lambda")
+//            }
+//        }
     }
     
 //    func checkForRSVP() {
@@ -198,35 +219,35 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         self.present(alert, animated: true)
     }
     
-    @objc
-    func receiveImage(_ notification: Notification) {
-        guard let imageNot = notification.object as? ImageNotification else {
-            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
-            return
-        }
-        if let eventImageUrl = event?.images.first {
-            if imageNot.url == eventImageUrl  {
-                DispatchQueue.main.async {
-                    self.eventImageView.image = imageNot.image
-                }
-            } else if let profileImage = event?.profileImageURL, profileImage == imageNot.url {
-                DispatchQueue.main.async {
-                    self.hostImageView.image = imageNot.image
-                }
-            }
-        }
-    }
+//    @objc
+//    func receiveImage(_ notification: Notification) {
+//        guard let imageNot = notification.object as? ImageNotification else {
+//            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
+//            return
+//        }
+//        if let eventImageUrl = event?.images.first {
+//            if imageNot.url == eventImageUrl  {
+//                DispatchQueue.main.async {
+//                    self.eventImageView.image = imageNot.image
+//                }
+//            } else if let profileImage = event?.profileImageURL, profileImage == imageNot.url {
+//                DispatchQueue.main.async {
+//                    self.hostImageView.image = imageNot.image
+//                }
+//            }
+//        }
+//    }
     
-    func observeImage() {
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
-    }
+//    func observeImage() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
+//    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "EventsSegue" {
-            guard let eventVC = segue.destination as? EventViewController else { return }
-            eventVC.controller = controller
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "EventsSegue" {
+//            guard let eventVC = segue.destination as? EventViewController else { return }
+////            eventVC.controller = controller
+//        }
+//    }
     
     // MARK: - IBActions
     @IBAction func followHost(_ sender: UIButton) {
@@ -275,54 +296,54 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     
     @IBAction func showInMaps(_ sender: UIButton) {
-        if let event = event, let address = event.locations.first?.streetAddress, let zip = event.locations.first?.zipcode {
+        if let event = event, let address = event.locations?.first?.streetAddress, let zip = event.locations?.first?.zipcode {
             let baseURL = URL(string: "http://maps.apple.com/")!
             var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
             let addressQuery = URLQueryItem(name: "address", value: "\(address), \(zip)")
             components?.queryItems = [addressQuery]
             UIApplication.shared.open(components?.url ?? baseURL)
-        } else if event?.locations.first == nil {
+        } else if event?.locations?.first == nil {
             print("Event has no location listed!")
         }
     }
     
     @IBAction func showInCalendar(_ sender: Any) {
-        eventStore.requestAccess(to: .event) { (granted, error) in
-            if let error = error {
-                NSLog("\(#file):L\(#line): Unable to request access to calendar in \(#function) with error: \(error)")
-                return
-            }
-
-            if granted {
-                guard let event = self.event, let startDate = event.startDate, let endDate = event.endDate else {
-                    var message = ""
-                    if self.event?.startDate == nil && self.event?.endDate == nil {
-                        message = "\(self.event?.title ?? "Event") has no start or end dates. It cannot be added to the calendar"
-                    } else if self.event?.startDate == nil && self.event?.endDate != nil {
-                        message = "\(self.event?.title ?? "Event") has no start date. It cannot be added to the calendar"
-                    } else if self.event?.endDate == nil && self.event?.startDate != nil {
-                        message = "\(self.event?.title ?? "Event") has no end date. It cannot be added to the calendar"
-                    }
-                    let alert = UIAlertController(title: "Unable to add to calendar", message: message, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    
-                    return
-                }
-                if startDate > endDate {
-                    let alert = UIAlertController(title: "Unable to add event to calendar", message: "The event's start date is after it's endDate. Would you like to add it to calendar with the start and end dates switched?", preferredStyle: .alert)
-                    let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
-                        self.addToCalendar(event: event, startDate: endDate, endDate: startDate)
-                    }
-                    alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
-                    alert.addAction(yesAction)
-                    DispatchQueue.main.sync {
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }
-                self.addToCalendar(event: event, startDate: startDate, endDate: endDate)
-            } else {
-                print("Access to calendar is not granted on device!") // TODO: Alert user and link to settings to change permissions
-            }
-        }
+//        eventStore.requestAccess(to: .event) { (granted, error) in
+//            if let error = error {
+//                NSLog("\(#file):L\(#line): Unable to request access to calendar in \(#function) with error: \(error)")
+//                return
+//            }
+//
+//            if granted {
+//                guard let event = self.event, let startDate = event.startDate, let endDate = event.endDate else {
+//                    var message = ""
+//                    if self.event?.startDate == nil && self.event?.endDate == nil {
+//                        message = "\(self.event?.title ?? "Event") has no start or end dates. It cannot be added to the calendar"
+//                    } else if self.event?.startDate == nil && self.event?.endDate != nil {
+//                        message = "\(self.event?.title ?? "Event") has no start date. It cannot be added to the calendar"
+//                    } else if self.event?.endDate == nil && self.event?.startDate != nil {
+//                        message = "\(self.event?.title ?? "Event") has no end date. It cannot be added to the calendar"
+//                    }
+//                    let alert = UIAlertController(title: "Unable to add to calendar", message: message, preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//
+//                    return
+//                }
+//                if startDate > endDate {
+//                    let alert = UIAlertController(title: "Unable to add event to calendar", message: "The event's start date is after it's endDate. Would you like to add it to calendar with the start and end dates switched?", preferredStyle: .alert)
+//                    let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
+//                        self.addToCalendar(event: event, startDate: endDate, endDate: startDate)
+//                    }
+//                    alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
+//                    alert.addAction(yesAction)
+//                    DispatchQueue.main.sync {
+//                        self.present(alert, animated: true, completion: nil)
+//                    }
+//                }
+//                self.addToCalendar(event: event, startDate: startDate, endDate: endDate)
+//            } else {
+//                print("Access to calendar is not granted on device!") // TODO: Alert user and link to settings to change permissions
+//            }
+//        }
     }
 }

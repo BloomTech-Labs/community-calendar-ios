@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import OktaOidc
 
 enum MyTheme {
       case light
@@ -15,62 +15,78 @@ enum MyTheme {
   }
 
 class EventViewController: UIViewController, ControllerDelegate {
-   
-    //MARK: - IBOutlets
-    @IBOutlet weak var myEventsCollectionView: UICollectionView!
-    @IBOutlet weak var calendarView: UIView!
-    @IBOutlet weak var detailAndCalendarCollectionView: UICollectionView!
-    
-    
-  
-    
-    
+ 
     //MARK: - Properties
-    let tmController = TMEventController()
-    var eventController: EventController?
-    var controller: Controller?
-    var events: [Event]?
-    var detailEvent: EasyEvent? {
+    var user: FetchUserIdQuery.Data.User? {
+        didSet {
+            print("Event View Controller User: \(String(describing: user))")
+        }
+    }
+    
+    var oktaUserInfo: [String]? {
+        didSet {
+            print("Event View Controller Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
+        }
+    }
+    
+    var authController: AuthController? {
+        didSet {
+            print("Event View Controller Auth Controller: \(String(describing: authController))")
+        }
+    }
+    var apolloController: ApolloController? {
+        didSet {
+            print("Event View Controller Apollo Controller: \(String(describing: apolloController))")
+        }
+    }
+    
+    let apollo = Apollo.shared
+    
+    var events: [FetchEventsQuery.Data.Event]? {
+        didSet {
+            self.myEventsCollectionView.reloadData()
+            self.detailAndCalendarCollectionView.reloadData()
+        }
+    }
+    var detailEvent: FetchEventsQuery.Data.Event? {
         didSet {
             self.detailAndCalendarCollectionView.reloadData()
         }
     }
+    
     var featuredIndexPath: IndexPath? {
         didSet {
             if let indexPath = featuredIndexPath {
-                self.detailEvent = tmController.events[indexPath.item]
+                self.detailEvent = apolloController?.events[indexPath.item]
             }
         }
     }
     
+    //MARK: - IBOutlets
     
-    var repeatCount = 1
-    
-    var fetchEventsTimer: Timer?
-    
-    private var unfilteredEvents: [Event]? {        // Varible events' data source
-        didSet {
-            //todayTapped(UIButton())
-        }
-    }
-
+    @IBOutlet weak var myEventsCollectionView: UICollectionView!
+    @IBOutlet weak var calendarView: UIView!
+    @IBOutlet weak var detailAndCalendarCollectionView: UICollectionView!
+   
     //MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        myEventsCollectionView.dataSource = self
-        myEventsCollectionView.delegate = self
-      
         
+        self.myEventsCollectionView.reloadData()
+        self.detailAndCalendarCollectionView.reloadData()
         setupSubViews()
-        
-        
-        tmController.getEvents { _, _ in
+        apollo.fetchEvents { _ in
             self.myEventsCollectionView.reloadData()
             self.detailAndCalendarCollectionView.reloadData()
-            
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.myEventsCollectionView.reloadData()
+        self.detailAndCalendarCollectionView.reloadData()
     }
     
  //MARK: - GraphQL Fetch
@@ -98,35 +114,14 @@ class EventViewController: UIViewController, ControllerDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard let featuredIndexPath = self.myEventsCollectionView.indexPathsForVisibleItems.first else { return }
-        self.featuredIndexPath = featuredIndexPath
-        print("This is the inside featuredIndexPath: \(String(describing: featuredIndexPath))")
-        print("This is the outside featuredIndexPath: \(String(describing: self.featuredIndexPath))")
-        scrollView.decelerationRate = .fast
-        scrollView.bouncesZoom = true
+        if scrollView == myEventsCollectionView {
+            self.featuredIndexPath = featuredIndexPath
+            print("This is the inside featuredIndexPath: \(String(describing: featuredIndexPath))")
+            print("This is the outside featuredIndexPath: \(String(describing: self.featuredIndexPath))")
+            scrollView.decelerationRate = .fast
+            scrollView.bouncesZoom = true
+        }
     }
-    
-    private func setUpTimer() {
-           fetchEventsTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
-               if self.repeatCount >= 4 {
-                   timer.invalidate()
-                   self.fetchEventsTimer = nil
-                   self.repeatCount = 1
-                   if self.unfilteredEvents == nil || self.unfilteredEvents?.isEmpty ?? true {
-                       NSLog("Unable to fetch events, all attemps failed. Is device connected to internet?")
-                       let alert = UIAlertController(title: "Unable to get events", message: "Please make sure your device is connect to wifi or cellular data.", preferredStyle: .alert)
-                       DispatchQueue.main.async { self.present(alert, animated: true) }
-                       Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { _ in
-                           alert.dismiss(animated: true, completion: nil)
-                       }
-                   } else {
-                       NSLog("Timer is nil, but selector was called. Possible concurrency issue")
-                   }
-               } else {
-                   print("Timer #\(self.repeatCount) ended")
-                   self.repeatCount += 1
-               }
-           }
-       }
     
     func setupSubViews() {
         myEventsCollectionView.dataSource = self
@@ -142,11 +137,10 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
         
         detailAndCalendarCollectionView.register(Detail_CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "DetailCalendarCell")
+//        myEventsCollectionView.register(MyEventCollectionViewCell.self, forCellWithReuseIdentifier: "MyEventCell")
     }
  
     //MARK:- Custom Calendar
-
-    
     var theme = MyTheme.light
     
     func calendarViewDidLoad() {

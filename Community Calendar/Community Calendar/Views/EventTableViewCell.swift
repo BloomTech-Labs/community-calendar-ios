@@ -9,15 +9,15 @@
 import UIKit
 
 class EventTableViewCell: UITableViewCell {
-    
-    var indexPath: IndexPath? // To be removed
-    var event: Event? {
+
+    // MARK: - Properties
+    var event: FetchEventsQuery.Data.Event? {
         didSet {
             updateViews()
         }
     }
-    var controller: Controller?
     
+    // MARK: - IBOutlets
     @IBOutlet weak var districtNameLabel: UILabel!
     @IBOutlet weak var eventTitleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -26,7 +26,9 @@ class EventTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         updateViews()
-        observeImage()
+        districtNameLabel.textColor = .black
+        eventTitleLabel.textColor = .black
+        timeLabel.textColor = .black
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -34,61 +36,84 @@ class EventTableViewCell: UITableViewCell {
     }
     
     func updateViews() {
-        guard let event = event, let _ = controller else { return }
+        guard
+            let event = event,
+            let urlString = event.eventImages?.first?.url,
+            let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url),
+            let date = backendDateFormatter.date(from: event.start),
+            let city = event.locations?.first?.city,
+            let state = event.locations?.first?.state
+            else { return }
+        
+        
+        DispatchQueue.main.async {
+            self.eventImageView.image = UIImage(data: data)
+            self.eventTitleLabel.text = event.title
+            self.timeLabel.text = dateFormatter.string(from: date)
+            self.districtNameLabel.text = "\(city), \(state)"
+        }
         eventImageView.layer.cornerRadius = 3
-        eventTitleLabel.text = event.title
-        setImage()
-        districtNameLabel.text = event.locations.first?.city.uppercased()
-        setDate()
+//        guard let event = event, let _ = controller else { return }
+//        setImage()
+//        districtNameLabel.text = event.locations?.first?.city.uppercased()
+//        setDate()
     }
     
-    private func setImage() {
-        if let imageURL = event?.images.first, !imageURL.isEmpty {
-            if controller?.cache.fetch(key: imageURL) == nil {
-                eventImageView.image = nil
-            }
-            controller?.fetchImage(for: imageURL)
-        } else {
-            if let indexPath = indexPath {
-                eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
-            } else {
-                eventImageView.image = UIImage(named: "lambda")
-            }
-        }
+    func getEventTime(date: Date) -> Date {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.hour, .minute, .second], from: date)
+        guard let timeComponents = calendar.date(from: dateComponents) else { return date }
+        return timeComponents
     }
     
-    @objc
-    func receiveImage(_ notification: Notification) {
-        guard let imageNot = notification.object as? ImageNotification else {
-            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
-            return
-        }
-        if let eventImageUrl = event?.images.first, imageNot.url == eventImageUrl {
-            DispatchQueue.main.async {
-                self.eventImageView.image = imageNot.image
-            }
-        }
-    }
+//    private func setImage() {
+//        if let imageURL = event?.images.first, !imageURL.isEmpty {
+//            if controller?.cache.fetch(key: imageURL) == nil {
+//                eventImageView.image = nil
+//            }
+//            controller?.fetchImage(for: imageURL)
+//        } else {
+//            if let indexPath = indexPath {
+//                eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
+//            } else {
+//                eventImageView.image = UIImage(named: "lambda")
+//            }
+//        }
+//    }
     
-    private func setDate() {
-        guard let startDate = event?.startDate else {
-            NSLog("\(#file):L\(#line): startDate: \(String(describing: event?.startDate)) is nil! Check \(#function)")
-            return
-        }
-        timeLabel.text = featuredEventDateFormatter.string(from: startDate)
-        
-        if let endDate = event?.endDate {
-            timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
-        } else {
-            timeLabel.text = cellDateFormatter.string(from: startDate).lowercased()
-        }
-    }
+//    @objc
+//    func receiveImage(_ notification: Notification) {
+//        guard let imageNot = notification.object as? ImageNotification else {
+//            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
+//            return
+//        }
+//        if let eventImageUrl = event?.images.first, imageNot.url == eventImageUrl {
+//            DispatchQueue.main.async {
+//                self.eventImageView.image = imageNot.image
+//            }
+//        }
+//    }
+    
+//    private func setDate() {
+//        guard let startDate = event?.startDate else {
+//            NSLog("\(#file):L\(#line): startDate: \(String(describing: event?.startDate)) is nil! Check \(#function)")
+//            return
+//        }
+//        timeLabel.text = featuredEventDateFormatter.string(from: startDate)
+//
+//        if let endDate = event?.endDate {
+//            timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
+//        } else {
+//            timeLabel.text = cellDateFormatter.string(from: startDate).lowercased()
+//        }
+//    }
 
-    @IBAction func viewTapped(_ sender: Any) {
-        
-    }
+//    @IBAction func viewTapped(_ sender: Any) {
+//
+//    }
     
-    func observeImage() {
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
-    }
+//    func observeImage() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
+//    }
 }

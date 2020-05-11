@@ -6,15 +6,18 @@ query FetchEvents {
     start
     end
     ticketPrice
-    eventImages {
-      url
-    }
     creator {
       id
       firstName
       lastName
+      profileImage
+    }
+    eventImages {
+      id
+      url
     }
     locations {
+      id
       name
       streetAddress
       streetAddress2
@@ -23,6 +26,83 @@ query FetchEvents {
       zipcode
       longitude
       latitude
+      neighborhood {
+        id
+        geoJson {
+          id
+        }
+      }
+    }
+  }
+}
+
+query GetUsersEvents($id:ID!) {
+  user(where: {id:$id}) {
+    rsvps{
+      id
+      title
+      description
+      start
+      end
+      ticketPrice
+      creator {
+        id
+        firstName
+        lastName
+        profileImage
+      }
+      locations {
+        id
+        name
+        streetAddress
+        streetAddress2
+        city
+        zipcode
+        state
+        latitude
+        longitude
+        neighborhood {
+          id
+          geoJson {
+            id
+          }
+        }
+      }
+      eventImages {
+        id
+        url
+      }
+    }
+  }
+}
+
+query GetUsersCreatedEvents($id:ID!) {
+  user(where: {id:$id}) {
+    createdEvents{
+      id
+      title
+      description
+      start
+      end
+      ticketPrice
+      locations {
+        id
+        name
+        streetAddress
+        streetAddress2
+        city
+        zipcode
+        state
+        latitude
+        longitude
+        neighborhood {
+          id
+        }
+      }
+      eventImages {
+        id
+        url
+      }
     }
   }
 }

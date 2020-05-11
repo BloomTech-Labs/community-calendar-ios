@@ -11,7 +11,7 @@ import CoreLocation
 
 class SearchResultViewController: UIViewController {
     var controller: Controller?
-    var events: [Event]? {
+    var events: [FetchEventsQuery.Data.Event]? {
         didSet {
             updateViews()
         }
@@ -87,7 +87,7 @@ class SearchResultViewController: UIViewController {
     }
 
     private func fetchFilteredEvents() {
-        guard let filter = filter, let controller = controller else { return }
+//        guard let filter = filter, let controller = controller else { return }
 //        controller.getEvents(by: filter) { result in
 //            switch result {
 //            case .success(var filteredEvents):
@@ -170,10 +170,10 @@ class SearchResultViewController: UIViewController {
         detailVC.controller = controller
         if segue.identifier == "ShowDetailFromTable" {
             guard let indexPath = eventResultsTableView.indexPathForSelectedRow else { return }
-            detailVC.event = events?[indexPath.row]
+//            detailVC.event = events?[indexPath.row]
         } else if segue.identifier == "ShowDetailFromCollection" {
             guard let indexPaths = eventResultsCollectionView.indexPathsForSelectedItems, let indexPath = indexPaths.first else { return }
-            detailVC.event = events?[indexPath.row]
+//            detailVC.event = events?[indexPath.row]
         }
     }
 }
@@ -184,12 +184,9 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = eventResultsCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell,
-        let events = events else { return UICollectionViewCell() }
+        guard let cell = eventResultsCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.indexPath = indexPath
-        cell.controller = controller
-        cell.event = events[indexPath.row]
+//        cell.event =  [indexPath.row]
         
         return cell
     }
@@ -197,16 +194,18 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
 
 extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events?.count ?? 0
+//        return events?.count ?? 0
+        0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = eventResultsTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell,
-        let events = events else { return UITableViewCell() }
+        guard let cell = eventResultsTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell
+//        let events = events
+            else { return UITableViewCell() }
         
-        cell.indexPath = indexPath
-        cell.controller = controller
-        cell.event = events[indexPath.row]
+        
+//        cell.controller = controller
+//        cell.event = events[indexPath.row]
         
         return cell
     }
@@ -248,13 +247,13 @@ extension SearchResultViewController: UIGestureRecognizerDelegate, UINavigationC
 }
 
 extension SearchResultViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last, filter == nil {
-            let center = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            events!.sort { center.distance(from: $0.clLocation) < center.distance(from: $1.clLocation) }
-            eventResultsTableView.reloadData()
-            eventResultsCollectionView.reloadData()
-        }
-        controller?.locationManager.stopUpdatingLocation()
-    }
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        if let location = locations.last, filter == nil {
+//            let center = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//            events!.sort { center.distance(from: $0.clLocation) < center.distance(from: $1.clLocation) }
+//            eventResultsTableView.reloadData()
+//            eventResultsCollectionView.reloadData()
+//        }
+//        controller?.locationManager.stopUpdatingLocation()
+//    }
 }

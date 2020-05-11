@@ -16,11 +16,7 @@
 import UIKit
 import OktaOidc
 
-class LoginViewController: UIViewController, ControllerDelegate {
-    // MARK: - Variables
-//    var homeController = HomeViewController()
-    var controller: Controller?
-    let authController = AuthController()
+class LoginViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var LoginButton: UIButton!
@@ -32,17 +28,6 @@ class LoginViewController: UIViewController, ControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        logOutButton.isHidden = true
-        LoginButton.isHidden = true
-        
-        imageView.layer.cornerRadius = imageView.frame.height / 2
-        authController.setupOktaOidc()
-        authController.signIn(viewController: self) {
-            if let accessToken = self.authController.stateManager?.accessToken {
-                print("Access Token: \(accessToken))")
-                self.authController.getUser()
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,22 +69,4 @@ class LoginViewController: UIViewController, ControllerDelegate {
         
 
     }
-    
-//    @objc
-//    func receiveImage(_ notification: Notification) {
-//        guard let imageNot = notification.object as? ImageNotification else {
-//            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
-//            return
-//        }
-//        if let imageURL = profile?.picture?.absoluteString, imageNot.url == imageURL {
-//            DispatchQueue.main.async {
-//                self.imageView.image = imageNot.image
-//            }
-//        }
-//    }
-    
-//    func observeImage() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
-//    }
-
 }

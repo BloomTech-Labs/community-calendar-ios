@@ -10,7 +10,33 @@ import UIKit
 import CoreLocation
 
 class SearchView: UIView, ControllerDelegate {
-    //MARK: - Variables
+    
+    //MARK: - Properties
+    
+    var user: FetchUserIdQuery.Data.User? {
+        didSet {
+            print("Search View User: \(String(describing: user))")
+        }
+    }
+    
+    var oktaUserInfo: [String]? {
+        didSet {
+            print("Search View Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
+        }
+    }
+    
+    var authController: AuthController? {
+        didSet {
+            print("Search View Auth Controller: \(String(describing: authController))")
+        }
+    }
+    
+    var apolloController: ApolloController? {
+        didSet {
+            print("Search View Apollo Controller: \(String(describing: apolloController))")
+        }
+    }
+    
     var homeVC: HomeViewController?
     var controller: Controller?
     private var recentFiltersList = [Filter]() {

@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 class Controller {
-    private var eventController = EventController()
+//    private var eventController = EventController()
     private var searchController = SearchController()
     public let locationManager = CLLocationManager()
     public let cache = Cache<String, UIImage>()
@@ -21,7 +21,7 @@ class Controller {
     public var myEvents: [Event] = []
     
     init() {
-        eventController.parent = self
+//        eventController.parent = self
     }
     
 //    func getEvents(by filters: Filter? = nil, completion: @escaping (Swift.Result<[Event], Error>) -> Void) {

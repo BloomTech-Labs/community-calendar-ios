@@ -97,10 +97,10 @@
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <size key="customSize" width="393" height="100"/>
                                         <connections>
-                                            <outlet property="eventDateLabel" destination="ORg-6g-mNm" id="m1z-kb-qBL"/>
-                                            <outlet property="eventImageView" destination="9H8-Si-YWW" id="W1S-3r-rYg"/>
-                                            <outlet property="eventLocationLabel" destination="lcb-Fu-RFW" id="u3U-Sd-tnK"/>
-                                            <outlet property="eventNameLabel" destination="d03-hm-1i3" id="U34-yz-EO9"/>
+                                            <outlet property="eventDateLabel" destination="ORg-6g-mNm" id="ymu-yn-zYU"/>
+                                            <outlet property="eventImageView" destination="9H8-Si-YWW" id="laM-XQ-giU"/>
+                                            <outlet property="eventLocationLabel" destination="lcb-Fu-RFW" id="6lu-70-D9T"/>
+                                            <outlet property="eventNameLabel" destination="d03-hm-1i3" id="gay-s5-foT"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
