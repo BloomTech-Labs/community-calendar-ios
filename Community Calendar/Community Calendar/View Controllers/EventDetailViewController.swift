@@ -24,21 +24,21 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - IBOutlets
     
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var eventImageView: UIImageView!
-    @IBOutlet private weak var attendButton: UIButton!
-    @IBOutlet private weak var openInMapsButton: UIButton!
-    @IBOutlet private weak var addToCalendarButton: UIButton!
-    @IBOutlet private weak var hostImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var eventImageView: UIImageView!
+    @IBOutlet weak var attendButton: UIButton!
+    @IBOutlet weak var openInMapsButton: UIButton!
+    @IBOutlet weak var addToCalendarButton: UIButton!
+    @IBOutlet weak var hostImageView: UIImageView!
     @IBOutlet weak var hostShadowView: UIView!
-    @IBOutlet private weak var hostNameLabel: UILabel!
-    @IBOutlet private weak var timeLabel: UILabel! // Three lines
-    @IBOutlet private weak var priceLabel: UILabel! // Red if free
-    @IBOutlet private weak var eventDescTextView: UILabel!
-    @IBOutlet private weak var dateLabel: UILabel!
-    @IBOutlet private weak var addressLabel: UILabel!
-    @IBOutlet private weak var scrollView: UIScrollView!
-    @IBOutlet private var descLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var hostNameLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel! // Three lines
+    @IBOutlet weak var priceLabel: UILabel! // Red if free
+    @IBOutlet weak var eventDescTextView: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet var descLabelHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Lifecycle Functions
     
@@ -72,46 +72,55 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             let event = event,
             let hostFirstName = event.creator?.firstName,
             let hostLastName = event.creator?.lastName,
-            isViewLoaded
+            let urlString = event.eventImages?.first?.url,
+            let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url)
             else { return }
+        DispatchQueue.main.async {
+            self.eventImageView.image = UIImage(data: data)
+            self.titleLabel.text = event.title
+            self.eventDescTextView.text = event.description
+            self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
+            if let startDateString = backendDateFormatter.date(from: event.start) {
+                let startDate = dateFormatter.string(from: startDateString)
+                self.timeLabel.text = startDate
+            }
+            self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
+            self.hostImageView.layer.cornerRadius = self.hostImageView.frame.height / 2
+            self.hostShadowView.layer.cornerRadius = self.hostShadowView.frame.height / 2
+            self.hostShadowView.layer.shadowColor = UIColor.darkGray.cgColor
+            self.hostShadowView.layer.shadowOpacity = 1.0
+            self.hostShadowView.layer.shadowRadius = 1.5
+            self.hostShadowView.layer.shadowOffset = CGSize(width: -1, height: 1)
+            self.addressLabel.text = "\(event.locations?.first?.streetAddress ?? ""), \(event.locations?.first?.city ?? "")"
+            let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
+            height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)
+            self.attendButton.layer.cornerRadius = 6
+            self.attendButton.layer.borderWidth = 1
+            self.attendButton.layer.borderColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1).cgColor
+            
+            self.openInMapsButton.setTitleColor(.white, for: .normal)
+            self.openInMapsButton.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
+            self.openInMapsButton.layer.cornerRadius = 6
+            
+            self.addToCalendarButton.setTitleColor(.white, for: .normal)
+            self.addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
+            self.addToCalendarButton.layer.cornerRadius = 6
+        }
         
-        titleLabel.text = event.title
-        let height = event.description.height(with: view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
-        height < 100 ? (descLabelHeightConstraint.constant = height) : (descLabelHeightConstraint.constant = 100.0)
-        eventDescTextView.text = event.description
-        hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
-        hostImageView.layer.cornerRadius = hostImageView.frame.height/2
-        hostShadowView.layer.cornerRadius = hostShadowView.frame.height/2
-        hostShadowView.layer.shadowColor = UIColor.darkGray.cgColor
-        hostShadowView.layer.shadowOpacity = 1.0
-        hostShadowView.layer.shadowRadius = 1.5
-        hostShadowView.layer.shadowOffset = CGSize(width: -1, height: 1)
-        addressLabel.text = "\(event.locations?.first?.streetAddress ?? ""), \(event.locations?.first?.city ?? "")"
-        let startDate = event.start
-        let endDate = event.end
         
-        timeLabel.text = startDate
+        
 //            "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))".lowercased()
 //        dateLabel.text =
 //            todayDateFormatter.string(from: startDate)
         
-        timeLabel.text = "No time given"
+//        timeLabel.text = "No time given"
         
-        priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
+        
         
         
 //        checkForRSVP()
-        attendButton.layer.cornerRadius = 6
-        attendButton.layer.borderWidth = 1
-        attendButton.layer.borderColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1).cgColor
         
-        openInMapsButton.setTitleColor(.white, for: .normal)
-        openInMapsButton.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
-        openInMapsButton.layer.cornerRadius = 6
-        
-        addToCalendarButton.setTitleColor(.white, for: .normal)
-        addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
-        addToCalendarButton.layer.cornerRadius = 6
         
 //        if let imageURL = event.images.first, !imageURL.isEmpty {
 //            if controller?.cache.fetch(key: imageURL) == nil {

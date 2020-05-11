@@ -15,9 +15,11 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
 
     private static let url = URL(string: "https://apollo.ourcommunitycal.com/")!
     var apollo: ApolloClient = ApolloClient(url: ApolloController.url)
-    var parent: Controller!
+//    var parent: Controller!
     var currentUserID: GraphQLID?
     var events = [FetchEventsQuery.Data.Event]()
+    var attendingEvents = [GetUsersEventsQuery.Data.User.Rsvp]()
+    var createdEvents = [GetUsersCreatedEventsQuery.Data.User.CreatedEvent]()
     
     func fetchEvents(completion: @escaping (Swift.Result<[FetchEventsQuery.Data.Event], Error>) -> Void) {
         apollo.fetch(query: FetchEventsQuery()) { result in
@@ -131,6 +133,39 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
             if let response = response, let urlString = response.secureUrl {
                 print("Cloudinary response: \(response)")
                 completion(.success(urlString))
+            }
+        }
+    }
+    
+    func getAttendingEvents(graphQLID: String, accessToken: String, completion: @escaping (Swift.Result<[GetUsersEventsQuery.Data.User.Rsvp], Error>) -> Void) {
+        apollo = configureApolloClient(accessToken: accessToken)
+        apollo.fetch(query: GetUsersEventsQuery(id: graphQLID)) { result in
+            switch result {
+            case .failure(let error):
+                print("Error fetching users rsvp'd events: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let eventsAttending = graphQLResult.data?.user.rsvps {
+                    self.attendingEvents = eventsAttending
+                    print("This is the rsvp'd events: \(String(describing: eventsAttending))")
+                    completion(.success(eventsAttending))
+                }
+            }
+        }
+    }
+    
+    func getUserCreatedEvents(graphQLID: String, accessToken: String, completion: @escaping (Swift.Result<[GetUsersCreatedEventsQuery.Data.User.CreatedEvent], Error>) -> Void) {
+        apollo = configureApolloClient(accessToken: accessToken)
+        apollo.fetch(query: GetUsersCreatedEventsQuery(id: graphQLID)) { result in
+            switch result {
+            case .failure(let error):
+                print("Error fetching users created events: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let createdEvents = graphQLResult.data?.user.createdEvents {
+                    self.createdEvents = createdEvents
+                    completion(.success(createdEvents))
+                }
             }
         }
     }

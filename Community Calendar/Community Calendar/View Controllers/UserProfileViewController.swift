@@ -48,12 +48,27 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var eventsCreatedLabel: UILabel!
     @IBOutlet weak var numberOfEventsCreatedLabel: UILabel!
-    @IBOutlet weak var userEventsCollectionView: UICollectionView!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        authController?.getUser(completion: { result in
+            if let user = try? result.get() {
+                let email = user.last
+                if email != nil {
+                    self.emailLabel.text = email
+                }
+            }
+        })
+        
+        fetchCreatedEvents {
+            
+        }
     }
     
     // MARK: - IBActions

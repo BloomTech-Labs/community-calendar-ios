@@ -25,9 +25,9 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
             guard let cell = myEventsCollectionView.dequeueReusableCell(withReuseIdentifier: "MyEventCell", for: indexPath) as? MyEventCollectionViewCell else { return UICollectionViewCell() }
             
             let event = apolloController?.events[indexPath.item]
-            print(apolloController?.events.count as Any)
+//            let event = apollo.events[indexPath.item]
             cell.event = event
-            print(cell.event as Any)
+
             return cell
         } else if collectionView == detailAndCalendarCollectionView {
             guard let cell = detailAndCalendarCollectionView.dequeueReusableCell(withReuseIdentifier: "DetailCalendarCell", for: indexPath) as? Detail_CalendarCollectionViewCell else { return UICollectionViewCell() }
@@ -36,11 +36,11 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
             case 0:
                 cell.event = self.detailEvent
                 cell.viewType = .detail
-                if cell.event == nil {
-                    cell.detailView.isHidden = true
-                } else {
-                    cell.detailView.isHidden = false
-                }
+//                if cell.event == nil {
+//                    cell.detailView.isHidden = true
+//                } else {
+//                    cell.detailView.isHidden = false
+//                }
                 
             case 1:
                 cell.viewType = .calendar
@@ -74,4 +74,6 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
         }
         return CGSize()
     }
+    
+    
 }

@@ -25,13 +25,6 @@ class MyEventCollectionViewCell: UICollectionViewCell {
         return formatter
     }()
     
-    lazy var backendDateFormatter: DateFormatter = {
-        let df = DateFormatter()
-        df.timeZone = TimeZone(abbreviation: "MST")
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        return df
-    }()
-    
     // MARK: - IBOutlets
     @IBOutlet weak var eventNameLabel: UILabel!
     @IBOutlet weak var eventDateLabel: UILabel!
@@ -91,9 +84,8 @@ class MyEventCollectionViewCell: UICollectionViewCell {
             self.eventImageView.image = UIImage(data: data)
             self.eventNameLabel.text = event.title
             self.eventLocationLabel.text = "\(city), \(state)"
-//            self.eventDateLabel.text = event.start
             let dateString = event.start
-            if let date = self.backendDateFormatter.date(from: dateString) {
+            if let date = backendDateFormatter.date(from: dateString) {
                 let time = self.getEventTime(date: date)
                 let timeString = self.dateFormatter.string(from: time)
                 self.eventDateLabel.text = timeString

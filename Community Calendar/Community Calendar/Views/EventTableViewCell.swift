@@ -17,13 +17,6 @@ class EventTableViewCell: UITableViewCell {
         }
     }
     
-    lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter
-    }()
-    
     // MARK: - IBOutlets
     @IBOutlet weak var districtNameLabel: UILabel!
     @IBOutlet weak var eventTitleLabel: UILabel!
@@ -33,6 +26,9 @@ class EventTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         updateViews()
+        districtNameLabel.textColor = .black
+        eventTitleLabel.textColor = .black
+        timeLabel.textColor = .black
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -45,21 +41,20 @@ class EventTableViewCell: UITableViewCell {
             let urlString = event.eventImages?.first?.url,
             let url = URL(string: urlString),
             let data = try? Data(contentsOf: url),
-            let date = dateFormatter.date(from: event.start),
+            let date = backendDateFormatter.date(from: event.start),
             let city = event.locations?.first?.city,
             let state = event.locations?.first?.state
             else { return }
         
-        let time = getEventTime(date: date)
+        
         DispatchQueue.main.async {
             self.eventImageView.image = UIImage(data: data)
             self.eventTitleLabel.text = event.title
-            self.timeLabel.text = self.dateFormatter.string(from: time)
+            self.timeLabel.text = dateFormatter.string(from: date)
             self.districtNameLabel.text = "\(city), \(state)"
         }
+        eventImageView.layer.cornerRadius = 3
 //        guard let event = event, let _ = controller else { return }
-//        eventImageView.layer.cornerRadius = 3
-//        eventTitleLabel.text = event.title
 //        setImage()
 //        districtNameLabel.text = event.locations?.first?.city.uppercased()
 //        setDate()

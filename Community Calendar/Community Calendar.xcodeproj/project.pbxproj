@@ -85,6 +85,7 @@
 		4571FCBB24527C61001DE2A2 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCBA24527C61001DE2A2 /* MonthView.swift */; };
 		4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */; };
 		4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEB18245B40F300BEECEF /* Okta.plist */; };
+		4C2842F224693AF500178677 /* Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2842F124693AF500178677 /* Apollo.swift */; };
 		4C3674D424660B5E00C74C00 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D324660B5E00C74C00 /* UserProfileVC.swift */; };
 		4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D72466588D00C74C00 /* EventVC+CollectionView.swift */; };
 		4C3859CA2460C2DB00ADBBB4 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3859C92460C2DB00ADBBB4 /* AuthController.swift */; };
@@ -200,6 +201,7 @@
 		4571FCBA24527C61001DE2A2 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
+		4C2842F124693AF500178677 /* Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apollo.swift; sourceTree = "<group>"; };
 		4C3674D324660B5E00C74C00 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		4C3674D72466588D00C74C00 /* EventVC+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CollectionView.swift"; sourceTree = "<group>"; };
 		4C3859C92460C2DB00ADBBB4 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				0E09806A23E2A526000110AB /* SearchController.swift */,
 				4C3859C92460C2DB00ADBBB4 /* AuthController.swift */,
 				4CF9C5CB2461F9E5000BF914 /* ApolloController.swift */,
+				4C2842F124693AF500178677 /* Apollo.swift */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */,
 				4CBB181224678D4400BDD233 /* UIViewController+UserInfoAlert.swift in Sources */,
 				4CE2E9372448F2EA005AA6B5 /* MyEventCollectionViewCell.swift in Sources */,
+				4C2842F224693AF500178677 /* Apollo.swift in Sources */,
 				0EE2AC2D23CFFA4A002B3EB4 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -962,7 +966,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V5X7HQSSM6;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -985,7 +989,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = V5X7HQSSM6;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

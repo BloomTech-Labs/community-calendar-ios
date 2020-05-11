@@ -40,6 +40,8 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
+    let apollo = Apollo.shared
+    
     var events: [FetchEventsQuery.Data.Event]? {
         didSet {
             self.myEventsCollectionView.reloadData()
@@ -74,16 +76,17 @@ class EventViewController: UIViewController, ControllerDelegate {
         self.myEventsCollectionView.reloadData()
         self.detailAndCalendarCollectionView.reloadData()
         setupSubViews()
+        apollo.fetchEvents { _ in
+            self.myEventsCollectionView.reloadData()
+            self.detailAndCalendarCollectionView.reloadData()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.myEventsCollectionView.reloadData()
-        print("My Events Collection View reloaded data")
         self.detailAndCalendarCollectionView.reloadData()
-        print("Detail and Calendar Collection View reloaded data")
-        
     }
     
  //MARK: - GraphQL Fetch

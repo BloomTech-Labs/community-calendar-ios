@@ -30,8 +30,9 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
             cameraButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
             cameraButton.heightAnchor.constraint(equalTo: profileImageView.heightAnchor, multiplier: 0.4),
             cameraButton.widthAnchor.constraint(equalTo: profileImageView.widthAnchor, multiplier: 0.5),
-            logoutButton.widthAnchor.constraint(equalTo: profileImageView.widthAnchor, multiplier: 0.6),
-            saveEditButton.widthAnchor.constraint(equalTo: logoutButton.widthAnchor)
+            logoutButton.widthAnchor.constraint(equalTo: loginButton.widthAnchor),
+            saveEditButton.widthAnchor.constraint(equalTo: logoutButton.widthAnchor),
+            profileImageView.heightAnchor.constraint(equalToConstant: view.bounds.width / 2)
         ])
         
         //MARK: - Delegates
@@ -39,7 +40,8 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
         nameTextField.delegate = self
         
         
-        profileImageView.layer.cornerRadius = 62.5
+        
+        profileImageView.layer.cornerRadius = profileImageView.bounds.height / 2
         profileImageView.layer.masksToBounds = true
         profileImageView.contentMode = .scaleAspectFill
         logoutButton.layer.cornerRadius = 12
@@ -53,16 +55,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
         if let user = user {
             updateViewsLogin(user: user)
         } else {
-//            updateViewsLogout()
-            loginButton.isHidden = false
-            profileImageView.isHidden = true
-            logoutButton.isHidden = true
-            emailLabel.isHidden = true
-            saveEditButton.isHidden = true
-            nameTextField.isHidden = true
-            eventsCreatedLabel.isHidden = true
-            cameraButton.isHidden = true
-            numberOfEventsCreatedLabel.isHidden = true
+            updateViewsLogout()
         }
     }
 
@@ -136,6 +129,9 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
             self.loginButton.isHidden = true
             self.eventsCreatedLabel.isHidden = false
             self.numberOfEventsCreatedLabel.isHidden = false
+            if let createdEvents = self.apolloController?.createdEvents {
+                self.numberOfEventsCreatedLabel.text = "\(createdEvents.count)"
+            }
         }
     }
     
@@ -189,5 +185,19 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
             profileImageView.image = originalImage
         }
         dismiss(animated: true, completion: nil)
+    }
+    
+    func fetchCreatedEvents(completion: @escaping () -> Void) {
+        guard let accessToken = authController?.stateManager?.accessToken else {
+            print("No access Token for retrieving users created events")
+            return
+        }
+        guard let graphQLID = apolloController?.currentUserID else {
+            print("No current graphQLID")
+            return
+        }
+        apolloController?.getUserCreatedEvents(graphQLID: graphQLID, accessToken: accessToken, completion: { _ in
+            
+        })
     }
 }

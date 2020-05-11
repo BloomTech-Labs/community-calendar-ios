@@ -19,7 +19,6 @@ class EventTabBarController: UITabBarController {
 
     let apolloController = ApolloController()
     let authController = AuthController()
-//    let controller = Controller()
     var user: FetchUserIdQuery.Data.User? {
         didSet {
             print("Current logged in user: \(String(describing: user))")
@@ -31,33 +30,37 @@ class EventTabBarController: UITabBarController {
         }
     }
     @IBOutlet weak var eventTabBarController: UITabBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         authController.setupOktaOidc {
             
         }
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let nav = storyboard.instantiateViewController(identifier: "EventNavController") as! UINavigationController
-        let homeVC = nav.topViewController as! HomeViewController
-        homeVC.apolloController = self.apolloController
-        homeVC.authController = self.authController
-        homeVC.user = self.user
-        homeVC.oktaUserInfo = self.oktaUserInfo
         
-        if let viewControllers = self.viewControllers {
-            for viewController in viewControllers {
-                if var VC = viewController as? ControllerDelegate {
-                    VC.apolloController = self.apolloController
-                    VC.authController = self.authController
-                    VC.user = self.user
-                    VC.oktaUserInfo = self.oktaUserInfo
+        self.checkAuthStatus {
+            if let viewControllers = self.viewControllers {
+                for viewController in viewControllers {
+                    if var VC = viewController as? ControllerDelegate {
+                        VC.apolloController = self.apolloController
+                        VC.authController = self.authController
+                        VC.user = self.user
+                        VC.oktaUserInfo = self.oktaUserInfo
+                    }
+                }
+            }
+            if let user = self.user, let accessToken = self.authController.stateManager?.accessToken {
+                self.apolloController.getUserCreatedEvents(graphQLID: user.id, accessToken: accessToken) { _ in
+                    
                 }
             }
         }
-        self.checkAuthStatus {
-            
-        }
+        
         
         apolloController.fetchEvents { _ in
             
@@ -108,3 +111,10 @@ class EventTabBarController: UITabBarController {
         }
     }
 }
+//       let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//        let nav = storyboard.instantiateViewController(identifier: "EventNavController") as! UINavigationController
+//        let homeVC = nav.topViewController as! HomeViewController
+//        homeVC.apolloController = self.apolloController
+//        homeVC.authController = self.authController
+//        homeVC.user = self.user
+//        homeVC.oktaUserInfo = self.oktaUserInfo

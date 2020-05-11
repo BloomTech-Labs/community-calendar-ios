@@ -24,6 +24,13 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
         return formatter
     }()
     
+    lazy var backendDateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.timeZone = TimeZone(abbreviation: "MST")
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        return df
+    }()
+    
     var isFadeLayerSet = false
     var fadeLayer: CAGradientLayer!
     
@@ -44,7 +51,7 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
             let urlString = event.eventImages?.first?.url,
             let url = URL(string: urlString),
             let data = try? Data(contentsOf: url),
-            let date = dateFormatter.date(from: event.start)
+            let date = backendDateFormatter.date(from: event.start)
             else { return }
         
         let onlyDate = self.getEventDate(date: date)

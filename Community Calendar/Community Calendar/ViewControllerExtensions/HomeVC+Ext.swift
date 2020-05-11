@@ -24,17 +24,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
         if collectionView == eventCollectionView {
             guard let cell = eventCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell else { return UICollectionViewCell() }
             
-//            cell.indexPath = indexPath
-            //            cell.controller = controller
             cell.event = apolloController?.events[indexPath.row]
             
             return cell
             
         } else if collectionView == featuredCollectionView {
             guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell else { return UICollectionViewCell() }
-            
-//            cell.indexPath = indexPath
-            //            cell.controller = controller
+ 
             cell.event = apolloController?.events[indexPath.row]
             
             return cell
@@ -43,15 +39,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        eventController.events.count
-        //        if tableView == eventTableView {
-        //            if events?.count == 0 || events == nil {
-        //                noResultsLabel.isHidden = false
-        //            } else {
-        //                noResultsLabel.isHidden = true
-        //            }
-        //            return events?.count ?? 0
-        //        }
+        if tableView == eventTableView {
+            if apolloController?.events.count == 0 {
+                noResultsLabel.isHidden = false
+            } else {
+                noResultsLabel.isHidden = true
+            }
+            return apolloController?.events.count ?? 0
+        }
         return 0
     }
     
@@ -61,10 +56,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
             guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell
                 else { return UITableViewCell() }
             
-            //            let events = eventController.events[indexPath.row]
-            //            cell.event = indexPath
-            //            cell.controller = controller
-            //            cell.event = events
+            let events = apolloController?.events[indexPath.row]
+            
+            
+            cell.event = events
             
             return cell
         }

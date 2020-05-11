@@ -17,13 +17,6 @@ class EventCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter
-    }()
-    
     // MARK: - IBOutlets
     @IBOutlet weak var eventImageView: UIImageView!
     @IBOutlet weak var districtNameLabel: UILabel!
@@ -60,7 +53,7 @@ class EventCollectionViewCell: UICollectionViewCell {
             let data = try? Data(contentsOf: url),
             let city = event.locations?.first?.city,
             let state = event.locations?.first?.state,
-            let date = dateFormatter.date(from: event.start)
+            let date = backendDateFormatter.date(from: event.start)
             else { return }
         
         let time = getEventTime(date: date)
@@ -69,7 +62,7 @@ class EventCollectionViewCell: UICollectionViewCell {
             self.eventTitleLabel.text = event.title
             self.eventImageView.image = UIImage(data: data)
             self.districtNameLabel.text = "\(city), \(state)"
-            self.timeLabel.text = self.dateFormatter.string(from: time)
+            self.timeLabel.text = dateFormatter.string(from: time)
         }
         eventImageView.layer.cornerRadius = 3
     }

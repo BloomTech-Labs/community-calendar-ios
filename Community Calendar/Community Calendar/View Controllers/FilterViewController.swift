@@ -31,7 +31,7 @@ class FilterViewController: UIViewController {
     var suggestedFilters = [Tag]()
     
     var controller: Controller?
-    var events: [Event]? {
+    var events: [FetchEventsQuery.Data.Event]? {
         didSet {
             setDistrictList()
         }
@@ -213,7 +213,7 @@ class FilterViewController: UIViewController {
         if let events = events {
             var districtList = [String]()
             for event in events {
-                if let location = event.locations.first?.city {
+                if let location = event.locations?.first?.city {
                     districtList.append(location)
                 }
             }

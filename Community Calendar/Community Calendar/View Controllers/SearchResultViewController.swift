@@ -11,7 +11,7 @@ import CoreLocation
 
 class SearchResultViewController: UIViewController {
     var controller: Controller?
-    var events: [Event]? {
+    var events: [FetchEventsQuery.Data.Event]? {
         didSet {
             updateViews()
         }
@@ -87,7 +87,7 @@ class SearchResultViewController: UIViewController {
     }
 
     private func fetchFilteredEvents() {
-        guard let filter = filter, let controller = controller else { return }
+//        guard let filter = filter, let controller = controller else { return }
 //        controller.getEvents(by: filter) { result in
 //            switch result {
 //            case .success(var filteredEvents):
@@ -247,13 +247,13 @@ extension SearchResultViewController: UIGestureRecognizerDelegate, UINavigationC
 }
 
 extension SearchResultViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last, filter == nil {
-            let center = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            events!.sort { center.distance(from: $0.clLocation) < center.distance(from: $1.clLocation) }
-            eventResultsTableView.reloadData()
-            eventResultsCollectionView.reloadData()
-        }
-        controller?.locationManager.stopUpdatingLocation()
-    }
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        if let location = locations.last, filter == nil {
+//            let center = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//            events!.sort { center.distance(from: $0.clLocation) < center.distance(from: $1.clLocation) }
+//            eventResultsTableView.reloadData()
+//            eventResultsCollectionView.reloadData()
+//        }
+//        controller?.locationManager.stopUpdatingLocation()
+//    }
 }
