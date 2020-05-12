@@ -40,15 +40,15 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    let apollo = Apollo.shared
+    var apollo: ApolloController? = Apollo.shared
     
-    var events: [FetchEventsQuery.Data.Event]? {
+    var events: [FetchUserIdQuery.Data.User.CreatedEvent]? {
         didSet {
             self.myEventsCollectionView.reloadData()
             self.detailAndCalendarCollectionView.reloadData()
         }
     }
-    var detailEvent: FetchEventsQuery.Data.Event? {
+    var detailEvent: GetUsersCreatedEventsQuery.Data.User.CreatedEvent? {
         didSet {
             self.detailAndCalendarCollectionView.reloadData()
         }
@@ -57,8 +57,8 @@ class EventViewController: UIViewController, ControllerDelegate {
     var featuredIndexPath: IndexPath? {
         didSet {
             if let indexPath = featuredIndexPath {
-                self.detailEvent = apolloController?.events[indexPath.item]
-            }
+                self.detailEvent = Apollo.shared.createdEvents[indexPath.item]
+            } 
         }
     }
     
@@ -73,20 +73,17 @@ class EventViewController: UIViewController, ControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.myEventsCollectionView.reloadData()
-        self.detailAndCalendarCollectionView.reloadData()
         setupSubViews()
-        apollo.fetchEvents { _ in
-            self.myEventsCollectionView.reloadData()
-            self.detailAndCalendarCollectionView.reloadData()
+        getUsersEvents { result in
+            
         }
+    
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.myEventsCollectionView.reloadData()
-        self.detailAndCalendarCollectionView.reloadData()
     }
     
  //MARK: - GraphQL Fetch
@@ -137,14 +134,12 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
         
         detailAndCalendarCollectionView.register(Detail_CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "DetailCalendarCell")
-//        myEventsCollectionView.register(MyEventCollectionViewCell.self, forCellWithReuseIdentifier: "MyEventCell")
     }
  
     //MARK:- Custom Calendar
     var theme = MyTheme.light
     
     func calendarViewDidLoad() {
-       // super.viewDidLoad()
         self.title = "My Calender"
         self.navigationController?.navigationBar.isTranslucent = false
         self.view.backgroundColor = Style.bgColor

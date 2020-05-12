@@ -106,3 +106,44 @@ query GetUsersCreatedEvents($id:ID!) {
     }
   }
 }
+
+query FetchDateRangedEvents($start:DateTime, $end:DateTime) {
+  events(where: {start_gte:$start, start_lte:$end}) {
+    id
+    title
+    description
+    start
+    end
+    creator {
+      id
+      firstName
+      lastName
+      profileImage
+    }
+    ticketPrice
+    rsvps {
+      id
+      firstName
+      lastName
+      profileImage
+    }
+    eventImages {
+      id
+      url
+    }
+    locations {
+      id
+      streetAddress
+      streetAddress2
+      city
+      state
+      zipcode
+      latitude
+      longitude
+    }
+    tags {
+      id
+      title
+    }
+  }
+}

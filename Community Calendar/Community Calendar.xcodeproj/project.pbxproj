@@ -19,7 +19,6 @@
 		0E73088F23C69147006B5326 /* EventControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E73088E23C69147006B5326 /* EventControllerTests.swift */; };
 		0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7DD80823C8E844009843BE /* EventDetailViewController.swift */; };
 		0E7DD81E23CA4BAC009843BE /* ImageNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7DD81D23CA4BAC009843BE /* ImageNotification.swift */; };
-		0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E974A1D23C7D96900CEE05D /* Cache.swift */; };
 		0E974A2E23C7EE6200CEE05D /* Butler-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A2D23C7EE6200CEE05D /* Butler-Bold.ttf */; };
 		0E974A3023C7EE8D00CEE05D /* Butler-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A2F23C7EE8D00CEE05D /* Butler-Black.ttf */; };
 		0E974A3223C7EEB000CEE05D /* Butler-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E974A3123C7EEB000CEE05D /* Butler-ExtraBold.ttf */; };
@@ -86,6 +85,7 @@
 		4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */; };
 		4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEB18245B40F300BEECEF /* Okta.plist */; };
 		4C2842F224693AF500178677 /* Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2842F124693AF500178677 /* Apollo.swift */; };
+		4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */; };
 		4C3674D424660B5E00C74C00 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D324660B5E00C74C00 /* UserProfileVC.swift */; };
 		4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D72466588D00C74C00 /* EventVC+CollectionView.swift */; };
 		4C3859CA2460C2DB00ADBBB4 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3859C92460C2DB00ADBBB4 /* AuthController.swift */; };
@@ -100,10 +100,13 @@
 		4C92DEE524613C330049CC78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92DEE324613C330049CC78 /* API.swift */; };
 		4CBB181224678D4400BDD233 /* UIViewController+UserInfoAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBB181124678D4400BDD233 /* UIViewController+UserInfoAlert.swift */; };
 		4CBB18142467B47200BDD233 /* HomeVC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBB18132467B47200BDD233 /* HomeVC+Ext.swift */; };
+		4CD8683D246ABD2B00CF50AD /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF915D3246AB98300C754BF /* Cache.swift */; };
 		4CDBD11C2461C14E0026A539 /* UserUpdate.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4CDBD11B2461C14E0026A539 /* UserUpdate.graphql */; };
 		4CE2E9352448E424005AA6B5 /* FeaturedEventLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */; };
 		4CE2E9372448F2EA005AA6B5 /* MyEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */; };
 		4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */; };
+		4CF915D0246AB7BC00C754BF /* ConcurrentOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF915CF246AB7BC00C754BF /* ConcurrentOperations.swift */; };
+		4CF915D2246AB81200C754BF /* FilteredEventPhotoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF915D1246AB81200C754BF /* FilteredEventPhotoOperation.swift */; };
 		4CF9C5CC2461F9E5000BF914 /* ApolloController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF9C5CB2461F9E5000BF914 /* ApolloController.swift */; };
 		EF51CC4B23A83E4300FF4E62 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF51CC4A23A83E4300FF4E62 /* Login.storyboard */; };
 		EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF51CC4C23A83FF900FF4E62 /* LoginViewController.swift */; };
@@ -134,7 +137,6 @@
 		0E73089023C69147006B5326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E7DD80823C8E844009843BE /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		0E7DD81D23CA4BAC009843BE /* ImageNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNotification.swift; sourceTree = "<group>"; };
-		0E974A1D23C7D96900CEE05D /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		0E974A2D23C7EE6200CEE05D /* Butler-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-Bold.ttf"; sourceTree = "<group>"; };
 		0E974A2F23C7EE8D00CEE05D /* Butler-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-Black.ttf"; sourceTree = "<group>"; };
 		0E974A3123C7EEB000CEE05D /* Butler-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Butler-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 		4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
 		4C2842F124693AF500178677 /* Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apollo.swift; sourceTree = "<group>"; };
+		4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredEventDataSource.swift; sourceTree = "<group>"; };
 		4C3674D324660B5E00C74C00 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		4C3674D72466588D00C74C00 /* EventVC+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CollectionView.swift"; sourceTree = "<group>"; };
 		4C3859C92460C2DB00ADBBB4 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
@@ -217,6 +220,9 @@
 		4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEventLayout.swift; sourceTree = "<group>"; };
 		4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Decompression.swift"; sourceTree = "<group>"; };
+		4CF915CF246AB7BC00C754BF /* ConcurrentOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperations.swift; sourceTree = "<group>"; };
+		4CF915D1246AB81200C754BF /* FilteredEventPhotoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredEventPhotoOperation.swift; sourceTree = "<group>"; };
+		4CF915D3246AB98300C754BF /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		4CF9C5CB2461F9E5000BF914 /* ApolloController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloController.swift; sourceTree = "<group>"; };
 		697EC073F22215ADC4D6BE6A /* Pods-Community Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		81DB7E6484C7295F061C503B /* Pods-Community Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Community Calendar.release.xcconfig"; path = "Target Support Files/Pods-Community Calendar/Pods-Community Calendar.release.xcconfig"; sourceTree = "<group>"; };
@@ -300,6 +306,8 @@
 		0EB19D5223A82C5B00640A40 /* Community Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				4CF915CE246AB7A700C754BF /* Operations */,
+				4C305A0F246A3DAD00AB9164 /* Data Source */,
 				4C3674D224660B1F00C74C00 /* ViewControllerExtensions */,
 				4571FCB1245279A8001DE2A2 /* Custom Calendar Layout */,
 				4CE2E9332448E3F7005AA6B5 /* Layouts */,
@@ -427,8 +435,8 @@
 				0EF6DDE523DF47AF00D8A91B /* Tag.swift */,
 				0EF6DDE723DF521600D8A91B /* Filter.swift */,
 				0E7DD81D23CA4BAC009843BE /* ImageNotification.swift */,
-				0E974A1D23C7D96900CEE05D /* Cache.swift */,
 				0EE2AC2423CE7133002B3EB4 /* CustomPushAnimator.swift */,
+				4CF915D3246AB98300C754BF /* Cache.swift */,
 				0EE2AC2623CE7233002B3EB4 /* CustomPopAnimator.swift */,
 			);
 			path = Models;
@@ -473,6 +481,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4C305A0F246A3DAD00AB9164 /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */,
+			);
+			path = "Data Source";
+			sourceTree = "<group>";
+		};
 		4C3674D224660B1F00C74C00 /* ViewControllerExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,6 +505,15 @@
 				4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */,
 			);
 			path = Layouts;
+			sourceTree = "<group>";
+		};
+		4CF915CE246AB7A700C754BF /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				4CF915CF246AB7BC00C754BF /* ConcurrentOperations.swift */,
+				4CF915D1246AB81200C754BF /* FilteredEventPhotoOperation.swift */,
+			);
+			path = Operations;
 			sourceTree = "<group>";
 		};
 		AF02A3BECBE0CFBDE342171D /* Pods */ = {
@@ -714,6 +739,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CD8683D246ABD2B00CF50AD /* Cache.swift in Sources */,
 				0EE2AC2F23CFFA71002B3EB4 /* Notification.Name+Extension.swift in Sources */,
 				0E09806B23E2A526000110AB /* SearchController.swift in Sources */,
 				0E7DD81E23CA4BAC009843BE /* ImageNotification.swift in Sources */,
@@ -730,10 +756,10 @@
 				1A87B8EA24620E0900282274 /* UserProfileViewController.swift in Sources */,
 				4CF9C5CC2461F9E5000BF914 /* ApolloController.swift in Sources */,
 				0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */,
+				4CF915D0246AB7BC00C754BF /* ConcurrentOperations.swift in Sources */,
 				4C6747D22453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
 				0E2E723123EA4082006F94D3 /* JWT+Extension.swift in Sources */,
-				0E974A1E23C7D96900CEE05D /* Cache.swift in Sources */,
 				4C3674D424660B5E00C74C00 /* UserProfileVC.swift in Sources */,
 				0EA9732223EB2E8700085435 /* EventNavController.swift in Sources */,
 				0EF6DDE423DF479400D8A91B /* Location.swift in Sources */,
@@ -745,6 +771,7 @@
 				0EF6DDF823E200FC00D8A91B /* SearchResultViewController.swift in Sources */,
 				0EB19D5423A82C5B00640A40 /* AppDelegate.swift in Sources */,
 				EF51CC4D23A83FF900FF4E62 /* LoginViewController.swift in Sources */,
+				4CF915D2246AB81200C754BF /* FilteredEventPhotoOperation.swift in Sources */,
 				0EE2AC2923CF5142002B3EB4 /* FilterViewController.swift in Sources */,
 				4C92DEE424613C330049CC78 /* API.swift in Sources */,
 				0EE2AC3123CFFB2C002B3EB4 /* Functions.swift in Sources */,
@@ -755,6 +782,7 @@
 				4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */,
 				0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */,
 				4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */,
+				4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
 				4CBB18142467B47200BDD233 /* HomeVC+Ext.swift in Sources */,
 				0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */,

@@ -15,14 +15,19 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
 
     private static let url = URL(string: "https://apollo.ourcommunitycal.com/")!
     var apollo: ApolloClient = ApolloClient(url: ApolloController.url)
-//    var parent: Controller!
     var currentUserID: GraphQLID?
     var events = [FetchEventsQuery.Data.Event]()
+    var filteredEvents = [FetchEventsQuery.Data.Event]()
     var attendingEvents = [GetUsersEventsQuery.Data.User.Rsvp]()
     var createdEvents = [GetUsersCreatedEventsQuery.Data.User.CreatedEvent]()
+    var todaysEvents = [FetchDateRangedEventsQuery.Data.Event]()
+    var tomorrowsEvents = [FetchDateRangedEventsQuery.Data.Event]()
+    var weekendEvents = [FetchDateRangedEventsQuery.Data.Event]()
+    var allEvents = [FetchDateRangedEventsQuery.Data.Event]()
+    var allUsersEvents = [FetchUserIdQuery.Data.User]()
     
     func fetchEvents(completion: @escaping (Swift.Result<[FetchEventsQuery.Data.Event], Error>) -> Void) {
-        apollo.fetch(query: FetchEventsQuery()) { result in
+        apollo.fetch(query: FetchEventsQuery(), cachePolicy: .returnCacheDataElseFetch) { result in
             switch result {
             case .failure(let error):
                 print("Error fetching events: \(error)")
@@ -30,7 +35,6 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
             case .success(let graphQLResult):
                 if let events = graphQLResult.data?.events {
                     self.events = events
-                    print(self.events)
                     print(self.events.count)
                     completion(.success(events))
                 }
@@ -39,14 +43,14 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     }
     
     func fetchUserID(oktaID: String, completion: @escaping (Swift.Result<FetchUserIdQuery.Data.User, Error>) -> Void) {
-        apollo.fetch(query: FetchUserIdQuery(oktaId: oktaID)) { result in
+        apollo.fetch(query: FetchUserIdQuery(oktaId: oktaID), cachePolicy: .returnCacheDataElseFetch) { result in
             switch result {
             case .failure(let error):
                 print("Error getting user ID: \(error)")
                 completion(.failure(error))
             case .success(let graphQLResult):
                 if let user = graphQLResult.data?.user {
-                    print("Current User: \(user)")
+//                    print("Current User: \(user)")
                     self.currentUserID = user.id
                     completion(.success(user))
                 }
@@ -114,7 +118,7 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                     let profileImage = response.profileImage
                     let firstName = response.firstName
                     let lastName = response.lastName
-                    print("Successfully updated user information for User ID: \(userID), Profile Image: \(String(describing: profileImage)), First Name: \(String(describing: firstName)), Last Name: \(String(describing: lastName))")
+//                    print("Successfully updated user information for User ID: \(userID), Profile Image: \(String(describing: profileImage)), First Name: \(String(describing: firstName)), Last Name: \(String(describing: lastName))")
                     completion(.success(response))
                 }
             }
@@ -123,7 +127,7 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     
     // MARK: - Cloudinary Host Image Function
     func hostImage(imageData: Data, completion: @escaping (Swift.Result<String, Error>) -> Void) {
-        let config = CLDConfiguration(cloudName: "communitycalendar1")
+        let config = CLDConfiguration(cloudName: "communitycalendar")
         let cloudinary = CLDCloudinary(configuration: config)
         cloudinary.createUploader().upload(data: imageData, uploadPreset: "ComCal") { response, error in
             if let error = error {
@@ -139,7 +143,7 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     
     func getAttendingEvents(graphQLID: String, accessToken: String, completion: @escaping (Swift.Result<[GetUsersEventsQuery.Data.User.Rsvp], Error>) -> Void) {
         apollo = configureApolloClient(accessToken: accessToken)
-        apollo.fetch(query: GetUsersEventsQuery(id: graphQLID)) { result in
+        apollo.fetch(query: GetUsersEventsQuery(id: graphQLID), cachePolicy: .returnCacheDataElseFetch) { result in
             switch result {
             case .failure(let error):
                 print("Error fetching users rsvp'd events: \(error)")
@@ -156,17 +160,159 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     
     func getUserCreatedEvents(graphQLID: String, accessToken: String, completion: @escaping (Swift.Result<[GetUsersCreatedEventsQuery.Data.User.CreatedEvent], Error>) -> Void) {
         apollo = configureApolloClient(accessToken: accessToken)
-        apollo.fetch(query: GetUsersCreatedEventsQuery(id: graphQLID)) { result in
+        apollo.fetch(query: GetUsersCreatedEventsQuery(id: graphQLID), cachePolicy: .returnCacheDataElseFetch) { result in
             switch result {
             case .failure(let error):
                 print("Error fetching users created events: \(error)")
                 completion(.failure(error))
             case .success(let graphQLResult):
                 if let createdEvents = graphQLResult.data?.user.createdEvents {
+                    print(createdEvents.count)
                     self.createdEvents = createdEvents
                     completion(.success(createdEvents))
                 }
             }
         }
+    }
+    
+    func fetchTomorrowsEvents(completion: @escaping (Swift.Result<[FetchDateRangedEventsQuery.Data.Event], Error>) -> Void) {
+        let dates = tomorrowDateRange()
+        guard let startDate = dates.first, let endDate = dates.last else {
+            print("Returned out of dates guard let in fetch tomorrow's events function")
+            return
+        }
+        apollo.fetch(query: FetchDateRangedEventsQuery(start: startDate, end: endDate), cachePolicy: .returnCacheDataElseFetch) { result in
+            switch result {
+            case .failure(let error):
+                print("Error fetching events for tomorrow: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let tomorrowsEvents = graphQLResult.data?.events {
+                    self.tomorrowsEvents = tomorrowsEvents
+                    print(tomorrowsEvents.count)
+                    completion(.success(tomorrowsEvents))
+                }
+            }
+        }
+    }
+    
+    func fetchTodaysEvents(completion: @escaping (Swift.Result<[FetchDateRangedEventsQuery.Data.Event], Error>) -> Void) {
+        let dates = todaysDateRange()
+        guard let startDate = dates.first, let endDate = dates.last else {
+            print("Returned out of dates guard let in fetch today's events function.")
+            return
+        }
+       
+        apollo.fetch(query: FetchDateRangedEventsQuery(start: startDate, end: endDate), cachePolicy: .returnCacheDataElseFetch) { result in
+            switch result {
+            case .failure(let error):
+                print("Error fetching events for today: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let todaysEvents = graphQLResult.data?.events {
+                    self.todaysEvents = todaysEvents
+                    print("Todays Event Count: \(todaysEvents.count)")
+                    completion(.success(todaysEvents))
+                }
+            }
+        }
+    }
+    
+    func fetchWeekendEvents(completion: @escaping (Swift.Result<[FetchDateRangedEventsQuery.Data.Event], Error>) -> Void) {
+        let dates = weekDateRange()
+        guard let startDate = dates.first, let endDate = dates.last else {
+            print("Returned out of dates guard let in fetch weekend events function.")
+            return
+        }
+        apollo.fetch(query: FetchDateRangedEventsQuery(start: startDate, end: endDate), cachePolicy: .returnCacheDataElseFetch) { result in
+            switch result {
+            case .failure(let error):
+                print("Error fetching events for weekend: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let weekendEvents = graphQLResult.data?.events {
+                    self.weekendEvents = weekendEvents
+                    print("Weekend Event Count: \(weekendEvents.count)")
+                    completion(.success(weekendEvents))
+                }
+            }
+        }
+    }
+    
+    func fetchAllEvents(completion: @escaping (Swift.Result<[FetchDateRangedEventsQuery.Data.Event], Error>) -> Void) {
+        let dates = allEventsRange()
+        guard let startDate = dates.first, let endDate = dates.last else {
+            print("Returned out of dates guard let in fetch all events function.")
+            return
+        }
+        apollo.fetch(query: FetchDateRangedEventsQuery(start: startDate, end: endDate), cachePolicy: .returnCacheDataElseFetch) { result in
+            switch result {
+            case .failure(let error):
+                print("Error fetching all events of filtered events: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let allEvents = graphQLResult.data?.events {
+                    self.allEvents = allEvents
+                    print(allEvents.count)
+                    completion(.success(allEvents))
+                }
+            }
+        }
+    }
+    
+    func tomorrowDateRange() -> [String] {
+        var dateRange = [String]()
+        let calendar = Calendar.current
+        let today = Date()
+        let midnight = calendar.startOfDay(for: today)
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: midnight)!
+        let dayAfterTomorrow = calendar.date(byAdding: .day, value: 2, to: midnight)!
+        let start = backendDateFormatter.string(from: tomorrow)
+        let end = backendDateFormatter.string(from: dayAfterTomorrow)
+        dateRange.append(start)
+        dateRange.append(end)
+        
+        return dateRange
+    }
+    
+    func todaysDateRange() -> [String] {
+        var todayRange = [String]()
+        let calendar = Calendar.current
+        let today = Date()
+        let midnight = calendar.startOfDay(for: today)
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+        let start = backendDateFormatter.string(from: midnight)
+        let end = backendDateFormatter.string(from: tomorrow)
+        todayRange.append(start)
+        todayRange.append(end)
+        
+        return todayRange
+    }
+    
+    func weekDateRange() -> [String] {
+        var dateRange = [String]()
+        let calendar = Calendar.current
+        let today = Date()
+        let weekend = calendar.nextWeekend(startingAfter: today)
+        let weekendStart = backendDateFormatter.string(from: weekend!.start)
+        let weekendEnd = backendDateFormatter.string(from: weekend!.end)
+        dateRange.append(weekendStart)
+        dateRange.append(weekendEnd)
+        
+        return dateRange
+    }
+    
+    func allEventsRange() -> [String] {
+        var dateRange = [String]()
+        let calendar = Calendar.current
+        let today = Date()
+        let severYears = calendar.date(byAdding: .year, value: 7, to: today)!
+        let start = backendDateFormatter.string(from: today)
+        let end = backendDateFormatter.string(from: severYears)
+        
+        dateRange.append(start)
+        dateRange.append(end)
+        
+        return dateRange
     }
 }

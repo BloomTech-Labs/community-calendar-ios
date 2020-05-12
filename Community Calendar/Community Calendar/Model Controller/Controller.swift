@@ -86,10 +86,10 @@ class Controller {
 //    }
     
     func fetchImage(for key: String) {
-        if let image = cache.fetch(key: key) {
-            NotificationCenter.default.post(name: .imageWasLoaded, object: ImageNotification(image: image, url: key))
-            return
-        }
+//        if let image = cache.fetch(key: key) {
+//            NotificationCenter.default.post(name: .imageWasLoaded, object: ImageNotification(image: image, url: key))
+//            return
+//        }
         
         let imageURL = URL(string: key)!
         URLSession.shared.dataTask(with: imageURL) { (data, _, error) in

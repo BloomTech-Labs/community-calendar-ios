@@ -114,8 +114,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return tmController.events.count + numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
-        1
+        return numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

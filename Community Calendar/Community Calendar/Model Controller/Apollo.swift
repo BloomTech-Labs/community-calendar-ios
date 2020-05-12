@@ -8,11 +8,11 @@
 
 import Foundation
 
-final class Apollo: NSObject {
+final class Apollo {
     
     static let shared = ApolloController()
     
-    private override init() {
+    private init() {
         
     }
 }

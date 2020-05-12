@@ -2,15 +2,15 @@
 //  Cache.swift
 //  Community Calendar
 //
-//  Created by Jordan Christensen on 1/10/20.
-//  Copyright © 2020 Lambda School All rights reserved.
+//  Created by Michael on 5/12/20.
+//  Copyright © 2020 Mazjap Co. All rights reserved.
 //
 
 import Foundation
 
-class Cache<Key, Value> where Key : Hashable {
-    private let queue = DispatchQueue(label: "com.lambdaschool.Community-Calendar.cache")
-    private var cache = [Key : Value]()
+class Cache<Key: Hashable, Value> {
+    var cache = [Key : Value]()
+    let queue = DispatchQueue(label: "Cache Queue")
     
     func cache(value: Value, for key: Key) {
         queue.async {
@@ -18,10 +18,8 @@ class Cache<Key, Value> where Key : Hashable {
         }
     }
     
-    func fetch(key: Key) -> Value? {
-        return queue.sync {
-            cache[key]
-        }
+    func value(for key: Key) -> Value? {
+        return queue.sync { cache[key] }
     }
     
     func clear() {

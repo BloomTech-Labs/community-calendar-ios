@@ -114,8 +114,11 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
             let url = URL(string: urlString),
             let data = try? Data(contentsOf: url),
             let firstName = user.firstName,
-            let lastName = user.lastName
+            let lastName = user.lastName,
+            let createdEvents = user.createdEvents
             else { return }
+        
+        let createdCount = createdEvents.count
         self.currentUserName = "\(firstName) \(lastName)"
         DispatchQueue.main.async {
             self.profileImageView.image = UIImage(data: data)
@@ -129,9 +132,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
             self.loginButton.isHidden = true
             self.eventsCreatedLabel.isHidden = false
             self.numberOfEventsCreatedLabel.isHidden = false
-            if let createdEvents = self.apolloController?.createdEvents {
-                self.numberOfEventsCreatedLabel.text = "\(createdEvents.count)"
-            }
+            self.numberOfEventsCreatedLabel.text = "\(createdCount)"
         }
     }
     
@@ -192,11 +193,11 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
             print("No access Token for retrieving users created events")
             return
         }
-        guard let graphQLID = apolloController?.currentUserID else {
+        guard let graphQLID = Apollo.shared.currentUserID else {
             print("No current graphQLID")
             return
         }
-        apolloController?.getUserCreatedEvents(graphQLID: graphQLID, accessToken: accessToken, completion: { _ in
+        Apollo.shared.getUserCreatedEvents(graphQLID: graphQLID, accessToken: accessToken, completion: { _ in
             
         })
     }
