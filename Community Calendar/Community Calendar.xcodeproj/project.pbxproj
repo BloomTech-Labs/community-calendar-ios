@@ -86,6 +86,7 @@
 		4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */; };
 		4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEB18245B40F300BEECEF /* Okta.plist */; };
 		4C2842F224693AF500178677 /* Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2842F124693AF500178677 /* Apollo.swift */; };
+		4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */; };
 		4C3674D424660B5E00C74C00 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D324660B5E00C74C00 /* UserProfileVC.swift */; };
 		4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D72466588D00C74C00 /* EventVC+CollectionView.swift */; };
 		4C3859CA2460C2DB00ADBBB4 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3859C92460C2DB00ADBBB4 /* AuthController.swift */; };
@@ -202,6 +203,7 @@
 		4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
 		4C2842F124693AF500178677 /* Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apollo.swift; sourceTree = "<group>"; };
+		4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredEventDataSource.swift; sourceTree = "<group>"; };
 		4C3674D324660B5E00C74C00 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		4C3674D72466588D00C74C00 /* EventVC+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CollectionView.swift"; sourceTree = "<group>"; };
 		4C3859C92460C2DB00ADBBB4 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 		0EB19D5223A82C5B00640A40 /* Community Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				4C305A0F246A3DAD00AB9164 /* Data Source */,
 				4C3674D224660B1F00C74C00 /* ViewControllerExtensions */,
 				4571FCB1245279A8001DE2A2 /* Custom Calendar Layout */,
 				4CE2E9332448E3F7005AA6B5 /* Layouts */,
@@ -471,6 +474,14 @@
 				97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C305A0F246A3DAD00AB9164 /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */,
+			);
+			path = "Data Source";
 			sourceTree = "<group>";
 		};
 		4C3674D224660B1F00C74C00 /* ViewControllerExtensions */ = {
@@ -755,6 +766,7 @@
 				4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */,
 				0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */,
 				4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */,
+				4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
 				4CBB18142467B47200BDD233 /* HomeVC+Ext.swift in Sources */,
 				0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */,

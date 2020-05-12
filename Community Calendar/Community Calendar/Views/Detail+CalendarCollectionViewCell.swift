@@ -12,13 +12,13 @@ import UIKit
 class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    var event: FetchEventsQuery.Data.Event? {
+    var event: GetUsersCreatedEventsQuery.Data.User.CreatedEvent? {
         didSet {
             updateDetailView()
         }
     }
     
-    var viewType: DetailCalendar? {
+    var viewType: ViewType? {
         didSet {
             updateViews()
         }
@@ -159,7 +159,7 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
         // MARK: - Event Description Text View
         
         eventDescriptionTextView.anchor(top: eventImageView.bottomAnchor, leading: detailView.leadingAnchor, trailing: detailView.trailingAnchor, bottom: detailView.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 20, left: 8, bottom: -8, right: -8), size: .zero)
-        eventDescriptionTextView.font = UIFont(name: "Poppins-Light", size: 15)
+        eventDescriptionTextView.font = UIFont(name: "Poppins-Light", size: 12)
         eventDescriptionTextView.textColor = .black
         eventDescriptionTextView.backgroundColor = .white
         eventDescriptionTextView.isEditable = false

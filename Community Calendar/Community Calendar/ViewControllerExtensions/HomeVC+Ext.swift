@@ -13,9 +13,39 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
     // MARK: - UICollectionView Delegate & Data Source Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == eventCollectionView {
-            return apolloController?.events.count ?? 0
+            if filter == .all {
+                if Apollo.shared.allEvents.count == 0 {
+                    noResultsLabel.isHidden = false
+                } else {
+                    noResultsLabel.isHidden = true
+                }
+                return Apollo.shared.allEvents.count
+            } else if filter == .weekend {
+                if Apollo.shared.weekendEvents.count == 0 {
+                    noResultsLabel.isHidden = false
+                } else {
+                    noResultsLabel.isHidden = true
+                }
+                return Apollo.shared.weekendEvents.count
+            } else if filter == .tomorrow {
+                if Apollo.shared.tomorrowsEvents.count == 0 {
+                    noResultsLabel.isHidden = false
+                } else {
+                    noResultsLabel.isHidden = true
+                }
+                return Apollo.shared.tomorrowsEvents.count
+            } else if filter == .today {
+                if Apollo.shared.todaysEvents.count == 0 {
+                    noResultsLabel.isHidden = false
+                } else {
+                    noResultsLabel.isHidden = true
+                }
+                return Apollo.shared.todaysEvents.count
+            }
+
         } else if collectionView == featuredCollectionView {
-            return apolloController?.events.count ?? 0
+
+            return Apollo.shared.events.count
         }
         return 0
     }
@@ -24,14 +54,26 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
         if collectionView == eventCollectionView {
             guard let cell = eventCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell else { return UICollectionViewCell() }
             
-            cell.event = apolloController?.events[indexPath.row]
+            if filter == .all {
+                let event = Apollo.shared.allEvents[indexPath.item]
+                cell.event = event
+            } else if filter == .weekend {
+                let event = Apollo.shared.weekendEvents[indexPath.item]
+                cell.event = event
+            } else if filter == .tomorrow {
+                let event = Apollo.shared.tomorrowsEvents[indexPath.item]
+                cell.event = event
+            } else if filter == .today {
+                let event = Apollo.shared.todaysEvents[indexPath.item]
+                cell.event = event
+            }
             
             return cell
             
         } else if collectionView == featuredCollectionView {
             guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell else { return UICollectionViewCell() }
  
-            cell.event = apolloController?.events[indexPath.row]
+            cell.event = Apollo.shared.events[indexPath.item]
             
             return cell
         }
@@ -40,12 +82,35 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == eventTableView {
-            if apolloController?.events.count == 0 {
-                noResultsLabel.isHidden = false
-            } else {
-                noResultsLabel.isHidden = true
+            if filter == .all {
+                if Apollo.shared.allEvents.count == 0 {
+                    noResultsLabel.isHidden = false
+                } else {
+                    noResultsLabel.isHidden = true
+                }
+                return Apollo.shared.allEvents.count
+            } else if filter == .weekend {
+                if Apollo.shared.weekendEvents.count == 0 {
+                    noResultsLabel.isHidden = false
+                } else {
+                    noResultsLabel.isHidden = true
+                }
+                return Apollo.shared.weekendEvents.count
+            } else if filter == .tomorrow {
+                if Apollo.shared.tomorrowsEvents.count == 0 {
+                    noResultsLabel.isHidden = false
+                } else {
+                    noResultsLabel.isHidden = true
+                }
+                return Apollo.shared.tomorrowsEvents.count
+            } else if filter == .today {
+                if Apollo.shared.todaysEvents.count == 0 {
+                    noResultsLabel.isHidden = false
+                } else {
+                    noResultsLabel.isHidden = true
+                }
+                return Apollo.shared.todaysEvents.count
             }
-            return apolloController?.events.count ?? 0
         }
         return 0
     }
@@ -55,11 +120,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
         if tableView == eventTableView {
             guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell
                 else { return UITableViewCell() }
-            
-            let events = apolloController?.events[indexPath.row]
-            
-            
-            cell.event = events
+            if filter == .all {
+                let event = Apollo.shared.allEvents[indexPath.row]
+                cell.event = event
+            } else if filter == .weekend {
+                let event = Apollo.shared.weekendEvents[indexPath.row]
+                cell.event = event
+            } else if filter == .tomorrow {
+                let event = Apollo.shared.tomorrowsEvents[indexPath.row]
+                cell.event = event
+            } else if filter == .today {
+                let event = Apollo.shared.todaysEvents[indexPath.row]
+                cell.event = event
+            }
             
             return cell
         }
@@ -95,7 +168,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
         if tableView == eventTableView {
             let hideAction = UIContextualAction(style: .destructive, title: "Hide") { (action, view, handler) in
                 print("Hide tapped")
-                self.events?.remove(at: indexPath.row)
+//                self.events?.remove(at: indexPath.row)
                 self.eventTableView.deleteRows(at: [indexPath], with: .fade)
             }
             hideAction.backgroundColor = UIColor.blue

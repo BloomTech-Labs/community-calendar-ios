@@ -5,12 +5,58 @@ mutation AddProfilePic($image:Upload, $id:ID) {
   }
 }
 
-query fetchUserID($oktaId:String) {
+query fetchUserID($oktaId: String) {
   user(where: {oktaId: $oktaId }) {
     id
     firstName
     lastName
     profileImage
+    rsvps {
+      id
+      title
+      description
+      start
+      end
+      ticketPrice
+      locations {
+        id
+        name
+        streetAddress
+        streetAddress2
+        city
+        state
+        zipcode
+        latitude
+        longitude
+      }
+      eventImages {
+        id
+        url
+      }
+    }
+    createdEvents {
+      id
+      title
+      description
+      start
+      end
+      ticketPrice
+      eventImages {
+        id
+        url
+      }
+      locations {
+        id
+        name
+        streetAddress
+        streetAddress2
+        city
+        state
+        zipcode
+        latitude
+        longitude
+      }
+    }
   }
 }
 

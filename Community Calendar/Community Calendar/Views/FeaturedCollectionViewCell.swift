@@ -43,6 +43,7 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         updateViews()
+        setupSubviews()
     }
     
     func updateViews() {
@@ -55,7 +56,9 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
             else { return }
         
         let onlyDate = self.getEventDate(date: date)
+        print(onlyDate)
         let time = self.getEventTime(date: date)
+        print(time)
         
         DispatchQueue.main.async {
             self.eventTitleLabel.text = event.title
@@ -63,8 +66,16 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
             self.dateLabel.text = self.dateFormatter.string(from: onlyDate)
             self.timeLabel.text = self.dateFormatter.string(from: time)
         }
-        eventImageView.layer.cornerRadius = 6
+    }
+    
+    func setupSubviews() {
+        contentView.layer.cornerRadius = 8
+        eventImageView.layer.cornerRadius = 8
         if !(isFadeLayerSet) { setFade() }
+        eventImageView.layer.masksToBounds = true
+        eventImageView.layer.shadowOpacity = 1.0
+        eventImageView.layer.shadowRadius = 10
+        eventImageView.layer.shouldRasterize = true
     }
     
     func getEventDate(date: Date) -> Date {

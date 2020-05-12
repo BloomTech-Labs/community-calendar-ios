@@ -11,7 +11,7 @@ import UIKit
 class EventCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    var event: FetchEventsQuery.Data.Event? {
+    var event: FetchDateRangedEventsQuery.Data.Event? {
         didSet {
             updateViews()
         }
@@ -26,23 +26,7 @@ class EventCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         updateViews()
-    }
-    
-    func getEventTime(date: Date) -> Date {
-//        var extractedComponents = DateComponents()
-        let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents([.hour, .minute, .second], from: date)
-//        let timeComponents = calendar.dateComponents([.second, .minute, .hour], from: time)
-        
-//        extractedComponents.second = timeComponents.second
-//        extractedComponents.minute = timeComponents.minute
-//        extractedComponents.hour = timeComponents.hour
-//        extractedComponents.day = dateComponents.day
-//        extractedComponents.month = dateComponents.month
-//        extractedComponents.year = dateComponents.year
-        
-        guard let timeComponents = calendar.date(from: dateComponents) else { return date }
-        return timeComponents
+        setupSubViews()
     }
     
     func updateViews() {
@@ -56,17 +40,28 @@ class EventCollectionViewCell: UICollectionViewCell {
             let date = backendDateFormatter.date(from: event.start)
             else { return }
         
-        let time = getEventTime(date: date)
+//        let time = getEventTime(date: date)
         
         DispatchQueue.main.async {
             self.eventTitleLabel.text = event.title
             self.eventImageView.image = UIImage(data: data)
             self.districtNameLabel.text = "\(city), \(state)"
-            self.timeLabel.text = dateFormatter.string(from: time)
+            self.timeLabel.text = dateFormatter.string(from: date)
         }
-        eventImageView.layer.cornerRadius = 3
     }
     
+    func setupSubViews() {
+//        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 8
+//        contentView.dropShadow()
+        eventImageView.layer.masksToBounds = true
+//        eventImageView.layer.cornerRadius = 8
+//        eventImageView.layer.shadowRadius = 10
+    
+//        self.layer.cornerRadius = 8
+//        self.layer.masksToBounds = true
+        eventImageView.contentMode = .scaleToFill
+    }
 //    private func setImage() {
 //        if let imageURL = event?.images.first, !imageURL.isEmpty {
 //            if controller?.cache.fetch(key: imageURL) == nil {

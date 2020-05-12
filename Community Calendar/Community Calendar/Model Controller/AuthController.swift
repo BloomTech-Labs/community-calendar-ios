@@ -14,6 +14,7 @@ class AuthController {
     var oktaOidc: OktaOidc?
     var stateManager: OktaOidcStateManager?
     var accessToken: String?
+    var oktaID: String?
     
     func setupOktaOidc(completion: @escaping () -> Void) {
         do {
@@ -23,7 +24,7 @@ class AuthController {
         }
         
         if let oktaOidc = self.oktaOidc, let accessToken = OktaOidcStateManager.readFromSecureStorage(for: oktaOidc.configuration)?.accessToken {
-            print("This is the access token: \(accessToken)")
+//            print("This is the access token: \(accessToken)")
             self.accessToken = accessToken
             self.stateManager = OktaOidcStateManager.readFromSecureStorage(for: oktaOidc.configuration)
         }
@@ -58,7 +59,7 @@ class AuthController {
                 completion(.failure(error!))
                 return
             }
-            print("Token is valid: \(isValid)")
+//            print("Token is valid: \(isValid)")
             completion(.success(isValid))
         })
     }
@@ -88,14 +89,15 @@ class AuthController {
             if let response = response {
                 if let oktaID = response["sub"] as? String, let username = response["preferred_username"] as? String {
                     print("Okta ID: \(String(describing: oktaID))")
+                    self?.oktaID = oktaID
                     let userInfo: [String] = [oktaID, username]
                     let name = response["given_name"]
                     let username = response["preferred_username"]
                     let timezone = response["zoneinfo"]
-                    print("Current users Name: \(String(describing: name)), Current users username: \(String(describing: username)), Current users timezone: \(String(describing: timezone))")
-                    print("Access Token: \(String(describing: self?.stateManager?.accessToken))")
-                    print("ID Token: \(String(describing: self?.stateManager?.idToken))")
-                    print("Refresh Token: \(String(describing: self?.stateManager?.refreshToken))")
+//                    print("Current users Name: \(String(describing: name)), Current users username: \(String(describing: username)), Current users timezone: \(String(describing: timezone))")
+//                    print("Access Token: \(String(describing: self?.stateManager?.accessToken))")
+//                    print("ID Token: \(String(describing: self?.stateManager?.idToken))")
+//                    print("Refresh Token: \(String(describing: self?.stateManager?.refreshToken))")
                     completion(.success(userInfo))
                 }
             }

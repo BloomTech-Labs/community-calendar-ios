@@ -11,11 +11,12 @@ import UIKit
 extension EventViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == myEventsCollectionView {
-            return apolloController?.events.count ?? 1
+//            return Apollo.shared.createdEvents.count
+            return self.events?.count ?? 0
         }
         if collectionView == detailAndCalendarCollectionView {
             
-            return DetailCalendar.allCases.count
+            return ViewType.allCases.count
         }
         return 1
     }
@@ -24,8 +25,8 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
         if collectionView == myEventsCollectionView {
             guard let cell = myEventsCollectionView.dequeueReusableCell(withReuseIdentifier: "MyEventCell", for: indexPath) as? MyEventCollectionViewCell else { return UICollectionViewCell() }
             
-            let event = apolloController?.events[indexPath.item]
-//            let event = apollo.events[indexPath.item]
+            let event = self.events?[indexPath.item]
+
             cell.event = event
 
             return cell
@@ -75,5 +76,16 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
         return CGSize()
     }
     
-    
+    func getUsersEvents(completion: @escaping (Swift.Result<[FetchUserIdQuery.Data.User.CreatedEvent], Error>) -> Void) {
+        if let oktaID = authController?.oktaID {
+            Apollo.shared.fetchUserID(oktaID: oktaID) { result in
+                if let user = try? result.get(), let createdEvents = user.createdEvents {
+                    self.events = createdEvents
+                    print(self.events?.count as Any)
+                    print(createdEvents.count)
+                    completion(.success(createdEvents))
+                }
+            }
+        }
+    }
 }

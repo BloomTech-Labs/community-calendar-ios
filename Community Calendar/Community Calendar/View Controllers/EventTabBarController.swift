@@ -19,6 +19,7 @@ class EventTabBarController: UITabBarController {
 
     let apolloController = ApolloController()
     let authController = AuthController()
+//    var apollo = Apollo.shared
     var user: FetchUserIdQuery.Data.User? {
         didSet {
             print("Current logged in user: \(String(describing: user))")
@@ -39,10 +40,11 @@ class EventTabBarController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
         authController.setupOktaOidc {
             
         }
-        
+        fetchAllEventData()
         self.checkAuthStatus {
             if let viewControllers = self.viewControllers {
                 for viewController in viewControllers {
@@ -51,20 +53,18 @@ class EventTabBarController: UITabBarController {
                         VC.authController = self.authController
                         VC.user = self.user
                         VC.oktaUserInfo = self.oktaUserInfo
+                        
                     }
                 }
             }
             if let user = self.user, let accessToken = self.authController.stateManager?.accessToken {
+                
                 self.apolloController.getUserCreatedEvents(graphQLID: user.id, accessToken: accessToken) { _ in
                     
                 }
             }
         }
         
-        
-        apolloController.fetchEvents { _ in
-            
-        }
     }
     
     func checkAuthStatus(completion: @escaping () -> Void) {
@@ -98,10 +98,12 @@ class EventTabBarController: UITabBarController {
                     self.apolloController.fetchUserID(oktaID: oktaID) { result in
                         guard let user = try? result.get() else {
                             print("Unable to get currently logged in user at load of Tab Bar Controller")
+                            
                             completion()
                             return
                         }
                         self.user = user
+                        
                         self.authController.refreshAccessToken { _ in
                             completion()
                         }
@@ -110,11 +112,33 @@ class EventTabBarController: UITabBarController {
             }
         }
     }
+    
+    func fetchAllEventData() {
+        Apollo.shared.fetchTodaysEvents { _ in
+            
+        }
+        Apollo.shared.fetchTomorrowsEvents { _ in
+            
+        }
+        Apollo.shared.fetchWeekendEvents { _ in
+            
+        }
+        Apollo.shared.fetchAllEvents { _ in
+            
+        }
+        authController.stateManager?.getUser({ response, _  in
+            if let response = response {
+                let oktaID = response["sub"] as! String
+                Apollo.shared.fetchUserID(oktaID: oktaID) { result in
+                    if let user = try? result.get(), let accessToken = self.authController.stateManager?.accessToken {
+                        let userID = user.id
+                        Apollo.shared.getUserCreatedEvents(graphQLID: userID, accessToken: accessToken) { _ in
+                            
+                        }
+                    }
+                }
+            }
+        })
+    }
 }
-//       let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//        let nav = storyboard.instantiateViewController(identifier: "EventNavController") as! UINavigationController
-//        let homeVC = nav.topViewController as! HomeViewController
-//        homeVC.apolloController = self.apolloController
-//        homeVC.authController = self.authController
-//        homeVC.user = self.user
-//        homeVC.oktaUserInfo = self.oktaUserInfo
+

@@ -11,7 +11,13 @@ import UIKit
 class EventTableViewCell: UITableViewCell {
 
     // MARK: - Properties
-    var event: FetchEventsQuery.Data.Event? {
+    var event2: FetchEventsQuery.Data.Event? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    var event: FetchDateRangedEventsQuery.Data.Event? {
         didSet {
             updateViews()
         }
@@ -26,9 +32,7 @@ class EventTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         updateViews()
-        districtNameLabel.textColor = .black
-        eventTitleLabel.textColor = .black
-        timeLabel.textColor = .black
+        setupSubviews()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -46,18 +50,21 @@ class EventTableViewCell: UITableViewCell {
             let state = event.locations?.first?.state
             else { return }
         
-        
         DispatchQueue.main.async {
             self.eventImageView.image = UIImage(data: data)
             self.eventTitleLabel.text = event.title
             self.timeLabel.text = dateFormatter.string(from: date)
             self.districtNameLabel.text = "\(city), \(state)"
         }
-        eventImageView.layer.cornerRadius = 3
-//        guard let event = event, let _ = controller else { return }
-//        setImage()
-//        districtNameLabel.text = event.locations?.first?.city.uppercased()
-//        setDate()
+    }
+    
+    func setupSubviews() {
+        districtNameLabel.textColor = .black
+        eventTitleLabel.textColor = .black
+        timeLabel.textColor = .black
+        eventImageView.layer.cornerRadius = 7
+        eventImageView.dropShadow()
+        eventImageView.layer.masksToBounds = true
     }
     
     func getEventTime(date: Date) -> Date {
