@@ -51,33 +51,9 @@ class HomeViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    var todaysEvents: [FetchDateRangedEventsQuery.Data.Event]? {
-        didSet {
-            self.eventTableView.reloadData()
-            self.eventCollectionView.reloadData()
-        }
-    }
-    
-    var tomorrowsEvents: [FetchDateRangedEventsQuery.Data.Event]? {
-        didSet {
-            self.eventTableView.reloadData()
-            self.eventCollectionView.reloadData()
-        }
-    }
-    
-    var weekendEvents: [FetchDateRangedEventsQuery.Data.Event]? {
-        didSet {
-            self.eventTableView.reloadData()
-            self.eventCollectionView.reloadData()
-        }
-    }
-    
-    var allEvents: [FetchDateRangedEventsQuery.Data.Event]? {
-        didSet {
-            self.eventTableView.reloadData()
-            self.eventCollectionView.reloadData()
-        }
-    }
+    let photoFetchQueue = OperationQueue()
+    let cache = Cache<String, UIImage>()
+    var operations = [String : Operation]()
     private let todayEventDS = FilteredEventDataSource(for: .today)
     private let tomorrowEventDS = FilteredEventDataSource(for: .tomorrow)
     private let weekendEventDS = FilteredEventDataSource(for: .weekend)

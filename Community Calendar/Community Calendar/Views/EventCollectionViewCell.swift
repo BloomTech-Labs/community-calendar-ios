@@ -32,9 +32,9 @@ class EventCollectionViewCell: UICollectionViewCell {
     func updateViews() {
         guard
             let event = event,
-            let urlString = event.eventImages?.first?.url,
-            let url = URL(string: urlString),
-            let data = try? Data(contentsOf: url),
+//            let urlString = event.eventImages?.first?.url,
+//            let url = URL(string: urlString),
+//            let data = try? Data(contentsOf: url),
             let city = event.locations?.first?.city,
             let state = event.locations?.first?.state,
             let date = backendDateFormatter.date(from: event.start)
@@ -44,7 +44,7 @@ class EventCollectionViewCell: UICollectionViewCell {
         
         DispatchQueue.main.async {
             self.eventTitleLabel.text = event.title
-            self.eventImageView.image = UIImage(data: data)
+//            self.eventImageView.image = UIImage(data: data)
             self.districtNameLabel.text = "\(city), \(state)"
             self.timeLabel.text = dateFormatter.string(from: date)
         }
@@ -92,14 +92,16 @@ class EventCollectionViewCell: UICollectionViewCell {
 //    }
     
 //    private func setDate() {
-//        guard let startDate = event?.startDate else {
-//            NSLog("\(#file):L\(#line): startDate: \(String(describing: event?.startDate)) is nil! Check \(#function)")
+//        guard let startDate = event?.start else {
+//            NSLog("\(#file):L\(#line): startDate: \(String(describing: event?.start)) is nil! Check \(#function)")
 //            return
 //        }
-//        timeLabel.text = featuredEventDateFormatter.string(from: startDate)
+//        if let time = featuredEventDateFormatter.date(from: startDate) {
+//            timeLabel.text = featuredEventDateFormatter.string(from: time)
+//        }
 //
-//        if let endDate = event?.endDate {
-//            timeLabel.text = "\(cellDateFormatter.string(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
+//        if let endDate = event?.end {
+//            timeLabel.text = "\(cellDateFormatter.date(from: startDate).lowercased()) - \(cellDateFormatter.string(from: endDate).lowercased())"
 //        } else {
 //            timeLabel.text = cellDateFormatter.string(from: startDate).lowercased()
 //        }

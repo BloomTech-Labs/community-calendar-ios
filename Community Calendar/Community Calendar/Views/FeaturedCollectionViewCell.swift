@@ -17,19 +17,6 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter
-    }()
-    
-    lazy var backendDateFormatter: DateFormatter = {
-        let df = DateFormatter()
-        df.timeZone = TimeZone(abbreviation: "MST")
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        return df
-    }()
     
     var isFadeLayerSet = false
     var fadeLayer: CAGradientLayer!
@@ -49,9 +36,9 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     func updateViews() {
         guard
             let event = event,
-            let urlString = event.eventImages?.first?.url,
-            let url = URL(string: urlString),
-            let data = try? Data(contentsOf: url),
+//            let urlString = event.eventImages?.first?.url,
+//            let url = URL(string: urlString),
+//            let data = try? Data(contentsOf: url),
             let date = backendDateFormatter.date(from: event.start)
             else { return }
         
@@ -62,9 +49,9 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
         
         DispatchQueue.main.async {
             self.eventTitleLabel.text = event.title
-            self.eventImageView.image = UIImage(data: data)
-            self.dateLabel.text = self.dateFormatter.string(from: onlyDate)
-            self.timeLabel.text = self.dateFormatter.string(from: time)
+//            self.eventImageView.image = UIImage(data: data)
+            self.dateLabel.text = dateFormatter.string(from: onlyDate)
+            self.timeLabel.text = dateFormatter.string(from: time)
         }
     }
     
@@ -79,17 +66,25 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     }
     
     func getEventDate(date: Date) -> Date {
+        var components = DateComponents()
         let calendar = Calendar.current
         let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
-        guard let timeComponents = calendar.date(from: dateComponents) else { return date }
-        return timeComponents
+        components.year = dateComponents.year
+        components.month = dateComponents.month
+        components.day = dateComponents.day
+        guard let updatedDate = calendar.date(from: components) else { return date }
+        return updatedDate
     }
     
     func getEventTime(date: Date) -> Date {
+        var components = DateComponents()
         let calendar = Calendar.current
         let dateComponents = calendar.dateComponents([.hour, .minute, .second], from: date)
-        guard let timeComponents = calendar.date(from: dateComponents) else { return date }
-        return timeComponents
+        components.hour = dateComponents.hour
+        components.minute = dateComponents.minute
+        components.second = dateComponents.second
+        guard let updatedDate = calendar.date(from: components) else { return date }
+        return updatedDate
     }
     
 //    private func setImage() {

@@ -57,15 +57,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
             if filter == .all {
                 let event = Apollo.shared.allEvents[indexPath.item]
                 cell.event = event
+                loadImageCV(forCell: cell, forItemAt: indexPath)
             } else if filter == .weekend {
                 let event = Apollo.shared.weekendEvents[indexPath.item]
                 cell.event = event
+                loadImageCV(forCell: cell, forItemAt: indexPath)
             } else if filter == .tomorrow {
                 let event = Apollo.shared.tomorrowsEvents[indexPath.item]
                 cell.event = event
+                loadImageCV(forCell: cell, forItemAt: indexPath)
             } else if filter == .today {
                 let event = Apollo.shared.todaysEvents[indexPath.item]
                 cell.event = event
+                loadImageCV(forCell: cell, forItemAt: indexPath)
             }
             
             return cell
@@ -74,6 +78,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
             guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell else { return UICollectionViewCell() }
  
             cell.event = Apollo.shared.events[indexPath.item]
+            loadImageFT(forCell: cell, forItemAt: indexPath)
             
             return cell
         }
@@ -121,17 +126,21 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
             guard let cell = eventTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell
                 else { return UITableViewCell() }
             if filter == .all {
-                let event = Apollo.shared.allEvents[indexPath.row]
+                let event = Apollo.shared.events[indexPath.row]
                 cell.event = event
+                loadImageTV(forCell: cell, forItemAt: indexPath)
             } else if filter == .weekend {
-                let event = Apollo.shared.weekendEvents[indexPath.row]
+                let event = Apollo.shared.events[indexPath.row]
                 cell.event = event
+                loadImageTV(forCell: cell, forItemAt: indexPath)
             } else if filter == .tomorrow {
-                let event = Apollo.shared.tomorrowsEvents[indexPath.row]
+                let event = Apollo.shared.events[indexPath.row]
                 cell.event = event
+                loadImageTV(forCell: cell, forItemAt: indexPath)
             } else if filter == .today {
-                let event = Apollo.shared.todaysEvents[indexPath.row]
+                let event = Apollo.shared.events[indexPath.row]
                 cell.event = event
+                loadImageTV(forCell: cell, forItemAt: indexPath)
             }
             
             return cell
@@ -254,4 +263,117 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
             return nil
         }
     }
+    
+    func loadImageTV(forCell cell: EventTableViewCell, forItemAt indexPath: IndexPath) {
+        let event = Apollo.shared.events[indexPath.item]
+        
+        if let cachedImage = cache.value(for: event.id) {
+            cell.eventImageView?.image = cachedImage
+            return
+        }
+        
+        let fetchOp = FilteredEventPhotoOperation(event: event)
+        let cacheOp = BlockOperation {
+            if let image = fetchOp.image {
+                self.cache.cache(value: image, for: event.id)
+            }
+        }
+        let completionOp = BlockOperation {
+            defer { self.operations.removeValue(forKey: event.id) }
+            
+            if let currentIndexPath = self.eventTableView.indexPath(for: cell),
+                currentIndexPath != indexPath {
+                return
+            }
+            
+            if let image = fetchOp.image {
+                cell.eventImageView?.image = image
+            }
+        }
+        
+        cacheOp.addDependency(fetchOp)
+        completionOp.addDependency(fetchOp)
+        
+        photoFetchQueue.addOperation(fetchOp)
+        photoFetchQueue.addOperation(cacheOp)
+        OperationQueue.main.addOperation(completionOp)
+        
+        operations[event.id] = fetchOp
+    }
+    
+    func loadImageCV(forCell cell: EventCollectionViewCell, forItemAt indexPath: IndexPath) {
+        let event = Apollo.shared.events[indexPath.item]
+        
+        if let cachedImage = cache.value(for: event.id) {
+            cell.eventImageView?.image = cachedImage
+            return
+        }
+        
+        let fetchOp = FilteredEventPhotoOperation(event: event)
+        let cacheOp = BlockOperation {
+            if let image = fetchOp.image {
+                self.cache.cache(value: image, for: event.id)
+            }
+        }
+        let completionOp = BlockOperation {
+            defer { self.operations.removeValue(forKey: event.id) }
+            
+            if let currentIndexPath = self.eventCollectionView.indexPath(for: cell),
+                currentIndexPath != indexPath {
+                return
+            }
+            
+            if let image = fetchOp.image {
+                cell.eventImageView?.image = image
+            }
+        }
+        
+        cacheOp.addDependency(fetchOp)
+        completionOp.addDependency(fetchOp)
+        
+        photoFetchQueue.addOperation(fetchOp)
+        photoFetchQueue.addOperation(cacheOp)
+        OperationQueue.main.addOperation(completionOp)
+        
+        operations[event.id] = fetchOp
+    }
+    
+    func loadImageFT(forCell cell: FeaturedCollectionViewCell, forItemAt indexPath: IndexPath) {
+        let event = Apollo.shared.events[indexPath.item]
+        
+        if let cachedImage = cache.value(for: event.id) {
+            cell.eventImageView?.image = cachedImage
+            return
+        }
+        
+        let fetchOp = FilteredEventPhotoOperation(event: event)
+        let cacheOp = BlockOperation {
+            if let image = fetchOp.image {
+                self.cache.cache(value: image, for: event.id)
+            }
+        }
+        let completionOp = BlockOperation {
+            defer { self.operations.removeValue(forKey: event.id) }
+            
+            if let currentIndexPath = self.featuredCollectionView.indexPath(for: cell),
+                currentIndexPath != indexPath {
+                return
+            }
+            
+            if let image = fetchOp.image {
+                cell.eventImageView?.image = image
+            }
+        }
+        
+        cacheOp.addDependency(fetchOp)
+        completionOp.addDependency(fetchOp)
+        
+        photoFetchQueue.addOperation(fetchOp)
+        photoFetchQueue.addOperation(cacheOp)
+        OperationQueue.main.addOperation(completionOp)
+        
+        operations[event.id] = fetchOp
+    }
 }
+
+

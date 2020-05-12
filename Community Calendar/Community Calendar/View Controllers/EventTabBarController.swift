@@ -19,7 +19,6 @@ class EventTabBarController: UITabBarController {
 
     let apolloController = ApolloController()
     let authController = AuthController()
-//    var apollo = Apollo.shared
     var user: FetchUserIdQuery.Data.User? {
         didSet {
             print("Current logged in user: \(String(describing: user))")
@@ -64,7 +63,6 @@ class EventTabBarController: UITabBarController {
                 }
             }
         }
-        
     }
     
     func checkAuthStatus(completion: @escaping () -> Void) {

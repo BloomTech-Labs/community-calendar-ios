@@ -17,6 +17,7 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     var apollo: ApolloClient = ApolloClient(url: ApolloController.url)
     var currentUserID: GraphQLID?
     var events = [FetchEventsQuery.Data.Event]()
+    var filteredEvents = [FetchEventsQuery.Data.Event]()
     var attendingEvents = [GetUsersEventsQuery.Data.User.Rsvp]()
     var createdEvents = [GetUsersCreatedEventsQuery.Data.User.CreatedEvent]()
     var todaysEvents = [FetchDateRangedEventsQuery.Data.Event]()

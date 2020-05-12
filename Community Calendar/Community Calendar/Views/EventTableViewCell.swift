@@ -11,13 +11,13 @@ import UIKit
 class EventTableViewCell: UITableViewCell {
 
     // MARK: - Properties
-    var event2: FetchEventsQuery.Data.Event? {
+    var event: FetchEventsQuery.Data.Event? {
         didSet {
             updateViews()
         }
     }
     
-    var event: FetchDateRangedEventsQuery.Data.Event? {
+    var event2: FetchDateRangedEventsQuery.Data.Event? {
         didSet {
             updateViews()
         }
