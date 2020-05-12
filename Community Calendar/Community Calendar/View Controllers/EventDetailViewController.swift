@@ -44,7 +44,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
 //        observeImage()
         setUp()
     }
@@ -56,6 +55,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Functions
     private func setUp() {
         scrollView.delegate = self
+        configureViews()
         updateViews()
         fetchProfileImage()
     }
@@ -67,49 +67,59 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
 //        }
     }
     
+    func configureViews() {
+        self.hostImageView.layer.cornerRadius = self.hostImageView.frame.height / 2
+        self.hostShadowView.layer.cornerRadius = self.hostShadowView.frame.height / 2
+        self.hostShadowView.layer.shadowColor = UIColor.darkGray.cgColor
+        self.hostShadowView.layer.shadowOpacity = 1.0
+        self.hostShadowView.layer.shadowRadius = 1.5
+        self.hostShadowView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        self.attendButton.layer.cornerRadius = 6
+        self.attendButton.layer.borderWidth = 1
+        self.attendButton.layer.borderColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1).cgColor
+        self.openInMapsButton.setTitleColor(.white, for: .normal)
+        self.openInMapsButton.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
+        self.openInMapsButton.layer.cornerRadius = 6
+        
+        self.addToCalendarButton.setTitleColor(.white, for: .normal)
+        self.addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
+        self.addToCalendarButton.layer.cornerRadius = 6
+        titleLabel.font = UIFont(name: PoppinsFont.medium.rawValue, size: 20)
+    }
+    
     private func updateViews() {
         guard
             let event = event,
-            let hostFirstName = event.creator?.firstName,
-            let hostLastName = event.creator?.lastName,
+            let urlCreatorString = event.creator?.profileImage,
+            let urlCreator = URL(string: urlCreatorString),
+            let imageData = try? Data(contentsOf: urlCreator),
             let urlString = event.eventImages?.first?.url,
             let url = URL(string: urlString),
-            let data = try? Data(contentsOf: url)
+            let data = try? Data(contentsOf: url),
+            let streetAddress = event.locations?.first?.streetAddress,
+            let city = event.locations?.first?.city,
+            let state = event.locations?.first?.state,
+            let zipcode = event.locations?.first?.zipcode
             else { return }
         DispatchQueue.main.async {
+            if let hostFirstName = event.creator?.firstName, let hostLastName = event.creator?.lastName {
+                self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
+            } else {
+                self.hostNameLabel.text = "N/A"
+            }
             self.eventImageView.image = UIImage(data: data)
+            self.hostImageView.image = UIImage(data: imageData)
+            self.dateLabel.text = featuredEventDateFormatter.string(from: event.startDate)
             self.titleLabel.text = event.title
             self.eventDescTextView.text = event.description
             self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
-            if let startDateString = backendDateFormatter.date(from: event.start) {
-                let startDate = dateFormatter.string(from: startDateString)
-                self.timeLabel.text = startDate
-            }
-            self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
-            self.hostImageView.layer.cornerRadius = self.hostImageView.frame.height / 2
-            self.hostShadowView.layer.cornerRadius = self.hostShadowView.frame.height / 2
-            self.hostShadowView.layer.shadowColor = UIColor.darkGray.cgColor
-            self.hostShadowView.layer.shadowOpacity = 1.0
-            self.hostShadowView.layer.shadowRadius = 1.5
-            self.hostShadowView.layer.shadowOffset = CGSize(width: -1, height: 1)
-            self.addressLabel.text = "\(event.locations?.first?.streetAddress ?? ""), \(event.locations?.first?.city ?? "")"
+            self.timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) \n to \n \(cellDateFormatter.string(from: event.endDate))"
+            
+            self.addressLabel.text = "\(streetAddress), \(city), \(state) \(zipcode)"
+            
             let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
             height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)
-            self.attendButton.layer.cornerRadius = 6
-            self.attendButton.layer.borderWidth = 1
-            self.attendButton.layer.borderColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1).cgColor
-            
-            self.openInMapsButton.setTitleColor(.white, for: .normal)
-            self.openInMapsButton.backgroundColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
-            self.openInMapsButton.layer.cornerRadius = 6
-            
-            self.addToCalendarButton.setTitleColor(.white, for: .normal)
-            self.addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
-            self.addToCalendarButton.layer.cornerRadius = 6
         }
-        
-        
-        
 //            "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))".lowercased()
 //        dateLabel.text =
 //            todayDateFormatter.string(from: startDate)

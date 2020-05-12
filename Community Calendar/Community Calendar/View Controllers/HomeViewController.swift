@@ -66,7 +66,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     var shouldDismissFilterScreen = true
     var unfilteredEvents: [FetchEventsQuery.Data.Event]? {        // Varible events' data source
         didSet {
-            todayTapped(UIButton())
+            allUpcomingTapped(UIButton())
         }
     }
     
@@ -147,7 +147,6 @@ class HomeViewController: UIViewController, ControllerDelegate {
         eventSearchBar.delegate = self
         self.navigationController?.delegate = self
         shouldShowSearchView(false, shouldAnimate: false)               // Hide searchview on launch
-        
         
         todayButton.titleLabel?.adjustsFontSizeToFitWidth = true
         tomorrowButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -337,26 +336,24 @@ class HomeViewController: UIViewController, ControllerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFeaturedDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
-                let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
-                let events = unfilteredEvents else { return }
+                let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first else { return }
             detailVC.indexPath = indexPath
-            detailVC.event = apolloController?.events[indexPath.row]
+            detailVC.event = events?[indexPath.item]
         } else if segue.identifier == "ShowEventsTableDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
-            let indexPath = eventTableView.indexPathForSelectedRow,
-            let events = events else { return }
+            let indexPath = eventTableView.indexPathForSelectedRow else { return }
+            
             detailVC.indexPath = indexPath
-            detailVC.event = apolloController?.events[indexPath.row]
+            detailVC.event = filteredEvents?[indexPath.row]
         } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
-            let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
-            let events = events else { return }
+            let indexPath = eventCollectionView.indexPathsForSelectedItems?.first else { return }
             detailVC.indexPath = indexPath
-            detailVC.event = events[indexPath.row]
+            detailVC.event = filteredEvents?[indexPath.row]
         } else if segue.identifier == "CustomShowFilterSegue" {
             shouldDismissFilterScreen = false
             guard let filterVC = segue.destination as? FilterViewController else { return }
-            filterVC.events = unfilteredEvents
+            filterVC.events = filteredEvents
             if let filter = self.currentFilter {
                 filterVC.filter = filter
             }

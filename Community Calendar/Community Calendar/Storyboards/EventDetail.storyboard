@@ -24,11 +24,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="293"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sCk-GT-pxG">
-                                <rect key="frame" x="0.0" y="805" width="414" height="410"/>
+                                <rect key="frame" x="0.0" y="797" width="414" height="418"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="xBq-Ta-Dh1">
-                                <rect key="frame" x="20" y="309" width="109" height="70"/>
+                                <rect key="frame" x="8" y="301" width="109" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="b3e-OG-Ba0">
                                         <rect key="frame" x="0.0" y="0.0" width="109" height="29"/>
@@ -42,7 +42,7 @@
                                         </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ZhH-0H-e2e">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZhH-0H-e2e">
                                         <rect key="frame" x="0.0" y="38" width="109" height="32"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBj-fy-BZ8">
@@ -51,19 +51,19 @@
                                                     <fragment content="Date">
                                                         <attributes>
                                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <font key="NSFont" metaFont="menu" size="14"/>
+                                                            <font key="NSFont" metaFont="system" size="14"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkV-Sb-L3h">
-                                                <rect key="frame" x="0.0" y="17" width="53" height="15"/>
+                                                <rect key="frame" x="0.0" y="18" width="53" height="14"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Address">
                                                         <attributes>
                                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <font key="NSFont" metaFont="menu" size="14"/>
+                                                            <font key="NSFont" metaFont="system" size="14"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -78,10 +78,10 @@
                                 </constraints>
                             </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="Jso-wK-oCn">
-                                <rect key="frame" x="0.0" y="395" width="414" height="820"/>
+                                <rect key="frame" x="0.0" y="379" width="414" height="836"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="6iO-nW-bgd" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="820"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="836"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="R0x-O4-I2c">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
@@ -106,7 +106,7 @@
                                                                     <fragment content="Hosted by">
                                                                         <attributes>
                                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.50428082191780821" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            <font key="NSFont" metaFont="menu" size="14"/>
+                                                                            <font key="NSFont" metaFont="system" size="14"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                         </attributes>
                                                                     </fragment>
@@ -119,7 +119,7 @@
                                                                     <fragment content="Person's Name">
                                                                         <attributes>
                                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" metaFont="menu" size="14"/>
+                                                                            <font key="NSFont" metaFont="system" size="14"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                         </attributes>
                                                                     </fragment>
@@ -159,7 +159,7 @@
                                                                 <attributedString key="attributedText">
                                                                     <fragment content="12:30 pm  -  1:45 pm">
                                                                         <attributes>
-                                                                            <font key="NSFont" metaFont="menu" size="14"/>
+                                                                            <font key="NSFont" metaFont="system" size="14"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                         </attributes>
                                                                     </fragment>
@@ -191,7 +191,7 @@
                                                                         <attributedString key="attributedText">
                                                                             <fragment content="Free">
                                                                                 <attributes>
-                                                                                    <font key="NSFont" metaFont="menu" size="14"/>
+                                                                                    <font key="NSFont" metaFont="system" size="14"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -249,7 +249,7 @@
                                                 <attributedString key="attributedText">
                                                     <fragment content="Event Details">
                                                         <attributes>
-                                                            <font key="NSFont" metaFont="menu" size="14"/>
+                                                            <font key="NSFont" metaFont="system" size="14"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -303,7 +303,7 @@
                                                                 <fragment content="Open in Maps">
                                                                     <attributes>
                                                                         <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" metaFont="menu" size="14"/>
+                                                                        <font key="NSFont" metaFont="system" size="14"/>
                                                                     </attributes>
                                                                 </fragment>
                                                             </attributedString>
@@ -322,7 +322,7 @@
                                                                 <fragment content="Add to Calendar">
                                                                     <attributes>
                                                                         <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" metaFont="menu" size="14"/>
+                                                                        <font key="NSFont" metaFont="system" size="14"/>
                                                                     </attributes>
                                                                 </fragment>
                                                             </attributedString>
@@ -346,7 +346,7 @@
                                                         <fragment content="Attend">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                                <font key="NSFont" metaFont="system" size="14"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -390,7 +390,7 @@
                                                 </constraints>
                                             </view>
                                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ET0-R2-OMR">
-                                                <rect key="frame" x="0.0" y="443.5" width="414" height="376.5"/>
+                                                <rect key="frame" x="0.0" y="443.5" width="414" height="392.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyMessageCell" rowHeight="100" id="Sc8-LD-GYV" customClass="MessageTableViewCell" customModule="Community_Calendar" customModuleProvider="target">
@@ -415,7 +415,7 @@
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="User's name">
                                                                                     <attributes>
-                                                                                        <font key="NSFont" metaFont="menu" size="14"/>
+                                                                                        <font key="NSFont" metaFont="system" size="14"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
                                                                                 </fragment>
@@ -474,7 +474,7 @@
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="User's name">
                                                                                     <attributes>
-                                                                                        <font key="NSFont" metaFont="menu" size="14"/>
+                                                                                        <font key="NSFont" metaFont="system" size="14"/>
                                                                                     </attributes>
                                                                                 </fragment>
                                                                             </attributedString>
@@ -567,17 +567,17 @@
                             <constraint firstItem="hFV-1A-8y1" firstAttribute="height" secondItem="6yf-ZS-Opj" secondAttribute="height" multiplier="0.241152" id="28J-hn-SWN"/>
                             <constraint firstItem="ys0-wl-IGy" firstAttribute="trailing" secondItem="sCk-GT-pxG" secondAttribute="trailing" id="4xz-wx-5DF"/>
                             <constraint firstItem="sCk-GT-pxG" firstAttribute="leading" secondItem="ys0-wl-IGy" secondAttribute="leading" id="5R2-nw-ewH"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xBq-Ta-Dh1" secondAttribute="trailing" constant="16" id="8gd-OA-3Jp"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xBq-Ta-Dh1" secondAttribute="trailing" constant="8" id="8gd-OA-3Jp"/>
                             <constraint firstItem="hFV-1A-8y1" firstAttribute="top" secondItem="6yf-ZS-Opj" secondAttribute="top" id="9l9-wR-y28"/>
-                            <constraint firstItem="Jso-wK-oCn" firstAttribute="top" secondItem="xBq-Ta-Dh1" secondAttribute="bottom" constant="16" id="BAq-gY-t0Q"/>
+                            <constraint firstItem="Jso-wK-oCn" firstAttribute="top" secondItem="xBq-Ta-Dh1" secondAttribute="bottom" constant="8" id="BAq-gY-t0Q"/>
                             <constraint firstItem="Jso-wK-oCn" firstAttribute="trailing" secondItem="ys0-wl-IGy" secondAttribute="trailing" id="EwD-rZ-kni"/>
-                            <constraint firstItem="xBq-Ta-Dh1" firstAttribute="top" secondItem="hFV-1A-8y1" secondAttribute="bottom" constant="16" id="GCG-j6-12N"/>
+                            <constraint firstItem="xBq-Ta-Dh1" firstAttribute="top" secondItem="hFV-1A-8y1" secondAttribute="bottom" constant="8" id="GCG-j6-12N"/>
                             <constraint firstItem="hFV-1A-8y1" firstAttribute="leading" secondItem="ys0-wl-IGy" secondAttribute="leading" id="HEU-dM-z8e"/>
                             <constraint firstItem="Jso-wK-oCn" firstAttribute="leading" secondItem="ys0-wl-IGy" secondAttribute="leading" id="LO0-Iv-Lll"/>
                             <constraint firstItem="6iO-nW-bgd" firstAttribute="height" relation="greaterThanOrEqual" secondItem="6yf-ZS-Opj" secondAttribute="height" multiplier="0.674897" id="MTQ-9k-UbX"/>
                             <constraint firstAttribute="bottom" secondItem="Jso-wK-oCn" secondAttribute="bottom" id="MxS-dr-TbE"/>
                             <constraint firstAttribute="bottom" secondItem="sCk-GT-pxG" secondAttribute="bottom" id="W6k-nN-AdV"/>
-                            <constraint firstItem="xBq-Ta-Dh1" firstAttribute="leading" secondItem="6yf-ZS-Opj" secondAttribute="leading" constant="20" id="Xrg-bg-ALb"/>
+                            <constraint firstItem="xBq-Ta-Dh1" firstAttribute="leading" secondItem="6yf-ZS-Opj" secondAttribute="leading" constant="8" id="Xrg-bg-ALb"/>
                             <constraint firstItem="hFV-1A-8y1" firstAttribute="trailing" secondItem="ys0-wl-IGy" secondAttribute="trailing" id="sqC-H7-GzN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ys0-wl-IGy"/>

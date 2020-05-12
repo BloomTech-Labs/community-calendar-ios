@@ -37,7 +37,8 @@ let dateFormatter: DateFormatter = {
 let featuredEventDateFormatter: DateFormatter = {
     let df = DateFormatter()
     df.timeZone = .current
-    df.dateFormat = "MMMM d, EEEE"
+    df.dateFormat = "EEEE, MMMM d"
+//    df.dateFormat = "MMMM d, EEEE"
     return df
 }()
 
