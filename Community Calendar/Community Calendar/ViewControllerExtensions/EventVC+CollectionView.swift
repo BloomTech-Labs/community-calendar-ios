@@ -24,8 +24,8 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == myEventsCollectionView {
             guard let cell = myEventsCollectionView.dequeueReusableCell(withReuseIdentifier: "MyEventCell", for: indexPath) as? MyEventCollectionViewCell else { return UICollectionViewCell() }
-            
-            let event = self.events?[indexPath.item]
+            let events = self.events?.sorted(by: {$0.startDate < $1.startDate })
+            let event = events?[indexPath.item]
 
             cell.event = event
 
@@ -80,10 +80,12 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
         if let oktaID = authController?.oktaID {
             Apollo.shared.fetchUserID(oktaID: oktaID) { result in
                 if let user = try? result.get(), let createdEvents = user.createdEvents {
-                    self.events = createdEvents
+                    let sortedEvents = createdEvents.sorted(by: { $0.start < $1.start })
+                    self.events = sortedEvents
+                    self.events?.sort(by: { $0.startDate < $1.startDate } )
                     print(self.events?.count as Any)
                     print(createdEvents.count)
-                    completion(.success(createdEvents))
+                    completion(.success(sortedEvents))
                 }
             }
         }

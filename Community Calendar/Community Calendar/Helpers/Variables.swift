@@ -50,7 +50,7 @@ let cellDateFormatter: DateFormatter = {
 
 let backendDateFormatter: DateFormatter = {
     let df = DateFormatter()
-    df.timeZone = .current
+    df.timeZone = .some(TimeZone(secondsFromGMT: 0)!)
     df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     return df
 }()

@@ -9,22 +9,15 @@
 import UIKit
 import Apollo
 
-extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath)
-        
-        return cell
-    }
     
     func setupSubView() {
         
         //MARK: - Constraints
         cameraButton.translatesAutoresizingMaskIntoConstraints = false
+        imageBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             cameraButton.centerXAnchor.constraint(equalTo: profileImageView.centerXAnchor),
             cameraButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
@@ -32,15 +25,27 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
             cameraButton.widthAnchor.constraint(equalTo: profileImageView.widthAnchor, multiplier: 0.5),
             logoutButton.widthAnchor.constraint(equalTo: loginButton.widthAnchor),
             saveEditButton.widthAnchor.constraint(equalTo: logoutButton.widthAnchor),
+            imageBackgroundView.heightAnchor.constraint(equalToConstant: view.bounds.width / 2),
+            imageBackgroundView.widthAnchor.constraint(equalToConstant: view.bounds.width / 2),
+            imageBackgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageBackgroundView.topAnchor.constraint(equalTo: logoutButton.bottomAnchor, constant: 20),
             profileImageView.heightAnchor.constraint(equalToConstant: view.bounds.width / 2)
         ])
+        
+        profileImageView.anchor(top: imageBackgroundView.topAnchor, leading: imageBackgroundView.leadingAnchor, trailing: imageBackgroundView.trailingAnchor, bottom: imageBackgroundView.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
         
         //MARK: - Delegates
         
         nameTextField.delegate = self
         
         
-        
+        imageBackgroundView.layer.cornerRadius = imageBackgroundView.bounds.height / 2
+        imageBackgroundView.dropShadow()
+        logoutButton.dropShadow()
+        saveEditButton.dropShadow()
+        loginButton.dropShadow()
+        nameTextField.borderStyle = .none
+        nameTextField.clipsToBounds = true
         profileImageView.layer.cornerRadius = profileImageView.bounds.height / 2
         profileImageView.layer.masksToBounds = true
         profileImageView.contentMode = .scaleAspectFill
@@ -48,9 +53,11 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
         saveEditButton.layer.cornerRadius = 12
         loginButton.layer.cornerRadius = 12
         nameTextField.layer.cornerRadius = 12
-        nameTextField.borderStyle = .none
+        
         nameTextField.isEnabled = false
         cameraButton.isHidden = true    
+        
+        
         
         if let user = user {
             updateViewsLogin(user: user)
@@ -106,6 +113,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
         self.eventsCreatedLabel.isHidden = true
         self.cameraButton.isHidden = true
         self.numberOfEventsCreatedLabel.isHidden = true
+        self.imageBackgroundView.isHidden = true
     }
     
     func updateViewsLogin(user: FetchUserIdQuery.Data.User) {
@@ -122,6 +130,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
         self.currentUserName = "\(firstName) \(lastName)"
         DispatchQueue.main.async {
             self.profileImageView.image = UIImage(data: data)
+            self.imageBackgroundView.isHidden = false
             self.nameTextField.isHidden = false
             self.nameTextField.text = self.currentUserName
             self.emailLabel.isHidden = false

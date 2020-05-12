@@ -36,22 +36,17 @@ class FeaturedCollectionViewCell: UICollectionViewCell {
     func updateViews() {
         guard
             let event = event,
-//            let urlString = event.eventImages?.first?.url,
-//            let url = URL(string: urlString),
-//            let data = try? Data(contentsOf: url),
-            let date = backendDateFormatter.date(from: event.start)
+            let startDate = backendDateFormatter.date(from: event.start),
+            let endDate = backendDateFormatter.date(from: event.end)
             else { return }
         
-        let onlyDate = self.getEventDate(date: date)
-        print(onlyDate)
-        let time = self.getEventTime(date: date)
-        print(time)
+        let startTime = cellDateFormatter.string(from: startDate)
+        let endTime = cellDateFormatter.string(from: endDate)
         
         DispatchQueue.main.async {
             self.eventTitleLabel.text = event.title
-//            self.eventImageView.image = UIImage(data: data)
-            self.dateLabel.text = dateFormatter.string(from: onlyDate)
-            self.timeLabel.text = dateFormatter.string(from: time)
+            self.dateLabel.text = featuredEventDateFormatter.string(from: startDate)
+            self.timeLabel.text = "\(startTime) - \(endTime)"
         }
     }
     

@@ -12,7 +12,7 @@ import UIKit
 class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    var event: GetUsersCreatedEventsQuery.Data.User.CreatedEvent? {
+    var event: FetchUserIdQuery.Data.User.CreatedEvent? {
         didSet {
             updateDetailView()
         }

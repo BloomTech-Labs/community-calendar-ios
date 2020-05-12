@@ -48,7 +48,7 @@ class EventViewController: UIViewController, ControllerDelegate {
             self.detailAndCalendarCollectionView.reloadData()
         }
     }
-    var detailEvent: GetUsersCreatedEventsQuery.Data.User.CreatedEvent? {
+    var detailEvent: FetchUserIdQuery.Data.User.CreatedEvent? {
         didSet {
             self.detailAndCalendarCollectionView.reloadData()
         }

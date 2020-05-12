@@ -94,6 +94,8 @@
 		4C468CE9246207C4004799E3 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 4C468CE8246207C4004799E3 /* ApolloWebSocket */; };
 		4C6747D22453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */; };
 		4C6747D42453D87400AE768E /* UIView+DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D32453D87400AE768E /* UIView+DropShadow.swift */; };
+		4C69DD63246B1510006E0300 /* FetchUserIDQuery+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C69DD62246B1510006E0300 /* FetchUserIDQuery+Ext.swift */; };
+		4C69DD65246B18B3006E0300 /* FetchEvents+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C69DD64246B18B3006E0300 /* FetchEvents+Ext.swift */; };
 		4C735F58244F7F61000BF5ED /* UIVIew+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */; };
 		4C92DEE2246139820049CC78 /* Events.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4C92DEE1246139820049CC78 /* Events.graphql */; };
 		4C92DEE424613C330049CC78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92DEE324613C330049CC78 /* API.swift */; };
@@ -210,6 +212,8 @@
 		4C3859C92460C2DB00ADBBB4 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Detail+CalendarCollectionViewCell.swift"; sourceTree = "<group>"; };
 		4C6747D32453D87400AE768E /* UIView+DropShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DropShadow.swift"; sourceTree = "<group>"; };
+		4C69DD62246B1510006E0300 /* FetchUserIDQuery+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchUserIDQuery+Ext.swift"; sourceTree = "<group>"; };
+		4C69DD64246B18B3006E0300 /* FetchEvents+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchEvents+Ext.swift"; sourceTree = "<group>"; };
 		4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Constraints.swift"; sourceTree = "<group>"; };
 		4C92DEE024612BB70049CC78 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		4C92DEE1246139820049CC78 /* Events.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Events.graphql; sourceTree = "<group>"; };
@@ -438,6 +442,8 @@
 				0EE2AC2423CE7133002B3EB4 /* CustomPushAnimator.swift */,
 				4CF915D3246AB98300C754BF /* Cache.swift */,
 				0EE2AC2623CE7233002B3EB4 /* CustomPopAnimator.swift */,
+				4C69DD62246B1510006E0300 /* FetchUserIDQuery+Ext.swift */,
+				4C69DD64246B18B3006E0300 /* FetchEvents+Ext.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -783,6 +789,7 @@
 				0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */,
 				4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */,
 				4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */,
+				4C69DD65246B18B3006E0300 /* FetchEvents+Ext.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
 				4CBB18142467B47200BDD233 /* HomeVC+Ext.swift in Sources */,
 				0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */,
@@ -798,6 +805,7 @@
 				4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */,
 				4CBB181224678D4400BDD233 /* UIViewController+UserInfoAlert.swift in Sources */,
 				4CE2E9372448F2EA005AA6B5 /* MyEventCollectionViewCell.swift in Sources */,
+				4C69DD63246B1510006E0300 /* FetchUserIDQuery+Ext.swift in Sources */,
 				4C2842F224693AF500178677 /* Apollo.swift in Sources */,
 				0EE2AC2D23CFFA4A002B3EB4 /* UIColor+Extension.swift in Sources */,
 			);

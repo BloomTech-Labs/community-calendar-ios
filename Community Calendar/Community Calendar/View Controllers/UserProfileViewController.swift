@@ -48,6 +48,7 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var eventsCreatedLabel: UILabel!
     @IBOutlet weak var numberOfEventsCreatedLabel: UILabel!
+    @IBOutlet weak var imageBackgroundView: UIView!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
