@@ -83,7 +83,15 @@ class EventViewController: UIViewController, ControllerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        if user == nil {
+            if let accessToken = authController?.accessToken {
+                authController?.getUser(completion: { result in
+                    if let user = try? result.get() {
+                        let oktaID = user.first
+                    }
+                })
+            }
+        }
     }
     
  //MARK: - GraphQL Fetch

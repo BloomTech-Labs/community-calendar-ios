@@ -18,7 +18,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
 
         } else if collectionView == featuredCollectionView {
 
-            return Apollo.shared.events.count
+            return events?.count ?? 0
         }
         return 0
     }
@@ -36,7 +36,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
         } else if collectionView == featuredCollectionView {
             guard let cell = featuredCollectionView.dequeueReusableCell(withReuseIdentifier: "FeaturedCell", for: indexPath) as? FeaturedCollectionViewCell else { return UICollectionViewCell() }
  
-            cell.event = Apollo.shared.events[indexPath.item]
+            cell.event = events?[indexPath.item]
             loadImageFT(forCell: cell, forItemAt: indexPath)
             
             return cell
@@ -60,8 +60,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
                 else { return UITableViewCell() }
             
             let event = filteredEvents?[indexPath.row]
-            cell.event = event
             loadImageTV(forCell: cell, forItemAt: indexPath)
+            cell.event = event
             
             return cell
         }
@@ -185,7 +185,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
     }
     
     func loadImageTV(forCell cell: EventTableViewCell, forItemAt indexPath: IndexPath) {
-        let event = Apollo.shared.events[indexPath.item]
+        guard let event = filteredEvents?[indexPath.item] else { return }
         
         if let cachedImage = cache.value(for: event.id) {
             cell.eventImageView?.image = cachedImage
@@ -222,7 +222,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
     }
     
     func loadImageCV(forCell cell: EventCollectionViewCell, forItemAt indexPath: IndexPath) {
-        let event = Apollo.shared.events[indexPath.item]
+        guard let event = filteredEvents?[indexPath.item] else { return }
         
         if let cachedImage = cache.value(for: event.id) {
             cell.eventImageView?.image = cachedImage
@@ -259,7 +259,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
     }
     
     func loadImageFT(forCell cell: FeaturedCollectionViewCell, forItemAt indexPath: IndexPath) {
-        let event = Apollo.shared.events[indexPath.item]
+        guard let event = events?[indexPath.item] else { return }
         
         if let cachedImage = cache.value(for: event.id) {
             cell.eventImageView?.image = cachedImage

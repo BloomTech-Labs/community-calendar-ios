@@ -85,6 +85,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         self.addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
         self.addToCalendarButton.layer.cornerRadius = 6
         titleLabel.font = UIFont(name: PoppinsFont.medium.rawValue, size: 20)
+        eventDescTextView.textColor = .black
+        timeLabel.textColor = .black
     }
     
     private func updateViews() {

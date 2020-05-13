@@ -51,7 +51,7 @@
                                                     <fragment content="Date">
                                                         <attributes>
                                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <font key="NSFont" metaFont="system" size="14"/>
+                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
@@ -63,7 +63,7 @@
                                                     <fragment content="Address">
                                                         <attributes>
                                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <font key="NSFont" metaFont="system" size="14"/>
+                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -106,7 +106,7 @@
                                                                     <fragment content="Hosted by">
                                                                         <attributes>
                                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.50428082191780821" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            <font key="NSFont" metaFont="system" size="14"/>
+                                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                         </attributes>
                                                                     </fragment>
@@ -119,7 +119,7 @@
                                                                     <fragment content="Person's Name">
                                                                         <attributes>
                                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" metaFont="system" size="14"/>
+                                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                         </attributes>
                                                                     </fragment>
@@ -127,7 +127,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="YAI-Bg-HeB" firstAttribute="width" secondItem="cjr-fP-YaI" secondAttribute="width" id="Brh-Nb-2c5"/>
                                                             <constraint firstItem="YAI-Bg-HeB" firstAttribute="centerY" secondItem="cjr-fP-YaI" secondAttribute="centerY" id="C2Z-Uq-JmJ"/>
@@ -159,7 +159,7 @@
                                                                 <attributedString key="attributedText">
                                                                     <fragment content="12:30 pm  -  1:45 pm">
                                                                         <attributes>
-                                                                            <font key="NSFont" metaFont="system" size="14"/>
+                                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                         </attributes>
                                                                     </fragment>
@@ -167,7 +167,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="jFk-u9-t5J" firstAttribute="centerX" secondItem="h1X-9g-Uhk" secondAttribute="centerX" id="9CJ-SS-X00"/>
                                                             <constraint firstItem="rwf-3v-YJc" firstAttribute="centerX" secondItem="h1X-9g-Uhk" secondAttribute="centerX" id="9t9-Hq-vMK"/>
@@ -191,7 +191,7 @@
                                                                         <attributedString key="attributedText">
                                                                             <fragment content="Free">
                                                                                 <attributes>
-                                                                                    <font key="NSFont" metaFont="system" size="14"/>
+                                                                                    <font key="NSFont" metaFont="menu" size="14"/>
                                                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
@@ -201,7 +201,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="cO6-Js-fz5" firstAttribute="centerX" secondItem="ajb-Dt-3T7" secondAttribute="centerX" id="Mja-PW-dmq"/>
                                                         </constraints>
@@ -249,7 +249,7 @@
                                                 <attributedString key="attributedText">
                                                     <fragment content="Event Details">
                                                         <attributes>
-                                                            <font key="NSFont" metaFont="system" size="14"/>
+                                                            <font key="NSFont" metaFont="menu" size="14"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -303,7 +303,7 @@
                                                                 <fragment content="Open in Maps">
                                                                     <attributes>
                                                                         <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" metaFont="system" size="14"/>
+                                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                                     </attributes>
                                                                 </fragment>
                                                             </attributedString>
@@ -322,7 +322,7 @@
                                                                 <fragment content="Add to Calendar">
                                                                     <attributes>
                                                                         <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" metaFont="system" size="14"/>
+                                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                                     </attributes>
                                                                 </fragment>
                                                             </attributedString>
@@ -346,7 +346,7 @@
                                                         <fragment content="Attend">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" metaFont="system" size="14"/>
+                                                                <font key="NSFont" metaFont="menu" size="14"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -415,7 +415,7 @@
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="User's name">
                                                                                     <attributes>
-                                                                                        <font key="NSFont" metaFont="system" size="14"/>
+                                                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
                                                                                 </fragment>
@@ -474,7 +474,7 @@
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="User's name">
                                                                                     <attributes>
-                                                                                        <font key="NSFont" metaFont="system" size="14"/>
+                                                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                                                     </attributes>
                                                                                 </fragment>
                                                                             </attributedString>
@@ -515,7 +515,7 @@
                                                 </prototypes>
                                             </tableView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="LJg-ZI-WOF" firstAttribute="leading" secondItem="6iO-nW-bgd" secondAttribute="leading" constant="16" id="2MB-0z-bru"/>
                                             <constraint firstItem="zqf-gq-gK3" firstAttribute="top" secondItem="R0x-O4-I2c" secondAttribute="bottom" constant="30" id="3Cj-Ii-w0K"/>

@@ -31,7 +31,8 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OA4-Mk-ceR">
                                 <rect key="frame" x="0.0" y="146.5" width="414" height="666.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EventTableViewCell" rowHeight="76" id="b6j-5t-Jzh" customClass="EventTableViewCell" customModule="Community_Calendar" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="76"/>
@@ -42,6 +43,7 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jUE-ZF-XyK">
                                                     <rect key="frame" x="16" y="3" width="70" height="70"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="jUE-ZF-XyK" secondAttribute="height" multiplier="1:1" id="vCz-OT-eTV"/>
                                                     </constraints>
@@ -96,6 +98,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GyF-dF-TtM">
                                                     <rect key="frame" x="338" y="24" width="32" height="28.5"/>
@@ -114,6 +117,7 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="v5L-UP-rR8" firstAttribute="centerY" secondItem="jUE-ZF-XyK" secondAttribute="centerY" id="O2c-J6-Zbx"/>
                                                 <constraint firstItem="jUE-ZF-XyK" firstAttribute="top" secondItem="89j-jg-Qds" secondAttribute="top" constant="3" id="SCH-Ej-QQT"/>
@@ -125,6 +129,7 @@
                                                 <constraint firstItem="jUE-ZF-XyK" firstAttribute="leading" secondItem="89j-jg-Qds" secondAttribute="leading" constant="16" id="ttL-IN-e0e"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="districtNameLabel" destination="Ahu-IG-B2p" id="3Cd-DH-NA6"/>
                                             <outlet property="eventImageView" destination="jUE-ZF-XyK" id="svX-fy-ydR"/>
@@ -137,7 +142,7 @@
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="r2y-Ca-tm3">
                                 <rect key="frame" x="16" y="146.5" width="382" height="666.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="16" id="she-uc-OIU">
                                     <size key="itemSize" width="165" height="165"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -154,6 +159,7 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uwp-jF-zSj">
                                                     <rect key="frame" x="0.0" y="0.0" width="165" height="100"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="VNX-Z4-TnG"/>
                                                         <constraint firstAttribute="width" constant="165" id="gJk-R6-PA2"/>
@@ -164,6 +170,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="far-wP-sjp">
                                                             <rect key="frame" x="0.0" y="0.0" width="106.5" height="15"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="Lmu-wY-LP7"/>
                                                             </constraints>
@@ -179,6 +186,7 @@
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MZ-PC-xrl">
                                                             <rect key="frame" x="0.0" y="15" width="106.5" height="21"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="B4C-9J-X5o"/>
                                                             </constraints>
@@ -195,6 +203,7 @@
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a16-QZ-fRf">
                                                             <rect key="frame" x="0.0" y="36" width="106.5" height="18"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="TAr-bj-GKa"/>
                                                             </constraints>
@@ -210,8 +219,10 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </stackView>
                                             </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Uwp-jF-zSj" firstAttribute="centerX" secondItem="Cgd-8m-EOd" secondAttribute="centerX" id="A46-Y5-ba4"/>
                                                 <constraint firstItem="otT-5N-RDC" firstAttribute="top" secondItem="Uwp-jF-zSj" secondAttribute="bottom" constant="10" id="qQh-h2-4u5"/>
@@ -219,6 +230,7 @@
                                                 <constraint firstItem="otT-5N-RDC" firstAttribute="leading" secondItem="Cgd-8m-EOd" secondAttribute="leading" id="vz4-Lu-9WT"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="districtNameLabel" destination="far-wP-sjp" id="v5d-s8-OKG"/>
                                             <outlet property="eventImageView" destination="Uwp-jF-zSj" id="4FI-Rp-3fg"/>
@@ -293,6 +305,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8H-QR-1iH">
                                 <rect key="frame" x="16" y="118.5" width="54.5" height="12"/>
@@ -320,7 +333,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="WkM-Ed-Y4Y" firstAttribute="leading" secondItem="i8H-QR-1iH" secondAttribute="trailing" constant="6" id="3Io-WN-5fw"/>
                             <constraint firstItem="i8H-QR-1iH" firstAttribute="centerY" secondItem="WkM-Ed-Y4Y" secondAttribute="centerY" id="5rg-Mr-OwZ"/>
