@@ -18,9 +18,10 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     var currentUserID: GraphQLID?
     var events = [FetchEventsQuery.Data.Event]()
     var filteredEvents = [FetchEventsQuery.Data.Event]()
-    var attendingEvents = [GetUsersEventsQuery.Data.User.Rsvp]()
+    var attendingEvents = [FetchUserIdQuery.Data.User.Rsvp]()
     var createdEvents = [FetchUserIdQuery.Data.User.CreatedEvent]()
     var todaysEvents = [FetchDateRangedEventsQuery.Data.Event]()
+    var savedEvents = [FetchUserIdQuery.Data.User.Saved]()
     var tomorrowsEvents = [FetchDateRangedEventsQuery.Data.Event]()
     var weekendEvents = [FetchDateRangedEventsQuery.Data.Event]()
     var allEvents = [FetchDateRangedEventsQuery.Data.Event]()
@@ -50,9 +51,13 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                 print("Error getting user ID: \(error)")
                 completion(.failure(error))
             case .success(let graphQLResult):
-                if let user = graphQLResult.data?.user, let events = user.createdEvents {
-                    let sortedEvents = events.sorted(by: { $0.startDate < $1.startDate })
-                    self.createdEvents = sortedEvents
+                if let user = graphQLResult.data?.user, let createdEvents = user.createdEvents, let savedEvents = user.saved, let attendingEvents = user.rsvps {
+                    let sortedCreated = createdEvents.sorted(by: { $0.startDate < $1.startDate })
+                    let sortedSaved = savedEvents.sorted(by: { $0.startDate < $1.startDate })
+                    let sortedAttending = attendingEvents.sorted(by: { $0.startDate < $1.startDate })
+                    self.attendingEvents = sortedAttending
+                    self.savedEvents = sortedSaved
+                    self.createdEvents = sortedCreated
                     self.currentUserID = user.id
                     completion(.success(user))
                 }
@@ -152,7 +157,7 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                 completion(.failure(error))
             case .success(let graphQLResult):
                 if let eventsAttending = graphQLResult.data?.user.rsvps {
-                    self.attendingEvents = eventsAttending
+                    
                     print("This is the rsvp'd events: \(String(describing: eventsAttending))")
                     completion(.success(eventsAttending))
                 }
@@ -295,7 +300,6 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
         
         return dateRange
     }
-    
     
     func weekendDateRange() -> [Date] {
         var dateRange = [Date]()

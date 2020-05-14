@@ -39,15 +39,17 @@ class EventViewController: UIViewController, ControllerDelegate {
             print("Event View Controller Apollo Controller: \(String(describing: apolloController))")
         }
     }
-    
-    var apollo: ApolloController? = Apollo.shared
-    
-    var events: [FetchUserIdQuery.Data.User.CreatedEvent]? {
+ 
+    var userEvents: UserEvents? {
         didSet {
             self.myEventsCollectionView.reloadData()
             self.detailAndCalendarCollectionView.reloadData()
         }
     }
+    var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]?
+    var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]?
+    var savedEvents: [FetchUserIdQuery.Data.User.Saved]?
+    
     var detailEvent: FetchUserIdQuery.Data.User.CreatedEvent? {
         didSet {
             self.detailAndCalendarCollectionView.reloadData()
@@ -62,20 +64,28 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
+    
+    
     //MARK: - IBOutlets
     
     @IBOutlet weak var myEventsCollectionView: UICollectionView!
     @IBOutlet weak var calendarView: UIView!
     @IBOutlet weak var detailAndCalendarCollectionView: UICollectionView!
-   
+    @IBOutlet weak var attendingButton: UIButton!
+    @IBOutlet weak var savedButton: UIButton!
+    @IBOutlet weak var createdButton: UIButton!
+    @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var filterButtonStackView: UIStackView!
+    
     //MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupSubViews()
-        getUsersEvents { result in
-            
+        
+        getUsersEvents { _ in
+            self.createdButtonTapped(UIButton())
         }
     
         
@@ -94,28 +104,39 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
- //MARK: - GraphQL Fetch
     
-    private func fixDates(_ eventsList: [Event]) -> [Event] {
-        var events = eventsList
-        for (index, event) in events.enumerated() {
-            if let startDate = event.startDate {
-                events[index].startDate = backendDateFormatter.date(from: backendDateFormatter.string(from: startDate))
-            }
-            if let endDate = event.endDate {
-                events[index].endDate = backendDateFormatter.date(from: backendDateFormatter.string(from: endDate))
-            }
-        }
-        return events
-    }
-
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    // MARK: - IBActions
+    
+    @IBAction func attendingButtonTapped(_ sender: Any) {
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        userEvents = .attending
+//        detailAndCalendarCollectionView.reloadData()
+//        myEventsCollectionView.reloadData()
+                        
         
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    @IBAction func savedButtonTapped(_ sender: Any) {
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        userEvents = .saved
+//        detailAndCalendarCollectionView.reloadData()
+//        myEventsCollectionView.reloadData()
         
     }
+    
+    @IBAction func createdButtonTapped(_ sender: Any) {
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        createdButton.setAttributedTitle(createAttrText(with: "Created", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        userEvents = .created
+//        detailAndCalendarCollectionView.reloadData()
+//        myEventsCollectionView.reloadData()
+    }
+    
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard let featuredIndexPath = self.myEventsCollectionView.indexPathsForVisibleItems.first else { return }
@@ -133,8 +154,25 @@ class EventViewController: UIViewController, ControllerDelegate {
         myEventsCollectionView.delegate = self
         detailAndCalendarCollectionView.dataSource = self
         detailAndCalendarCollectionView.delegate = self
-        myEventsCollectionView.anchor(top: view.centerYAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: -80, left: 0, bottom: 0, right: 0), size: .zero)
-        detailAndCalendarCollectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: myEventsCollectionView.topAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
+        createdButtonTapped(UIButton())
+        let dynamicMargin = detailAndCalendarCollectionView.bounds.height / 5
+        filterView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            filterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            filterView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -dynamicMargin),
+            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            filterButtonStackView.centerXAnchor.constraint(equalTo: filterView.centerXAnchor),
+            filterButtonStackView.centerYAnchor.constraint(equalTo: filterView.centerYAnchor),
+            filterButtonStackView.topAnchor.constraint(equalTo: filterView.topAnchor, constant: 0),
+            filterButtonStackView.bottomAnchor.constraint(equalTo: filterView.bottomAnchor, constant: 0)
+        ])
+        
+        detailAndCalendarCollectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: filterView.topAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
+        
+        myEventsCollectionView.anchor(top: filterView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
+        
+        
         if let flowLayout = detailAndCalendarCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.scrollDirection = .horizontal
             flowLayout.minimumLineSpacing = 0
@@ -187,6 +225,13 @@ class EventViewController: UIViewController, ControllerDelegate {
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
+    
+    func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
+        guard let font = UIFont(name: fontName, size: 14) else { return NSAttributedString() }
+        let attrString = NSAttributedString(string: title,
+                                            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font])
+        return attrString
+    }
 }
 
 

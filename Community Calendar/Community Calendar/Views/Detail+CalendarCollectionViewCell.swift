@@ -93,14 +93,20 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     func constraintsDetailView() {
         
         // MARK: - Content View
-        
-        contentView.anchor(top: self.topAnchor, leading: self.leadingAnchor, trailing: self.trailingAnchor, bottom: self.bottomAnchor, centerX: nil, centerY: nil, padding: .zero, size: .init(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width - 100))
         contentView.addSubview(detailView)
         contentView.backgroundColor = .white
         
         // MARK: - Detail View
+        detailView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, centerX: contentView.centerXAnchor, centerY: contentView.centerYAnchor, padding: .zero, size: .zero)
         
-        detailView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 8, left: 20, bottom: -8, right: -20), size: .zero)
+        NSLayoutConstraint.activate([
+            detailView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            detailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            detailView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+            detailView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            detailView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40)
+        ])
+        
         detailView.dropShadow()
         detailView.backgroundColor = .white
         detailView.layer.cornerRadius = 12

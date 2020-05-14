@@ -162,6 +162,12 @@ enum FilterEventType: String {
     case all
 }
 
+enum UserEvents {
+    case created
+    case saved
+    case attending
+}
+
 extension NSNotification.Name {
     static let updateEvent = NSNotification.Name("updateEvent")
 }
