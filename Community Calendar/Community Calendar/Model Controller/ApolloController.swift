@@ -18,9 +18,10 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     var currentUserID: GraphQLID?
     var events = [FetchEventsQuery.Data.Event]()
     var filteredEvents = [FetchEventsQuery.Data.Event]()
-    var attendingEvents = [GetUsersEventsQuery.Data.User.Rsvp]()
-    var createdEvents = [GetUsersCreatedEventsQuery.Data.User.CreatedEvent]()
+    var attendingEvents = [FetchUserIdQuery.Data.User.Rsvp]()
+    var createdEvents = [FetchUserIdQuery.Data.User.CreatedEvent]()
     var todaysEvents = [FetchDateRangedEventsQuery.Data.Event]()
+    var savedEvents = [FetchUserIdQuery.Data.User.Saved]()
     var tomorrowsEvents = [FetchDateRangedEventsQuery.Data.Event]()
     var weekendEvents = [FetchDateRangedEventsQuery.Data.Event]()
     var allEvents = [FetchDateRangedEventsQuery.Data.Event]()
@@ -34,9 +35,10 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                 completion(.failure(error))
             case .success(let graphQLResult):
                 if let events = graphQLResult.data?.events {
-                    self.events = events
+                    let sortedEvents = events.sorted(by: { $0.start < $1.start })
+                    self.events = sortedEvents
                     print(self.events.count)
-                    completion(.success(events))
+                    completion(.success(sortedEvents))
                 }
             }
         }
@@ -49,8 +51,13 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                 print("Error getting user ID: \(error)")
                 completion(.failure(error))
             case .success(let graphQLResult):
-                if let user = graphQLResult.data?.user {
-//                    print("Current User: \(user)")
+                if let user = graphQLResult.data?.user, let createdEvents = user.createdEvents, let savedEvents = user.saved, let attendingEvents = user.rsvps {
+                    let sortedCreated = createdEvents.sorted(by: { $0.startDate < $1.startDate })
+                    let sortedSaved = savedEvents.sorted(by: { $0.startDate < $1.startDate })
+                    let sortedAttending = attendingEvents.sorted(by: { $0.startDate < $1.startDate })
+                    self.attendingEvents = sortedAttending
+                    self.savedEvents = sortedSaved
+                    self.createdEvents = sortedCreated
                     self.currentUserID = user.id
                     completion(.success(user))
                 }
@@ -150,7 +157,7 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                 completion(.failure(error))
             case .success(let graphQLResult):
                 if let eventsAttending = graphQLResult.data?.user.rsvps {
-                    self.attendingEvents = eventsAttending
+                    
                     print("This is the rsvp'd events: \(String(describing: eventsAttending))")
                     completion(.success(eventsAttending))
                 }
@@ -168,7 +175,6 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
             case .success(let graphQLResult):
                 if let createdEvents = graphQLResult.data?.user.createdEvents {
                     print(createdEvents.count)
-                    self.createdEvents = createdEvents
                     completion(.success(createdEvents))
                 }
             }
@@ -176,12 +182,14 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     }
     
     func fetchTomorrowsEvents(completion: @escaping (Swift.Result<[FetchDateRangedEventsQuery.Data.Event], Error>) -> Void) {
-        let dates = tomorrowDateRange()
+        let dates = tomorrowsDateRange()
         guard let startDate = dates.first, let endDate = dates.last else {
             print("Returned out of dates guard let in fetch tomorrow's events function")
             return
         }
-        apollo.fetch(query: FetchDateRangedEventsQuery(start: startDate, end: endDate), cachePolicy: .returnCacheDataElseFetch) { result in
+        let start = backendDateFormatter.string(from: startDate)
+        let end = backendDateFormatter.string(from: endDate)
+        apollo.fetch(query: FetchDateRangedEventsQuery(start: start, end: end), cachePolicy: .returnCacheDataElseFetch) { result in
             switch result {
             case .failure(let error):
                 print("Error fetching events for tomorrow: \(error)")
@@ -203,7 +211,9 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
             return
         }
        
-        apollo.fetch(query: FetchDateRangedEventsQuery(start: startDate, end: endDate), cachePolicy: .returnCacheDataElseFetch) { result in
+        let start = backendDateFormatter.string(from: startDate)
+        let end = backendDateFormatter.string(from: endDate)
+        apollo.fetch(query: FetchDateRangedEventsQuery(start: start, end: end), cachePolicy: .returnCacheDataElseFetch) { result in
             switch result {
             case .failure(let error):
                 print("Error fetching events for today: \(error)")
@@ -219,12 +229,14 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     }
     
     func fetchWeekendEvents(completion: @escaping (Swift.Result<[FetchDateRangedEventsQuery.Data.Event], Error>) -> Void) {
-        let dates = weekDateRange()
+        let dates = weekendDateRange()
         guard let startDate = dates.first, let endDate = dates.last else {
             print("Returned out of dates guard let in fetch weekend events function.")
             return
         }
-        apollo.fetch(query: FetchDateRangedEventsQuery(start: startDate, end: endDate), cachePolicy: .returnCacheDataElseFetch) { result in
+        let start = backendDateFormatter.string(from: startDate)
+        let end = backendDateFormatter.string(from: endDate)
+        apollo.fetch(query: FetchDateRangedEventsQuery(start: start, end: end), cachePolicy: .returnCacheDataElseFetch) { result in
             switch result {
             case .failure(let error):
                 print("Error fetching events for weekend: \(error)")
@@ -245,7 +257,9 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
             print("Returned out of dates guard let in fetch all events function.")
             return
         }
-        apollo.fetch(query: FetchDateRangedEventsQuery(start: startDate, end: endDate), cachePolicy: .returnCacheDataElseFetch) { result in
+        let start = backendDateFormatter.string(from: startDate)
+        let end = backendDateFormatter.string(from: endDate)
+        apollo.fetch(query: FetchDateRangedEventsQuery(start: start, end: end), cachePolicy: .returnCacheDataElseFetch) { result in
             switch result {
             case .failure(let error):
                 print("Error fetching all events of filtered events: \(error)")
@@ -260,58 +274,52 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
         }
     }
     
-    func tomorrowDateRange() -> [String] {
-        var dateRange = [String]()
+    func todaysDateRange() -> [Date] {
+        var todayRange = [Date]()
+        let calendar = Calendar.current
+        let today = Date()
+        let midnight = calendar.startOfDay(for: today)
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+        
+        todayRange.append(midnight)
+        todayRange.append(tomorrow)
+        
+        return todayRange
+    }
+    
+    func tomorrowsDateRange() -> [Date] {
+        var dateRange = [Date]()
         let calendar = Calendar.current
         let today = Date()
         let midnight = calendar.startOfDay(for: today)
         let tomorrow = calendar.date(byAdding: .day, value: 1, to: midnight)!
         let dayAfterTomorrow = calendar.date(byAdding: .day, value: 2, to: midnight)!
-        let start = backendDateFormatter.string(from: tomorrow)
-        let end = backendDateFormatter.string(from: dayAfterTomorrow)
-        dateRange.append(start)
-        dateRange.append(end)
+        
+        dateRange.append(tomorrow)
+        dateRange.append(dayAfterTomorrow)
         
         return dateRange
     }
     
-    func todaysDateRange() -> [String] {
-        var todayRange = [String]()
-        let calendar = Calendar.current
-        let today = Date()
-        let midnight = calendar.startOfDay(for: today)
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
-        let start = backendDateFormatter.string(from: midnight)
-        let end = backendDateFormatter.string(from: tomorrow)
-        todayRange.append(start)
-        todayRange.append(end)
-        
-        return todayRange
-    }
-    
-    func weekDateRange() -> [String] {
-        var dateRange = [String]()
+    func weekendDateRange() -> [Date] {
+        var dateRange = [Date]()
         let calendar = Calendar.current
         let today = Date()
         let weekend = calendar.nextWeekend(startingAfter: today)
-        let weekendStart = backendDateFormatter.string(from: weekend!.start)
-        let weekendEnd = backendDateFormatter.string(from: weekend!.end)
-        dateRange.append(weekendStart)
-        dateRange.append(weekendEnd)
+        dateRange.append(weekend!.start)
+        dateRange.append(weekend!.end)
         
         return dateRange
     }
     
-    func allEventsRange() -> [String] {
-        var dateRange = [String]()
+    func allEventsRange() -> [Date] {
+        var dateRange = [Date]()
         let calendar = Calendar.current
         let today = Date()
         let severYears = calendar.date(byAdding: .year, value: 7, to: today)!
-        let start = backendDateFormatter.string(from: today)
-        let end = backendDateFormatter.string(from: severYears)
         
-        dateRange.append(start)
-        dateRange.append(end)
+        dateRange.append(today)
+        dateRange.append(severYears)
         
         return dateRange
     }

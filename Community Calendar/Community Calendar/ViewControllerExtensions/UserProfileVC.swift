@@ -9,48 +9,49 @@
 import UIKit
 import Apollo
 
-extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath)
-        
-        return cell
-    }
     
     func setupSubView() {
         
         //MARK: - Constraints
         cameraButton.translatesAutoresizingMaskIntoConstraints = false
+        imageBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        menuButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 20, left: 20, bottom: 0, right: 0), size: .init(width: 40, height: 40))
+        
+        imageBackgroundView.anchor(top: menuButton.bottomAnchor, leading: nil, trailing: nil, bottom: nil, centerX: view.centerXAnchor, centerY: nil, padding: .zero, size: .init(width: view.bounds.width / 2, height: view.bounds.width / 2))
+        
+        profileImageView.anchor(top: imageBackgroundView.topAnchor, leading: imageBackgroundView.leadingAnchor, trailing: imageBackgroundView.trailingAnchor, bottom: imageBackgroundView.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 1, left: 1, bottom: -1, right: -1), size: .zero)
+        
+        nameLabel.anchor(top: imageBackgroundView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 20, bottom: 0, right: -20), size: .zero)
+        
+        emailLabel.anchor(top: nameLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 20, bottom: 0, right: -20), size: .zero)
+        
+        topView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: emailLabel.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 8, right: 0), size: .zero)
+        
+        eventsCountStackView.anchor(top: topView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, centerX: view.centerXAnchor, centerY: nil, padding: .init(top: 20, left: 20, bottom: 0, right: -20), size: .zero)
+        
         NSLayoutConstraint.activate([
             cameraButton.centerXAnchor.constraint(equalTo: profileImageView.centerXAnchor),
             cameraButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
             cameraButton.heightAnchor.constraint(equalTo: profileImageView.heightAnchor, multiplier: 0.4),
-            cameraButton.widthAnchor.constraint(equalTo: profileImageView.widthAnchor, multiplier: 0.5),
-            logoutButton.widthAnchor.constraint(equalTo: loginButton.widthAnchor),
-            saveEditButton.widthAnchor.constraint(equalTo: logoutButton.widthAnchor),
-            profileImageView.heightAnchor.constraint(equalToConstant: view.bounds.width / 2)
+            cameraButton.widthAnchor.constraint(equalTo: profileImageView.widthAnchor, multiplier: 0.5)
         ])
         
-        //MARK: - Delegates
-        
-        nameTextField.delegate = self
-        
-        
-        
+        imageBackgroundView.layer.cornerRadius = imageBackgroundView.bounds.height / 2
+        imageBackgroundView.dropShadow()
+        loginButton.dropShadow()
         profileImageView.layer.cornerRadius = profileImageView.bounds.height / 2
         profileImageView.layer.masksToBounds = true
         profileImageView.contentMode = .scaleAspectFill
-        logoutButton.layer.cornerRadius = 12
-        saveEditButton.layer.cornerRadius = 12
         loginButton.layer.cornerRadius = 12
-        nameTextField.layer.cornerRadius = 12
-        nameTextField.borderStyle = .none
-        nameTextField.isEnabled = false
         cameraButton.isHidden = true    
+        
+        
         
         if let user = user {
             updateViewsLogin(user: user)
@@ -99,13 +100,14 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
     func updateViewsLogout() {
         self.loginButton.isHidden = false
         self.profileImageView.isHidden = true
-        self.logoutButton.isHidden = true
         self.emailLabel.isHidden = true
-        self.saveEditButton.isHidden = true
-        self.nameTextField.isHidden = true
         self.eventsCreatedLabel.isHidden = true
         self.cameraButton.isHidden = true
         self.numberOfEventsCreatedLabel.isHidden = true
+        self.imageBackgroundView.isHidden = true
+        self.eventsCountStackView.isHidden = true
+        self.menuButton.isHidden = true
+        self.nameLabel.isHidden = true
     }
     
     func updateViewsLogin(user: FetchUserIdQuery.Data.User) {
@@ -114,56 +116,64 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
             let url = URL(string: urlString),
             let data = try? Data(contentsOf: url),
             let firstName = user.firstName,
-            let lastName = user.lastName,
-            let createdEvents = user.createdEvents
+            let lastName = user.lastName
             else { return }
-        
-        let createdCount = createdEvents.count
         self.currentUserName = "\(firstName) \(lastName)"
+        
         DispatchQueue.main.async {
             self.profileImageView.image = UIImage(data: data)
-            self.nameTextField.isHidden = false
-            self.nameTextField.text = self.currentUserName
+            self.imageBackgroundView.isHidden = false
+            self.nameLabel.text = self.currentUserName
             self.emailLabel.isHidden = false
             self.profileImageView.isHidden = false
-            self.logoutButton.isHidden = false
-            self.saveEditButton.isHidden = false
-            self.saveEditButton.setTitle("Edit", for: .normal)
             self.loginButton.isHidden = true
             self.eventsCreatedLabel.isHidden = false
             self.numberOfEventsCreatedLabel.isHidden = false
-            self.numberOfEventsCreatedLabel.text = "\(createdCount)"
+            self.eventsCountStackView.isHidden = false
+            self.menuButton.isHidden = false
+            self.nameLabel.isHidden = false
+            if let createdEvents = user.createdEvents {
+                let createdCount = createdEvents.count
+                self.numberOfEventsCreatedLabel.text = "\(createdCount)"
+            } else {
+                self.numberOfEventsCreatedLabel.text = "0"
+            }
+            if let savedEvents = user.saved {
+                let savedCount = savedEvents.count
+                self.numberOfSavedLabel.text = "\(savedCount)"
+            } else {
+                self.numberOfSavedLabel.text = "0"
+            }
+            if let attendingEvents = user.rsvps {
+                let attendingCount = attendingEvents.count
+                self.numberOfAttendingLabel.text = "\(attendingCount)"
+            } else {
+                self.numberOfAttendingLabel.text = "0"
+            }
         }
     }
     
     func editingUserProfile() {
-        nameTextField.isEnabled = true
-        saveEditButton.setTitle("Save", for: .normal)
-        nameTextField.borderStyle = .roundedRect
         cameraButton.isHidden = false
     }
     
     func saveTapped() {
-        let fullName = nameTextField.text
-        let nameArray = fullName?.components(separatedBy: " ")
+//        let nameArray = fullName?.components(separatedBy: " ")
         
-        if let imageData = profileImageView.image?.pngData(), let graphQLID = apolloController?.currentUserID, let accessToken = authController?.stateManager?.accessToken, let firstName = nameArray?.first, let lastName = nameArray?.last {
-            apolloController?.hostImage(imageData: imageData, completion: { result in
-                guard let urlString = try? result.get() else { return }
-                print(urlString)
-                self.apolloController?.updateUserInfo(urlString: urlString, firstName: firstName, lastName: lastName, graphQLID: graphQLID, accessToken: accessToken, completion: { result in
-                    guard let response = try? result.get() else { return }
-                    let updatedImageURL = response.profileImage
-                    let newFirstName = response.firstName
-                    let newLastName = response.lastName
-                    print("New Profile Image String: \(String(describing: updatedImageURL)), New First Name: \(String(describing: newFirstName)), New Last Name: \(String(describing: newLastName))")
-                })
-            })
+        if let imageData = profileImageView.image?.pngData(), let graphQLID = apolloController?.currentUserID, let accessToken = authController?.stateManager?.accessToken {
+//            apolloController?.hostImage(imageData: imageData, completion: { result in
+//                guard let urlString = try? result.get() else { return }
+//                print(urlString)
+//                self.apolloController?.updateUserInfo(urlString: urlString, firstName: firstName, lastName: lastName, graphQLID: graphQLID, accessToken: accessToken, completion: { result in
+//                    guard let response = try? result.get() else { return }
+//                    let updatedImageURL = response.profileImage
+//                    let newFirstName = response.firstName
+//                    let newLastName = response.lastName
+//                    print("New Profile Image String: \(String(describing: updatedImageURL)), New First Name: \(String(describing: newFirstName)), New Last Name: \(String(describing: newLastName))")
+//                })
+//            })
         }
-        nameTextField.isEnabled = false
-        nameTextField.resignFirstResponder()
-        saveEditButton.setTitle("Edit", for: .normal)
-        nameTextField.borderStyle = .none
+
         cameraButton.isHidden = true
     }
     

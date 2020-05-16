@@ -42,21 +42,6 @@ struct Event: Codable, Equatable {
 //        self.id = event.id
 //    }
     
-    init(title: String, description: String, startDate: Date, endDate: Date, creator: String, urls: [String], images: [String], rsvps: [String], locations: [Location], tags: [Tag], ticketPrice: Double, profileImageURL: String? = nil, id: String = "") {
-        self.title = title
-        self.description = description
-        self.startDate = startDate
-        self.endDate = endDate
-        self.creator = creator
-        self.urls = urls
-        self.images = images
-        self.rsvps = rsvps
-        self.locations = locations
-        self.tags = tags
-        self.ticketPrice = ticketPrice
-        self.profileImageURL = profileImageURL
-        self.id = id
-    }
     
     let id: String
     let title: String
@@ -74,5 +59,20 @@ struct Event: Codable, Equatable {
     
     var clLocation: CLLocation {
         CLLocation(latitude: locations.first?.latitude ?? 0, longitude: locations.first?.longitude ?? 0)
+    }
+    init(title: String, description: String, startDate: Date, endDate: Date, creator: String, urls: [String], images: [String], rsvps: [String], locations: [Location], tags: [Tag], ticketPrice: Double, profileImageURL: String? = nil, id: String = "") {
+        self.title = title
+        self.description = description
+        self.startDate = startDate
+        self.endDate = endDate
+        self.creator = creator
+        self.urls = urls
+        self.images = images
+        self.rsvps = rsvps
+        self.locations = locations
+        self.tags = tags
+        self.ticketPrice = ticketPrice
+        self.profileImageURL = profileImageURL
+        self.id = id
     }
 }

@@ -11,6 +11,29 @@ query fetchUserID($oktaId: String) {
     firstName
     lastName
     profileImage
+    saved {
+      id
+      title
+      description
+      start
+      end
+      ticketPrice
+      locations{
+        id
+        name
+        streetAddress
+        streetAddress2
+        city
+        state
+        zipcode
+        latitude
+        longitude
+      }
+      eventImages {
+        id
+        url
+      }
+    }
     rsvps {
       id
       title
@@ -41,10 +64,6 @@ query fetchUserID($oktaId: String) {
       start
       end
       ticketPrice
-      eventImages {
-        id
-        url
-      }
       locations {
         id
         name
@@ -55,6 +74,10 @@ query fetchUserID($oktaId: String) {
         zipcode
         latitude
         longitude
+      }
+      eventImages {
+        id
+        url
       }
     }
   }
