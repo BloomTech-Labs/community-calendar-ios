@@ -16,12 +16,12 @@ struct Colors {
 
 struct Style {
     static var bgColor = UIColor.white
-    static var monthViewLblColor = UIColor.white
-    static var monthViewBtnRightColor = UIColor.white
-    static var monthViewBtnLeftColor = UIColor.white
-    static var activeCellLblColor = UIColor.white
+    static var monthViewLblColor = UIColor.black
+    static var monthViewBtnRightColor = UIColor.black
+    static var monthViewBtnLeftColor = UIColor.black
+    static var activeCellLblColor = UIColor.black
     static var activeCellLblColorHighlighted = UIColor.black
-    static var weekdaysLblColor = UIColor.white
+    static var weekdaysLblColor = UIColor.black
     
     // Dark Theme Set Up
     static func themeDark(){
@@ -61,6 +61,18 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]?
     var savedEvents: [FetchUserIdQuery.Data.User.Saved]?
     var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]?
+    
+    // MARK: - User Variable with Property Observer to get Events
+    var user: FetchUserIdQuery.Data.User? {
+        didSet {
+            self.createdEvents = user?.createdEvents
+            print("Calendar View Created Events: \(self.createdEvents?.count as Any)")
+            self.savedEvents = user?.saved
+            print("Calendar View Saved Events: \(self.savedEvents?.count as Any)")
+            self.attendingEvents = user?.rsvps
+            print("Calendar View Attending Events: \(self.attendingEvents?.count as Any)")
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -128,7 +140,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         // One specific Event Date, just called dates(s) for difference
        
         
-        //FIXME: This For Loop doesn't run, eventDates is 0. Why?
 //        for event in eventDates {
 //           
 //            // The Calc date is the date day from 1-31. See below as calcDate creates the date label

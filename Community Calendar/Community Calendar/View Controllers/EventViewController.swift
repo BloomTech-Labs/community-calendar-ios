@@ -64,6 +64,10 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
+    var currentUser: FetchUserIdQuery.Data.User?
+    
+  
+    
 //    #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
     
     //MARK: - IBOutlets
@@ -88,7 +92,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         
         getUsersEvents { _ in
             self.createdButtonTapped(UIButton())
-            self.calendarViewDidLoad()
+           
             
         }
     
@@ -107,6 +111,8 @@ class EventViewController: UIViewController, ControllerDelegate {
             }
         }
     }
+    
+    
     
     
     // MARK: - IBActions

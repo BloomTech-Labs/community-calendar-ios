@@ -51,14 +51,14 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
             
             switch indexPath.item {
             case 0:
-                cell.event = self.detailEvent
-                cell.viewType = .detail
-            case 1:
                 cell.viewType = .calendar
+                cell.user = self.currentUser
                 
-                cell.event = self.detailEvent
-            default:
+            case 1:
                 cell.viewType = .detail
+//                cell.event = self.detailEvent
+            default:
+                cell.viewType = .calendar
             }
             return cell
         }
@@ -91,6 +91,7 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
                     let sortedCreated = createdEvents.sorted(by: { $0.startDate < $1.startDate })
                     let sortedSaved = savedEvents.sorted(by: { $0.startDate < $1.startDate })
                     let sortedAttending = attendingEvents.sorted(by: { $0.startDate < $1.startDate })
+                    self.currentUser = user
                     self.createdEvents = sortedCreated
                     self.savedEvents = sortedSaved
                     self.attendingEvents = sortedAttending
