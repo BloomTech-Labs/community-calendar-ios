@@ -13,4 +13,5 @@ extension Notification.Name {
     static var imageWasLoaded: Notification.Name {
         .init(rawValue: "EventController.imageWasLoaded")
     }
+    static let handleLogout = NSNotification.Name("handleLogout")
 }

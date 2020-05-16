@@ -168,6 +168,20 @@ enum UserEvents {
     case attending
 }
 
+enum SettingsOptions: Int, CaseIterable, CustomStringConvertible {
+    case logout
+    case editProfile
+    
+    var description: String {
+        switch self {
+        case .logout:
+            return "  Logout"
+        case .editProfile:
+            return "  Edit Profile"
+        }
+    }
+}
+
 extension NSNotification.Name {
     static let updateEvent = NSNotification.Name("updateEvent")
 }

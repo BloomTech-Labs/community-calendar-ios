@@ -83,6 +83,7 @@
 		4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */; };
 		4571FCBB24527C61001DE2A2 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCBA24527C61001DE2A2 /* MonthView.swift */; };
 		4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */; };
+		4C133D4D246D354F0029EC17 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C133D4C246D354F0029EC17 /* SettingsLauncher.swift */; };
 		4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEB18245B40F300BEECEF /* Okta.plist */; };
 		4C2842F224693AF500178677 /* Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2842F124693AF500178677 /* Apollo.swift */; };
 		4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */; };
@@ -107,6 +108,7 @@
 		4CBB18142467B47200BDD233 /* HomeVC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBB18132467B47200BDD233 /* HomeVC+Ext.swift */; };
 		4CD8683D246ABD2B00CF50AD /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF915D3246AB98300C754BF /* Cache.swift */; };
 		4CDBD11C2461C14E0026A539 /* UserUpdate.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4CDBD11B2461C14E0026A539 /* UserUpdate.graphql */; };
+		4CE0D81B246E6AA700E048BC /* SettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0D81A246E6AA700E048BC /* SettingCollectionViewCell.swift */; };
 		4CE2E9352448E424005AA6B5 /* FeaturedEventLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */; };
 		4CE2E9372448F2EA005AA6B5 /* MyEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */; };
 		4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */; };
@@ -207,6 +209,7 @@
 		4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
 		4571FCBA24527C61001DE2A2 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		4C133D4C246D354F0029EC17 /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
 		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
 		4C2842F124693AF500178677 /* Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apollo.swift; sourceTree = "<group>"; };
 		4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredEventDataSource.swift; sourceTree = "<group>"; };
@@ -227,6 +230,7 @@
 		4CBB181124678D4400BDD233 /* UIViewController+UserInfoAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UserInfoAlert.swift"; sourceTree = "<group>"; };
 		4CBB18132467B47200BDD233 /* HomeVC+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+Ext.swift"; sourceTree = "<group>"; };
 		4CDBD11B2461C14E0026A539 /* UserUpdate.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UserUpdate.graphql; sourceTree = "<group>"; };
+		4CE0D81A246E6AA700E048BC /* SettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEventLayout.swift; sourceTree = "<group>"; };
 		4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Decompression.swift"; sourceTree = "<group>"; };
@@ -401,6 +405,7 @@
 				0EA9731F23EB260500085435 /* EventViewController.swift */,
 				0EA9732123EB2E8700085435 /* EventNavController.swift */,
 				4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */,
+				4C133D4C246D354F0029EC17 /* SettingsLauncher.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -418,6 +423,7 @@
 				0EF6DDEC23DFFB7800D8A91B /* DropDownTextField.swift */,
 				4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */,
 				4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */,
+				4CE0D81A246E6AA700E048BC /* SettingCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -765,6 +771,7 @@
 				0EF6DDED23DFFB7800D8A91B /* DropDownTextField.swift in Sources */,
 				0EE307A923AC53470045EFD1 /* Event.swift in Sources */,
 				4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */,
+				4CE0D81B246E6AA700E048BC /* SettingCollectionViewCell.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
 				0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */,
 				0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */,
@@ -800,6 +807,7 @@
 				0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */,
 				4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */,
 				4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */,
+				4C133D4D246D354F0029EC17 /* SettingsLauncher.swift in Sources */,
 				4CAFBF8F246CF16200F3CB97 /* FetchUserIDQuery+SavedEvents.swift in Sources */,
 				4C69DD65246B18B3006E0300 /* FetchEvents+Ext.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,

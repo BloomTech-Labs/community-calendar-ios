@@ -115,6 +115,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
             self.eventTableView.reloadData()
             self.featuredCollectionView.reloadData()
         }
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

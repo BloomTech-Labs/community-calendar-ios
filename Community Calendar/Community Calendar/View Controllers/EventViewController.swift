@@ -64,7 +64,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    
+//    #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
     
     //MARK: - IBOutlets
     
@@ -76,6 +76,8 @@ class EventViewController: UIViewController, ControllerDelegate {
     @IBOutlet weak var createdButton: UIButton!
     @IBOutlet weak var filterView: UIView!
     @IBOutlet weak var filterButtonStackView: UIStackView!
+    @IBOutlet weak var menuButton: UIButton!
+    
     
     //MARK: - Life Cycle
     
@@ -86,6 +88,8 @@ class EventViewController: UIViewController, ControllerDelegate {
         
         getUsersEvents { _ in
             self.createdButtonTapped(UIButton())
+            self.calendarViewDidLoad()
+            
         }
     
         
@@ -221,7 +225,8 @@ class EventViewController: UIViewController, ControllerDelegate {
     }
     
     let calenderView: CalenderView = {
-        let v=CalenderView(theme: MyTheme.light)
+        let v=CalenderView()
+        
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()

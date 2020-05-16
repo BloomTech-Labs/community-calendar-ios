@@ -55,6 +55,7 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 cell.viewType = .detail
             case 1:
                 cell.viewType = .calendar
+                
                 cell.event = self.detailEvent
             default:
                 cell.viewType = .detail

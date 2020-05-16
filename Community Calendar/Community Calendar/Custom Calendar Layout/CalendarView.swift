@@ -58,11 +58,15 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var presentYear = 0
     var todaysDate = 0
     var firstWeekDayOfMonth = 0   //(Sunday-Saturday 1-7)
+    var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]?
+    var savedEvents: [FetchUserIdQuery.Data.User.Saved]?
+    var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         initializeView()
+        
     }
     
     convenience init(theme: MyTheme) {
