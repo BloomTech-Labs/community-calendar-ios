@@ -58,14 +58,25 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var presentYear = 0
     var todaysDate = 0
     var firstWeekDayOfMonth = 0   //(Sunday-Saturday 1-7)
-    var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]?
+    
+    
+    var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]? {
+        didSet {
+            self.myCollectionView.reloadData()
+        }
+    }
+    
+    
     var savedEvents: [FetchUserIdQuery.Data.User.Saved]?
     var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]?
     
     // MARK: - User Variable with Property Observer to get Events
     var user: FetchUserIdQuery.Data.User? {
         didSet {
-            self.createdEvents = user?.createdEvents
+            
+            guard let createdEvents = user?.createdEvents else {return}
+            
+            self.createdEvents = createdEvents
             print("Calendar View Created Events: \(self.createdEvents?.count as Any)")
             self.savedEvents = user?.saved
             print("Calendar View Saved Events: \(self.savedEvents?.count as Any)")
@@ -126,7 +137,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         myCollectionView.dataSource=self
         myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
     }
-    
+   
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -139,18 +150,44 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         // MARK: - TODO/ FIXME: For every Event that is counted, add a red background color to the cell
         // One specific Event Date, just called dates(s) for difference
        
-        
-//        for event in eventDates {
-//           
+//       guard let crEvents = self.createdEvents else {return UICollectionViewCell()}
+//
+//
+//
+//        for event in crEvents {
+//
 //            // The Calc date is the date day from 1-31. See below as calcDate creates the date label
 //            let calcDate = indexPath.row - firstWeekDayOfMonth+2
-//            let eventDay = Calendar.current.component(.day, from: event)
-//            print(eventDay) // This never gets printed becuase for loop doesn't execute, compare to TMEventController for loop print statement 
+//            let eventDay = Calendar.current.component(.day, from: event.startDate)
+//            print(eventDay)
 //            if eventDay == calcDate {
 //                cell.backgroundColor = UIColor.red
 //            }
-//   
+//
 //        }
+        
+//        if let crEvent = self.createdEvents {
+//
+//            if crEvent.count > 0 {
+//
+//
+//                for event in crEvent {
+//                    let calcDate = indexPath.row - firstWeekDayOfMonth+2
+//                    let eventDay = Calendar.current.component(.day, from: event.startDate)
+//                    print(eventDay)
+//                    print("Calculate Date \(calcDate)")
+//                    if eventDay == calcDate {
+//                        cell.backgroundColor = UIColor.red
+//                    }
+//                }
+//            }
+//        }
+        
+        for event in createdEvents {
+            let day = Calendar.current.component(.day, from: event.startDate)
+            let month = Calendar.current.component(.month, from: event.startDate)
+            cell[month, day].backgroundColor = UIColor.red
+        }
         
         cell.backgroundColor = UIColor.clear
         if indexPath.item <= firstWeekDayOfMonth - 2 {
