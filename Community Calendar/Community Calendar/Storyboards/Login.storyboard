@@ -38,6 +38,17 @@
                                     <action selector="menuButtonTapped:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="jhb-wS-tsO"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v3n-tR-D7x">
+                                <rect key="frame" x="360" y="64" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveTapped:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="8WX-MZ-oGe"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SbU-r8-BGg">
                                 <rect key="frame" x="107" y="120" width="200" height="200"/>
                                 <subviews>
@@ -74,12 +85,6 @@
                                 </state>
                                 <connections>
                                     <action selector="loginButtonTapped:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="Tuh-CL-pDD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svV-dU-pXl">
-                                <rect key="frame" x="156" y="186" width="103" height="69"/>
-                                <connections>
-                                    <action selector="cameraButtonTapped:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="5GG-4Z-BF4"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QZJ-fX-ZNl">
@@ -138,15 +143,21 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svV-dU-pXl">
+                                <rect key="frame" x="162" y="191" width="91" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="camera.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="cameraButtonTapped:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="5GG-4Z-BF4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="IWX-75-h7g" firstAttribute="centerX" secondItem="dXB-cv-WTT" secondAttribute="centerX" id="0gE-Wx-PRX"/>
-                            <constraint firstItem="SbU-r8-BGg" firstAttribute="centerX" secondItem="svV-dU-pXl" secondAttribute="centerX" id="CiI-hf-CbA"/>
                             <constraint firstItem="SbU-r8-BGg" firstAttribute="centerX" secondItem="dXB-cv-WTT" secondAttribute="centerX" id="HTa-gm-tQU"/>
                             <constraint firstItem="lFR-Mm-pzB" firstAttribute="trailing" secondItem="QZJ-fX-ZNl" secondAttribute="trailing" constant="20" id="Kyr-vv-rwm"/>
                             <constraint firstItem="IWX-75-h7g" firstAttribute="centerY" secondItem="dXB-cv-WTT" secondAttribute="centerY" constant="-40" id="Pzl-cm-UoZ"/>
-                            <constraint firstItem="SbU-r8-BGg" firstAttribute="centerY" secondItem="svV-dU-pXl" secondAttribute="centerY" id="dbI-YH-5N2"/>
                             <constraint firstItem="SbU-r8-BGg" firstAttribute="leading" secondItem="lFR-Mm-pzB" secondAttribute="leading" constant="107" id="fhB-CH-AFn"/>
                             <constraint firstItem="fq0-a4-dlK" firstAttribute="leading" secondItem="lFR-Mm-pzB" secondAttribute="leading" constant="20" id="gyI-2w-lqU"/>
                             <constraint firstItem="fq0-a4-dlK" firstAttribute="top" secondItem="lFR-Mm-pzB" secondAttribute="top" constant="378" id="gzS-Wo-tvJ"/>
@@ -172,6 +183,7 @@
                         <outlet property="numberOfEventsCreatedLabel" destination="fq0-a4-dlK" id="1Ru-7o-3bQ"/>
                         <outlet property="numberOfSavedLabel" destination="b6O-hz-Gey" id="mgq-j2-1Kw"/>
                         <outlet property="profileImageView" destination="bhX-Gk-24s" id="RIm-CF-Gls"/>
+                        <outlet property="saveButton" destination="v3n-tR-D7x" id="Cnz-wa-Dfc"/>
                         <outlet property="topView" destination="e0w-bG-93l" id="GhR-Sc-xhe"/>
                     </connections>
                 </viewController>
@@ -181,6 +193,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera.fill" catalog="system" width="128" height="96"/>
         <image name="ham menu white" width="60" height="60"/>
         <image name="person" width="24" height="24"/>
     </resources>

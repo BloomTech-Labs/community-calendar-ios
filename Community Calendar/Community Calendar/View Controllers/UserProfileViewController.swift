@@ -35,6 +35,11 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
             print("User Profile View Controller Apollo Controller: \(String(describing: apolloController))")
         }
     }
+    let firstUnderlineView = UIView()
+    let lastUnderlineView = UIView()
+    let firstNameTextField = UITextField()
+    let lastNameTextField = UITextField()
+    let cancelButton = UIButton()
     let settingsLauncher = SettingsLauncher()
     var currentUserName: String?
     var isEditingUser: Bool = false
@@ -55,12 +60,14 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     @IBOutlet weak var numberOfSavedLabel: UILabel!
     @IBOutlet weak var eventsAttendingLabel: UILabel!
     @IBOutlet weak var numberOfAttendingLabel: UILabel!
+    @IBOutlet weak var saveButton: UIButton!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubView()
         NotificationCenter.default.addObserver(self, selector: #selector(handleLogout), name: .handleLogout, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(editUserProfile), name: .editProfile, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,24 +93,32 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     }
     
     @IBAction func menuButtonTapped(_ sender: Any) {
-        settingsLauncher.showSettings()
+        if isEditingUser {
+            self.isEditingUser = false
+            editingUserProfile()
+        } else {
+            settingsLauncher.showSettings()
+        }
     }
-    
-    @IBAction func logoutTapped(_ sender: Any) {
-        logoutUser()
+  
+    @objc func cancelTapped() {
+        isEditingUser = false
+        editingUserProfile()
     }
     
     @objc func handleLogout() {
         logoutUser()
     }
     
-    @IBAction func saveEditTapped(_ sender: Any) {
-        self.isEditingUser.toggle()
-        if isEditingUser {
-            editingUserProfile()
-        } else {
-            saveTapped()
-        }
+    @objc func editUserProfile() {
+        isEditingUser = true
+        editingUserProfile()
+    }
+    
+    @IBAction func saveTapped(_ sender: Any) {
+        isEditingUser = false
+        editingUserProfile()
+        saveTapped()
     }
     
     @IBAction func cameraButtonTapped(_ sender: Any) {

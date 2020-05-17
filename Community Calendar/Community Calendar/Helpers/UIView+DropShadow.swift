@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView {
-    func dropShadow(scale: Bool = true) {
+    func blackShadow(scale: Bool = true) {
         
         layer.masksToBounds = false
         
@@ -20,6 +20,22 @@ extension UIView {
         layer.shadowOffset = CGSize(width: 0, height: 0)
         
         layer.shadowRadius = 5
+        
+        layer.shouldRasterize = true
+        
+        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+    }
+    
+    func whiteShadow(scale: Bool = true) {
+        layer.masksToBounds = false
+        
+        layer.shadowColor = UIColor.white.cgColor
+        
+        layer.shadowOpacity = 0.3
+        
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        
+        layer.shadowRadius = 2
         
         layer.shouldRasterize = true
         

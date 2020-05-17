@@ -102,6 +102,8 @@
 		4C92DEE2246139820049CC78 /* Events.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4C92DEE1246139820049CC78 /* Events.graphql */; };
 		4C92DEE424613C330049CC78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92DEE324613C330049CC78 /* API.swift */; };
 		4C92DEE524613C330049CC78 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92DEE324613C330049CC78 /* API.swift */; };
+		4C93BE9D2471259000A18404 /* ShiftableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C93BE9C2471259000A18404 /* ShiftableViewController.swift */; };
+		4C93BE9F2471260F00A18404 /* ShiftableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C93BE9E2471260F00A18404 /* ShiftableView.swift */; };
 		4CAFBF8F246CF16200F3CB97 /* FetchUserIDQuery+SavedEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAFBF8E246CF16200F3CB97 /* FetchUserIDQuery+SavedEvents.swift */; };
 		4CAFBF91246CF18000F3CB97 /* FetchUserIDQuery+RSVPdEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAFBF90246CF18000F3CB97 /* FetchUserIDQuery+RSVPdEvents.swift */; };
 		4CAFBF93246CFF6200F3CB97 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAFBF92246CFF6200F3CB97 /* User.swift */; };
@@ -226,6 +228,8 @@
 		4C92DEE024612BB70049CC78 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		4C92DEE1246139820049CC78 /* Events.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Events.graphql; sourceTree = "<group>"; };
 		4C92DEE324613C330049CC78 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		4C93BE9C2471259000A18404 /* ShiftableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftableViewController.swift; sourceTree = "<group>"; };
+		4C93BE9E2471260F00A18404 /* ShiftableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftableView.swift; sourceTree = "<group>"; };
 		4CAFBF8E246CF16200F3CB97 /* FetchUserIDQuery+SavedEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchUserIDQuery+SavedEvents.swift"; sourceTree = "<group>"; };
 		4CAFBF90246CF18000F3CB97 /* FetchUserIDQuery+RSVPdEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchUserIDQuery+RSVPdEvents.swift"; sourceTree = "<group>"; };
 		4CAFBF92246CFF6200F3CB97 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -483,6 +487,8 @@
 				4C735F57244F7F61000BF5ED /* UIVIew+Constraints.swift */,
 				4C6747D32453D87400AE768E /* UIView+DropShadow.swift */,
 				4CBB181124678D4400BDD233 /* UIViewController+UserInfoAlert.swift */,
+				4C93BE9C2471259000A18404 /* ShiftableViewController.swift */,
+				4C93BE9E2471260F00A18404 /* ShiftableView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -809,11 +815,13 @@
 				0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */,
 				4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */,
 				0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */,
+				4C93BE9F2471260F00A18404 /* ShiftableView.swift in Sources */,
 				4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */,
 				4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */,
 				4C133D4D246D354F0029EC17 /* SettingsLauncher.swift in Sources */,
 				4CAFBF8F246CF16200F3CB97 /* FetchUserIDQuery+SavedEvents.swift in Sources */,
 				4C69DD65246B18B3006E0300 /* FetchEvents+Ext.swift in Sources */,
+				4C93BE9D2471259000A18404 /* ShiftableViewController.swift in Sources */,
 				0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */,
 				4CBB18142467B47200BDD233 /* HomeVC+Ext.swift in Sources */,
 				0EF6DDE823DF521600D8A91B /* Filter.swift in Sources */,

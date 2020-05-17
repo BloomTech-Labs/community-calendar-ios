@@ -109,7 +109,7 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
             detailView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40)
         ])
         
-        detailView.dropShadow()
+        detailView.blackShadow()
         detailView.backgroundColor = .white
         detailView.layer.cornerRadius = 12
         

@@ -59,7 +59,7 @@ class EventTableViewCell: UITableViewCell {
         eventTitleLabel.textColor = .black
         timeLabel.textColor = .black
         eventImageView.layer.cornerRadius = 7
-        eventImageView.dropShadow()
+        eventImageView.blackShadow()
         eventImageView.layer.masksToBounds = true
     }
     

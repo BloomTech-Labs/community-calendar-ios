@@ -121,7 +121,7 @@ class MyEventCollectionViewCell: UICollectionViewCell {
         imageBackgroundView.anchor(top: self.topAnchor, leading: self.leadingAnchor, trailing: nil, bottom: self.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 8, left: 8, bottom: -8, right: 0), size: .zero)
         imageBackgroundView.layer.cornerRadius = 8
         imageBackgroundView.layer.masksToBounds = true
-        imageBackgroundView.dropShadow()
+        imageBackgroundView.blackShadow()
         
         eventImageView.anchor(top: imageBackgroundView.topAnchor, leading: imageBackgroundView.leadingAnchor, trailing: imageBackgroundView.trailingAnchor, bottom: imageBackgroundView.bottomAnchor, centerX: nil, centerY: nil, padding: .zero, size: .zero)
         eventImageView.layer.masksToBounds = true
