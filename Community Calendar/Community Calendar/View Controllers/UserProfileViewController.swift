@@ -66,7 +66,6 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        settingsLauncher.authController = authController
         authController?.getUser(completion: { result in
             if let user = try? result.get() {
                 let email = user.last

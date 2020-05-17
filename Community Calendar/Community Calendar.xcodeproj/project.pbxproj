@@ -86,6 +86,7 @@
 		4C133D4D246D354F0029EC17 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C133D4C246D354F0029EC17 /* SettingsLauncher.swift */; };
 		4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEB18245B40F300BEECEF /* Okta.plist */; };
 		4C2842F224693AF500178677 /* Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2842F124693AF500178677 /* Apollo.swift */; };
+		4C2B2FD7247097090059A4D8 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2B2FD6247097090059A4D8 /* EditProfileView.swift */; };
 		4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */; };
 		4C3674D424660B5E00C74C00 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D324660B5E00C74C00 /* UserProfileVC.swift */; };
 		4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D72466588D00C74C00 /* EventVC+CollectionView.swift */; };
@@ -212,6 +213,7 @@
 		4C133D4C246D354F0029EC17 /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
 		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
 		4C2842F124693AF500178677 /* Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apollo.swift; sourceTree = "<group>"; };
+		4C2B2FD6247097090059A4D8 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredEventDataSource.swift; sourceTree = "<group>"; };
 		4C3674D324660B5E00C74C00 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		4C3674D72466588D00C74C00 /* EventVC+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CollectionView.swift"; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 				4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */,
 				4C6747D12453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift */,
 				4CE0D81A246E6AA700E048BC /* SettingCollectionViewCell.swift */,
+				4C2B2FD6247097090059A4D8 /* EditProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -778,6 +781,7 @@
 				1A87B8EA24620E0900282274 /* UserProfileViewController.swift in Sources */,
 				4CF9C5CC2461F9E5000BF914 /* ApolloController.swift in Sources */,
 				4CAFBF91246CF18000F3CB97 /* FetchUserIDQuery+RSVPdEvents.swift in Sources */,
+				4C2B2FD7247097090059A4D8 /* EditProfileView.swift in Sources */,
 				0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */,
 				4CF915D0246AB7BC00C754BF /* ConcurrentOperations.swift in Sources */,
 				4C6747D22453CEEB00AE768E /* Detail+CalendarCollectionViewCell.swift in Sources */,

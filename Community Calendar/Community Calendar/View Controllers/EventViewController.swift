@@ -46,6 +46,7 @@ class EventViewController: UIViewController, ControllerDelegate {
             self.detailAndCalendarCollectionView.reloadData()
         }
     }
+    var currentUser: FetchUserIdQuery.Data.User?
     var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]?
     var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]?
     var savedEvents: [FetchUserIdQuery.Data.User.Saved]?
@@ -88,11 +89,9 @@ class EventViewController: UIViewController, ControllerDelegate {
         
         getUsersEvents { _ in
             self.createdButtonTapped(UIButton())
-            self.calendarViewDidLoad()
+            
             
         }
-    
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -127,8 +126,6 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         userEvents = .saved
-//        detailAndCalendarCollectionView.reloadData()
-//        myEventsCollectionView.reloadData()
         
     }
     
@@ -137,8 +134,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         userEvents = .created
-//        detailAndCalendarCollectionView.reloadData()
-//        myEventsCollectionView.reloadData()
+
     }
     
     

@@ -11,9 +11,8 @@ import UIKit
 class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     let blackView = UIView()
-    var authController: AuthController?
-    
-    let settingsView: UIView = {
+
+    let editProfileView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 12
         view.backgroundColor = #colorLiteral(red: 0.1721869707, green: 0.1871494651, blue: 0.2290506661, alpha: 1)
@@ -30,6 +29,17 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
         return cv
     }()
     
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        
+        return imageView
+    }()
+    
+    let editView = EditProfileView()
+    
+    var height: CGFloat = 0
+    var y: CGFloat = 0
     let testLabel = UILabel()
     let logoutButton = UIButton()
     
@@ -47,7 +57,6 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
     }
     
     func showSettings() {
-        
         let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
         
         if let window = window {
@@ -58,12 +67,11 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
     
             window.addSubview(blackView)
             
-            
             let height: CGFloat = window.frame.height / 3
-
             let y = window.frame.height - height
-            settingsView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
-
+            self.height = height
+            self.y = y
+            
             settingsCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
             window.addSubview(settingsCollectionView)
             
@@ -87,6 +95,8 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
             if let window = window {
                 
                 self.settingsCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.settingsCollectionView.frame.width, height: self.settingsCollectionView.frame.height)
+                
+//                self.editProfileView.frame = CGRect(x: window.frame.width, y: window.frame.height - self.height, width: window.frame.width, height: self.height)
             }
         }
     }
@@ -126,7 +136,7 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
             NotificationCenter.default.post(.init(name: .handleLogout))
             self.handleDismiss()
         } else if indexPath.item == 1 {
-            
+//            self.presentEditView()
         }
     }
     
@@ -137,14 +147,26 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
         return attrString
     }
     
-//    func logoutConfirmation(title: String, message: String, completion: @escaping () -> Void) {
-//        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        let logoutAction = UIAlertAction(title: "Logout", style: .destructive)
-//
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-//        alertController.addAction(cancelAction)
-//        alertController.addAction(logoutAction)
-//        self.present(alertController, animated: true, completion: completion)
-//    }
+    func presentEditView() {
+        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        
+        if let window = window {
+            window.addSubview(editProfileView)
+            editProfileView.frame = CGRect(x: window.frame.width, y: window.frame.height - height, width: window.frame.width, height: height)
+        }
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            
+            self.editProfileView.frame = CGRect(x: 0, y: self.y, width: self.editProfileView.frame.width, height: self.editProfileView.frame.height)
+        }, completion: nil)
+    }
+    
+    func constraintsEditProfile() {
+        editProfileView.addSubview(profileImageView)
+        editProfileView.backgroundColor = .blue
+        editProfileView.anchor(top: editProfileView.topAnchor, leading: nil, trailing: nil, bottom: nil, centerX: editProfileView.centerXAnchor, centerY: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .zero)
+        profileImageView.heightAnchor.constraint(equalTo: settingsCollectionView.heightAnchor, multiplier: 0.5).isActive = true
+        profileImageView.widthAnchor.constraint(equalTo: settingsCollectionView.heightAnchor, multiplier: 0.5).isActive = true
+        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+    }
 }
