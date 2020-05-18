@@ -47,6 +47,25 @@ class EventViewController: UIViewController, ControllerDelegate {
             self.calendarView.reloadData()
         }
     }
+    
+    var events: [UserEvent] = []
+    var filteredEvents: [UserEvent] = [] {
+        didSet {
+            self.myEventsCollectionView.reloadData()
+        }
+    }
+    var currentUser2: User? {
+        didSet {
+            guard
+                let user = currentUser2,
+                let events = user.userEvents
+                else { return }
+                
+            for event in events {
+                    self.events.append(event)
+            }
+        }
+    }
     var currentUser: FetchUserIdQuery.Data.User?
     var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]? {
         didSet {
@@ -77,7 +96,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     var featuredIndexPath: IndexPath? {
         didSet {
             if let indexPath = featuredIndexPath {
-                self.detailEvent = Apollo.shared.createdEvents[indexPath.item]
+                
             } 
         }
     }
@@ -108,7 +127,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         
         getUsersEvents { _ in
             self.createdButtonTapped(UIButton())
-            
+            self.myEventsCollectionView.reloadData()
             
         }
     }
@@ -133,6 +152,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         userEvents = .attending
+        filteredEvents = events.filter({ $0.eventType == .attending })
         attendingEventsIndicator.alpha = 1
         savedEventsIndicator.alpha = 0.5
         createdEventsIndicator.alpha = 0.5
@@ -143,6 +163,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         userEvents = .saved
+        filteredEvents = events.filter({ $0.eventType == .saved })
         attendingEventsIndicator.alpha = 0.5
         savedEventsIndicator.alpha = 1
         createdEventsIndicator.alpha = 0.5
@@ -154,6 +175,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         userEvents = .created
+        filteredEvents = events.filter({ $0.eventType == .created })
         attendingEventsIndicator.alpha = 0.5
         savedEventsIndicator.alpha = 0.5
         createdEventsIndicator.alpha = 1
@@ -226,23 +248,27 @@ class EventViewController: UIViewController, ControllerDelegate {
             guard
                 let detailVC = segue.destination as? EventDetailViewController,
                 let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
-            let event = attendingEvents?[indexPath.item]
-            detailVC.attendingEvent = event
-            
-        } else if segue.identifier == "ShowDetailSegue" && userEvents == .saved {
-            guard
-                let detailVC = segue.destination as? EventDetailViewController,
-                let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
-            let event = savedEvents?[indexPath.item]
-            detailVC.savedEvent = event
-            
-        } else if segue.identifier == "ShowDetailSegue" && userEvents == .created {
-            guard
-                let detailVC = segue.destination as? EventDetailViewController,
-                let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
-            let event = createdEvents?[indexPath.item]
-            detailVC.createdEvent = event
+            let event = filteredEvents[indexPath.item]
+            if let passedEvent = events.first(where: { $0.id == event.id }) {
+                detailVC.userEvent = passedEvent
+            }
         }
+//        else
+//
+//            if segue.identifier == "ShowDetailSegue" && userEvents == .saved {
+//            guard
+//                let detailVC = segue.destination as? EventDetailViewController,
+//                let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
+//            let event = savedEvents?[indexPath.item]
+//            detailVC.savedEvent = event
+//
+//        } else if segue.identifier == "ShowDetailSegue" && userEvents == .created {
+//            guard
+//                let detailVC = segue.destination as? EventDetailViewController,
+//                let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
+//            let event = createdEvents?[indexPath.item]
+//            detailVC.createdEvent = event
+//        }
 //        if userEvents == .attending {
 //            let event = attendingEvents?[indexPath.item]
 //            detailVC.attendingEvent = event
