@@ -344,7 +344,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         } else if segue.identifier == "ShowEventsTableDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventTableView.indexPathForSelectedRow else { return }
-            
+
             detailVC.indexPath = indexPath
             detailVC.event = filteredEvents?[indexPath.row]
         } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
@@ -363,6 +363,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         } else if segue.identifier == "ShowSearchResultsSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
             resultsVC.filter = currentFilter
+            resultsVC.searchBar = eventSearchBar
             currentFilter = nil
         } else if segue.identifier == "ByDistanceSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }

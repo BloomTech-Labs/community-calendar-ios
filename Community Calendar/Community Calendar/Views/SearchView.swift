@@ -12,7 +12,6 @@ import CoreLocation
 class SearchView: UIView, ControllerDelegate {
     
     //MARK: - Properties
-    
     var user: FetchUserIdQuery.Data.User? {
         didSet {
             print("Search View User: \(String(describing: user))")
@@ -205,9 +204,7 @@ extension SearchView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
            guard let cell = recentSearchesTableView.dequeueReusableCell(withIdentifier: "RecentSearchCell", for: indexPath) as? RecentSearchesTableViewCell else { return UITableViewCell() }
-           
            cell.filter = recentFiltersList[indexPath.row]
-           
            return cell
     }
     
