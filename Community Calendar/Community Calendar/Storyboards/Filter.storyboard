@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="svI-CA-vFy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="svI-CA-vFy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,7 +28,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Filters">
                                         <attributes>
-                                            <font key="NSFont" size="18" name="Poppins-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -73,7 +73,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Tags">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -128,7 +128,7 @@
                                                                 <fragment content="Tag">
                                                                     <attributes>
                                                                         <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                                                        <font key="NSFont" metaFont="system" size="14"/>
                                                                     </attributes>
                                                                 </fragment>
                                                             </attributedString>
@@ -170,13 +170,13 @@
                                 </collectionReusableView>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9o6-zC-wQj">
-                                <rect key="frame" x="341" y="70.5" width="57" height="26"/>
+                                <rect key="frame" x="338" y="70.5" width="60" height="26"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
                                         <fragment content="Clear Tags">
                                             <attributes>
                                                 <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <font key="NSFont" size="12" name="Poppins-Regular"/>
+                                                <font key="NSFont" metaFont="label" size="12"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -192,11 +192,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aff-St-oc9">
-                                <rect key="frame" x="16" y="354" width="55" height="17"/>
+                                <rect key="frame" x="16" y="354.5" width="55" height="17"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Location">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -204,11 +204,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VH2-z4-bgu">
-                                <rect key="frame" x="16" y="387" width="58" height="17"/>
+                                <rect key="frame" x="16" y="388.5" width="59" height="17"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Zip Code">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -216,11 +216,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XNE-HB-FSP">
-                                <rect key="frame" x="16" y="420" width="30" height="17"/>
+                                <rect key="frame" x="16" y="422.5" width="30" height="17"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Date">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -266,7 +266,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Tag">
                                                                     <attributes>
-                                                                        <font key="NSFont" size="14" name="Poppins-Regular"/>
+                                                                        <font key="NSFont" metaFont="system" size="14"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -301,7 +301,7 @@
                                 </cells>
                             </collectionView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="District" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEj-mQ-86p" customClass="DropDownTextField" customModule="Community_Calendar" customModuleProvider="target">
-                                <rect key="frame" x="238" y="352" width="160" height="21"/>
+                                <rect key="frame" x="238" y="352" width="160" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="OKk-4c-Sk1"/>
                                 </constraints>
@@ -309,7 +309,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Zip Code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JZj-wt-aUL">
-                                <rect key="frame" x="238" y="385" width="160" height="21"/>
+                                <rect key="frame" x="238" y="386" width="160" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="8hP-qi-rn1"/>
                                 </constraints>
@@ -317,7 +317,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="12-21-2019" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A6T-bu-S4J" customClass="DropDownTextField" customModule="Community_Calendar" customModuleProvider="target">
-                                <rect key="frame" x="238" y="418" width="160" height="21"/>
+                                <rect key="frame" x="238" y="420" width="160" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="Rub-4Q-lb8"/>
                                 </constraints>

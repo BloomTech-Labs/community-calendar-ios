@@ -18,7 +18,7 @@ protocol FilterDelegate {
 class FilterViewController: UIViewController {
     // MARK: - Varibles
     var delegate: FilterDelegate?
-    var isEditingTag: Bool = false
+    var isEditingTag:  Bool = false
     
     var districts: [String]?
     
