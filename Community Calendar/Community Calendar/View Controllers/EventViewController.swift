@@ -9,12 +9,10 @@
 import UIKit
 import OktaOidc
 import JTAppleCalendar
-
 enum MyTheme {
       case light
       case dark
   }
-
 class EventViewController: UIViewController, ControllerDelegate {
  
     //MARK: - Properties
@@ -58,8 +56,16 @@ class EventViewController: UIViewController, ControllerDelegate {
             self.populateDataSource()
         }
     }
-    var savedEvents: [FetchUserIdQuery.Data.User.Saved]?
-    var calendarDataSource: [String : String] = [:]
+    
+    var savedEvents: [FetchUserIdQuery.Data.User.Saved]? {
+        didSet {
+            self.populateDataSource()
+        }
+    }
+    
+    var createdCalDataSource: [String : String] = [:]
+    var savedCalDataSource: [String : String] = [:]
+    var attendingCalDataSource: [String : String] = [:]
     var detailEvent: FetchUserIdQuery.Data.User.CreatedEvent? {
         didSet {
             self.calendarView.reloadData()
@@ -70,7 +76,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         didSet {
             if let indexPath = featuredIndexPath {
                 self.detailEvent = Apollo.shared.createdEvents[indexPath.item]
-            } 
+            }
         }
     }
     
@@ -142,7 +148,6 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         userEvents = .created
-
     }
     
     
@@ -160,7 +165,6 @@ class EventViewController: UIViewController, ControllerDelegate {
     func setupSubViews() {
         myEventsCollectionView.dataSource = self
         myEventsCollectionView.delegate = self
-
         createdButtonTapped(UIButton())
 //        let dynamicMargin = detailAndCalendarCollectionView.bounds.height / 5
         filterView.translatesAutoresizingMaskIntoConstraints = false

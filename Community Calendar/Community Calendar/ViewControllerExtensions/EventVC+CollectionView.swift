@@ -8,13 +8,11 @@
 
 import UIKit
 import JTAppleCalendar
-
 extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         let dateCell = cell as! DateCell
         configureCell(view: dateCell, cellState: cellState)
-
     }
     
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
@@ -24,13 +22,11 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
         configureCell(view: cell, cellState: cellState)
         
         return cell
-
     }
     
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         let startDate = jtCalCompareFormatter.date(from: "17-may-2020")!
         let endDate = jtCalCompareFormatter.date(from: "17-may-2025")!
-
         let config = ConfigurationParameters.init(startDate: startDate, endDate: endDate, numberOfRows: 6, calendar: .current, generateInDates: .forAllMonths, generateOutDates: .tillEndOfRow, firstDayOfWeek: .sunday, hasStrictBoundaries: false)
         return config
     }
@@ -65,13 +61,24 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     
     func handleCellEvents(cell: DateCell, cellState: CellState) {
         let dateString = jtCalCompareFormatter.string(from: cellState.date)
-        if calendarDataSource[dateString] == nil {
+        if createdCalDataSource[dateString] == nil {
+            cell.createdDot.isHidden = true
+        } else {
+            cell.createdDot.isHidden = false
+        }
+        
+        if savedCalDataSource[dateString] == nil {
             cell.savedDot.isHidden = true
         } else {
             cell.savedDot.isHidden = false
         }
+        
+        if attendingCalDataSource[dateString] == nil {
+            cell.attendingDot.isHidden = true
+        } else {
+            cell.attendingDot.isHidden = false
+        }
     }
-
     func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
         let dateCell = cell as! DateCell
         configureCell(view: cell, cellState: cellState)
@@ -95,12 +102,28 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     }
     
     func populateDataSource() {
-        guard let attendingEvents = self.attendingEvents else { return }
+        guard
+            let createdEvents = self.createdEvents,
+            let savedEvents = self.savedEvents,
+            let attendingEvents = self.attendingEvents
+            else { return }
+        
+        for event in createdEvents {
+            let eventDate = jtCalCompareFormatter.string(from: event.startDate)
+            createdCalDataSource[eventDate] = eventDate
+        }
+        
+        for event in savedEvents {
+            let eventDate = jtCalCompareFormatter.string(from: event.startDate)
+            savedCalDataSource[eventDate] = eventDate
+        }
+        
         for event in attendingEvents {
             let eventDate = jtCalCompareFormatter.string(from: event.startDate)
-            calendarDataSource[eventDate] = eventDate
+            attendingCalDataSource[eventDate] = eventDate
         }
-        print("This is the calendar data source: \(calendarDataSource)")
+        
+        print("This is the calendar data source: \(createdCalDataSource)")
         calendarView.reloadData()
     }
     
@@ -127,7 +150,6 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == myEventsCollectionView {
             guard let cell = myEventsCollectionView.dequeueReusableCell(withReuseIdentifier: "MyEventCell", for: indexPath) as? MyEventCollectionViewCell else { return UICollectionViewCell() }
-
             if userEvents == .created {
                 let event = createdEvents?[indexPath.item]
                 cell.createdEvent = event
@@ -138,7 +160,6 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
                 let event = attendingEvents?[indexPath.item]
                 cell.attendingEvent = event
             }
-
             return cell
         }
 //        else if collectionView == detailAndCalendarCollectionView {
@@ -167,7 +188,6 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
 //            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
 //        }
     }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == myEventsCollectionView {
             return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 9)

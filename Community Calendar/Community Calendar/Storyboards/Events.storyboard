@@ -113,6 +113,11 @@
                                                         <constraint firstAttribute="width" constant="7" id="8WD-rA-mPs"/>
                                                         <constraint firstAttribute="height" constant="7" id="hOh-Bg-gZa"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <real key="value" value="3.5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAE-yo-clq">
                                                     <rect key="frame" x="25" y="21.5" width="7" height="7"/>
@@ -121,6 +126,11 @@
                                                         <constraint firstAttribute="height" constant="7" id="gxZ-qg-HHH"/>
                                                         <constraint firstAttribute="width" constant="7" id="noF-0y-jlm"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <real key="value" value="3.5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NOq-hN-SIh">
                                                     <rect key="frame" x="15" y="21.5" width="7" height="7"/>
