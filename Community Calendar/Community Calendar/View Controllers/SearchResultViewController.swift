@@ -168,7 +168,7 @@ class SearchResultViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailVC = segue.destination as? EventDetailViewController else { return }
-        detailVC.controller = controller
+//        detailVC.controller = controller
         if segue.identifier == "ShowDetailFromTable" {
             guard let indexPath = eventResultsTableView.indexPathForSelectedRow else { return }
 //            detailVC.event = events?[indexPath.row]

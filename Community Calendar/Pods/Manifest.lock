@@ -2,6 +2,7 @@ PODS:
   - Cloudinary (2.9.0):
     - Cloudinary/ios (= 2.9.0)
   - Cloudinary/ios (2.9.0)
+  - JTAppleCalendar (8.0.3)
   - OktaOidc (3.6.1):
     - OktaOidc/AppAuth (= 3.6.1)
     - OktaOidc/Okta (= 3.6.1)
@@ -14,17 +15,20 @@ PODS:
 
 DEPENDENCIES:
   - Cloudinary (~> 2.0)
+  - JTAppleCalendar
   - OktaOidc
 
 SPEC REPOS:
   trunk:
     - Cloudinary
+    - JTAppleCalendar
     - OktaOidc
 
 SPEC CHECKSUMS:
   Cloudinary: 8e9511826bd58df6b14f0c6c042f2c5a034081f4
+  JTAppleCalendar: 932cadea40b1051beab10f67843451d48ba16c99
   OktaOidc: 1fe96de259f1a80b2a8f83fa1f1ee222e891ebc2
 
-PODFILE CHECKSUM: 1fd907aeb8e28399fff91486eba745f29881ba91
+PODFILE CHECKSUM: bf35cbac40ce6feedc074e17fdda11d71731ad1f
 
 COCOAPODS: 1.9.1
