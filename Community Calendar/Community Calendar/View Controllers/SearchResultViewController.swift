@@ -62,6 +62,8 @@ class SearchResultViewController: UIViewController {
         guard let _ = events, isViewLoaded else { return }
         eventResultsCollectionView.reloadData()
         eventResultsTableView.reloadData()
+        view.backgroundColor = .white
+        seperatorView.backgroundColor = .white
         setFilterLabel()
     }
     
@@ -139,7 +141,7 @@ class SearchResultViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailVC = segue.destination as? EventDetailViewController else { return }
-        detailVC.controller = controller
+//        detailVC.controller = controller
         if segue.identifier == "ShowDetailFromTable" {
             guard let indexPath = eventResultsTableView.indexPathForSelectedRow else { return }
             detailVC.event = events?[indexPath.row]
@@ -157,6 +159,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = eventResultsCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell else { return UICollectionViewCell() }
+        cell.event = events?[indexPath.item]
         return cell
     }
 }

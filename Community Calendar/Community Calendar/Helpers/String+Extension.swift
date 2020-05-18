@@ -22,4 +22,11 @@ extension String { // Get height or width of label based on text and font. Used 
 
         return ceil(boundingBox.width)
     }
+    
+    func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
+        guard let font = UIFont(name: fontName, size: 14) else { return NSAttributedString() }
+        let attrString = NSAttributedString(string: title,
+                                            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font])
+        return attrString
+    }
 }

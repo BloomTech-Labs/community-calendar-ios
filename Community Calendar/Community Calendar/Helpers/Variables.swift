@@ -37,7 +37,8 @@ let dateFormatter: DateFormatter = {
 let featuredEventDateFormatter: DateFormatter = {
     let df = DateFormatter()
     df.timeZone = .current
-    df.dateFormat = "MMMM d, EEEE"
+    df.dateFormat = "EEEE, MMMM d"
+//    df.dateFormat = "MMMM d, EEEE"
     return df
 }()
 
@@ -50,7 +51,7 @@ let cellDateFormatter: DateFormatter = {
 
 let backendDateFormatter: DateFormatter = {
     let df = DateFormatter()
-    df.timeZone = .current
+    df.timeZone = .some(TimeZone(secondsFromGMT: 0)!)
     df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     return df
 }()
@@ -91,6 +92,24 @@ let backendDateFormatterWithoutTimezone: DateFormatter = {
     let df = DateFormatter()
     df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     return df
+}()
+
+let jtCalCompareFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd-MMM-yyyy"
+    return formatter
+}()
+
+let jtCalMonthFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMM"
+    return formatter
+}()
+
+let jtCalDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy MM dd"
+    return formatter
 }()
 
 let weekdayDateFormatterWithoutTimezone: DateFormatter = {
@@ -159,6 +178,26 @@ enum FilterEventType: String {
     case tomorrow
     case weekend
     case all
+}
+
+enum UserEvents {
+    case created
+    case saved
+    case attending
+}
+
+enum SettingsOptions: Int, CaseIterable, CustomStringConvertible {
+    case logout
+    case editProfile
+    
+    var description: String {
+        switch self {
+        case .logout:
+            return "  Logout"
+        case .editProfile:
+            return "  Edit Profile"
+        }
+    }
 }
 
 extension NSNotification.Name {

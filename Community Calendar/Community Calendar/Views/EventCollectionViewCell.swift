@@ -11,7 +11,7 @@ import UIKit
 class EventCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    var event: FetchDateRangedEventsQuery.Data.Event? {
+    var event: FetchEventsQuery.Data.Event? {
         didSet {
             updateViews()
         }

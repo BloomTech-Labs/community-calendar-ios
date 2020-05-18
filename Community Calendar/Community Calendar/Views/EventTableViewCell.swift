@@ -42,16 +42,12 @@ class EventTableViewCell: UITableViewCell {
     func updateViews() {
         guard
             let event = event,
-            let urlString = event.eventImages?.first?.url,
-            let url = URL(string: urlString),
-            let data = try? Data(contentsOf: url),
             let date = backendDateFormatter.date(from: event.start),
             let city = event.locations?.first?.city,
             let state = event.locations?.first?.state
             else { return }
         
         DispatchQueue.main.async {
-            self.eventImageView.image = UIImage(data: data)
             self.eventTitleLabel.text = event.title
             self.timeLabel.text = dateFormatter.string(from: date)
             self.districtNameLabel.text = "\(city), \(state)"
@@ -63,7 +59,7 @@ class EventTableViewCell: UITableViewCell {
         eventTitleLabel.textColor = .black
         timeLabel.textColor = .black
         eventImageView.layer.cornerRadius = 7
-        eventImageView.dropShadow()
+        eventImageView.blackShadow()
         eventImageView.layer.masksToBounds = true
     }
     

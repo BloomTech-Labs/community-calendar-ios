@@ -12,12 +12,23 @@ import MapKit
 class MyEventCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    var event: FetchUserIdQuery.Data.User.CreatedEvent? {
+    var createdEvent: FetchUserIdQuery.Data.User.CreatedEvent? {
         didSet {
-            updateViews()
+            updateViewsCreated()
         }
     }
     
+    var savedEvent: FetchUserIdQuery.Data.User.Saved? {
+        didSet {
+            updateViewsSaved()
+        }
+    }
+    
+    var attendingEvent: FetchUserIdQuery.Data.User.Rsvp? {
+        didSet {
+            updateViewsAttending()
+        }
+    }
     
     // MARK: - IBOutlets
     @IBOutlet weak var eventNameLabel: UILabel!
@@ -33,9 +44,9 @@ class MyEventCollectionViewCell: UICollectionViewCell {
         setupSubviews()
     }
     
-    func updateViews() {
+    func updateViewsCreated() {
         guard
-            let event = event,
+            let event = createdEvent,
             let urlString = event.eventImages?.first?.url,
             let url = URL(string: urlString),
             let data = try? Data(contentsOf: url),
@@ -44,6 +55,44 @@ class MyEventCollectionViewCell: UICollectionViewCell {
             let date = backendDateFormatter.date(from: event.start)
             else { return }
         
+        
+        DispatchQueue.main.async {
+            self.eventImageView.image = UIImage(data: data)
+            self.eventNameLabel.text = event.title
+            self.eventLocationLabel.text = "\(city), \(state)"
+            self.eventDateLabel.text = dateFormatter.string(from: date)
+        }
+    }
+    
+    func updateViewsSaved() {
+        guard
+            let event = savedEvent,
+            let urlString = event.eventImages?.first?.url,
+            let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url),
+            let city = event.locations?.first?.city,
+            let state = event.locations?.first?.state,
+            let date = backendDateFormatter.date(from: event.start)
+            else { return }
+        
+        DispatchQueue.main.async {
+            self.eventImageView.image = UIImage(data: data)
+            self.eventNameLabel.text = event.title
+            self.eventLocationLabel.text = "\(city), \(state)"
+            self.eventDateLabel.text = dateFormatter.string(from: date)
+        }
+    }
+    
+    func updateViewsAttending() {
+        guard
+            let event = attendingEvent,
+            let urlString = event.eventImages?.first?.url,
+            let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url),
+            let city = event.locations?.first?.city,
+            let state = event.locations?.first?.state,
+            let date = backendDateFormatter.date(from: event.start)
+            else { return }
         
         DispatchQueue.main.async {
             self.eventImageView.image = UIImage(data: data)
@@ -72,7 +121,7 @@ class MyEventCollectionViewCell: UICollectionViewCell {
         imageBackgroundView.anchor(top: self.topAnchor, leading: self.leadingAnchor, trailing: nil, bottom: self.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 8, left: 8, bottom: -8, right: 0), size: .zero)
         imageBackgroundView.layer.cornerRadius = 8
         imageBackgroundView.layer.masksToBounds = true
-        imageBackgroundView.dropShadow()
+        imageBackgroundView.blackShadow()
         
         eventImageView.anchor(top: imageBackgroundView.topAnchor, leading: imageBackgroundView.leadingAnchor, trailing: imageBackgroundView.trailingAnchor, bottom: imageBackgroundView.bottomAnchor, centerX: nil, centerY: nil, padding: .zero, size: .zero)
         eventImageView.layer.masksToBounds = true

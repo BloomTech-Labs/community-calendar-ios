@@ -44,6 +44,12 @@ class HomeViewController: UIViewController, ControllerDelegate {
         }
     }
 
+    var filteredEvents: [FetchEventsQuery.Data.Event]? {
+        didSet {
+            
+        }
+    }
+    
     var filter: FilterEventType? = .all {
         didSet {
             self.eventTableView.reloadData()
@@ -54,18 +60,13 @@ class HomeViewController: UIViewController, ControllerDelegate {
     let photoFetchQueue = OperationQueue()
     let cache = Cache<String, UIImage>()
     var operations = [String : Operation]()
-    private let todayEventDS = FilteredEventDataSource(for: .today)
-    private let tomorrowEventDS = FilteredEventDataSource(for: .tomorrow)
-    private let weekendEventDS = FilteredEventDataSource(for: .weekend)
-    private let allEventDS = FilteredEventDataSource(for: .all)
     
     var testing = false
     var repeatCount = 1
-    var fetchEventsTimer: Timer?
     var shouldDismissFilterScreen = true
     var unfilteredEvents: [FetchEventsQuery.Data.Event]? {        // Varible events' data source
         didSet {
-            todayTapped(UIButton())
+            allUpcomingTapped(UIButton())
         }
     }
     
@@ -108,24 +109,23 @@ class HomeViewController: UIViewController, ControllerDelegate {
         setUp()
         
         Apollo.shared.fetchEvents { _ in
+            self.events = Apollo.shared.events
+            self.filteredEvents = Apollo.shared.events
             self.eventCollectionView.reloadData()
             self.eventTableView.reloadData()
             self.featuredCollectionView.reloadData()
         }
+        
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     
-        self.eventCollectionView.reloadData()
-        self.eventTableView.reloadData()
-        self.featuredCollectionView.reloadData()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        super.viewWillAppear(animated)
         noResultsLabel.isHidden = true
     }
     
@@ -144,13 +144,11 @@ class HomeViewController: UIViewController, ControllerDelegate {
         featuredCollectionView.showsHorizontalScrollIndicator = false
         
         tableViewButtonTapped(UIButton())
-        todayTapped(UIButton())
-        
+        allUpcomingTapped(UIButton())
         
         eventSearchBar.delegate = self
         self.navigationController?.delegate = self
         shouldShowSearchView(false, shouldAnimate: false)               // Hide searchview on launch
-        
         
         todayButton.titleLabel?.adjustsFontSizeToFitWidth = true
         tomorrowButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -202,30 +200,17 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     // MARK: - Data Functions
     
-    private func fixDates(_ eventsList: [Event]) -> [Event] {
-        var events = eventsList
-        for (index, event) in events.enumerated() {
-            if let startDate = event.startDate {
-                events[index].startDate = backendDateFormatter.date(from: backendDateFormatter.string(from: startDate))
-            }
-            if let endDate = event.endDate {
-                events[index].endDate = backendDateFormatter.date(from: backendDateFormatter.string(from: endDate))
-            }
-        }
-        return events
-    }
-    
-    private func createMockData(eventList: [Event]) { // For testing without wifi
-        print("let testData = [")
-        for event in eventList {
-            var addComma = ","
-            if event == eventList.last! {
-                addComma = ""
-            }
-            print("Event(title: \"\(event.title)\", description: \"\(event.description)\", startDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.startDate ?? Date()))\") ?? Date(), endDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.endDate ?? Date()))\") ?? Date(), creator: \"\(event.creator)\", urls: \(event.urls), images: \(event.images), rsvps: \(event.rsvps), locations: \(event.locations), tags: \(event.tags), ticketPrice: \(event.ticketPrice))\(addComma)")
-        }
-        print("]")
-    }
+//    private func createMockData(eventList: [Event]) { // For testing without wifi
+//        print("let testData = [")
+//        for event in eventList {
+//            var addComma = ","
+//            if event == eventList.last! {
+//                addComma = ""
+//            }
+//            print("Event(title: \"\(event.title)\", description: \"\(event.description)\", startDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.startDate ?? Date()))\") ?? Date(), endDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.endDate ?? Date()))\") ?? Date(), creator: \"\(event.creator)\", urls: \(event.urls), images: \(event.images), rsvps: \(event.rsvps), locations: \(event.locations), tags: \(event.tags), ticketPrice: \(event.ticketPrice))\(addComma)")
+//        }
+//        print("]")
+//    }
     
     // MARK: - Search/Filter Functions
     func shouldShowSearchView(_ bool: Bool, shouldAnimate: Bool = true) {
@@ -283,9 +268,13 @@ class HomeViewController: UIViewController, ControllerDelegate {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-//        events = unfilteredEvents?.filter({ Calendar.current.dateComponents([.day, .month, .year], from: backendDateFormatter.date(from: $0.start) ?? Date(timeIntervalSince1970: 0)) == Calendar.current.dateComponents([.day, .month, .year], from: Date()) })
         filter = .today
-        dateLabel.text = todayDateFormatter.string(from: Date())
+        
+        let dates = Apollo.shared.todaysDateRange()
+        guard let startDate = dates.first, let endDate = dates.last else { return }
+        
+        filteredEvents = events?.filter({ $0.startDate.isBetween(startDate, and: endDate) })
+        dateLabel.text = todayDateFormatter.string(from: startDate)
         eventTableView.reloadData()
         eventCollectionView.reloadData()
     }
@@ -295,14 +284,16 @@ class HomeViewController: UIViewController, ControllerDelegate {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-//        let filterDate = Calendar.current.dateComponents([.day, .month, .year], from: Date().tomorrow)
-//        events = unfilteredEvents?.filter({
-//            return filterDate == Calendar.current.dateComponents([.day, .month, .year], from: backendDateFormatter.date(from: $0.start) ?? Date(timeIntervalSince1970: 0))
-//        })
         filter = .tomorrow
-        dateLabel.text = todayDateFormatter.string(from: Date().tomorrow)
+    
+        let dates = Apollo.shared.tomorrowsDateRange()
+        guard let startDate = dates.first, let endDate = dates.last else { return }
+        
+        filteredEvents = events?.filter({ $0.startDate.isBetween(startDate, and: endDate) })
+        dateLabel.text = todayDateFormatter.string(from: startDate)
         eventTableView.reloadData()
         eventCollectionView.reloadData()
+        
     }
     
     @IBAction func thisWeekendTapped(_ sender: UIButton) {
@@ -310,18 +301,16 @@ class HomeViewController: UIViewController, ControllerDelegate {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
-
-        let arrWeekDays = Date().getWeekDays()
-//        let saturdayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 2])
-//        let sundayFilterDate = Calendar.current.dateComponents([.day, .month, .year], from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 1])
-//        events = unfilteredEvents?.filter({
-//            let comp = Calendar.current.dateComponents([.day, .month, .year], from: backendDateFormatter.date(from: $0.start) ?? Date(timeIntervalSince1970: 0))
-//            return saturdayFilterDate == comp || sundayFilterDate == comp
-//        })
         filter = .weekend
-        dateLabel.text = "\(weekdayDateFormatter.string(from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 2])) - \(todayDateFormatter.string(from: arrWeekDays.thisWeek[arrWeekDays.thisWeek.count - 1]))"
+        
+        let dates = Apollo.shared.weekendDateRange()
+        guard let startDate = dates.first, let endDate = dates.last else { return }
+        
+        filteredEvents = events?.filter({ $0.startDate.isBetween(startDate, and: endDate) })
+        dateLabel.text = "\(todayDateFormatter.string(from: startDate)) - \(todayDateFormatter.string(from: endDate.addingTimeInterval(-1)))"
         eventTableView.reloadData()
         eventCollectionView.reloadData()
+        
     }
     
     @IBAction func allUpcomingTapped(_ sender: UIButton) {
@@ -329,13 +318,16 @@ class HomeViewController: UIViewController, ControllerDelegate {
         tomorrowButton.setAttributedTitle(createAttrText(with: "Tomorrow", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         thisWeekendButton.setAttributedTitle(createAttrText(with: "This weekend", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
-//        events = unfilteredEvents?.filter {
-//            return Date() < backendDateFormatter.date(from: $0.end) ?? Date(timeIntervalSince1970: 0)
-//        }
         filter = .all
-        dateLabel.text = "\(todayDateFormatter.string(from: Date()))+"
+        
+        let dates = Apollo.shared.allEventsRange()
+        guard let startDate = dates.first, let endDate = dates.last else { return }
+        
+        filteredEvents = events?.filter({ $0.startDate.isBetween(startDate, and: endDate) })
+        dateLabel.text = todayDateFormatter.string(from: Date())
         eventTableView.reloadData()
         eventCollectionView.reloadData()
+        
     }
     
     // MARK: - Search IBActions
@@ -346,26 +338,24 @@ class HomeViewController: UIViewController, ControllerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFeaturedDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
-                let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first,
-                let events = unfilteredEvents else { return }
+                let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first else { return }
             detailVC.indexPath = indexPath
-            detailVC.event = events[indexPath.row]
+            detailVC.event = events?[indexPath.item]
         } else if segue.identifier == "ShowEventsTableDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
-                let indexPath = eventTableView.indexPathForSelectedRow,
-            let events = events else { return }
+            let indexPath = eventTableView.indexPathForSelectedRow else { return }
+
             detailVC.indexPath = indexPath
-            detailVC.event = events[indexPath.row]
+            detailVC.event = filteredEvents?[indexPath.row]
         } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
-            let indexPath = eventCollectionView.indexPathsForSelectedItems?.first,
-            let events = events else { return }
+            let indexPath = eventCollectionView.indexPathsForSelectedItems?.first else { return }
             detailVC.indexPath = indexPath
-            detailVC.event = events[indexPath.item]
+            detailVC.event = filteredEvents?[indexPath.row]
         } else if segue.identifier == "CustomShowFilterSegue" {
             shouldDismissFilterScreen = false
             guard let filterVC = segue.destination as? FilterViewController else { return }
-            filterVC.events = unfilteredEvents
+            filterVC.events = filteredEvents
             if let filter = self.currentFilter {
                 filterVC.filter = filter
             }
