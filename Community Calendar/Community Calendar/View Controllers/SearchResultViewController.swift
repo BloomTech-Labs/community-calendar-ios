@@ -26,7 +26,6 @@ class SearchResultViewController: UIViewController {
     
     @IBOutlet private weak var eventResultsCollectionView: UICollectionView!
     @IBOutlet private weak var eventResultsTableView: UITableView!
-    
     @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet private weak var collectionViewButton: UIButton!
@@ -60,29 +59,22 @@ class SearchResultViewController: UIViewController {
     private func updateViews() {
         guard isViewLoaded else { return }
         eventResultsTableView.separatorColor = UIColor.clear
-        
         guard let _ = events, isViewLoaded else { return }
         eventResultsCollectionView.reloadData()
         eventResultsTableView.reloadData()
-        
         setFilterLabel()
     }
     
     private func setUp() {
         eventResultsCollectionView.delegate = self
         eventResultsCollectionView.dataSource = self
-        
         eventResultsTableView.delegate = self
         eventResultsTableView.dataSource = self
         eventResultsTableView.showsVerticalScrollIndicator = false
-        
         tableViewPressed(UIButton())
-        
         noResultsLabel.isHidden = true
-        
         updateViews()
         eventResultsCollectionView.isHidden = true
-        
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
@@ -91,30 +83,6 @@ class SearchResultViewController: UIViewController {
             $0.title.lowercased().contains(searchBar?.text?.lowercased() ?? "")
         }
         self.events = results
-//        guard let filter = filter, let controller = controller else { return }
-//        controller.getEvents(by: filter) { result in
-//            switch result {
-//            case .success(var filteredEvents):
-//                if let zip = filter.zipCode {
-//                    filteredEvents = filteredEvents.filter {
-//                        for location in $0.locations {
-//                            if location.zipcode == zip {
-//                                return true
-//                            }
-//                        }
-//                        return false
-//                    }
-//                }
-//                self.events = filteredEvents
-//                if self.events?.count == 0 {
-//                    DispatchQueue.main.async {
-//                        self.noResultsLabel.isHidden = false
-//                    }
-//                }
-//            case .failure(let error):
-//                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-//            }
-//        }
     }
     
     private func setFilterLabel() {
@@ -174,10 +142,10 @@ class SearchResultViewController: UIViewController {
         detailVC.controller = controller
         if segue.identifier == "ShowDetailFromTable" {
             guard let indexPath = eventResultsTableView.indexPathForSelectedRow else { return }
-//            detailVC.event = events?[indexPath.row]
+            detailVC.event = events?[indexPath.row]
         } else if segue.identifier == "ShowDetailFromCollection" {
             guard let indexPaths = eventResultsCollectionView.indexPathsForSelectedItems, let indexPath = indexPaths.first else { return }
-//            detailVC.event = events?[indexPath.row]
+            detailVC.event = events?[indexPath.row]
         }
     }
 }
@@ -189,9 +157,6 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = eventResultsCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell else { return UICollectionViewCell() }
-        
-//        cell.event =  [indexPath.row]
-        
         return cell
     }
 }
@@ -202,11 +167,8 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = eventResultsTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell
-            else { return UITableViewCell() }
-//        cell.controller = controller
+        guard let cell = eventResultsTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell else { return UITableViewCell() }
         cell.event = events?[indexPath.row]
-        
         return cell
     }
     
@@ -247,13 +209,12 @@ extension SearchResultViewController: UIGestureRecognizerDelegate, UINavigationC
 }
 
 extension SearchResultViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last, filter == nil {
-            let center = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//            events!.sort { center.distance(from: $0.locations[]) < center.distance(from: $1.locations[]) }
-            eventResultsTableView.reloadData()
-            eventResultsCollectionView.reloadData()
-        }
-        controller?.locationManager.stopUpdatingLocation()
-    }
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        if let location = locations.last, filter == nil {
+//            let center = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//            eventResultsTableView.reloadData()
+//            eventResultsCollectionView.reloadData()
+//        }
+//        controller?.locationManager.stopUpdatingLocation()
+//    }
 }
