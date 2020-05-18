@@ -139,16 +139,17 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == myEventsCollectionView {
-            switch userEvents {
-            case .created:
-                return createdEvents?.count ?? 0
-            case .saved:
-                return savedEvents?.count ?? 0
-            case .attending:
-                return attendingEvents?.count ?? 0
-            case .none:
-                return 0
-            }
+            return filteredEvents.count
+//            switch userEvents {
+//            case .created:
+//                return createdEvents?.count ?? 0
+//            case .saved:
+//                return savedEvents?.count ?? 0
+//            case .attending:
+//                return attendingEvents?.count ?? 0
+//            case .none:
+//                return 0
+//            }
         }
         return 0
     }
@@ -156,17 +157,19 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == myEventsCollectionView {
             guard let cell = myEventsCollectionView.dequeueReusableCell(withReuseIdentifier: "MyEventCell", for: indexPath) as? MyEventCollectionViewCell else { return UICollectionViewCell() }
-
-            if userEvents == .created {
-                let event = createdEvents?[indexPath.item]
-                cell.createdEvent = event
-            } else if userEvents == .saved {
-                let event = savedEvents?[indexPath.item]
-                cell.savedEvent = event
-            } else if userEvents == .attending {
-                let event = attendingEvents?[indexPath.item]
-                cell.attendingEvent = event
-            }
+            
+            let event = filteredEvents[indexPath.item]
+            cell.event = event 
+//            if userEvents == .created {
+//                let event = createdEvents?[indexPath.item]
+//                cell.createdEvent = event
+//            } else if userEvents == .saved {
+//                let event = savedEvents?[indexPath.item]
+//                cell.savedEvent = event
+//            } else if userEvents == .attending {
+//                let event = attendingEvents?[indexPath.item]
+//                cell.attendingEvent = event
+//            }
 
             return cell
         }
@@ -191,14 +194,36 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     func getUsersEvents(completion: @escaping (Swift.Result<FetchUserIdQuery.Data.User, Error>) -> Void) {
         if let oktaID = authController?.oktaID {
             Apollo.shared.fetchUserID(oktaID: oktaID) { result in
-                if let user = try? result.get(), let createdEvents = user.createdEvents, let savedEvents = user.saved, let attendingEvents = user.rsvps {
+                if let user = try? result.get(), let createdEvents = user.createdEvents, let savedEvents = user.saved, let attendingEvents = user.rsvps, let firstName = user.firstName, let lastName = user.lastName, let profileImage = user.profileImage  {
+                    var currentUser = User(id: user.id, firstName: firstName, lastName: lastName, profileImage: profileImage, userEvent: [])
+                    
                     let sortedCreated = createdEvents.sorted(by: { $0.startDate < $1.startDate })
                     let sortedSaved = savedEvents.sorted(by: { $0.startDate < $1.startDate })
                     let sortedAttending = attendingEvents.sorted(by: { $0.startDate < $1.startDate })
+                    
+                    for event in sortedAttending {
+                        let attendingEvent = UserEvent(attending: event)
+                        currentUser.userEvents?.append(attendingEvent)
+                    }
+                    
+                    for event in sortedSaved {
+                        let savedEvent = UserEvent(saved: event)
+                        currentUser.userEvents?.append(savedEvent)
+                    }
+                    
+                    for event in sortedCreated {
+                        let createdEvent = UserEvent(created: event)
+                        currentUser.userEvents?.append(createdEvent)
+                    }
+                    
+                    self.currentUser2 = currentUser
+                
+                    print("Inside function count: \(String(describing: self.currentUser2?.userEvents?.count))")
+            
                     self.currentUser = user
-                    self.createdEvents = sortedCreated
-                    self.savedEvents = sortedSaved
-                    self.attendingEvents = sortedAttending
+//                    self.createdEvents = sortedCreated
+//                    self.savedEvents = sortedSaved
+//                    self.attendingEvents = sortedAttending
                     print("Created Events: \(String(describing: self.createdEvents?.count)), Saved Events: \(String(describing: self.savedEvents?.count)), Attending Events: \(String(describing: self.attendingEvents?.count))")
                     completion(.success(user))
                 }

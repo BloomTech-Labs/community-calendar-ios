@@ -19,9 +19,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    var attendingEvent: FetchUserIdQuery.Data.User.Rsvp? {
+    var userEvent: UserEvent? {
         didSet {
-            updateViewsAttending()
+            updateViews()
         }
     }
     var savedEvent: FetchUserIdQuery.Data.User.Saved? {
@@ -107,36 +107,38 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         timeLabel.textColor = .black
     }
     
-    func updateViewsAttending() {
+    func updateViews() {
         guard
-            let event = attendingEvent,
-            let urlCreatorString = event.creator?.profileImage,
-            let urlCreator = URL(string: urlCreatorString),
-            let imageData = try? Data(contentsOf: urlCreator),
-            let urlString = event.eventImages?.first?.url,
+            let event = userEvent,
+            let urlString = event.image,
             let url = URL(string: urlString),
             let data = try? Data(contentsOf: url),
-            let streetAddress = event.locations?.first?.streetAddress,
-            let city = event.locations?.first?.city,
-            let state = event.locations?.first?.state,
-            let zipcode = event.locations?.first?.zipcode
+            let streetAddress = event.location?.streetAddress,
+            let city = event.location?.city,
+            let state = event.location?.state,
+            let zipcode = event.location?.zipcode,
+            let startDate = event.startDate,
+            let endDate = event.endDate
             else { return }
         
         DispatchQueue.main.async {
-            if let hostFirstName = event.creator?.firstName, let hostLastName = event.creator?.lastName {
+            if let urlCreatorString = event.creator.profileImage, let urlCreator = URL(string: urlCreatorString), let imageData = try? Data(contentsOf: urlCreator) {
+                self.eventImageView.image = UIImage(data: data)
+                self.hostImageView.image = UIImage(data: imageData)
+            }
+            if let hostFirstName = event.creator.firstName, let hostLastName = event.creator.lastName {
                 self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
             } else {
                 self.hostNameLabel.text = "N/A"
             }
-            self.eventImageView.image = UIImage(data: data)
-            self.hostImageView.image = UIImage(data: imageData)
-            self.dateLabel.text = featuredEventDateFormatter.string(from: event.startDate)
+            
+            self.dateLabel.text = featuredEventDateFormatter.string(from: startDate)
             self.titleLabel.text = event.title
             self.eventDescTextView.text = event.description
             self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
-            self.timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) \n to \n \(cellDateFormatter.string(from: event.endDate))"
+            self.timeLabel.text = "\(cellDateFormatter.string(from: startDate)) \n to \n \(cellDateFormatter.string(from: endDate))"
             
-            self.addressLabel.text = "\(streetAddress), \(city), \(state) \(zipcode)"
+            self.addressLabel.text = "\(streetAddress) \(city), \(state) \(zipcode)"
             
             let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
             height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)

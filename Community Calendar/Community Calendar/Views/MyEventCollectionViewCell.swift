@@ -12,6 +12,13 @@ import MapKit
 class MyEventCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
+    var event: UserEvent? {
+        didSet {
+            print("Cell User Event: \(String(describing: event))")
+            updateViewsCreated()
+        }
+    }
+    
     var createdEvent: FetchUserIdQuery.Data.User.CreatedEvent? {
         didSet {
             updateViewsCreated()
@@ -46,12 +53,12 @@ class MyEventCollectionViewCell: UICollectionViewCell {
     
     func updateViewsCreated() {
         guard
-            let event = createdEvent,
-            let urlString = event.eventImages?.first?.url,
+            let event = event,
+            let urlString = event.image,
             let url = URL(string: urlString),
             let data = try? Data(contentsOf: url),
-            let city = event.locations?.first?.city,
-            let state = event.locations?.first?.state,
+            let city = event.location?.city,
+            let state = event.location?.state,
             let date = backendDateFormatter.date(from: event.start)
             else { return }
         
