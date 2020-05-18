@@ -106,7 +106,7 @@ class AuthController {
     
     func signOut(viewController: UIViewController, completion: @escaping () -> Void) {
         guard let stateManager = stateManager, let oktaOidc = oktaOidc else { return }
-        let options: OktaSignOutOptions = .allOptions
+        let options: OktaSignOutOptions = [.revokeAccessToken, .revokeRefreshToken, .removeTokensFromStorage]
         oktaOidc.signOut(with: options, authStateManager: stateManager, from: viewController, progressHandler: { currentOption in
             if currentOption.contains(.revokeAccessToken) {
                 print("Revoking access token: \(currentOption)")

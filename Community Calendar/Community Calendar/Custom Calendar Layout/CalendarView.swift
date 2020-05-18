@@ -16,12 +16,12 @@ struct Colors {
 
 struct Style {
     static var bgColor = UIColor.white
-    static var monthViewLblColor = UIColor.white
-    static var monthViewBtnRightColor = UIColor.white
-    static var monthViewBtnLeftColor = UIColor.white
-    static var activeCellLblColor = UIColor.white
+    static var monthViewLblColor = UIColor.black
+    static var monthViewBtnRightColor = UIColor.black
+    static var monthViewBtnLeftColor = UIColor.black
+    static var activeCellLblColor = UIColor.black
     static var activeCellLblColorHighlighted = UIColor.black
-    static var weekdaysLblColor = UIColor.white
+    static var weekdaysLblColor = UIColor.black
     
     // Dark Theme Set Up
     static func themeDark(){
@@ -58,23 +58,33 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var presentYear = 0
     var todaysDate = 0
     var firstWeekDayOfMonth = 0   //(Sunday-Saturday 1-7)
+    var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]?
+    var savedEvents: [FetchUserIdQuery.Data.User.Saved]?
+    var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]?
+    
+    var user: FetchUserIdQuery.Data.User? {
+        didSet {
+            self.createdEvents = user?.createdEvents
+            print("Calendar View Created Events: \(self.createdEvents?.count as Any)")
+            self.savedEvents = user?.saved
+            print("Calendar View Saved Events: \(self.savedEvents?.count as Any)")
+            self.attendingEvents = user?.rsvps
+            print("Calendar View Attending Events: \(self.attendingEvents?.count as Any)")
+        }
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         initializeView()
+        
     }
     
     convenience init(theme: MyTheme) {
         self.init()
         
-        if theme == .dark {
-            Style.themeDark()
-        } else {
-            Style.themeLight()
-        }
         
-        initializeView()
     }
     
     func changeTheme() {
@@ -111,6 +121,16 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
     }
     
+    func compareDates(indexPath: IndexPath) {
+        
+        if let date = createdEvents?.first?.startDate {
+            let calcDate = indexPath.item - firstWeekDayOfMonth+2
+            let eventDate = Calendar.current.component(.day, from: date)
+            print("Calendar View Calc Date: \(calcDate)")
+            print("Calendar View Event Date: \(eventDate)")
+        }
+        myCollectionView.reloadData()
+    }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -122,8 +142,29 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         // MARK: - TODO/ FIXME: For every Event that is counted, add a red background color to the cell
         // One specific Event Date, just called dates(s) for difference
-       
+
+//        if let createdEvents = self.createdEvents {
+//            if createdEvents.count > 0 {
+//                for event in createdEvents {
+//                    let day = Calendar.current.component(.day, from: event.startDate)
+//                    let month = Calendar.current.component(.month, from: event.startDate)
+//                    if let cell = collectionView.cellForItem(at: [month, day]) {
+//                        cell.backgroundColor = .red
+//                    }
+//                }
+//            }
+//        }
         
+        
+        
+        
+
+        
+        
+//        let calcDate = indexPath.row - 2
+////        let date = Calendar.current.component(.day, from: calcDate)
+//        print("Calendar View Calc Date: \(calcDate)")
+//        compareDates(indexPath: indexPath)
         //FIXME: This For Loop doesn't run, eventDates is 0. Why?
 //        for event in eventDates {
 //           

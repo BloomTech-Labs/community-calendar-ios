@@ -8,6 +8,7 @@
 
 import UIKit
 import OktaOidc
+import JTAppleCalendar
 
 enum MyTheme {
       case light
@@ -39,75 +40,148 @@ class EventViewController: UIViewController, ControllerDelegate {
             print("Event View Controller Apollo Controller: \(String(describing: apolloController))")
         }
     }
-    
-    var apollo: ApolloController? = Apollo.shared
-    
-    var events: [FetchUserIdQuery.Data.User.CreatedEvent]? {
+ 
+    var userEvents: UserEvents? {
         didSet {
             self.myEventsCollectionView.reloadData()
-            self.detailAndCalendarCollectionView.reloadData()
+            self.calendarView.reloadData()
         }
     }
-    var detailEvent: GetUsersCreatedEventsQuery.Data.User.CreatedEvent? {
+    
+    var events: [UserEvent] = []
+    var filteredEvents: [UserEvent] = [] {
         didSet {
-            self.detailAndCalendarCollectionView.reloadData()
+            self.myEventsCollectionView.reloadData()
+        }
+    }
+    var currentUser2: User? {
+        didSet {
+            guard
+                let user = currentUser2,
+                let events = user.userEvents
+                else { return }
+                
+            for event in events {
+                    self.events.append(event)
+            }
+        }
+    }
+    var currentUser: FetchUserIdQuery.Data.User?
+    var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]? {
+        didSet {
+            self.populateDataSource()
+        }
+    }
+    var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]? {
+        didSet {
+            self.populateDataSource()
+        }
+    }
+    
+    var savedEvents: [FetchUserIdQuery.Data.User.Saved]? {
+        didSet {
+            self.populateDataSource()
+        }
+    }
+    
+    var createdCalDataSource: [String : String] = [:]
+    var savedCalDataSource: [String : String] = [:]
+    var attendingCalDataSource: [String : String] = [:]
+    var detailEvent: FetchUserIdQuery.Data.User.CreatedEvent? {
+        didSet {
+            self.calendarView.reloadData()
         }
     }
     
     var featuredIndexPath: IndexPath? {
         didSet {
             if let indexPath = featuredIndexPath {
-                self.detailEvent = Apollo.shared.createdEvents[indexPath.item]
+                
             } 
         }
     }
     
+//    #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
+    
     //MARK: - IBOutlets
     
+    @IBOutlet weak var calendarView: JTACMonthView!
     @IBOutlet weak var myEventsCollectionView: UICollectionView!
-    @IBOutlet weak var calendarView: UIView!
-    @IBOutlet weak var detailAndCalendarCollectionView: UICollectionView!
-   
+    @IBOutlet weak var attendingButton: UIButton!
+    @IBOutlet weak var savedButton: UIButton!
+    @IBOutlet weak var createdButton: UIButton!
+    @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var filterButtonStackView: UIStackView!
+    @IBOutlet weak var calendarBackgroundView: UIView!
+    @IBOutlet weak var attendingEventsIndicator: UIView!
+    @IBOutlet weak var savedEventsIndicator: UIView!
+    @IBOutlet weak var createdEventsIndicator: UIView!
+    
+    
     //MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupSubViews()
-        getUsersEvents { result in
+        
+        getUsersEvents { _ in
+            self.createdButtonTapped(UIButton())
+            self.myEventsCollectionView.reloadData()
             
         }
-    
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-    }
-    
- //MARK: - GraphQL Fetch
-    
-    private func fixDates(_ eventsList: [Event]) -> [Event] {
-        var events = eventsList
-        for (index, event) in events.enumerated() {
-            if let startDate = event.startDate {
-                events[index].startDate = backendDateFormatter.date(from: backendDateFormatter.string(from: startDate))
-            }
-            if let endDate = event.endDate {
-                events[index].endDate = backendDateFormatter.date(from: backendDateFormatter.string(from: endDate))
+        if user == nil {
+            if let accessToken = authController?.accessToken {
+                authController?.getUser(completion: { result in
+                    if let user = try? result.get() {
+                        let oktaID = user.first
+                    }
+                })
             }
         }
-        return events
     }
-
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    
+    // MARK: - IBActions
+    
+    @IBAction func attendingButtonTapped(_ sender: Any) {
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        userEvents = .attending
+        filteredEvents = events.filter({ $0.eventType == .attending })
+        attendingEventsIndicator.alpha = 1
+        savedEventsIndicator.alpha = 0.5
+        createdEventsIndicator.alpha = 0.5
+    }
+    
+    @IBAction func savedButtonTapped(_ sender: Any) {
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        userEvents = .saved
+        filteredEvents = events.filter({ $0.eventType == .saved })
+        attendingEventsIndicator.alpha = 0.5
+        savedEventsIndicator.alpha = 1
+        createdEventsIndicator.alpha = 0.5
         
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+    @IBAction func createdButtonTapped(_ sender: Any) {
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        createdButton.setAttributedTitle(createAttrText(with: "Created", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        userEvents = .created
+        filteredEvents = events.filter({ $0.eventType == .created })
+        attendingEventsIndicator.alpha = 0.5
+        savedEventsIndicator.alpha = 0.5
+        createdEventsIndicator.alpha = 1
+
     }
+    
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard let featuredIndexPath = self.myEventsCollectionView.indexPathsForVisibleItems.first else { return }
@@ -123,62 +197,91 @@ class EventViewController: UIViewController, ControllerDelegate {
     func setupSubViews() {
         myEventsCollectionView.dataSource = self
         myEventsCollectionView.delegate = self
-        detailAndCalendarCollectionView.dataSource = self
-        detailAndCalendarCollectionView.delegate = self
-        myEventsCollectionView.anchor(top: view.centerYAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: -80, left: 0, bottom: 0, right: 0), size: .zero)
-        detailAndCalendarCollectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: myEventsCollectionView.topAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
-        if let flowLayout = detailAndCalendarCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.scrollDirection = .horizontal
-            flowLayout.minimumLineSpacing = 0
-            detailAndCalendarCollectionView.isPagingEnabled = true
-        }
+        calendarView.layer.borderColor = #colorLiteral(red: 0.1722870469, green: 0.1891334951, blue: 0.2275838256, alpha: 1)
+        calendarView.layer.borderWidth = 1.0
+        calendarView.layer.cornerRadius = 12
+        calendarBackgroundView.layer.cornerRadius = 12
+        calendarBackgroundView.blackShadow()
         
-        detailAndCalendarCollectionView.register(Detail_CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "DetailCalendarCell")
+        createdButtonTapped(UIButton())
+        //        let dynamicMargin = detailAndCalendarCollectionView.bounds.height / 5
+        filterView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        
+        calendarView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2.3).isActive = true
+        calendarView.scrollDirection = .horizontal
+        calendarView.scrollingMode = .stopAtEachCalendarFrame
+        calendarView.showsHorizontalScrollIndicator = false
+        
+        //        NSLayoutConstraint.activate([
+        //            filterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        //            filterView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -dynamicMargin),
+        //            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+        //            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+        //            filterButtonStackView.centerXAnchor.constraint(equalTo: filterView.centerXAnchor),
+        //            filterButtonStackView.centerYAnchor.constraint(equalTo: filterView.centerYAnchor),
+        //            filterButtonStackView.topAnchor.constraint(equalTo: filterView.topAnchor, constant: 0),
+        //            filterButtonStackView.bottomAnchor.constraint(equalTo: filterView.bottomAnchor, constant: 0)
+        //        ])
+        //
+        //        detailAndCalendarCollectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: filterView.topAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
+        //
+        //        myEventsCollectionView.anchor(top: filterView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
+        
+        
+        //        if let flowLayout = calendarView.collectionViewLayout as? UICollectionViewFlowLayout {
+        //            flowLayout.scrollDirection = .horizontal
+        //            flowLayout.minimumLineSpacing = 0
+        //            calendarView.isPagingEnabled = true
+        //        }
     }
  
-    //MARK:- Custom Calendar
-    var theme = MyTheme.light
-    
-    func calendarViewDidLoad() {
-        self.title = "My Calender"
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.view.backgroundColor = Style.bgColor
-        
-        view.addSubview(calenderView)
-        calenderView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
-        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
-        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
-        calenderView.heightAnchor.constraint(equalToConstant: 365).isActive = true
-        
-        let rightBarBtn = UIBarButtonItem(title: "Light", style: .plain, target: self, action: #selector(rightBarBtnAction))
-        self.navigationItem.rightBarButtonItem = rightBarBtn
+    func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
+        guard let font = UIFont(name: fontName, size: 14) else { return NSAttributedString() }
+        let attrString = NSAttributedString(string: title,
+                                            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font])
+        return attrString
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        calenderView.myCollectionView.collectionViewLayout.invalidateLayout()
-    }
-    
-    // Light/ Dark Button Action
-    @objc func rightBarBtnAction(sender: UIBarButtonItem) {
-        if theme == .dark {
-            sender.title = "Dark"
-            theme = .light
-            Style.themeLight()
-        } else {
-            sender.title = "Light"
-            theme = .dark
-            Style.themeDark()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDetailSegue" && userEvents == .attending {
+            guard
+                let detailVC = segue.destination as? EventDetailViewController,
+                let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
+            let event = filteredEvents[indexPath.item]
+            if let passedEvent = events.first(where: { $0.id == event.id }) {
+                detailVC.userEvent = passedEvent
+            }
         }
-        self.view.backgroundColor = Style.bgColor
-        calenderView.changeTheme()
+//        else
+//
+//            if segue.identifier == "ShowDetailSegue" && userEvents == .saved {
+//            guard
+//                let detailVC = segue.destination as? EventDetailViewController,
+//                let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
+//            let event = savedEvents?[indexPath.item]
+//            detailVC.savedEvent = event
+//
+//        } else if segue.identifier == "ShowDetailSegue" && userEvents == .created {
+//            guard
+//                let detailVC = segue.destination as? EventDetailViewController,
+//                let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
+//            let event = createdEvents?[indexPath.item]
+//            detailVC.createdEvent = event
+//        }
+//        if userEvents == .attending {
+//            let event = attendingEvents?[indexPath.item]
+//            detailVC.attendingEvent = event
+//        }
+//        if userEvents == .saved {
+//            let event = savedEvents?[indexPath.item]
+//            detailVC.savedEvent = event
+//        }
+//        if userEvents == .created {
+//            let event = createdEvents?[indexPath.item]
+//            detailVC.createdEvent = event
+//        }
     }
-    
-    let calenderView: CalenderView = {
-        let v=CalenderView(theme: MyTheme.light)
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
 }
 
 
