@@ -7,8 +7,73 @@
 //
 
 import UIKit
+import JTAppleCalendar
 
-extension EventViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
+    func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
+        configureCell(view: cell, cellState: cellState)
+
+    }
+    
+    func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
+        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCell
+        cell.dateLabel.text = cellState.text
+        calendar.layer.cornerRadius = 12
+        
+        return cell
+
+    }
+    
+    func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
+        let startDate = jtCalDateFormatter.date(from: "2018 01 01")!
+        let endDate = jtCalDateFormatter.date(from: "2025 01 01")!
+//        calendar.scrollingMode = .stopAtEachCalendarFrame
+
+        let config = ConfigurationParameters.init(startDate: startDate, endDate: endDate, numberOfRows: 6, calendar: .current, generateInDates: .forAllMonths, generateOutDates: .tillEndOfGrid, firstDayOfWeek: .sunday, hasStrictBoundaries: true)
+        return config
+    }
+    
+    func handleCellTextColor(cell: DateCell, cellState: CellState) {
+        if cellState.dateBelongsTo == .thisMonth {
+            cell.dateLabel.textColor = UIColor.black
+        } else {
+            cell.dateLabel.textColor = UIColor.gray
+        }
+    }
+    
+    func configureCell(view: JTACDayCell?, cellState: CellState) {
+        guard let cell = view as? DateCell  else { return }
+        cell.dateLabel.text = cellState.text
+        handleCellTextColor(cell: cell, cellState: cellState)
+        handleCellSelected(cell: cell, cellState: cellState)
+    }
+    
+    func handleCellSelected(cell: DateCell, cellState: CellState) {
+        if cellState.isSelected {
+            cell.selectedView.layer.cornerRadius =  12
+            cell.selectedView.isHidden = false
+        } else {
+            cell.selectedView.isHidden = true
+        }
+    }
+    
+    func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
+        configureCell(view: cell, cellState: cellState)
+    }
+    
+    func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState) {
+        configureCell(view: cell, cellState: cellState)
+    }
+    
+    func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTACMonthReusableView {
+        let header = calendarView.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "DateHeader", for: indexPath) as! DateHeader
+        header.monthTitle.text = jtCalMonthFormatter.string(from: range.start)
+        return header
+    }
+    
+    internal func calendarSizeForMonths(_ calendar: JTACMonthView?) -> MonthSize? {
+        return MonthSize(defaultSize: 50)
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == myEventsCollectionView {
@@ -23,17 +88,17 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 return 0
             }
         }
-        if collectionView == detailAndCalendarCollectionView {
-            
-            return ViewType.allCases.count
-        }
+//        if collectionView == detailAndCalendarCollectionView {
+//
+//            return ViewType.allCases.count
+//        }
         return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == myEventsCollectionView {
             guard let cell = myEventsCollectionView.dequeueReusableCell(withReuseIdentifier: "MyEventCell", for: indexPath) as? MyEventCollectionViewCell else { return UICollectionViewCell() }
-            
+
             if userEvents == .created {
                 let event = createdEvents?[indexPath.item]
                 cell.createdEvent = event
@@ -44,24 +109,23 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 let event = attendingEvents?[indexPath.item]
                 cell.attendingEvent = event
             }
-            
-            return cell
-        } else if collectionView == detailAndCalendarCollectionView {
-            guard let cell = detailAndCalendarCollectionView.dequeueReusableCell(withReuseIdentifier: "DetailCalendarCell", for: indexPath) as? Detail_CalendarCollectionViewCell else { return UICollectionViewCell() }
-            
-            switch indexPath.item {
-            case 0:
-//                cell.event = self.detailEvent
-                cell.viewType = .calendar
-                cell.user = self.currentUser
-            case 1:
-                cell.viewType = .detail
-//                cell.event = self.detailEvent
-            default:
-                cell.viewType = .calendar
-            }
+
             return cell
         }
+//        else if collectionView == detailAndCalendarCollectionView {
+//            guard let cell = detailAndCalendarCollectionView.dequeueReusableCell(withReuseIdentifier: "DetailCalendarCell", for: indexPath) as? Detail_CalendarCollectionViewCell else { return UICollectionViewCell() }
+//
+//            switch indexPath.item {
+//            case 0:
+//                cell.viewType = .calendar
+//                cell.user = self.currentUser
+//            case 1:
+//                cell.viewType = .detail
+//            default:
+//                cell.viewType = .calendar
+//            }
+//            return cell
+//        }
         return UICollectionViewCell()
     }
     
@@ -69,18 +133,20 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
         if collectionView == myEventsCollectionView {
             collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
             self.featuredIndexPath = indexPath
-        } else if collectionView == detailAndCalendarCollectionView {
-            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
+//        else if collectionView == detailAndCalendarCollectionView {
+//            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+//        }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == myEventsCollectionView {
             return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 9)
-        } else if collectionView == detailAndCalendarCollectionView {
-            let dynamicMargin = detailAndCalendarCollectionView.bounds.height / 10
-            return CGSize(width: detailAndCalendarCollectionView.bounds.width, height: detailAndCalendarCollectionView.bounds.height - dynamicMargin)
         }
+//        else if collectionView == detailAndCalendarCollectionView {
+//            let dynamicMargin = detailAndCalendarCollectionView.bounds.height / 10
+//            return CGSize(width: detailAndCalendarCollectionView.bounds.width, height: detailAndCalendarCollectionView.bounds.height - dynamicMargin)
+//        }
         return CGSize()
     }
     
@@ -102,4 +168,14 @@ extension EventViewController: UICollectionViewDataSource, UICollectionViewDeleg
             }
         }
     }
+    
+//    extension EventViewController: JTAppleCalendar {
+//        func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "yyyy MM dd"
+//            let startDate = formatter.date(from: "2018 01 01")!
+//            let endDate = Date()
+//            return ConfigurationParameters(startDate: startDate, endDate: endDate)
+//        }
+//    }
 }

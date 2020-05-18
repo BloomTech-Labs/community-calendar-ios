@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import JTAppleCalendar
 
 
-class Detail_CalendarCollectionViewCell: UICollectionViewCell {
+class DateCell: JTACDayCell {
     
     // MARK: - Properties
     var event: FetchUserIdQuery.Data.User.CreatedEvent? {
@@ -26,11 +27,13 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     
     var user: FetchUserIdQuery.Data.User? {
         didSet {
-            self.calendarView.user = self.user
+//            self.calendarView.user = self.user
         }
     }
     
-//    let eventImageView = UIImageView()
+    @IBOutlet weak var selectedView: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
+    //    let eventImageView = UIImageView()
 //    let eventNameLabel = UILabel()
 //    let eventDateLabel = UILabel()
 //    let eventLocationLabel = UILabel()
@@ -40,12 +43,13 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     // MARK: - View 1
     let detailView = UIView()
     // MARK: - View 2
-    let calendarView = CalenderView()
+
+//    let calendarView = CalenderView()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
-        constraintsDetailView()
+//        constraintsDetailView()
 //        constraintCalendarView()
     }
     
@@ -56,10 +60,10 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
   
     func updateViews() {
         if viewType == .calendar {
-            calendarView.isHidden = false
+//            calendarView.isHidden = false
             
         } else if viewType == .detail {
-            calendarView.isHidden = true
+//            calendarView.isHidden = true
         }
     }
     
@@ -95,26 +99,26 @@ class Detail_CalendarCollectionViewCell: UICollectionViewCell {
     func constraintsDetailView() {
         
         // MARK: - Content View
-        contentView.addSubview(detailView)
+//        contentView.addSubview(calendarView)
         contentView.backgroundColor = .white
         
         // MARK: - Detail View
-        detailView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, centerX: contentView.centerXAnchor, centerY: contentView.centerYAnchor, padding: .zero, size: .zero)
+//        calendarView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, centerX: contentView.centerXAnchor, centerY: contentView.centerYAnchor, padding: .zero, size: .zero)
+//        
+//        NSLayoutConstraint.activate([
+//            calendarView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+//            calendarView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+//            calendarView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+//            calendarView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+//            calendarView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40)
+//        ])
         
-        NSLayoutConstraint.activate([
-            detailView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            detailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            detailView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
-            detailView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            detailView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40)
-        ])
-        
-        detailView.blackShadow()
-        detailView.backgroundColor = .white
-        detailView.layer.cornerRadius = 12
-        
-        detailView.addSubview(calendarView)
-        calendarView.anchor(top: detailView.topAnchor, leading: detailView.leadingAnchor, trailing: detailView.trailingAnchor, bottom: detailView.bottomAnchor, centerX: nil, centerY: nil)
+//        calendarView.blackShadow()
+//        calendarView.backgroundColor = .white
+//        calendarView.layer.cornerRadius = 12
+//        
+//        calendarView.addSubview(calendarView)
+//        calendarView.anchor(top: calendarView.topAnchor, leading: calendarView.leadingAnchor, trailing: calendarView.trailingAnchor, bottom: calendarView.bottomAnchor, centerX: nil, centerY: nil)
 
     }
 }

@@ -98,10 +98,10 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
         firstNameTextField.backgroundColor = #colorLiteral(red: 0.1721869707, green: 0.1871494651, blue: 0.2290506661, alpha: 1)
         firstUnderlineView.layer.cornerRadius = 0.5
         lastUnderlineView.layer.cornerRadius = 0.5
-        self.firstUnderlineView.isHidden = true
-        self.lastUnderlineView.isHidden = true
-        self.firstNameTextField.isHidden = true
-        self.lastNameTextField.isHidden = true
+        firstUnderlineView.isHidden = true
+        lastUnderlineView.isHidden = true
+        firstNameTextField.isHidden = true
+        lastNameTextField.isHidden = true
         
         
         if let user = user {
