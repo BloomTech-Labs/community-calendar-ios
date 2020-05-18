@@ -48,10 +48,15 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    var events: [UserEvent] = []
+    var events: [UserEvent] = [] {
+        didSet {
+            self.sortEvents()
+        }
+    }
     var filteredEvents: [UserEvent] = [] {
         didSet {
             self.myEventsCollectionView.reloadData()
+//            self.populateDataSource()
         }
     }
     var currentUser2: User? {
@@ -67,18 +72,18 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     var currentUser: FetchUserIdQuery.Data.User?
-    var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]? {
+    var createdEvents: [UserEvent]? {
         didSet {
             self.populateDataSource()
         }
     }
-    var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]? {
+    var attendingEvents: [UserEvent]? {
         didSet {
             self.populateDataSource()
         }
     }
     
-    var savedEvents: [FetchUserIdQuery.Data.User.Saved]? {
+    var savedEvents: [UserEvent]? {
         didSet {
             self.populateDataSource()
         }
@@ -244,7 +249,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowDetailSegue" && userEvents == .attending {
+        if segue.identifier == "ShowDetailSegue" {
             guard
                 let detailVC = segue.destination as? EventDetailViewController,
                 let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }

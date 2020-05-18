@@ -70,22 +70,37 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     
     func handleCellEvents(cell: DateCell, cellState: CellState) {
         let dateString = jtCalCompareFormatter.string(from: cellState.date)
+//        if calDataSource[dateString] == nil {
+//            cell.createdDot.isHidden = true
+//            cell.savedDot.isHidden = true
+//            cell.attendingDot.isHidden = true
+//        } else {
+//            let someEvent = calDataSource[dateString]
+//            if someEvent?.eventType == EventType.attending {
+//                cell.attendingDot.isHidden = false
+//            } else if someEvent?.eventType == EventType.saved {
+//                cell.savedDot.isHidden = false
+//            } else if someEvent?.eventType == EventType.created {
+//                cell.createdDot.isHidden = false
+//            }
+//        }
+        
         if createdCalDataSource[dateString] == nil {
             cell.createdDot.isHidden = true
         } else {
             cell.createdDot.isHidden = false
         }
-        
+
         if savedCalDataSource[dateString] == nil {
             cell.savedDot.isHidden = true
         } else {
             cell.savedDot.isHidden = false
         }
-        
+
         if attendingCalDataSource[dateString] == nil {
             cell.attendingDot.isHidden = true
         } else {
-            cell.attendingDot.isHidden = false 
+            cell.attendingDot.isHidden = false
         }
     }
 
@@ -111,6 +126,27 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
         return MonthSize(defaultSize: 50)
     }
     
+    func sortEvents() {
+        var attendingEvents: [UserEvent] = []
+        var savedEvents: [UserEvent] = []
+        var createdEvents: [UserEvent] = []
+        for event in events {
+            if event.eventType == .attending {
+                let createdEvent = event
+                attendingEvents.append(createdEvent)
+            } else if event.eventType == .saved {
+                let savedEvent = event
+                savedEvents.append(savedEvent)
+            } else if event.eventType == .created {
+                let createdEvent = event
+                createdEvents.append(createdEvent)
+            }
+        }
+        self.attendingEvents = attendingEvents
+        self.savedEvents = savedEvents
+        self.createdEvents = createdEvents
+    }
+    
     func populateDataSource() {
         guard
             let createdEvents = self.createdEvents,
@@ -118,22 +154,30 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
             let attendingEvents = self.attendingEvents
             else { return }
         
+    
+        
         for event in createdEvents {
-            let eventDate = jtCalCompareFormatter.string(from: event.startDate)
-            createdCalDataSource[eventDate] = eventDate
+            if let date = event.startDate {
+                let eventDate = jtCalCompareFormatter.string(from: date)
+                createdCalDataSource[eventDate] = eventDate
+            }
         }
         
         for event in savedEvents {
-            let eventDate = jtCalCompareFormatter.string(from: event.startDate)
-            savedCalDataSource[eventDate] = eventDate
+            if let date = event.startDate {
+                let eventDate = jtCalCompareFormatter.string(from: date)
+                savedCalDataSource[eventDate] = eventDate
+            }
         }
         
         for event in attendingEvents {
-            let eventDate = jtCalCompareFormatter.string(from: event.startDate)
-            attendingCalDataSource[eventDate] = eventDate
+            if let date = event.startDate {
+                let eventDate = jtCalCompareFormatter.string(from: date)
+                attendingCalDataSource[eventDate] = eventDate
+            }
         }
         
-        print("This is the calendar data source: \(createdCalDataSource)")
+//        print("This is the calendar data source: \(createdCalDataSource)")
         calendarView.reloadData()
     }
     
