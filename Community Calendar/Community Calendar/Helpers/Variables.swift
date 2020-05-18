@@ -94,6 +94,24 @@ let backendDateFormatterWithoutTimezone: DateFormatter = {
     return df
 }()
 
+let jtCalCompareFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd-MMM-yyyy"
+    return formatter
+}()
+
+let jtCalMonthFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMM"
+    return formatter
+}()
+
+let jtCalDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy MM dd"
+    return formatter
+}()
+
 let weekdayDateFormatterWithoutTimezone: DateFormatter = {
     let df = DateFormatter()
     df.dateFormat = "EEEE"

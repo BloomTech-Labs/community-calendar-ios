@@ -8,6 +8,7 @@
 
 import UIKit
 import OktaOidc
+import JTAppleCalendar
 
 enum MyTheme {
       case light
@@ -43,17 +44,25 @@ class EventViewController: UIViewController, ControllerDelegate {
     var userEvents: UserEvents? {
         didSet {
             self.myEventsCollectionView.reloadData()
-            self.detailAndCalendarCollectionView.reloadData()
+            self.calendarView.reloadData()
         }
     }
     var currentUser: FetchUserIdQuery.Data.User?
-    var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]?
-    var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]?
+    var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]? {
+        didSet {
+            self.populateDataSource()
+        }
+    }
+    var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]? {
+        didSet {
+            self.populateDataSource()
+        }
+    }
     var savedEvents: [FetchUserIdQuery.Data.User.Saved]?
-    
+    var calendarDataSource: [String : String] = [:]
     var detailEvent: FetchUserIdQuery.Data.User.CreatedEvent? {
         didSet {
-            self.detailAndCalendarCollectionView.reloadData()
+            self.calendarView.reloadData()
         }
     }
     
@@ -69,9 +78,8 @@ class EventViewController: UIViewController, ControllerDelegate {
     
     //MARK: - IBOutlets
     
+    @IBOutlet weak var calendarView: JTACMonthView!
     @IBOutlet weak var myEventsCollectionView: UICollectionView!
-    @IBOutlet weak var calendarView: UIView!
-    @IBOutlet weak var detailAndCalendarCollectionView: UICollectionView!
     @IBOutlet weak var attendingButton: UIButton!
     @IBOutlet weak var savedButton: UIButton!
     @IBOutlet weak var createdButton: UIButton!
@@ -152,34 +160,38 @@ class EventViewController: UIViewController, ControllerDelegate {
     func setupSubViews() {
         myEventsCollectionView.dataSource = self
         myEventsCollectionView.delegate = self
-        detailAndCalendarCollectionView.dataSource = self
-        detailAndCalendarCollectionView.delegate = self
+
         createdButtonTapped(UIButton())
-        let dynamicMargin = detailAndCalendarCollectionView.bounds.height / 5
+//        let dynamicMargin = detailAndCalendarCollectionView.bounds.height / 5
         filterView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            filterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            filterView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -dynamicMargin),
-            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            filterButtonStackView.centerXAnchor.constraint(equalTo: filterView.centerXAnchor),
-            filterButtonStackView.centerYAnchor.constraint(equalTo: filterView.centerYAnchor),
-            filterButtonStackView.topAnchor.constraint(equalTo: filterView.topAnchor, constant: 0),
-            filterButtonStackView.bottomAnchor.constraint(equalTo: filterView.bottomAnchor, constant: 0)
-        ])
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
         
-        detailAndCalendarCollectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: filterView.topAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
+        calendarView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2.3).isActive = true
+        calendarView.scrollDirection = .horizontal
+        calendarView.scrollingMode = .stopAtEachCalendarFrame
+        calendarView.showsHorizontalScrollIndicator = false
         
-        myEventsCollectionView.anchor(top: filterView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
+//        NSLayoutConstraint.activate([
+//            filterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            filterView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -dynamicMargin),
+//            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+//            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+//            filterButtonStackView.centerXAnchor.constraint(equalTo: filterView.centerXAnchor),
+//            filterButtonStackView.centerYAnchor.constraint(equalTo: filterView.centerYAnchor),
+//            filterButtonStackView.topAnchor.constraint(equalTo: filterView.topAnchor, constant: 0),
+//            filterButtonStackView.bottomAnchor.constraint(equalTo: filterView.bottomAnchor, constant: 0)
+//        ])
+//
+//        detailAndCalendarCollectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: filterView.topAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
+//
+//        myEventsCollectionView.anchor(top: filterView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
         
         
-        if let flowLayout = detailAndCalendarCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.scrollDirection = .horizontal
-            flowLayout.minimumLineSpacing = 0
-            detailAndCalendarCollectionView.isPagingEnabled = true
-        }
-        
-        detailAndCalendarCollectionView.register(Detail_CalendarCollectionViewCell.self, forCellWithReuseIdentifier: "DetailCalendarCell")
+//        if let flowLayout = calendarView.collectionViewLayout as? UICollectionViewFlowLayout {
+//            flowLayout.scrollDirection = .horizontal
+//            flowLayout.minimumLineSpacing = 0
+//            calendarView.isPagingEnabled = true
+//        }
     }
  
     //MARK:- Custom Calendar
