@@ -11,80 +11,84 @@ import JTAppleCalendar
 
 extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
+        guard let cell = cell as? DateCell else { return }
+        handleCellSelected(cell: cell, cellState: cellState)
+        let dateString = dateFormatter.string(from: date)
+        let formattedDate = dateFormatter.date(from: dateString)
+        self.dateSelected = formattedDate
+    }
+    
+    func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
+        guard let cell = cell as? DateCell else { return }
+        handleCellSelected(cell: cell, cellState: cellState)
+        
+    }
+    
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
-        let dateCell = cell as! DateCell
-        configureCell(view: dateCell, cellState: cellState)
+        guard let cell = cell as? DateCell else { return }
+        configureCell(cell: cell, cellState: cellState)
 
     }
     
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
-        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCell
-        cell.dateLabel.text = cellState.text
-        
-        configureCell(view: cell, cellState: cellState)
-        
+        guard let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as? DateCell else { return JTACDayCell() }
+
+        configureCell(cell: cell, cellState: cellState)
+
         return cell
 
     }
     
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
-        let startDate = jtCalCompareFormatter.date(from: "17-may-2020")!
-        let endDate = jtCalCompareFormatter.date(from: "17-may-2025")!
+        let startDate = jtCalCompareFormatter.date(from: "01-jan-2019")!
+        let endDate = jtCalCompareFormatter.date(from: "17-may-2027")!
 
         let config = ConfigurationParameters.init(startDate: startDate, endDate: endDate, numberOfRows: 6, calendar: .autoupdatingCurrent, generateInDates: .forAllMonths, generateOutDates: .tillEndOfGrid, firstDayOfWeek: .sunday, hasStrictBoundaries: true)
         return config
     }
     
-    func configureCell(view: JTACDayCell?, cellState: CellState) {
-        let cell = view as! DateCell
+    func configureCell(cell: DateCell, cellState: CellState) {
         cell.layer.borderWidth = 0.5
         cell.layer.borderColor = #colorLiteral(red: 0.1722870469, green: 0.1891334951, blue: 0.2275838256, alpha: 1)
+        cell.selectedView.backgroundColor = #colorLiteral(red: 0.1721869707, green: 0.1871494651, blue: 0.2290506661, alpha: 1)
+        
+        if cell.isSelected {
+            cell.selectedView.isHidden = false
+        } else {
+            cell.selectedView.isHidden = true
+        }
         cell.dateLabel.text = cellState.text
+
         handleCellEvents(cell: cell, cellState: cellState)
         handleCellTextColor(cell: cell, cellState: cellState)
         handleCellSelected(cell: cell, cellState: cellState)
     }
     
     func handleCellTextColor(cell: DateCell, cellState: CellState) {
-        if cellState.dateBelongsTo == .followingMonthWithinBoundary {
-            cell.dateLabel.textColor = .gray
-            cell.dateLabel.font = UIFont(name: PoppinsFont.light.rawValue, size: 12)
-        } else if cellState.dateBelongsTo == .previousMonthWithinBoundary {
-            cell.dateLabel.textColor = .gray
-            cell.dateLabel.font = UIFont(name: PoppinsFont.light.rawValue, size: 12)
-        } else if cellState.dateBelongsTo == .thisMonth {
+        if cellState.dateBelongsTo == .thisMonth {
             cell.dateLabel.textColor = .black
             cell.dateLabel.font = UIFont(name: PoppinsFont.semiBold.rawValue, size: 12)
-        }
+        } else {
+            cell.dateLabel.textColor = .lightGray
+            cell.dateLabel.font = UIFont(name: PoppinsFont.light.rawValue, size: 12)
+        } 
     }
     
     func handleCellSelected(cell: DateCell, cellState: CellState) {
         if cellState.isSelected {
             cell.selectedView.isHidden = false
-            cell.selectedView.backgroundColor = #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
+            cell.dateLabel.textColor = .white
+            cell.layer.borderColor = UIColor.white.cgColor
         } else {
             cell.selectedView.isHidden = true
-            cell.selectedView.backgroundColor = .white
+            cell.dateLabel.textColor = .black
+            cell.layer.borderColor = #colorLiteral(red: 0.1721869707, green: 0.1871494651, blue: 0.2290506661, alpha: 1)
         }
     }
     
     func handleCellEvents(cell: DateCell, cellState: CellState) {
         let dateString = jtCalCompareFormatter.string(from: cellState.date)
-//        if calDataSource[dateString] == nil {
-//            cell.createdDot.isHidden = true
-//            cell.savedDot.isHidden = true
-//            cell.attendingDot.isHidden = true
-//        } else {
-//            let someEvent = calDataSource[dateString]
-//            if someEvent?.eventType == EventType.attending {
-//                cell.attendingDot.isHidden = false
-//            } else if someEvent?.eventType == EventType.saved {
-//                cell.savedDot.isHidden = false
-//            } else if someEvent?.eventType == EventType.created {
-//                cell.createdDot.isHidden = false
-//            }
-//        }
-        
         if createdCalDataSource[dateString] == nil {
             cell.createdDot.isHidden = true
         } else {
@@ -102,18 +106,6 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
         } else {
             cell.attendingDot.isHidden = false
         }
-    }
-
-    func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
-        let dateCell = cell as! DateCell
-        configureCell(view: cell, cellState: cellState)
-        handleCellSelected(cell: dateCell, cellState: cellState)
-    }
-    
-    func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState) {
-        let dateCell = cell as! DateCell
-        configureCell(view: cell, cellState: cellState)
-        handleCellSelected(cell: dateCell, cellState: cellState)
     }
     
     func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTACMonthReusableView {
@@ -153,9 +145,7 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
             let savedEvents = self.savedEvents,
             let attendingEvents = self.attendingEvents
             else { return }
-        
     
-        
         for event in createdEvents {
             if let date = event.startDate {
                 let eventDate = jtCalCompareFormatter.string(from: date)
@@ -176,24 +166,12 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
                 attendingCalDataSource[eventDate] = eventDate
             }
         }
-        
-//        print("This is the calendar data source: \(createdCalDataSource)")
         calendarView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == myEventsCollectionView {
             return filteredEvents.count
-//            switch userEvents {
-//            case .created:
-//                return createdEvents?.count ?? 0
-//            case .saved:
-//                return savedEvents?.count ?? 0
-//            case .attending:
-//                return attendingEvents?.count ?? 0
-//            case .none:
-//                return 0
-//            }
         }
         return 0
     }
@@ -203,17 +181,7 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
             guard let cell = myEventsCollectionView.dequeueReusableCell(withReuseIdentifier: "MyEventCell", for: indexPath) as? MyEventCollectionViewCell else { return UICollectionViewCell() }
             
             let event = filteredEvents[indexPath.item]
-            cell.event = event 
-//            if userEvents == .created {
-//                let event = createdEvents?[indexPath.item]
-//                cell.createdEvent = event
-//            } else if userEvents == .saved {
-//                let event = savedEvents?[indexPath.item]
-//                cell.savedEvent = event
-//            } else if userEvents == .attending {
-//                let event = attendingEvents?[indexPath.item]
-//                cell.attendingEvent = event
-//            }
+            cell.event = event
 
             return cell
         }
@@ -222,8 +190,6 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == myEventsCollectionView {
-//            collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-//            self.featuredIndexPath = indexPath
             
         }
     }
@@ -260,15 +226,8 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
                         currentUser.userEvents?.append(createdEvent)
                     }
                     
-                    self.currentUser2 = currentUser
-                
-                    print("Inside function count: \(String(describing: self.currentUser2?.userEvents?.count))")
+                    self.currentUser = currentUser
             
-                    self.currentUser = user
-//                    self.createdEvents = sortedCreated
-//                    self.savedEvents = sortedSaved
-//                    self.attendingEvents = sortedAttending
-                    print("Created Events: \(String(describing: self.createdEvents?.count)), Saved Events: \(String(describing: self.savedEvents?.count)), Attending Events: \(String(describing: self.attendingEvents?.count))")
                     completion(.success(user))
                 }
             }

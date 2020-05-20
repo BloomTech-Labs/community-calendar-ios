@@ -53,7 +53,6 @@ class EventCollectionViewCell: UICollectionViewCell {
     func setupSubViews() {
 //        contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 8
-//        contentView.dropShadow()
         eventImageView.layer.masksToBounds = true
 //        eventImageView.layer.cornerRadius = 8
 //        eventImageView.layer.shadowRadius = 10

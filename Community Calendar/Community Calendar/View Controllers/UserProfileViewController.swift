@@ -51,6 +51,7 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var imageBackgroundView: UIView!
+    @IBOutlet weak var imageBackgroundView2: UIView!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var eventsCountStackView: UIStackView!

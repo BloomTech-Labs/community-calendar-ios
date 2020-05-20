@@ -18,6 +18,8 @@ let backgroundViewCornerRad: CGFloat = 10
 let foregroundViewCornerRad: CGFloat = 15
 var returnRadius: CGFloat { isRoundedDevice() }
 var miniFrame = CGRect()
+let dateSelected = "dateSelected"
+
 
 let todayDateFormatter: DateFormatter = {
     let df = DateFormatter()
@@ -38,7 +40,6 @@ let featuredEventDateFormatter: DateFormatter = {
     let df = DateFormatter()
     df.timeZone = .current
     df.dateFormat = "EEEE, MMMM d"
-//    df.dateFormat = "MMMM d, EEEE"
     return df
 }()
 
@@ -102,7 +103,7 @@ let jtCalCompareFormatter: DateFormatter = {
 
 let jtCalMonthFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateFormat = "MMM"
+    formatter.dateFormat = "MMMM yyyy"
     return formatter
 }()
 
@@ -187,15 +188,15 @@ enum UserEvents {
 }
 
 enum SettingsOptions: Int, CaseIterable, CustomStringConvertible {
-    case logout
     case editProfile
+    case logout
     
     var description: String {
         switch self {
-        case .logout:
-            return "  Logout"
         case .editProfile:
             return "  Edit Profile"
+        case .logout:
+            return "  Logout"
         }
     }
 }

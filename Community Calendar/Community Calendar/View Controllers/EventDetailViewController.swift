@@ -24,16 +24,16 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             updateViews()
         }
     }
-    var savedEvent: FetchUserIdQuery.Data.User.Saved? {
-        didSet {
-            
-        }
-    }
-    var createdEvent: FetchUserIdQuery.Data.User.CreatedEvent? {
-        didSet {
-            
-        }
-    }
+//    var savedEvent: FetchUserIdQuery.Data.User.Saved? {
+//        didSet {
+//
+//        }
+//    }
+//    var createdEvent: FetchUserIdQuery.Data.User.CreatedEvent? {
+//        didSet {
+//
+//        }
+//    }
     
     
 //    var controller: Controller?
@@ -123,7 +123,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         
         DispatchQueue.main.async {
             if let urlCreatorString = event.creator.profileImage, let urlCreator = URL(string: urlCreatorString), let imageData = try? Data(contentsOf: urlCreator) {
-                self.eventImageView.image = UIImage(data: data)
                 self.hostImageView.image = UIImage(data: imageData)
             }
             if let hostFirstName = event.creator.firstName, let hostLastName = event.creator.lastName {
@@ -131,7 +130,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             } else {
                 self.hostNameLabel.text = "N/A"
             }
-            
+            self.eventImageView.image = UIImage(data: data)
             self.dateLabel.text = featuredEventDateFormatter.string(from: startDate)
             self.titleLabel.text = event.title
             self.eventDescTextView.text = event.description
@@ -139,78 +138,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             self.timeLabel.text = "\(cellDateFormatter.string(from: startDate)) \n to \n \(cellDateFormatter.string(from: endDate))"
             
             self.addressLabel.text = "\(streetAddress) \(city), \(state) \(zipcode)"
-            
-            let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
-            height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)
-        }
-    }
-    
-    func updateViewsSaved() {
-        guard
-            let event = savedEvent,
-            let urlCreatorString = event.creator?.profileImage,
-            let urlCreator = URL(string: urlCreatorString),
-            let imageData = try? Data(contentsOf: urlCreator),
-            let urlString = event.eventImages?.first?.url,
-            let url = URL(string: urlString),
-            let data = try? Data(contentsOf: url),
-            let streetAddress = event.locations?.first?.streetAddress,
-            let city = event.locations?.first?.city,
-            let state = event.locations?.first?.state,
-            let zipcode = event.locations?.first?.zipcode
-            else { return }
-        
-        DispatchQueue.main.async {
-            if let hostFirstName = event.creator?.firstName, let hostLastName = event.creator?.lastName {
-                self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
-            } else {
-                self.hostNameLabel.text = "N/A"
-            }
-            self.eventImageView.image = UIImage(data: data)
-            self.hostImageView.image = UIImage(data: imageData)
-            self.dateLabel.text = featuredEventDateFormatter.string(from: event.startDate)
-            self.titleLabel.text = event.title
-            self.eventDescTextView.text = event.description
-            self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
-            self.timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) \n to \n \(cellDateFormatter.string(from: event.endDate))"
-            
-            self.addressLabel.text = "\(streetAddress), \(city), \(state) \(zipcode)"
-            
-            let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
-            height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)
-        }
-    }
-    
-    func updateViewsCreated() {
-        guard
-            let event = createdEvent,
-            let urlCreatorString = event.creator?.profileImage,
-            let urlCreator = URL(string: urlCreatorString),
-            let imageData = try? Data(contentsOf: urlCreator),
-            let urlString = event.eventImages?.first?.url,
-            let url = URL(string: urlString),
-            let data = try? Data(contentsOf: url),
-            let streetAddress = event.locations?.first?.streetAddress,
-            let city = event.locations?.first?.city,
-            let state = event.locations?.first?.state,
-            let zipcode = event.locations?.first?.zipcode
-            else { return }
-        
-        DispatchQueue.main.async {
-            if let hostFirstName = event.creator?.firstName, let hostLastName = event.creator?.lastName {
-                self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
-            } else {
-                self.hostNameLabel.text = "N/A"
-            }
-            self.eventImageView.image = UIImage(data: data)
-            self.hostImageView.image = UIImage(data: imageData)
-            self.dateLabel.text = featuredEventDateFormatter.string(from: event.startDate)
-            self.titleLabel.text = event.title
-            self.eventDescTextView.text = event.description
-            self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
-            self.timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) \n to \n \(cellDateFormatter.string(from: event.endDate))"
-            
-            self.addressLabel.text = "\(streetAddress), \(city), \(state) \(zipcode)"
             
             let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
             height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)
@@ -309,7 +236,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func addToCalendar(event: Event, startDate: Date, endDate: Date?) {
+    func addToCalendar(event: UserEvent, startDate: Date, endDate: Date?) {
         let calendarEvent = EKEvent(eventStore: eventStore)
 
         calendarEvent.title = event.title
@@ -448,42 +375,43 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func showInCalendar(_ sender: Any) {
-//        eventStore.requestAccess(to: .event) { (granted, error) in
-//            if let error = error {
-//                NSLog("\(#file):L\(#line): Unable to request access to calendar in \(#function) with error: \(error)")
-//                return
-//            }
-//
-//            if granted {
-//                guard let event = self.event, let startDate = event.startDate, let endDate = event.endDate else {
-//                    var message = ""
-//                    if self.event?.startDate == nil && self.event?.endDate == nil {
-//                        message = "\(self.event?.title ?? "Event") has no start or end dates. It cannot be added to the calendar"
-//                    } else if self.event?.startDate == nil && self.event?.endDate != nil {
-//                        message = "\(self.event?.title ?? "Event") has no start date. It cannot be added to the calendar"
-//                    } else if self.event?.endDate == nil && self.event?.startDate != nil {
-//                        message = "\(self.event?.title ?? "Event") has no end date. It cannot be added to the calendar"
-//                    }
-//                    let alert = UIAlertController(title: "Unable to add to calendar", message: message, preferredStyle: .alert)
-//                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//
-//                    return
-//                }
-//                if startDate > endDate {
-//                    let alert = UIAlertController(title: "Unable to add event to calendar", message: "The event's start date is after it's endDate. Would you like to add it to calendar with the start and end dates switched?", preferredStyle: .alert)
-//                    let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
-//                        self.addToCalendar(event: event, startDate: endDate, endDate: startDate)
-//                    }
-//                    alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
-//                    alert.addAction(yesAction)
-//                    DispatchQueue.main.sync {
-//                        self.present(alert, animated: true, completion: nil)
-//                    }
-//                }
-//                self.addToCalendar(event: event, startDate: startDate, endDate: endDate)
-//            } else {
-//                print("Access to calendar is not granted on device!") // TODO: Alert user and link to settings to change permissions
-//            }
-//        }
+        eventStore.requestAccess(to: .event) { (granted, error) in
+            if let error = error {
+                NSLog("\(#file):L\(#line): Unable to request access to calendar in \(#function) with error: \(error)")
+                return
+            }
+
+            if granted {
+            
+                guard let event = self.userEvent, let startDate = self.userEvent?.startDate, let endDate = self.userEvent?.endDate else {
+                    var message = ""
+                    if self.event?.startDate == nil && self.event?.endDate == nil {
+                        message = "\(self.event?.title ?? "Event") has no start or end dates. It cannot be added to the calendar"
+                    } else if self.event?.startDate == nil && self.event?.endDate != nil {
+                        message = "\(self.event?.title ?? "Event") has no start date. It cannot be added to the calendar"
+                    } else if self.event?.endDate == nil && self.event?.startDate != nil {
+                        message = "\(self.event?.title ?? "Event") has no end date. It cannot be added to the calendar"
+                    }
+                    let alert = UIAlertController(title: "Unable to add to calendar", message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+                    return
+                }
+                if startDate > endDate {
+                    let alert = UIAlertController(title: "Unable to add event to calendar", message: "The event's start date is after it's endDate. Would you like to add it to calendar with the start and end dates switched?", preferredStyle: .alert)
+                    let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
+                        self.addToCalendar(event: event, startDate: endDate, endDate: startDate)
+                    }
+                    alert.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
+                    alert.addAction(yesAction)
+                    DispatchQueue.main.sync {
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+                self.addToCalendar(event: event, startDate: startDate, endDate: endDate)
+            } else {
+                print("Access to calendar is not granted on device!") // TODO: Alert user and link to settings to change permissions
+            }
+        }
     }
 }

@@ -8,13 +8,23 @@
 
 import Foundation
 
-enum EventType {
+enum EventType: Equatable, Hashable {
     case attending
     case saved
     case created
 }
 
-struct UserEvent {
+struct UserEvent: Equatable, Hashable {
+    
+    static func == (lhs: UserEvent, rhs: UserEvent) -> Bool {
+        return lhs.id == rhs.id && lhs.title == rhs.title
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(title)
+    }
+    
     
     let id: String
     let title: String
@@ -69,7 +79,7 @@ struct UserEvent {
         if let creator = attending.creator, let attendingCreator = Creator(creator: creator) {
             self.creator = attendingCreator
         } else {
-            self.creator = Creator(id: "N/A", firstName: "N/A", lastName: "N/A", profileImage: "N/A")
+            self.creator = Creator(id: "N/A", firstName: "N/A", lastName: "", profileImage: "N/A")
         }
         self.eventType = eventType
     }
@@ -98,7 +108,7 @@ struct UserEvent {
         if let creator = saved.creator, let attendingCreator = Creator(creator: creator) {
             self.creator = attendingCreator
         } else {
-            self.creator = Creator(id: "N/A", firstName: "N/A", lastName: "N/A", profileImage: "N/A")
+            self.creator = Creator(id: "N/A", firstName: "N/A", lastName: "", profileImage: "N/A")
         }
         self.eventType = eventType
     }
@@ -127,7 +137,7 @@ struct UserEvent {
         if let creator = created.creator, let attendingCreator = Creator(creator: creator) {
             self.creator = attendingCreator
         } else {
-            self.creator = Creator(id: "N/A", firstName: "N/A", lastName: "N/A", profileImage: "N/A")
+            self.creator = Creator(id: "N/A", firstName: "N/A", lastName: "", profileImage: "N/A")
         }
         self.eventType = eventType
     }
