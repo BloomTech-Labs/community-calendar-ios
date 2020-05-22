@@ -26,7 +26,6 @@ class SearchResultViewController: UIViewController {
     
     @IBOutlet private weak var eventResultsCollectionView: UICollectionView!
     @IBOutlet private weak var eventResultsTableView: UITableView!
-    
     @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet private weak var collectionViewButton: UIButton!

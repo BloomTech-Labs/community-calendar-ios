@@ -27,6 +27,8 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     var allEvents = [FetchDateRangedEventsQuery.Data.Event]()
     var allUsersEvents = [FetchUserIdQuery.Data.User]()
     
+    let defaults = UserDefaults.standard
+    
     func fetchEvents(completion: @escaping (Swift.Result<[FetchEventsQuery.Data.Event], Error>) -> Void) {
         apollo.fetch(query: FetchEventsQuery(), cachePolicy: .returnCacheDataElseFetch) { result in
             switch result {

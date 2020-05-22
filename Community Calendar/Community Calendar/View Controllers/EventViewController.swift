@@ -126,29 +126,55 @@ class EventViewController: UIViewController, ControllerDelegate {
         super.viewDidLoad()
         
         setupSubViews()
-        
-        getUsersEvents { _ in
-            self.createdButtonTapped(UIButton())
-            self.myEventsCollectionView.reloadData()
-            self.calendarView.scrollToDate(Date())
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        if tabBar.authController.accessToken != nil {
+            getUsersEvents { _ in
+                self.createdButtonTapped(UIButton())
+                self.myEventsCollectionView.reloadData()
+                self.calendarView.scrollToDate(Date())
+            }
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if user == nil {
-            if let accessToken = authController?.accessToken {
-                authController?.getUser(completion: { result in
-                    if let user = try? result.get() {
-                        let oktaID = user.first
-                    }
-                })
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        
+        if tabBar.authController.accessToken == nil {
+            self.userEvents = nil
+            self.filteredEvents.removeAll()
+            self.myEventsCollectionView.reloadData()
+            self.calendarView.scrollToDate(Date())
+        } else {
+            if let accesstoken = tabBar.authController.accessToken {
+                tabBar.apolloController.apollo = tabBar.apolloController.configureApolloClient(accessToken: accesstoken)
+                getUsersEvents { _ in
+                    
+                    self.myEventsCollectionView.reloadData()
+                    self.calendarView.scrollToDate(Date())
+                }
             }
+            createdButtonTapped(UIButton())
+            myEventsCollectionView.reloadData()
         }
+        
+//        if let tabBar = tabBarController as? EventTabBarController, let accessToken = tabBar.authController.stateManager?.accessToken {
+//            if tabBar.authController.accessToken != nil {
+//                tabBar.apolloController.apollo = tabBar.apolloController.configureApolloClient(accessToken: accessToken)
+//
+//            }
+//        }
     }
+//        if user == nil {
+//            if let accessToken = authController?.accessToken {
+//                authController?.getUser(completion: { result in
+//                                    })
+//            }
+//        }
+//    }
     
     @objc func dateTapped(_ sender: Any) {
-        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .selectedButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         if let date = self.dateSelected {
@@ -178,6 +204,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     }
     
     @objc func attendingButtonTapped2(_ sender: Any) {
+        noEventsLabel.isHidden = true
         attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
@@ -187,10 +214,10 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedEventsIndicator.alpha = 0.5
         createdEventsIndicator.alpha = 0.5
         myEventsCollectionView.reloadData()
-        
     }
     
     @objc func savedButtonTapped2(_ sender: Any) {
+        noEventsLabel.isHidden = true
         attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
@@ -203,6 +230,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     }
     
     @objc func createdButtonTapped2(_ sender: Any) {
+        noEventsLabel.isHidden = true
         attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
@@ -212,6 +240,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedEventsIndicator.alpha = 0.5
         createdEventsIndicator.alpha = 1
         myEventsCollectionView.reloadData()
+        
     }
     
     func removeDuplicates(array: [UserEvent], completion: @escaping ([UserEvent]) -> Void)  {
@@ -240,6 +269,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedEventsIndicator.alpha = 0.5
         createdEventsIndicator.alpha = 0.5
         myEventsCollectionView.reloadData()
+        noEventsLabel.isHidden = true
     }
     
     @IBAction func savedButtonTapped(_ sender: Any) {
@@ -252,6 +282,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedEventsIndicator.alpha = 1
         createdEventsIndicator.alpha = 0.5
         myEventsCollectionView.reloadData()
+        noEventsLabel.isHidden = true
     }
     
     @IBAction func createdButtonTapped(_ sender: Any) {
@@ -264,6 +295,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         savedEventsIndicator.alpha = 0.5
         createdEventsIndicator.alpha = 1
         myEventsCollectionView.reloadData()
+        noEventsLabel.isHidden = true
     }
     
     

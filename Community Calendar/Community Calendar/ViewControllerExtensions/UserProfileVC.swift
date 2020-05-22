@@ -26,17 +26,17 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
         view.addSubview(firstUnderlineView)
         view.addSubview(lastUnderlineView)
         
-        cancelButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 20, left: 20, bottom: 0, right: 0), size: .zero)
+        topView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .zero, size: .zero)
         
-        menuButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 20, left: 20, bottom: 0, right: 0), size: .init(width: 40, height: 40))
-        
-        saveButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, trailing: view.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 20, left: 0, bottom: 0, right: -20), size: .zero)
-        
-        imageBackgroundView.anchor(top: saveButton.bottomAnchor, leading: nil, trailing: nil, bottom: nil, centerX: view.centerXAnchor, centerY: nil, padding: .zero, size: .init(width: view.bounds.width / 2, height: view.bounds.width / 2))
+        imageBackgroundView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, centerX: topView.centerXAnchor, centerY: topView.centerYAnchor, padding: .zero, size: .init(width: UIScreen.main.bounds.width / 2.1, height: UIScreen.main.bounds.width / 2.1))
         
         imageBackgroundView2.anchor(top: imageBackgroundView.topAnchor, leading: imageBackgroundView.leadingAnchor, trailing: imageBackgroundView.trailingAnchor, bottom: imageBackgroundView.bottomAnchor, centerX: nil, centerY: nil, padding: .zero, size: .zero)
         
         profileImageView.anchor(top: imageBackgroundView2.topAnchor, leading: imageBackgroundView2.leadingAnchor, trailing: imageBackgroundView2.trailingAnchor, bottom: imageBackgroundView2.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 1, left: 1, bottom: -1, right: -1), size: .zero)
+        
+        nameLabel.anchor(top: imageBackgroundView.bottomAnchor, leading: nil, trailing: nil, bottom: nil, centerX: topView.centerXAnchor, centerY: nil, padding: .init(top: 8, left: 0, bottom: 0, right: 0), size: .zero)
+        
+        emailLabel.anchor(top: nameLabel.bottomAnchor, leading: nil, trailing: nil, bottom: nil, centerX: topView.centerXAnchor, centerY: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .zero)
         
         firstNameTextField.anchor(top: imageBackgroundView.bottomAnchor, leading: view.leadingAnchor, trailing: view.centerXAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 20, bottom: 0, right: -20), size: .zero)
         
@@ -46,31 +46,34 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
         
         lastUnderlineView.anchor(top: lastNameTextField.bottomAnchor, leading: lastNameTextField.leadingAnchor, trailing: lastNameTextField.trailingAnchor, bottom: lastNameTextField.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: -1, left: -2, bottom: 1, right: 2), size: .zero)
         
-        nameLabel.anchor(top: imageBackgroundView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 20, bottom: 0, right: -20), size: .zero)
+        cancelButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 20, left: 20, bottom: 0, right: 0), size: .zero)
         
-        emailLabel.anchor(top: nameLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 20, bottom: 0, right: -20), size: .zero)
+        menuButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: nil, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 20, left: 20, bottom: 0, right: 0), size: .init(width: 40, height: 40))
         
-        topView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: emailLabel.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 8, right: 0), size: .zero)
+        saveButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, trailing: view.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 20, left: 0, bottom: 0, right: -20), size: .zero)
         
-        eventsCountStackView.anchor(top: topView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, centerX: view.centerXAnchor, centerY: nil, padding: .init(top: 20, left: 20, bottom: 0, right: -20), size: .zero)
+        eventsCountStackView.anchor(top: topView.bottomAnchor, leading: nil, trailing: nil, bottom: nil, centerX: view.centerXAnchor, centerY: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .zero)
+        
+        loginButton.anchor(top: topView.bottomAnchor, leading: nil, trailing: nil, bottom: nil, centerX: view.centerXAnchor, centerY: nil, padding: .init(top: 8, left: 0, bottom: 0, right: 0), size: .zero)
         
         NSLayoutConstraint.activate([
+            topView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.45),
             cameraButton.centerXAnchor.constraint(equalTo: profileImageView.centerXAnchor),
             cameraButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
             cameraButton.heightAnchor.constraint(equalTo: profileImageView.heightAnchor, multiplier: 0.3),
             cameraButton.widthAnchor.constraint(equalTo: profileImageView.widthAnchor, multiplier: 0.45),
-            saveButton.widthAnchor.constraint(equalToConstant: loginButton.bounds.width * 0.7),
-            cancelButton.widthAnchor.constraint(equalToConstant: loginButton.bounds.width * 0.7)
+            saveButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.2),
+            cancelButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.2),
+            loginButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.2)
         ])
-        
          
-        imageBackgroundView.layer.cornerRadius = imageBackgroundView.bounds.height / 2
-        imageBackgroundView2.layer.cornerRadius = imageBackgroundView.bounds.height / 2
+        imageBackgroundView.layer.cornerRadius = UIScreen.main.bounds.width / 4.2
+        imageBackgroundView2.layer.cornerRadius = UIScreen.main.bounds.width / 4.2
         imageBackgroundView2.backgroundColor = #colorLiteral(red: 0.7410163879, green: 0.4183317125, blue: 0.4147843719, alpha: 1)
         imageBackgroundView.gradientShadow1()
         imageBackgroundView2.gradientShadow2()
         loginButton.blackShadow()
-        profileImageView.layer.cornerRadius = profileImageView.bounds.height / 2
+        profileImageView.layer.cornerRadius = UIScreen.main.bounds.width / 4.2 - 1
         profileImageView.layer.masksToBounds = true
         profileImageView.contentMode = .scaleAspectFill
         loginButton.layer.cornerRadius = 12
@@ -117,23 +120,35 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
     }
 
     func loginUser() {
-        loginButton.isHidden = true
-        guard let apolloController = apolloController else { return }
-        authController?.signIn(viewController: self) { _ in
+        self.loginButton.isHidden = true
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        
+        tabBar.authController.signIn(viewController: self) { _ in
             if let accessToken = self.authController?.stateManager?.accessToken {
                 print("Access Token: \(accessToken)")
+                tabBar.authController.accessToken = accessToken
                 self.authController?.getUser { result in
                     guard let userInfo = try? result.get() else {
                         print("No Okta Auth User Info")
+                        DispatchQueue.main.async {
+                            self.loginButton.isHidden = false 
+                        }
                         return
                     }
                     if let oktaID = userInfo.first, let username = userInfo.last {
                         self.emailLabel.text = username
-                        self.apolloController?.apollo = apolloController.configureApolloClient(accessToken: accessToken)
-                        self.apolloController?.fetchUserID(oktaID: oktaID) { result in
+                        tabBar.apolloController.apollo = tabBar.apolloController.configureApolloClient(accessToken: accessToken)
+                        tabBar.apolloController.fetchUserID(oktaID: oktaID) { result in
                             if let user = try? result.get() {
+                                tabBar.apolloController.defaults.set(oktaID, forKey: UserDefaults.Keys.oktaID.rawValue)
+                                tabBar.apolloController.defaults.set(username, forKey: UserDefaults.Keys.oktaEmail.rawValue)
+                                tabBar.apolloController.defaults.set(user.id, forKey: UserDefaults.Keys.graphQLID.rawValue)
+                                print("At Sign In", tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) as Any)
+                                print("At Sign In", tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaEmail.rawValue) as Any)
+                                print("At Sign In", tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.graphQLID.rawValue) as Any)
                                 print("First Name: \(String(describing: user.firstName)), Last Name: \(String(describing: user.lastName)), profileImage: \(String(describing: user.profileImage))")
                                 DispatchQueue.main.async {
+                                    self.loginButton.isHidden = true
                                     self.updateViewsLogin(user: user)
                                 }
                             }
@@ -145,7 +160,15 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
     }
     
     func logoutUser() {
-        authController?.signOut(viewController: self, completion: {
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        tabBar.authController.signOut(viewController: self, completion: {
+            tabBar.apolloController.defaults.reset()
+            tabBar.authController.accessToken = nil
+            print(tabBar.authController.accessToken as Any)
+            tabBar.apolloController.currentUserID = nil
+            print("After Log Out", tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) as Any)
+            print("After Log Out", tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaEmail.rawValue) as Any)
+            print("After Log Out", tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.graphQLID.rawValue) as Any)
             DispatchQueue.main.async {
                 self.presentUserInfoAlert(title: "Success!", message: "You have been successfully logged out.")
             }
@@ -183,12 +206,18 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
             else { return }
         self.currentUserName = "\(firstName) \(lastName)"
         
+        
+        
         DispatchQueue.main.async {
+            if let tabBar = self.tabBarController as? EventTabBarController, let email = tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaEmail.rawValue) {
+                self.emailLabel.text = email
+            }
             self.profileImageView.image = UIImage(data: data)
             self.settingsLauncher.profileImage = self.profileImageView.image
             self.settingsLauncher.firstName = firstName
             self.settingsLauncher.lastName = lastName
             self.imageBackgroundView.isHidden = false
+            
             self.nameLabel.text = self.currentUserName
             self.emailLabel.isHidden = false
             self.profileImageView.isHidden = false
@@ -216,6 +245,18 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
                 self.numberOfAttendingLabel.text = "\(attendingCount)"
             } else {
                 self.numberOfAttendingLabel.text = "0"
+            }
+        }
+    }
+    
+    func isUserLoggedIn() {
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        if let accessToken = tabBar.authController.stateManager?.accessToken, let oktaID = tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) {
+            tabBar.apolloController.apollo = tabBar.apolloController.configureApolloClient(accessToken: accessToken)
+            tabBar.apolloController.fetchUserID(oktaID: oktaID) { result in
+                if let user = try? result.get() {
+                    self.updateViewsLogin(user: user)
+                }
             }
         }
     }

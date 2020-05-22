@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ma7-Lx-nbk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ma7-Lx-nbk">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -26,8 +26,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0w-bG-93l">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0w-bG-93l">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="378"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SbU-r8-BGg">
+                                        <rect key="frame" x="107" y="89" width="200" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1t7-9b-MAw">
+                                                <rect key="frame" x="1" y="0.0" width="200" height="200"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            </view>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bhX-Gk-24s">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svV-dU-pXl">
+                                                <rect key="frame" x="55" y="71" width="91" height="58"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="camera.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="cameraButtonTapped:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="5GG-4Z-BF4"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" red="0.1721869707" green="0.1871494651" blue="0.22905066609999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cc8-W6-gvm">
@@ -49,41 +76,24 @@
                                     <action selector="saveTapped:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="8WX-MZ-oGe"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SbU-r8-BGg">
-                                <rect key="frame" x="107" y="120" width="200" height="200"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1t7-9b-MAw">
-                                        <rect key="frame" x="1" y="0.0" width="200" height="200"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                    </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bhX-Gk-24s">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.39878201479999997" blue="0.41116151210000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuY-KG-0gC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuY-KG-0gC">
                                 <rect key="frame" x="20" y="328" width="374" height="20.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ms4-Vp-NI8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ms4-Vp-NI8">
                                 <rect key="frame" x="20" y="356" width="374" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWX-75-h7g">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWX-75-h7g">
                                 <rect key="frame" x="157" y="390" width="100" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="kVe-yj-21s"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="17"/>
                                 <state key="normal" title="Sign In">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -92,20 +102,20 @@
                                     <action selector="loginButtonTapped:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="Tuh-CL-pDD"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QZJ-fX-ZNl">
-                                <rect key="frame" x="20" y="398" width="374" height="160"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QZJ-fX-ZNl">
+                                <rect key="frame" x="134" y="482" width="147" height="160"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zNI-ck-NEw">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="147" height="48"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events Created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oWd-MN-cba">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="147" height="24"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fq0-a4-dlK">
-                                                <rect key="frame" x="0.0" y="24" width="374" height="24"/>
+                                                <rect key="frame" x="0.0" y="24" width="147" height="24"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -113,16 +123,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JB9-9e-JMv">
-                                        <rect key="frame" x="0.0" y="56" width="374" height="48"/>
+                                        <rect key="frame" x="0.0" y="56" width="147" height="48"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events Saved" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eT6-Mi-S3Q">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="147" height="24"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6O-hz-Gey">
-                                                <rect key="frame" x="0.0" y="24" width="374" height="24"/>
+                                                <rect key="frame" x="0.0" y="24" width="147" height="24"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -130,16 +140,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Fgq-T9-mb1">
-                                        <rect key="frame" x="0.0" y="112" width="374" height="48"/>
+                                        <rect key="frame" x="0.0" y="112" width="147" height="48"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events Attending" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSL-P4-7Lv">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="147" height="24"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGU-aD-X45">
-                                                <rect key="frame" x="0.0" y="24" width="374" height="24"/>
+                                                <rect key="frame" x="0.0" y="24" width="147" height="24"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -148,27 +158,8 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svV-dU-pXl">
-                                <rect key="frame" x="162" y="191" width="91" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="camera.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="cameraButtonTapped:" destination="Ma7-Lx-nbk" eventType="touchUpInside" id="5GG-4Z-BF4"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="IWX-75-h7g" firstAttribute="centerX" secondItem="dXB-cv-WTT" secondAttribute="centerX" id="0gE-Wx-PRX"/>
-                            <constraint firstItem="SbU-r8-BGg" firstAttribute="centerX" secondItem="dXB-cv-WTT" secondAttribute="centerX" id="HTa-gm-tQU"/>
-                            <constraint firstItem="lFR-Mm-pzB" firstAttribute="trailing" secondItem="QZJ-fX-ZNl" secondAttribute="trailing" constant="20" id="Kyr-vv-rwm"/>
-                            <constraint firstItem="IWX-75-h7g" firstAttribute="centerY" secondItem="dXB-cv-WTT" secondAttribute="centerY" constant="-40" id="Pzl-cm-UoZ"/>
-                            <constraint firstItem="SbU-r8-BGg" firstAttribute="leading" secondItem="lFR-Mm-pzB" secondAttribute="leading" constant="107" id="fhB-CH-AFn"/>
-                            <constraint firstItem="fq0-a4-dlK" firstAttribute="leading" secondItem="lFR-Mm-pzB" secondAttribute="leading" constant="20" id="gyI-2w-lqU"/>
-                            <constraint firstItem="fq0-a4-dlK" firstAttribute="top" secondItem="lFR-Mm-pzB" secondAttribute="top" constant="378" id="gzS-Wo-tvJ"/>
-                            <constraint firstItem="QZJ-fX-ZNl" firstAttribute="leading" secondItem="lFR-Mm-pzB" secondAttribute="leading" constant="20" id="hW5-HG-Hj5"/>
-                            <constraint firstItem="QZJ-fX-ZNl" firstAttribute="top" secondItem="e0w-bG-93l" secondAttribute="bottom" constant="20" id="nSi-kQ-y9C"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="lFR-Mm-pzB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Login" image="person" id="uDP-r0-Uu3"/>

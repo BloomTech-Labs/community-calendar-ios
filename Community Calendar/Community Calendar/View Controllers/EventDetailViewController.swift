@@ -322,6 +322,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func attendEvent(_ sender: UIButton) {
+        attendButton.backgroundColor = #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
+        attendButton.setTitle("Attending", for: .normal)
+        attendButton.setTitleColor(UIColor.white, for: .normal)
+//        self.dismiss(animated: true, completion: nil)
 //        guard
 //            let controller = controller,
 //            let event = event
