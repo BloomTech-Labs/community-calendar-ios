@@ -48,16 +48,21 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    var events: [UserEvent] = []
-    var filteredEvents: [UserEvent] = [] {
+    var events: [UserEvent] = [] {
         didSet {
-            self.myEventsCollectionView.reloadData()
+            self.sortEvents()
         }
     }
-    var currentUser2: User? {
+    var filteredEvents: [UserEvent] = [] {
+        didSet {
+//            self.myEventsCollectionView.reloadData()
+        }
+    }
+    
+    var currentUser: User? {
         didSet {
             guard
-                let user = currentUser2,
+                let user = currentUser,
                 let events = user.userEvents
                 else { return }
                 
@@ -66,19 +71,25 @@ class EventViewController: UIViewController, ControllerDelegate {
             }
         }
     }
-    var currentUser: FetchUserIdQuery.Data.User?
-    var createdEvents: [FetchUserIdQuery.Data.User.CreatedEvent]? {
+    
+    var dateSelected: Date? {
+        didSet {
+            dateTapped(_: self)
+        }
+    }
+    
+    var createdEvents: [UserEvent]? {
         didSet {
             self.populateDataSource()
         }
     }
-    var attendingEvents: [FetchUserIdQuery.Data.User.Rsvp]? {
+    var attendingEvents: [UserEvent]? {
         didSet {
             self.populateDataSource()
         }
     }
     
-    var savedEvents: [FetchUserIdQuery.Data.User.Saved]? {
+    var savedEvents: [UserEvent]? {
         didSet {
             self.populateDataSource()
         }
@@ -93,16 +104,6 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    var featuredIndexPath: IndexPath? {
-        didSet {
-            if let indexPath = featuredIndexPath {
-                
-            } 
-        }
-    }
-    
-//    #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
-    
     //MARK: - IBOutlets
     
     @IBOutlet weak var calendarView: JTACMonthView!
@@ -116,6 +117,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     @IBOutlet weak var attendingEventsIndicator: UIView!
     @IBOutlet weak var savedEventsIndicator: UIView!
     @IBOutlet weak var createdEventsIndicator: UIView!
+    @IBOutlet weak var noEventsLabel: UILabel!
     
     
     //MARK: - Life Cycle
@@ -128,7 +130,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         getUsersEvents { _ in
             self.createdButtonTapped(UIButton())
             self.myEventsCollectionView.reloadData()
-            
+            self.calendarView.scrollToDate(Date())
         }
     }
     
@@ -145,6 +147,87 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
+    @objc func dateTapped(_ sender: Any) {
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .selectedButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        if let date = self.dateSelected {
+            let range = Apollo.shared.selectedDate(date: date)
+            filteredEvents = []
+            if let start = range.first, let end = range.last {
+                let selectedEvents = events.filter({ ($0.startDate?.isBetween(start, and: end))!})
+                removeDuplicates(array: selectedEvents) { reducedEvents in
+                    self.filteredEvents = reducedEvents
+                    if self.filteredEvents.count < 1 {
+                        let prettyDate = featuredEventDateFormatter.string(from: date)
+                        self.noEventsLabel.text = "You have no events on \(prettyDate)."
+                        self.noEventsLabel.isHidden = false
+                    } else {
+                        self.noEventsLabel.isHidden = true
+                    }
+                    
+                    self.myEventsCollectionView.reloadData()
+                }
+                
+            }
+        }
+        attendingEventsIndicator.alpha = 0.5
+        savedEventsIndicator.alpha = 0.5
+        createdEventsIndicator.alpha = 0.5
+        
+    }
+    
+    @objc func attendingButtonTapped2(_ sender: Any) {
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        userEvents = .attending
+        filteredEvents = events.filter({ $0.eventType == .attending })
+        attendingEventsIndicator.alpha = 1
+        savedEventsIndicator.alpha = 0.5
+        createdEventsIndicator.alpha = 0.5
+        myEventsCollectionView.reloadData()
+        
+    }
+    
+    @objc func savedButtonTapped2(_ sender: Any) {
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        userEvents = .saved
+        filteredEvents = events.filter({ $0.eventType == .saved })
+        attendingEventsIndicator.alpha = 0.5
+        savedEventsIndicator.alpha = 1
+        createdEventsIndicator.alpha = 0.5
+        myEventsCollectionView.reloadData()
+    }
+    
+    @objc func createdButtonTapped2(_ sender: Any) {
+        attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
+        createdButton.setAttributedTitle(createAttrText(with: "Created", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
+        userEvents = .created
+        filteredEvents = events.filter({ $0.eventType == .created })
+        attendingEventsIndicator.alpha = 0.5
+        savedEventsIndicator.alpha = 0.5
+        createdEventsIndicator.alpha = 1
+        myEventsCollectionView.reloadData()
+    }
+    
+    func removeDuplicates(array: [UserEvent], completion: @escaping ([UserEvent]) -> Void)  {
+        var set = Set<UserEvent>()
+        var result: [UserEvent] = []
+        for event in array {
+            if set.contains(event) {
+                
+            } else {
+                set.insert(event)
+                result.append(event)
+            }
+        }
+        completion(result)
+    }
+    
     // MARK: - IBActions
     
     @IBAction func attendingButtonTapped(_ sender: Any) {
@@ -156,6 +239,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         attendingEventsIndicator.alpha = 1
         savedEventsIndicator.alpha = 0.5
         createdEventsIndicator.alpha = 0.5
+        myEventsCollectionView.reloadData()
     }
     
     @IBAction func savedButtonTapped(_ sender: Any) {
@@ -167,7 +251,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         attendingEventsIndicator.alpha = 0.5
         savedEventsIndicator.alpha = 1
         createdEventsIndicator.alpha = 0.5
-        
+        myEventsCollectionView.reloadData()
     }
     
     @IBAction func createdButtonTapped(_ sender: Any) {
@@ -179,16 +263,13 @@ class EventViewController: UIViewController, ControllerDelegate {
         attendingEventsIndicator.alpha = 0.5
         savedEventsIndicator.alpha = 0.5
         createdEventsIndicator.alpha = 1
-
+        myEventsCollectionView.reloadData()
     }
     
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        guard let featuredIndexPath = self.myEventsCollectionView.indexPathsForVisibleItems.first else { return }
         if scrollView == myEventsCollectionView {
-            self.featuredIndexPath = featuredIndexPath
-            print("This is the inside featuredIndexPath: \(String(describing: featuredIndexPath))")
-            print("This is the outside featuredIndexPath: \(String(describing: self.featuredIndexPath))")
+
             scrollView.decelerationRate = .fast
             scrollView.bouncesZoom = true
         }
@@ -198,11 +279,13 @@ class EventViewController: UIViewController, ControllerDelegate {
         myEventsCollectionView.dataSource = self
         myEventsCollectionView.delegate = self
         calendarView.layer.borderColor = #colorLiteral(red: 0.1722870469, green: 0.1891334951, blue: 0.2275838256, alpha: 1)
+        calendarView.backgroundColor = .white
         calendarView.layer.borderWidth = 1.0
         calendarView.layer.cornerRadius = 12
         calendarBackgroundView.layer.cornerRadius = 12
-        calendarBackgroundView.blackShadow()
-        
+        calendarBackgroundView.contactShadow()
+        calendarView.scrollingMode = .stopAtEachCalendarFrame
+        calendarView.allowsRangedSelection = true 
         createdButtonTapped(UIButton())
         //        let dynamicMargin = detailAndCalendarCollectionView.bounds.height / 5
         filterView.translatesAutoresizingMaskIntoConstraints = false
@@ -244,7 +327,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowDetailSegue" && userEvents == .attending {
+        if segue.identifier == "ShowDetailSegue" {
             guard
                 let detailVC = segue.destination as? EventDetailViewController,
                 let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
@@ -253,34 +336,6 @@ class EventViewController: UIViewController, ControllerDelegate {
                 detailVC.userEvent = passedEvent
             }
         }
-//        else
-//
-//            if segue.identifier == "ShowDetailSegue" && userEvents == .saved {
-//            guard
-//                let detailVC = segue.destination as? EventDetailViewController,
-//                let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
-//            let event = savedEvents?[indexPath.item]
-//            detailVC.savedEvent = event
-//
-//        } else if segue.identifier == "ShowDetailSegue" && userEvents == .created {
-//            guard
-//                let detailVC = segue.destination as? EventDetailViewController,
-//                let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
-//            let event = createdEvents?[indexPath.item]
-//            detailVC.createdEvent = event
-//        }
-//        if userEvents == .attending {
-//            let event = attendingEvents?[indexPath.item]
-//            detailVC.attendingEvent = event
-//        }
-//        if userEvents == .saved {
-//            let event = savedEvents?[indexPath.item]
-//            detailVC.savedEvent = event
-//        }
-//        if userEvents == .created {
-//            let event = createdEvents?[indexPath.item]
-//            detailVC.createdEvent = event
-//        }
     }
 }
 

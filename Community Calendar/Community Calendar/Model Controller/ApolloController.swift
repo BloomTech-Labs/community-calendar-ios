@@ -287,6 +287,19 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
         return todayRange
     }
     
+    func selectedDate(date: Date) -> [Date] {
+        var dateRange = [Date]()
+        let calendar = Calendar.current
+        let selectedDate = date
+        let midnight = calendar.startOfDay(for: selectedDate)
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: midnight)!
+
+        dateRange.append(midnight)
+        dateRange.append(tomorrow)
+        
+        return dateRange
+    }
+    
     func tomorrowsDateRange() -> [Date] {
         var dateRange = [Date]()
         let calendar = Calendar.current

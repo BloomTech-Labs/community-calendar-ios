@@ -59,7 +59,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ila-w0-CCe" userLabel="SearchBackgroundView">
-                                <rect key="frame" x="0.0" y="0.0" width="475" height="137.66666666666666"/>
+                                <rect key="frame" x="0.0" y="0.0" width="475" height="137"/>
                                 <color key="backgroundColor" name="Shark"/>
                             </view>
                             <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="g7Q-b9-lep">
@@ -74,20 +74,20 @@
                                 </scopeButtonTitles>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Featured" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIc-R7-2qC">
-                                <rect key="frame" x="16" y="108" width="72.333333333333329" height="21.666666666666657"/>
+                                <rect key="frame" x="16" y="108" width="71.666666666666671" height="21"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CK3-tv-Sqg">
-                                <rect key="frame" x="16.000000000000004" y="353.66666666666669" width="54.333333333333343" height="21.666666666666686"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                                <rect key="frame" x="15.999999999999996" y="353" width="54.666666666666657" height="21"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="i5q-B4-DVp">
-                                <rect key="frame" x="360" y="354.66666666666669" width="38" height="20"/>
+                                <rect key="frame" x="360" y="353.66666666666669" width="38" height="20"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4Q-Eg-rjg">
                                         <rect key="frame" x="0.0" y="4" width="13" height="12"/>
@@ -133,14 +133,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thursday, December 12, 2019" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4O-xw-GzV">
-                                <rect key="frame" x="16" y="432" width="192.33333333333334" height="17"/>
+                                <rect key="frame" x="16" y="430.66666666666669" width="192.33333333333334" height="17"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mbc-pE-p2h">
-                                <rect key="frame" x="0.0" y="145.66666666666666" width="414" height="191.99999999999997"/>
+                                <rect key="frame" x="0.0" y="145" width="414" height="192"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="192" id="pIj-kf-BuS"/>
@@ -234,18 +234,23 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="FeaturedHeader" id="9wU-hT-z1y">
-                                    <rect key="frame" x="0.0" y="0.0" width="16" height="191.99999999999997"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="16" height="192"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </collectionReusableView>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="FeaturedFooter" id="bdL-yj-ybk">
-                                    <rect key="frame" x="161" y="0.0" width="16" height="191.99999999999997"/>
+                                    <rect key="frame" x="161" y="0.0" width="16" height="192"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </collectionReusableView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.conrerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z3C-88-WYf">
-                                <rect key="frame" x="0.0" y="465" width="414" height="348"/>
+                                <rect key="frame" x="0.0" y="463.66666666666674" width="414" height="349.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="sectionIndexColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -321,7 +326,7 @@
                                 </prototypes>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pEp-ul-WoK">
-                                <rect key="frame" x="16" y="465" width="382" height="348"/>
+                                <rect key="frame" x="16" y="463.66666666666674" width="382" height="349.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="16" id="piF-CX-VNB">
                                     <size key="itemSize" width="165" height="165"/>
@@ -402,7 +407,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LqL-6o-O1F">
-                                <rect key="frame" x="355" y="104.33333333333333" width="43" height="28.999999999999986"/>
+                                <rect key="frame" x="355" y="104" width="43" height="29"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <state key="normal" title="See all">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -412,7 +417,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="lTs-qn-ZIT">
-                                <rect key="frame" x="16" y="391.33333333333331" width="382" height="28.666666666666686"/>
+                                <rect key="frame" x="16" y="390" width="382" height="28.666666666666686"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kgx-Vz-e36">
                                         <rect key="frame" x="0.0" y="0.0" width="39" height="28.666666666666668"/>
@@ -490,7 +495,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ki9-7N-9nF">
-                                <rect key="frame" x="176.66666666666666" y="481" width="61" height="14.333333333333314"/>
+                                <rect key="frame" x="176.66666666666666" y="479.66666666666669" width="61" height="14.333333333333314"/>
                                 <attributedString key="attributedText">
                                     <fragment content="No Results">
                                         <attributes>
@@ -513,7 +518,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                         <state key="normal" title="Filters">
-                                            <color key="titleColor" red="0.5031527281" green="0.5032284856" blue="0.503136158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
                                             <segue destination="KkW-Js-76C" kind="show" identifier="CustomShowFilterSegue" id="wYS-oF-gc4"/>
@@ -691,6 +696,7 @@
                             <constraint firstItem="lTs-qn-ZIT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Jtc-ju-GQa"/>
                             <constraint firstItem="pEp-ul-WoK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ni5-8v-VHo"/>
                             <constraint firstItem="g7Q-b9-lep" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ohd-QX-KeJ"/>
+                            <constraint firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="PI9-lR-S3K"/>
                             <constraint firstItem="g7Q-b9-lep" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-16" id="Qau-mp-sju"/>
                             <constraint firstItem="g7Q-b9-lep" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="50" id="RXC-uj-MrE"/>
                             <constraint firstItem="Ila-w0-CCe" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="SOF-k1-HlD"/>
@@ -713,6 +719,7 @@
                             <constraint firstItem="mbc-pE-p2h" firstAttribute="top" secondItem="FIc-R7-2qC" secondAttribute="bottom" constant="16" id="k5J-Fv-Zck"/>
                             <constraint firstItem="z3C-88-WYf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="koi-1B-1HE"/>
                             <constraint firstItem="i5q-B4-DVp" firstAttribute="centerY" secondItem="CK3-tv-Sqg" secondAttribute="centerY" id="m3J-Hr-FCa"/>
+                            <constraint firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="o54-Yg-Fw0"/>
                             <constraint firstItem="U4O-xw-GzV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="oLU-9E-2YU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U4O-xw-GzV" secondAttribute="trailing" constant="16" id="qck-mh-njH"/>
                             <constraint firstItem="Mow-Pn-qDL" firstAttribute="top" secondItem="g7Q-b9-lep" secondAttribute="bottom" constant="3" id="u8L-Ww-dNL"/>

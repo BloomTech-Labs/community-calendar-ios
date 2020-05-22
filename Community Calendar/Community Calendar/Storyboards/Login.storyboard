@@ -52,6 +52,11 @@
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SbU-r8-BGg">
                                 <rect key="frame" x="107" y="120" width="200" height="200"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1t7-9b-MAw">
+                                        <rect key="frame" x="1" y="0.0" width="200" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bhX-Gk-24s">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -69,7 +74,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ms4-Vp-NI8">
                                 <rect key="frame" x="20" y="356" width="374" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -176,6 +181,7 @@
                         <outlet property="eventsCreatedLabel" destination="oWd-MN-cba" id="j5a-AU-Ekb"/>
                         <outlet property="eventsSavedLabel" destination="eT6-Mi-S3Q" id="Tyh-cv-krW"/>
                         <outlet property="imageBackgroundView" destination="SbU-r8-BGg" id="yJu-b9-9Cp"/>
+                        <outlet property="imageBackgroundView2" destination="1t7-9b-MAw" id="DZP-aw-eVc"/>
                         <outlet property="loginButton" destination="IWX-75-h7g" id="Jtm-4o-hf2"/>
                         <outlet property="menuButton" destination="Cc8-W6-gvm" id="6L8-0a-F2c"/>
                         <outlet property="nameLabel" destination="AuY-KG-0gC" id="u5P-y0-0Dg"/>

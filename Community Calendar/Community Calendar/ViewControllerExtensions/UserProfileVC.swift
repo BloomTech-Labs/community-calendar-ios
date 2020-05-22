@@ -34,7 +34,9 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
         
         imageBackgroundView.anchor(top: saveButton.bottomAnchor, leading: nil, trailing: nil, bottom: nil, centerX: view.centerXAnchor, centerY: nil, padding: .zero, size: .init(width: view.bounds.width / 2, height: view.bounds.width / 2))
         
-        profileImageView.anchor(top: imageBackgroundView.topAnchor, leading: imageBackgroundView.leadingAnchor, trailing: imageBackgroundView.trailingAnchor, bottom: imageBackgroundView.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 1, left: 1, bottom: -1, right: -1), size: .zero)
+        imageBackgroundView2.anchor(top: imageBackgroundView.topAnchor, leading: imageBackgroundView.leadingAnchor, trailing: imageBackgroundView.trailingAnchor, bottom: imageBackgroundView.bottomAnchor, centerX: nil, centerY: nil, padding: .zero, size: .zero)
+        
+        profileImageView.anchor(top: imageBackgroundView2.topAnchor, leading: imageBackgroundView2.leadingAnchor, trailing: imageBackgroundView2.trailingAnchor, bottom: imageBackgroundView2.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 1, left: 1, bottom: -1, right: -1), size: .zero)
         
         firstNameTextField.anchor(top: imageBackgroundView.bottomAnchor, leading: view.leadingAnchor, trailing: view.centerXAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 20, bottom: 0, right: -20), size: .zero)
         
@@ -63,7 +65,10 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
         
          
         imageBackgroundView.layer.cornerRadius = imageBackgroundView.bounds.height / 2
-        imageBackgroundView.blackShadow()
+        imageBackgroundView2.layer.cornerRadius = imageBackgroundView.bounds.height / 2
+        imageBackgroundView2.backgroundColor = #colorLiteral(red: 0.7410163879, green: 0.4183317125, blue: 0.4147843719, alpha: 1)
+        imageBackgroundView.gradientShadow1()
+        imageBackgroundView2.gradientShadow2()
         loginButton.blackShadow()
         profileImageView.layer.cornerRadius = profileImageView.bounds.height / 2
         profileImageView.layer.masksToBounds = true
@@ -193,6 +198,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
             self.eventsCountStackView.isHidden = false
             self.menuButton.isHidden = false
             self.nameLabel.isHidden = false
+            
             if let createdEvents = user.createdEvents {
                 let createdCount = createdEvents.count
                 self.numberOfEventsCreatedLabel.text = "\(createdCount)"
