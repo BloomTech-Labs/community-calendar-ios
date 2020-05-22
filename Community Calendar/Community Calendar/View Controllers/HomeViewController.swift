@@ -175,7 +175,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     private func setUpSearchBar() {
-        eventSearchBar.backgroundColor = .white
+        eventSearchBar.backgroundColor = .systemBackground
         eventSearchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         eventSearchBar.setImage(UIImage(), for: .search, state: .normal)
         eventSearchBar.isTranslucent = true
@@ -236,7 +236,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
         guard let font = UIFont(name: fontName, size: 14) else { return NSAttributedString() }
         let attrString = NSAttributedString(string: title,
-            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font])
+                                            attributes: [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font])
         return attrString
     }
     
@@ -258,7 +258,6 @@ class HomeViewController: UIViewController, ControllerDelegate {
     }
     
     @IBAction func seeAllTapped(_ sender: UIButton) {
-        self.currentFilter = Filter()
         performSegue(withIdentifier: "ShowSearchResultsSegue", sender: self)
     }
     

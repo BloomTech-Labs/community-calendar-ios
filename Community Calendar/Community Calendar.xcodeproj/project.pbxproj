@@ -447,9 +447,9 @@
 			children = (
 				0EB19D5923A82C5B00640A40 /* Main.storyboard */,
 				0E09806623E20D2C000110AB /* Events.storyboard */,
+				0E09806823E20DB1000110AB /* EventDetail.storyboard */,
 				EF51CC4A23A83E4300FF4E62 /* Login.storyboard */,
 				0EE2AC2223CE3B6C002B3EB4 /* Filter.storyboard */,
-				0E09806823E20DB1000110AB /* EventDetail.storyboard */,
 				0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */,
 				0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */,
 			);

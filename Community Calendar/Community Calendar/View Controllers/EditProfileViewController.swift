@@ -9,8 +9,6 @@
 import UIKit
 import OktaOidc
 
-
-
 class EditProfileViewController: UIViewController {
 
     //MARK: - TODO: Pass the stateManager to access the Users Token

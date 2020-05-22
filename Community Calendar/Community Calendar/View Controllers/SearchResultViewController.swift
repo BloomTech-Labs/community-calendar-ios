@@ -62,7 +62,7 @@ class SearchResultViewController: UIViewController {
         guard let _ = events, isViewLoaded else { return }
         eventResultsCollectionView.reloadData()
         eventResultsTableView.reloadData()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         seperatorView.backgroundColor = .white
         setFilterLabel()
     }

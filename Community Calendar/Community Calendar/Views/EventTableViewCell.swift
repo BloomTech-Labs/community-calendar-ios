@@ -55,9 +55,6 @@ class EventTableViewCell: UITableViewCell {
     }
     
     func setupSubviews() {
-        districtNameLabel.textColor = .black
-        eventTitleLabel.textColor = .black
-        timeLabel.textColor = .black
         eventImageView.layer.cornerRadius = 7
         eventImageView.blackShadow()
         eventImageView.layer.masksToBounds = true
