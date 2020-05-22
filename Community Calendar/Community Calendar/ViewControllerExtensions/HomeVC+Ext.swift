@@ -110,6 +110,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
     // MARK: - UISearchBar Delegate Methods
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         shouldShowSearchView(true)
+        searchBarBackgroundView.backgroundColor = .systemBackground
         searchBarTrailingConstraint.constant = -searchBarCancelButton.frame.width - 32
         UIView.animate(withDuration: 0.25) {
             searchBar.layoutIfNeeded()

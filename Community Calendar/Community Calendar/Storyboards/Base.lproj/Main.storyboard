@@ -58,8 +58,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ila-w0-CCe">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="137.66666666666666"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ila-w0-CCe" userLabel="SearchBackgroundView">
+                                <rect key="frame" x="0.0" y="0.0" width="475" height="137.66666666666666"/>
                                 <color key="backgroundColor" name="Shark"/>
                             </view>
                             <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="g7Q-b9-lep">
@@ -68,7 +68,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="DM2-dR-BM9"/>
                                 </constraints>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <scopeButtonTitles>
                                     <string>Title</string>
@@ -78,7 +77,7 @@
                                 <rect key="frame" x="16" y="108" width="72.333333333333329" height="21.666666666666657"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CK3-tv-Sqg">
@@ -92,12 +91,18 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4Q-Eg-rjg">
                                         <rect key="frame" x="0.0" y="4" width="13" height="12"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="12" id="bKk-Nc-ppU"/>
                                             <constraint firstAttribute="width" constant="13" id="ctq-Oo-dgu"/>
                                         </constraints>
-                                        <state key="normal" image="list-selected"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="list">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            </preferredSymbolConfiguration>
+                                        </state>
                                         <connections>
                                             <action selector="tableViewButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lI2-Ea-vLb"/>
                                         </connections>
@@ -112,18 +117,20 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOQ-rn-s0j">
                                         <rect key="frame" x="26" y="4" width="12" height="12"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="12" id="D2v-cF-6x8"/>
                                             <constraint firstAttribute="height" constant="12" id="Vkg-ek-MXg"/>
                                         </constraints>
-                                        <state key="normal" image="grid-selected"/>
+                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="grid">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="collectionViewButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nVk-9D-6R9"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thursday, December 12, 2019" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4O-xw-GzV">
                                 <rect key="frame" x="16" y="432" width="192.33333333333334" height="17"/>
@@ -394,17 +401,11 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LqL-6o-O1F">
-                                <rect key="frame" x="355" y="104.66666666666667" width="43" height="28.666666666666671"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="See all">
-                                            <attributes>
-                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.50478916952054798" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" metaFont="menu" size="14"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LqL-6o-O1F">
+                                <rect key="frame" x="355" y="104.33333333333333" width="43" height="28.999999999999986"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <state key="normal" title="See all">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="seeAllTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e7J-KK-qif"/>
@@ -661,6 +662,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cbf-KY-KLb">
                                 <rect key="frame" x="414" y="56.666666666666657" width="45" height="29"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -674,7 +676,7 @@
                         <constraints>
                             <constraint firstItem="pEp-ul-WoK" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="16" id="2Hm-GO-6C6"/>
                             <constraint firstItem="ki9-7N-9nF" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="32" id="3ta-3N-QJD"/>
-                            <constraint firstItem="Cbf-KY-KLb" firstAttribute="leading" secondItem="Ila-w0-CCe" secondAttribute="trailing" id="6cI-o0-aBH"/>
+                            <constraint firstItem="Cbf-KY-KLb" firstAttribute="leading" secondItem="Ila-w0-CCe" secondAttribute="trailing" constant="-61" id="6cI-o0-aBH"/>
                             <constraint firstItem="z3C-88-WYf" firstAttribute="top" secondItem="U4O-xw-GzV" secondAttribute="bottom" constant="16" id="6zd-2q-HCV"/>
                             <constraint firstItem="Mow-Pn-qDL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="E2j-cI-Fam"/>
                             <constraint firstItem="CK3-tv-Sqg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="EEO-DJ-KBV"/>
@@ -728,6 +730,7 @@
                         <outlet property="eventTableView" destination="z3C-88-WYf" id="n6l-Nk-lMW"/>
                         <outlet property="featuredCollectionView" destination="mbc-pE-p2h" id="AGT-ct-TTf"/>
                         <outlet property="noResultsLabel" destination="ki9-7N-9nF" id="qx6-vD-Rvs"/>
+                        <outlet property="searchBarBackgroundView" destination="Ila-w0-CCe" id="4pG-r7-RFp"/>
                         <outlet property="searchBarCancelButton" destination="Cbf-KY-KLb" id="Iqp-Rn-LXF"/>
                         <outlet property="searchBarTrailingConstraint" destination="Qau-mp-sju" id="MoP-9N-g4S"/>
                         <outlet property="searchView" destination="Mow-Pn-qDL" id="nbH-Ex-FCa"/>
@@ -790,8 +793,8 @@
     <resources>
         <image name="Time" width="36" height="36"/>
         <image name="book" width="24" height="24"/>
-        <image name="grid-selected" width="24" height="24"/>
-        <image name="list-selected" width="26" height="24"/>
+        <image name="grid" width="24" height="24"/>
+        <image name="list" width="26" height="24"/>
         <image name="location-tag" width="26" height="36"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person" width="24" height="24"/>

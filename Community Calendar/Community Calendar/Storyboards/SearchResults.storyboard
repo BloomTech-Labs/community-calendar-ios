@@ -240,7 +240,7 @@
                                             <constraint firstAttribute="height" constant="12" id="7Hl-CZ-hVh"/>
                                             <constraint firstAttribute="width" constant="13" id="Jk1-DD-tiZ"/>
                                         </constraints>
-                                        <color key="tintColor" red="0.76862745099999996" green="0.76862745099999996" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <state key="normal" image="list-selected">
                                             <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
@@ -265,7 +265,7 @@
                                             <constraint firstAttribute="width" constant="12" id="Xkn-Ad-GoR"/>
                                             <constraint firstAttribute="height" constant="12" id="wbn-mb-vmb"/>
                                         </constraints>
-                                        <color key="tintColor" red="0.76862745099999996" green="0.76862745099999996" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <state key="normal" image="grid-selected">
                                             <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
@@ -339,7 +339,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="baO-PB-8V7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="94" y="118"/>
+            <point key="canvasLocation" x="92.753623188405811" y="117.85714285714285"/>
         </scene>
         <!--EventDetail-->
         <scene sceneID="Sll-cy-YPc">

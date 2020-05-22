@@ -100,6 +100,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     @IBOutlet weak var searchView: SearchView!
     @IBOutlet weak var searchBarCancelButton: UIButton!
     @IBOutlet weak var searchBarTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchBarBackgroundView: UIView!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
@@ -181,7 +182,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         eventSearchBar.isTranslucent = true
         eventSearchBar.searchTextField.backgroundColor = .clear
         eventSearchBar.layer.cornerRadius = 6
-        eventSearchBar.layer.shadowColor = UIColor.lightGray.cgColor
+        eventSearchBar.layer.shadowColor = UIColor.black.cgColor
         eventSearchBar.layer.shadowOpacity = 1.0
         eventSearchBar.layer.shadowRadius = 2
         eventSearchBar.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -331,6 +332,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     // MARK: - Search IBActions
     @IBAction func searchBarCancelButtonTapped(_ sender: UIButton) {
+        searchBarBackgroundView.backgroundColor = UIColor(named: "Shark")
         searchBarCancelButtonClicked(eventSearchBar)
     }
     
