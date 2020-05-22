@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-struct Location: Codable, Equatable {
+struct Location: Codable, Equatable, Hashable {
     
     let id: String
     let name: String?

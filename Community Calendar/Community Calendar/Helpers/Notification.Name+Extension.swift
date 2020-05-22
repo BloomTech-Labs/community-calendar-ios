@@ -14,5 +14,6 @@ extension Notification.Name {
         .init(rawValue: "EventController.imageWasLoaded")
     }
     static let handleLogout = NSNotification.Name("handleLogout")
-    static let editProfile = NSNotification.Name(rawValue: "editProfile")
+    static let editProfile = NSNotification.Name("editProfile")
+    static let dateSelected = NSNotification.Name("dateSelected")
 }

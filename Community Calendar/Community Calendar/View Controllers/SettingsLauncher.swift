@@ -27,7 +27,8 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = #colorLiteral(red: 0.1721869707, green: 0.1871494651, blue: 0.2290506661, alpha: 1)
         cv.layer.cornerRadius = 12
-        cv.contentInset.top = 20
+        cv.contentInset.top = 100
+//        cv.contentInset.top = 25
         return cv
     }()
     
@@ -82,7 +83,13 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
             self.height = height
             self.y = y
             
-            settingsCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
+            let width: CGFloat = window.frame.width / 2.5
+            let x = 0 - width
+            
+            
+            settingsCollectionView.frame = CGRect(x: x, y: 0, width: width, height: window.frame.height)
+            
+//            settingsCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
             window.addSubview(settingsCollectionView)
             
             //            window.addSubview(editProfileView)
@@ -95,7 +102,9 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.blackView.alpha = 1
                 
-                self.settingsCollectionView.frame = CGRect(x: 0, y: y, width: self.settingsCollectionView.frame.width, height: self.settingsCollectionView.frame.height)
+                self.settingsCollectionView.frame = CGRect(x: -7, y: 0, width: width, height: window.frame.height)
+                self.settingsCollectionView.settingsShadow()
+//                self.settingsCollectionView.frame = CGRect(x: 0, y: y, width: self.settingsCollectionView.frame.width, height: self.settingsCollectionView.frame.height)
             }, completion: nil)
         }
     }
@@ -108,9 +117,14 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
             
             if let window = window {
                 
-                self.settingsCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.settingsCollectionView.frame.width, height: self.settingsCollectionView.frame.height)
+                let width = window.frame.width / 2.5
                 
-                self.editProfileView.frame = CGRect(x: window.frame.width, y: window.frame.height - self.height, width: window.frame.width, height: self.height)
+                self.settingsCollectionView.frame = CGRect(x: -width, y: 0, width: width, height: window.frame.height)
+                
+                
+//                self.settingsCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.settingsCollectionView.frame.width, height: self.settingsCollectionView.frame.height)
+                
+//                self.editProfileView.frame = CGRect(x: window.frame.width, y: window.frame.height - self.height, width: window.frame.width, height: self.height)
                 
             }
         }) { _ in
@@ -132,9 +146,9 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
         
         switch indexPath.item {
         case 0:
-            cell.settingsOptions = .logout
-        case 1:
             cell.settingsOptions = .editProfile
+        case 1:
+            cell.settingsOptions = .logout
         default:
             break
         }
@@ -152,10 +166,10 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
-            NotificationCenter.default.post(.init(name: .handleLogout))
+            NotificationCenter.default.post(.init(name: .editProfile))
             self.handleDismiss()
         } else if indexPath.item == 1 {
-            NotificationCenter.default.post(.init(name: .editProfile))
+            NotificationCenter.default.post(.init(name: .handleLogout))
             self.handleDismiss()
         }
     }
@@ -293,4 +307,6 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
             completion()
         }
     }
+    
+    
 }

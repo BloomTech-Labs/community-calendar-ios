@@ -45,12 +45,14 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     var isEditingUser: Bool = false
     
     // MARK: - IBOutlets
+    
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var imageBackgroundView: UIView!
+    @IBOutlet weak var imageBackgroundView2: UIView!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var eventsCountStackView: UIStackView!
@@ -68,23 +70,42 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         setupSubView()
         NotificationCenter.default.addObserver(self, selector: #selector(handleLogout), name: .handleLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(editUserProfile), name: .editProfile, object: nil)
+        
+        isUserLoggedIn()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        
+        if tabBar.authController.accessToken == nil {
+            loginButton.isHidden = false
+        } else {
+            loginButton.isHidden = true 
+        }
+        
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        authController?.getUser(completion: { result in
-            if let user = try? result.get() {
-                let email = user.last
-                if email != nil {
-                    self.emailLabel.text = email
-                }
-            }
-        })
-        
-        fetchCreatedEvents {
-            
-        }
+//        authController?.getUser(completion: { result in
+//            if let user = try? result.get() {
+//                let email = user.last
+//                if email != nil {
+//                    self.emailLabel.text = email
+//                }
+//            }
+//        })
+//        
+//        fetchCreatedEvents {
+//            
+//        }
     }
     
     // MARK: - IBActions

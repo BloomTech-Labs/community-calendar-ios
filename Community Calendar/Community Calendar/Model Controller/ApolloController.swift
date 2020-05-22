@@ -27,6 +27,8 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
     var allEvents = [FetchDateRangedEventsQuery.Data.Event]()
     var allUsersEvents = [FetchUserIdQuery.Data.User]()
     
+    let defaults = UserDefaults.standard
+    
     func fetchEvents(completion: @escaping (Swift.Result<[FetchEventsQuery.Data.Event], Error>) -> Void) {
         apollo.fetch(query: FetchEventsQuery(), cachePolicy: .returnCacheDataElseFetch) { result in
             switch result {
@@ -285,6 +287,19 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
         todayRange.append(tomorrow)
         
         return todayRange
+    }
+    
+    func selectedDate(date: Date) -> [Date] {
+        var dateRange = [Date]()
+        let calendar = Calendar.current
+        let selectedDate = date
+        let midnight = calendar.startOfDay(for: selectedDate)
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: midnight)!
+
+        dateRange.append(midnight)
+        dateRange.append(tomorrow)
+        
+        return dateRange
     }
     
     func tomorrowsDateRange() -> [Date] {

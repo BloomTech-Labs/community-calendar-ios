@@ -129,6 +129,10 @@ class HomeViewController: UIViewController, ControllerDelegate {
         noResultsLabel.isHidden = true
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - View Functions
     private func setUp() { // Things that only need to be set once
         eventTableView.delegate = self
@@ -211,6 +215,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
 //        }
 //        print("]")
 //    }
+    
+    
     
     // MARK: - Search/Filter Functions
     func shouldShowSearchView(_ bool: Bool, shouldAnimate: Bool = true) {
