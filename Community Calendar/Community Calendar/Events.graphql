@@ -6,6 +6,11 @@ query FetchEvents {
     start
     end
     ticketPrice
+    tags {
+      id
+      title
+    }
+    index
     creator {
       id
       firstName
