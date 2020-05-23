@@ -112,11 +112,11 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
         lastNameTextField.isHidden = true
         
         
-        if let user = user {
-            updateViewsLogin(user: user)
-        } else {
-            updateViewsLogout()
-        }
+//        if let user = user {
+//            updateViewsLogin(user: user)
+//        } else {
+//            updateViewsLogout()
+//        }
     }
 
     func loginUser() {
@@ -258,6 +258,8 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
                     self.updateViewsLogin(user: user)
                 }
             }
+        } else {
+            updateViewsLogout()
         }
     }
     

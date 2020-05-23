@@ -15,20 +15,23 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     // MARK: - Properties
     
-    var user: FetchUserIdQuery.Data.User? {
-        didSet {
-            print("Home View Controller User: \(String(describing: user))")
-        }
-    }
+//    var user: FetchUserIdQuery.Data.User? {
+//        didSet {
+//            print("Home View Controller User: \(String(describing: user))")
+//        }
+//    }
     
-    var oktaUserInfo: [String]? {
-        didSet {
-            print("Home View Controller Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
-        }
-    }
+//    var oktaUserInfo: [String]? {
+//        didSet {
+//            print("Home View Controller Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
+//        }
+//    }
     
     var apolloController: ApolloController? {
         didSet {
+            self.apolloController?.fetchEvents(completion: { _ in
+                self.events = self.apolloController?.events
+            })
             print("Home View Controller ApolloController: \(String(describing: apolloController))")
         }
     }
@@ -38,15 +41,19 @@ class HomeViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    var events: [FetchEventsQuery.Data.Event]? {
+    var events: [Event]? {
         didSet {
-            self.featuredCollectionView.reloadData()
+            print("These are the Home View Controllers events: \(String(describing: self.events))")
+            self.filteredEvents = self.events
+//            self.featuredCollectionView.reloadData()
         }
     }
 
-    var filteredEvents: [FetchEventsQuery.Data.Event]? {
+    var filteredEvents: [Event]? {
         didSet {
-            
+            self.featuredCollectionView.reloadData()
+            self.eventTableView.reloadData()
+            self.eventCollectionView.reloadData()
         }
     }
     
@@ -104,19 +111,29 @@ class HomeViewController: UIViewController, ControllerDelegate {
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         searchView.homeVC = self
         searchView.setUp()
         setUp()
-        
-        Apollo.shared.fetchEvents { _ in
-            self.events = Apollo.shared.events
-            self.filteredEvents = Apollo.shared.events
-            self.eventCollectionView.reloadData()
-            self.eventTableView.reloadData()
-            self.featuredCollectionView.reloadData()
+        passControllers {
+//            self.events = self.apolloController?.events
+//            self.apolloController?.fetchEvents(completion: { result in
+//                if let fetchedEvents = try? result.get() {
+////                    self.events = fetchedEvents
+//                    self.featuredCollectionView.reloadData()
+//                    self.eventCollectionView.reloadData()
+//                    self.eventTableView.reloadData()
+//                }
+//            })
         }
         
-        
+//        apolloController?.fetchEvents { _ in
+//            self.events = self.apolloController?.events
+//            self.filteredEvents = self.apolloController?.events
+//            self.eventCollectionView.reloadData()
+//            self.eventTableView.reloadData()
+//            self.featuredCollectionView.reloadData()
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -279,7 +296,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         let dates = Apollo.shared.todaysDateRange()
         guard let startDate = dates.first, let endDate = dates.last else { return }
         
-        filteredEvents = events?.filter({ $0.startDate.isBetween(startDate, and: endDate) })
+        filteredEvents = events?.filter({ ($0.startDate?.isBetween(startDate, and: endDate))! })
         dateLabel.text = todayDateFormatter.string(from: startDate)
         eventTableView.reloadData()
         eventCollectionView.reloadData()
@@ -295,7 +312,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         let dates = Apollo.shared.tomorrowsDateRange()
         guard let startDate = dates.first, let endDate = dates.last else { return }
         
-        filteredEvents = events?.filter({ $0.startDate.isBetween(startDate, and: endDate) })
+        filteredEvents = events?.filter({ ($0.startDate?.isBetween(startDate, and: endDate))! })
         dateLabel.text = todayDateFormatter.string(from: startDate)
         eventTableView.reloadData()
         eventCollectionView.reloadData()
@@ -312,7 +329,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         let dates = Apollo.shared.weekendDateRange()
         guard let startDate = dates.first, let endDate = dates.last else { return }
         
-        filteredEvents = events?.filter({ $0.startDate.isBetween(startDate, and: endDate) })
+        filteredEvents = events?.filter({ ($0.startDate?.isBetween(startDate, and: endDate))! })
         dateLabel.text = "\(todayDateFormatter.string(from: startDate)) - \(todayDateFormatter.string(from: endDate.addingTimeInterval(-1)))"
         eventTableView.reloadData()
         eventCollectionView.reloadData()
@@ -329,7 +346,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         let dates = Apollo.shared.allEventsRange()
         guard let startDate = dates.first, let endDate = dates.last else { return }
         
-        filteredEvents = events?.filter({ $0.startDate.isBetween(startDate, and: endDate) })
+        filteredEvents = events?.filter({ ($0.startDate?.isBetween(startDate, and: endDate))! })
         dateLabel.text = todayDateFormatter.string(from: Date())
         eventTableView.reloadData()
         eventCollectionView.reloadData()

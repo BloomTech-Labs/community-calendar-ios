@@ -12,11 +12,12 @@ enum EventType: Equatable, Hashable {
     case attending
     case saved
     case created
+    case all
 }
 
-struct UserEvent: Equatable, Hashable {
+struct Event: Equatable, Hashable {
     
-    static func == (lhs: UserEvent, rhs: UserEvent) -> Bool {
+    static func == (lhs: Event, rhs: Event) -> Bool {
         return lhs.id == rhs.id && lhs.title == rhs.title
     }
     
@@ -24,7 +25,6 @@ struct UserEvent: Equatable, Hashable {
         hasher.combine(id)
         hasher.combine(title)
     }
-    
     
     let id: String
     let title: String
@@ -138,6 +138,35 @@ struct UserEvent: Equatable, Hashable {
             self.creator = attendingCreator
         } else {
             self.creator = Creator(id: "N/A", firstName: "N/A", lastName: "", profileImage: "N/A")
+        }
+        self.eventType = eventType
+    }
+    
+    init(event: FetchEventsQuery.Data.Event, eventType: EventType = .all) {
+        
+        var imageString: String = ""
+        if let images = event.eventImages?.first?.url {
+            imageString = images
+        }
+        
+        self.id = event.id
+        self.title = event.title
+        self.description = event.description
+        self.start = event.start
+        self.end = event.end
+        self.ticketPrice = event.ticketPrice
+        self.image = imageString
+        self.startDate = backendDateFormatter.date(from: event.start)
+        self.endDate = backendDateFormatter.date(from: event.end)
+        if let location = event.locations?.first {
+            self.location = Location(event: location)
+        } else {
+            self.location = Location(id: "N/A", name: "N/A", streetAddress: "N/A", streetAddress2: "N/A", city: "N/A", state: "N/A", zipcode: 00000, longitude: 0.0, latitude: 0.0)
+        }
+        if let creator = event.creator, let attendingCreator = Creator(creator: creator) {
+            self.creator = attendingCreator
+        } else {
+            self.creator = Creator(id: "N/A", firstName: nil, lastName: nil, profileImage: nil)
         }
         self.eventType = eventType
     }

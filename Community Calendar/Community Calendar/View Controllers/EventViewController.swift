@@ -48,12 +48,12 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    var events: [UserEvent] = [] {
+    var events: [Event] = [] {
         didSet {
             self.sortEvents()
         }
     }
-    var filteredEvents: [UserEvent] = [] {
+    var filteredEvents: [Event] = [] {
         didSet {
 //            self.myEventsCollectionView.reloadData()
         }
@@ -67,7 +67,7 @@ class EventViewController: UIViewController, ControllerDelegate {
                 else { return }
                 
             for event in events {
-                    self.events.append(event)
+                self.events.append(event)
             }
         }
     }
@@ -78,18 +78,18 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    var createdEvents: [UserEvent]? {
+    var createdEvents: [Event]? {
         didSet {
             self.populateDataSource()
         }
     }
-    var attendingEvents: [UserEvent]? {
+    var attendingEvents: [Event]? {
         didSet {
             self.populateDataSource()
         }
     }
     
-    var savedEvents: [UserEvent]? {
+    var savedEvents: [Event]? {
         didSet {
             self.populateDataSource()
         }
@@ -127,35 +127,37 @@ class EventViewController: UIViewController, ControllerDelegate {
         
         setupSubViews()
         guard let tabBar = tabBarController as? EventTabBarController else { return }
-        if tabBar.authController.accessToken != nil {
-            getUsersEvents { _ in
-                self.createdButtonTapped(UIButton())
-                self.myEventsCollectionView.reloadData()
-                self.calendarView.scrollToDate(Date())
-            }
-        }
+        authController = tabBar.authController
+        apolloController = tabBar.apolloController
+//        if tabBar.authController.accessToken != nil {
+//            getUsersEvents { _ in
+//                self.createdButtonTapped(UIButton())
+//                self.myEventsCollectionView.reloadData()
+//                self.calendarView.scrollToDate(Date())
+//            }
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard let tabBar = tabBarController as? EventTabBarController else { return }
         
-        if tabBar.authController.accessToken == nil {
+        if tabBar.authController.isUserLoggedIn == false {
             self.userEvents = nil
             self.filteredEvents.removeAll()
             self.myEventsCollectionView.reloadData()
             self.calendarView.scrollToDate(Date())
         } else {
-            if let accesstoken = tabBar.authController.accessToken {
+            if let accesstoken = tabBar.authController.accessToken, let oktaID = tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) {
                 tabBar.apolloController.apollo = tabBar.apolloController.configureApolloClient(accessToken: accesstoken)
-                getUsersEvents { _ in
+                getUsersEvents(oktaID: oktaID) { _ in
                     
                     self.myEventsCollectionView.reloadData()
                     self.calendarView.scrollToDate(Date())
                 }
             }
-            createdButtonTapped(UIButton())
-            myEventsCollectionView.reloadData()
+//            createdButtonTapped(UIButton())
+//            myEventsCollectionView.reloadData()
         }
         
 //        if let tabBar = tabBarController as? EventTabBarController, let accessToken = tabBar.authController.stateManager?.accessToken {
@@ -243,9 +245,9 @@ class EventViewController: UIViewController, ControllerDelegate {
         
     }
     
-    func removeDuplicates(array: [UserEvent], completion: @escaping ([UserEvent]) -> Void)  {
-        var set = Set<UserEvent>()
-        var result: [UserEvent] = []
+    func removeDuplicates(array: [Event], completion: @escaping ([Event]) -> Void)  {
+        var set = Set<Event>()
+        var result: [Event] = []
         for event in array {
             if set.contains(event) {
                 
@@ -365,7 +367,7 @@ class EventViewController: UIViewController, ControllerDelegate {
                 let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
             let event = filteredEvents[indexPath.item]
             if let passedEvent = events.first(where: { $0.id == event.id }) {
-                detailVC.userEvent = passedEvent
+                detailVC.event = passedEvent
             }
         }
     }

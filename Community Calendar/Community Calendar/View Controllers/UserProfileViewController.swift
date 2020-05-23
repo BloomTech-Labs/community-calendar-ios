@@ -68,6 +68,9 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubView()
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        authController = tabBar.authController
+        apolloController = tabBar.apolloController
         NotificationCenter.default.addObserver(self, selector: #selector(handleLogout), name: .handleLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(editUserProfile), name: .editProfile, object: nil)
         
@@ -79,10 +82,10 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         super.viewDidAppear(animated)
         guard let tabBar = tabBarController as? EventTabBarController else { return }
         
-        if tabBar.authController.accessToken == nil {
-            loginButton.isHidden = false
+        if tabBar.authController.isUserLoggedIn {
+            loginButton.isHidden = true
         } else {
-            loginButton.isHidden = true 
+            loginButton.isHidden = false
         }
         
     }

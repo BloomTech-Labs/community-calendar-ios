@@ -13,10 +13,10 @@ struct User {
     var firstName: String
     var lastName: String
     var profileImage: String
-    var userEvents: [UserEvent]?
+    var userEvents: [Event]?
     
     
-    init(id: String, firstName: String, lastName: String, profileImage: String, userEvent: [UserEvent]?) {
+    init(id: String, firstName: String, lastName: String, profileImage: String, userEvent: [Event]?) {
         
         self.id = id
         self.firstName = firstName

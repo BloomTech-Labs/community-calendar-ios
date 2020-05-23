@@ -15,6 +15,13 @@ class AuthController {
     var stateManager: OktaOidcStateManager?
     var accessToken: String?
     var oktaID: String?
+    var isUserLoggedIn: Bool {
+        if accessToken == nil {
+            return false
+        } else {
+            return true
+        }
+    }
     
     func setupOktaOidc(completion: @escaping () -> Void) {
         do {
@@ -24,7 +31,6 @@ class AuthController {
         }
         
         if let oktaOidc = self.oktaOidc, let accessToken = OktaOidcStateManager.readFromSecureStorage(for: oktaOidc.configuration)?.accessToken {
-//            print("This is the access token: \(accessToken)")
             self.accessToken = accessToken
             self.stateManager = OktaOidcStateManager.readFromSecureStorage(for: oktaOidc.configuration)
         }
@@ -59,7 +65,7 @@ class AuthController {
                 completion(.failure(error!))
                 return
             }
-//            print("Token is valid: \(isValid)")
+
             completion(.success(isValid))
         })
     }

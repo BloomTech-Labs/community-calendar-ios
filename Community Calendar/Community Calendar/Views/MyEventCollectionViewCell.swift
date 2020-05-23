@@ -12,7 +12,7 @@ import MapKit
 class MyEventCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    var event: UserEvent? {
+    var event: Event? {
         didSet {
             print("Cell User Event: \(String(describing: event))")
             updateViewsCreated()
