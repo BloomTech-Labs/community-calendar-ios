@@ -102,7 +102,7 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.blackView.alpha = 1
                 
-                self.settingsCollectionView.frame = CGRect(x: 0, y: 0, width: width, height: window.frame.height)
+                self.settingsCollectionView.frame = CGRect(x: -7, y: 0, width: width, height: window.frame.height)
                 self.settingsCollectionView.settingsShadow()
 //                self.settingsCollectionView.frame = CGRect(x: 0, y: y, width: self.settingsCollectionView.frame.width, height: self.settingsCollectionView.frame.height)
             }, completion: nil)
