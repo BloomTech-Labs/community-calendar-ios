@@ -123,7 +123,7 @@ class SearchResultViewController: UIViewController {
     }
     
     @IBAction func goBackPressed(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
         guard let toVC = navigationController?.topViewController as? HomeViewController else { return }
         toVC.setSearchBarText()
     }

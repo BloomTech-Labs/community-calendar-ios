@@ -146,6 +146,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         
         tableViewButtonTapped(UIButton())
         allUpcomingTapped(UIButton())
+        seeAllTapped(UIButton())
         
         eventSearchBar.delegate = self
         self.navigationController?.delegate = self
@@ -182,8 +183,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
         eventSearchBar.isTranslucent = true
         eventSearchBar.searchTextField.backgroundColor = .clear
         eventSearchBar.layer.cornerRadius = 6
-        eventSearchBar.layer.shadowColor = UIColor.black.cgColor
-        eventSearchBar.layer.shadowOpacity = 1.0
+        eventSearchBar.layer.shadowColor = UIColor.clear.cgColor
+        eventSearchBar.layer.shadowOpacity = 0.7
         eventSearchBar.layer.shadowRadius = 2
         eventSearchBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         eventSearchBar.searchTextField.placeholder = ""
@@ -333,6 +334,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     // MARK: - Search IBActions
     @IBAction func searchBarCancelButtonTapped(_ sender: UIButton) {
         searchBarBackgroundView.backgroundColor = UIColor(named: "Shark")
+        eventSearchBar.layer.shadowColor = UIColor.clear.cgColor
         searchBarCancelButtonClicked(eventSearchBar)
     }
     

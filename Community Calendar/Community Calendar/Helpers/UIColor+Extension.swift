@@ -13,7 +13,7 @@ extension UIColor {
     static let selectedButton = UIColor.label
     static let unselectedButton = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 1.0)
     static let unselectedDayButton = UIColor(red: 0.60, green: 0.60, blue: 0.60, alpha: 1.0)
-    static let tabBarTint = UIColor(red: 1.0, green: 0.4, blue: 0.41, alpha: 1.0)
+    static let tabBarTint = UIColor(named: "Primary")
     static let transparentLightGray = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.6)
 }
 
