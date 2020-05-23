@@ -100,11 +100,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         self.openInMapsButton.layer.cornerRadius = 6
         
         self.addToCalendarButton.setTitleColor(.white, for: .normal)
-        self.addToCalendarButton.backgroundColor = UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)
+        self.addToCalendarButton.backgroundColor = UIColor(named: "Primary")
         self.addToCalendarButton.layer.cornerRadius = 6
         titleLabel.font = UIFont(name: PoppinsFont.medium.rawValue, size: 20)
-        eventDescTextView.textColor = .black
-        timeLabel.textColor = .black
+        eventDescTextView.textColor = .label
+        timeLabel.textColor = .label
     }
     
     func updateViews() {
@@ -322,7 +322,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func attendEvent(_ sender: UIButton) {
-        attendButton.backgroundColor = #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
+        attendButton.backgroundColor = UIColor(named: "Primary")
         attendButton.setTitle("Attending", for: .normal)
         attendButton.setTitleColor(UIColor.white, for: .normal)
 //        self.dismiss(animated: true, completion: nil)
