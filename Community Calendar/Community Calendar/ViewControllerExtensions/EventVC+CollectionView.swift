@@ -196,7 +196,7 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == myEventsCollectionView {
-            return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 9)
+            return CGSize(width: UIScreen.main.bounds.width, height: myEventsCollectionView.bounds.height / 4)
         }
         return CGSize()
     }

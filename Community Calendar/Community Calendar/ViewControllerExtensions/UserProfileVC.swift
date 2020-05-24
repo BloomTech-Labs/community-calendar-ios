@@ -250,10 +250,10 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
     }
     
     func isUserLoggedIn() {
-        guard let tabBar = tabBarController as? EventTabBarController else { return }
-        if let accessToken = tabBar.authController.stateManager?.accessToken, let oktaID = tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) {
-            tabBar.apolloController.apollo = tabBar.apolloController.configureApolloClient(accessToken: accessToken)
-            tabBar.apolloController.fetchUserID(oktaID: oktaID) { result in
+        guard let apolloController = apolloController else { return }
+        if let accessToken = authController?.stateManager?.accessToken, let oktaID = apolloController.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) {
+            apolloController.apollo = apolloController.configureApolloClient(accessToken: accessToken)
+            apolloController.fetchUserID(oktaID: oktaID) { result in
                 if let user = try? result.get() {
                     self.updateViewsLogin(user: user)
                 }
