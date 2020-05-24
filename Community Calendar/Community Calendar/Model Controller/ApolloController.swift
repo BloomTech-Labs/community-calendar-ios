@@ -15,6 +15,11 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
 
     private static let url = URL(string: "https://apollo.ourcommunitycal.com/")!
     var apollo: ApolloClient = ApolloClient(url: ApolloController.url)
+    var currentUser: User? {
+        didSet {
+            print("Apollo Controller, Current User: \(String(describing: currentUser)), User Events Count: \(String(describing: currentUser?.userEvents?.count))")
+        }
+    }
     var currentUserID: GraphQLID?
     var events = [Event]()
     var userEvents = [Event]()
@@ -59,6 +64,7 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                 completion(.failure(error))
             case .success(let graphQLResult):
                 if let user = graphQLResult.data?.user, let createdEvents = user.createdEvents, let savedEvents = user.saved, let attendingEvents = user.rsvps {
+                    self.currentUser = User(user: user)
                     let sortedAttending = attendingEvents.sorted(by: { $0.startDate < $1.startDate })
                     let sortedSaved = savedEvents.sorted(by: { $0.startDate < $1.startDate })
                     let sortedCreated = createdEvents.sorted(by: { $0.startDate < $1.startDate })
@@ -74,11 +80,8 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                         let createdEvent = Event(created: event)
                         self.userEvents.append(createdEvent)
                     }
-                    self.currentUserID = user.id
-//                    self.attendingEvents = sortedAttending
-//                    self.savedEvents = sortedSaved
-//                    self.createdEvents = sortedCreated
                     
+                    self.currentUserID = user.id
                     completion(.success(user))
                 }
             }

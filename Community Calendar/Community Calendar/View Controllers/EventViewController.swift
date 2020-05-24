@@ -61,14 +61,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     
     var currentUser: User? {
         didSet {
-            guard
-                let user = currentUser,
-                let events = user.userEvents
-                else { return }
-                
-            for event in events {
-                self.events.append(event)
-            }
+            print("This is the current user: \(String(describing: currentUser?.firstName)) \(String(describing: currentUser?.lastName))")
         }
     }
     
@@ -125,43 +118,52 @@ class EventViewController: UIViewController, ControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        apolloController = tabBar.apolloController
+        authController = tabBar.authController
         setupSubViews()
         configureViews()
-        guard let tabBar = tabBarController as? EventTabBarController else { return }
-        authController = tabBar.authController
-        apolloController = tabBar.apolloController
-//        if tabBar.authController.accessToken != nil {
-//            getUsersEvents { _ in
-//                self.createdButtonTapped(UIButton())
-//                self.myEventsCollectionView.reloadData()
-//                self.calendarView.scrollToDate(Date())
-//            }
-//        }
+        self.calendarView.scrollToDate(Date())
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        checkCurrentuser()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let tabBar = tabBarController as? EventTabBarController else { return }
         
-        if tabBar.authController.isUserLoggedIn == false {
-            self.userEvents = nil
-            self.filteredEvents.removeAll()
-            self.myEventsCollectionView.reloadData()
-            self.calendarView.scrollToDate(Date())
-        } else {
-            if let accesstoken = tabBar.authController.accessToken, let oktaID = tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) {
-                tabBar.apolloController.apollo = tabBar.apolloController.configureApolloClient(accessToken: accesstoken)
-                getUsersEvents(oktaID: oktaID) { _ in
-                    
-                    self.myEventsCollectionView.reloadData()
-                    self.calendarView.scrollToDate(Date())
-                }
-            }
-//            createdButtonTapped(UIButton())
-//            myEventsCollectionView.reloadData()
-        }
     }
 
+    func checkCurrentuser() {
+        if let user = apolloController?.currentUser, let userEvents = user.userEvents {
+            if self.events.count != userEvents.count {
+                self.events = userEvents
+                self.noEventsLabel.isHidden = true
+                self.noEventsLabel.text = ""
+                myEventsCollectionView.reloadData()
+            } else {
+                if let oktaID = apolloController?.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) {
+                    apolloController?.fetchUserID(oktaID: oktaID, completion: { _ in
+                        guard let userEvents = self.apolloController?.currentUser?.userEvents else { return }
+                        self.events = userEvents
+                    })
+                }
+            }
+        } else if apolloController?.currentUser == nil || authController?.stateManager?.accessToken == nil {
+            self.noEventsLabel.isHidden = false
+            self.noEventsLabel.text = "Please sign in to view your events..."
+            self.events.removeAll()
+            self.filteredEvents.removeAll()
+            self.attendingEvents = nil
+            self.savedEvents = nil
+            self.createdEvents = nil
+            calendarView.reloadData()
+            myEventsCollectionView.reloadData()
+        }
+    }
     
     @objc func dateTapped(_ sender: Any) {
         attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)

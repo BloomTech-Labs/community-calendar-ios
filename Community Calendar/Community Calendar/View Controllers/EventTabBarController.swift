@@ -16,58 +16,43 @@ protocol ControllerDelegate {
 }
 
 class EventTabBarController: UITabBarController {
-
+    
     let apolloController = ApolloController()
     let authController = AuthController()
-//    var user: FetchUserIdQuery.Data.User? {
-//        didSet {
-//            print("Current logged in user: \(String(describing: user))")
-//        }
-//    }
-//    var oktaUserInfo: [String]? {
-//        didSet {
-//            print("Okta ID: \(String(describing: oktaUserInfo?.first)), Okta email: \(String(describing: oktaUserInfo?.last))")
-//        }
-//    }
+    
     @IBOutlet weak var eventTabBarController: UITabBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        authController.setupOktaOidc {
+            self.checkCurrentuser()
+        }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        authController.setupOktaOidc {
-            
-        }
-        
-//        apolloController.fetchEvents { result in
-//            if let events = try? result.get() {
-//                print("Tab Bar Events Count: \(events.count)")
-//            }
+//        authController.setupOktaOidc {
+//            self.checkCurrentuser()
 //        }
-//        fetchAllEventData()
-        self.checkAuthStatus {
-            if let viewControllers = self.viewControllers {
-                for viewController in viewControllers {
-                    if var VC = viewController as? ControllerDelegate {
-//                        VC.apolloController = self.apolloController
-//                        VC.authController = self.authController
-//                        VC.user = self.user
-//                        VC.oktaUserInfo = self.oktaUserInfo
-                        
-                    }
+    }
+    
+//    self.checkAuthStatus {
+//
+//    }
+    
+    
+    func checkCurrentuser() {
+        if let oktaID = apolloController.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue), let accessToken = authController.stateManager?.accessToken {
+            apolloController.apollo = apolloController.configureApolloClient(accessToken: accessToken)
+            apolloController.fetchUserID(oktaID: oktaID) { result in
+                if let user = try? result.get() {
+                    let newUser = User(user: user)
+                    print("Apollo Controller, Current User: \(String(describing: newUser)), User Events Count: \(String(describing: newUser.userEvents?.count))")
                 }
             }
-//            if let accessToken = self.authController.stateManager?.accessToken {
-//                
-//                self.apolloController.getUserCreatedEvents(graphQLID: user.id, accessToken: accessToken) { _ in
-//                    
-//                }
-//            }
         }
     }
     
@@ -150,3 +135,27 @@ class EventTabBarController: UITabBarController {
     }
 }
 
+//        apolloController.fetchEvents { result in
+//            if let events = try? result.get() {
+//                print("Tab Bar Events Count: \(events.count)")
+//            }
+//        }
+//        fetchAllEventData()
+//        self.checkAuthStatus {
+//            if let viewControllers = self.viewControllers {
+//                for viewController in viewControllers {
+//                    if var VC = viewController as? ControllerDelegate {
+//                        VC.apolloController = self.apolloController
+//                        VC.authController = self.authController
+//                        VC.user = self.user
+//                        VC.oktaUserInfo = self.oktaUserInfo
+
+//                    }
+//                }
+//            }
+//            if let accessToken = self.authController.stateManager?.accessToken {
+//
+//                self.apolloController.getUserCreatedEvents(graphQLID: user.id, accessToken: accessToken) { _ in
+//
+//                }
+//            }

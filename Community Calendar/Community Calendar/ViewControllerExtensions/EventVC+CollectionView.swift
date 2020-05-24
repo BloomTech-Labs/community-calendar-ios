@@ -140,6 +140,13 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     }
     
     func populateDataSource() {
+        
+        if currentUser == nil || authController?.stateManager?.accessToken == nil {
+            createdCalDataSource.removeAll()
+            savedCalDataSource.removeAll()
+            attendingCalDataSource.removeAll()
+        }
+        
         guard
             let createdEvents = self.createdEvents,
             let savedEvents = self.savedEvents,
@@ -199,38 +206,5 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
             return CGSize(width: UIScreen.main.bounds.width, height: myEventsCollectionView.bounds.height / 4)
         }
         return CGSize()
-    }
-    
-    func getUsersEvents(oktaID: String, completion: @escaping (Swift.Result<FetchUserIdQuery.Data.User, Error>) -> Void) {
-//        if let oktaID = authController?.oktaID {
-            apolloController?.fetchUserID(oktaID: oktaID) { result in
-                if let user = try? result.get(), let createdEvents = user.createdEvents, let savedEvents = user.saved, let attendingEvents = user.rsvps, let firstName = user.firstName, let lastName = user.lastName, let profileImage = user.profileImage  {
-                    var currentUser = User(id: user.id, firstName: firstName, lastName: lastName, profileImage: profileImage, userEvent: [])
-                    
-                    let sortedCreated = createdEvents.sorted(by: { $0.startDate < $1.startDate })
-                    let sortedSaved = savedEvents.sorted(by: { $0.startDate < $1.startDate })
-                    let sortedAttending = attendingEvents.sorted(by: { $0.startDate < $1.startDate })
-                    
-                    for event in sortedAttending {
-                        let attendingEvent = Event(attending: event)
-                        currentUser.userEvents?.append(attendingEvent)
-                    }
-                    
-                    for event in sortedSaved {
-                        let savedEvent = Event(saved: event)
-                        currentUser.userEvents?.append(savedEvent)
-                    }
-                    
-                    for event in sortedCreated {
-                        let createdEvent = Event(created: event)
-                        currentUser.userEvents?.append(createdEvent)
-                    }
-                    
-                    self.currentUser = currentUser
-            
-                    completion(.success(user))
-                }
-            }
-//        }
     }
 }

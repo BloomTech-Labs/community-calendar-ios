@@ -13,25 +13,18 @@ import MapKit
 class UserProfileViewController: UIViewController, ControllerDelegate {
  
     //MARK: - Properties
-    var user: FetchUserIdQuery.Data.User? {
-        didSet {
-            print("User Profile View Controller User: \(String(describing: user))")
-        }
-    }
-
-    var oktaUserInfo: [String]? {
-        didSet {
-            print("User Profile View Controller Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
-        }
-    }
-   
     var authController: AuthController? {
         didSet {
+            authController?.setupOktaOidc {
+                self.isUserLoggedIn()
+            }
             print("User Profile View Controller Auth Controller: \(String(describing: authController))")
         }
     }
+    
     var apolloController: ApolloController? {
         didSet {
+            self.isUserLoggedIn()
             print("User Profile View Controller Apollo Controller: \(String(describing: apolloController))")
         }
     }
@@ -90,26 +83,16 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        isUserLoggedIn()
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        authController?.getUser(completion: { result in
-//            if let user = try? result.get() {
-//                let email = user.last
-//                if email != nil {
-//                    self.emailLabel.text = email
-//                }
-//            }
-//        })
-//        
-//        fetchCreatedEvents {
-//            
-//        }
-    }
     
     // MARK: - IBActions
     @IBAction func loginButtonTapped(_ sender: Any) {

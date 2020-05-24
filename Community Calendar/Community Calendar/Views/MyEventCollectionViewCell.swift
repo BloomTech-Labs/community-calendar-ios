@@ -52,21 +52,7 @@ class MyEventCollectionViewCell: UICollectionViewCell {
             self.eventDateLabel.text = dateFormatter.string(from: date)
         }
     }
-    
-//    func getEventDate(date: Date) -> Date {
-//        let calendar = Calendar.current
-//        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
-//        guard let timeComponents = calendar.date(from: dateComponents) else { return date }
-//        return timeComponents
-//    }
-    
-//    func getEventTime(date: Date) -> Date {
-//        let calendar = Calendar.current
-//        let dateComponents = calendar.dateComponents([.hour, .minute, .second], from: date)
-//        guard let timeComponents = calendar.date(from: dateComponents) else { return date }
-//        return timeComponents
-//    }
-    
+        
     func setupSubviews() {
         let height = contentView.bounds.height
         let insetHeight = height - 16
@@ -81,12 +67,6 @@ class MyEventCollectionViewCell: UICollectionViewCell {
             eventInfoStackView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 8),
             eventInfoStackView.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.bottomAnchor, constant: -8)
         ])
-        
-//        eventNameLabel.anchor(top: self.topAnchor, leading: imageBackgroundView.trailingAnchor, trailing: self.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 8, bottom: 0, right: -8), size: .zero)
-//
-//        eventDateLabel.anchor(top: eventNameLabel.bottomAnchor, leading: imageBackgroundView.trailingAnchor, trailing: self.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 8, bottom: 0, right: 0), size: .zero)
-//
-//        eventLocationLabel.anchor(top: eventDateLabel.bottomAnchor, leading: imageBackgroundView.trailingAnchor, trailing: self.trailingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 8, left: 8, bottom: 0, right: 0), size: .zero)
     }
     
     func configureViews() {

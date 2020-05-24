@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     var events: [Event]? {
         didSet {
-            print("These are the Home View Controllers events: \(String(describing: self.events))")
+            print("These are the Home View Controllers events count: \(String(describing: self.events?.count))")
             self.filteredEvents = self.events
 //            self.featuredCollectionView.reloadData()
         }

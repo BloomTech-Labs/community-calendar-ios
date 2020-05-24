@@ -28,11 +28,13 @@ class AuthController {
             self.oktaOidc = try OktaOidc()
         } catch {
             print("Error creating OktaOidc Object.")
+            completion()
         }
         
         if let oktaOidc = self.oktaOidc, let accessToken = OktaOidcStateManager.readFromSecureStorage(for: oktaOidc.configuration)?.accessToken {
             self.accessToken = accessToken
             self.stateManager = OktaOidcStateManager.readFromSecureStorage(for: oktaOidc.configuration)
+            completion()
         }
     }
     
