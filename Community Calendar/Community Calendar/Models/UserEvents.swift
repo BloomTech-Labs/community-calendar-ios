@@ -12,11 +12,12 @@ enum EventType: Equatable, Hashable {
     case attending
     case saved
     case created
+    case all
 }
 
-struct UserEvent: Equatable, Hashable {
+struct Event: Equatable, Hashable {
     
-    static func == (lhs: UserEvent, rhs: UserEvent) -> Bool {
+    static func == (lhs: Event, rhs: Event) -> Bool {
         return lhs.id == rhs.id && lhs.title == rhs.title
     }
     
@@ -24,7 +25,6 @@ struct UserEvent: Equatable, Hashable {
         hasher.combine(id)
         hasher.combine(title)
     }
-    
     
     let id: String
     let title: String
@@ -34,8 +34,8 @@ struct UserEvent: Equatable, Hashable {
     let ticketPrice: Double
     let location: Location?
     let image: String?
-    var startDate: Date?
-    var endDate: Date?
+    var startDate: Date
+    var endDate: Date
     let creator: Creator
     let eventType: EventType
     
@@ -49,8 +49,8 @@ struct UserEvent: Equatable, Hashable {
         self.ticketPrice = ticketPrice
         self.location = location
         self.image = image
-        self.startDate = backendDateFormatter.date(from: start)
-        self.endDate = backendDateFormatter.date(from: end)
+        self.startDate = backendDateFormatter.date(from: start) ?? Date()
+        self.endDate = backendDateFormatter.date(from: end) ?? Date()
         self.creator = creator
         self.eventType = eventType
     }
@@ -69,8 +69,8 @@ struct UserEvent: Equatable, Hashable {
         self.end = attending.end
         self.ticketPrice = attending.ticketPrice
         self.image = imageString
-        self.startDate = backendDateFormatter.date(from: attending.start)
-        self.endDate = backendDateFormatter.date(from: attending.end)
+        self.startDate = backendDateFormatter.date(from: attending.start) ?? Date()
+        self.endDate = backendDateFormatter.date(from: attending.end) ?? Date()
         if let location = attending.locations?.first {
             self.location = Location(attending: location)
         } else {
@@ -98,8 +98,8 @@ struct UserEvent: Equatable, Hashable {
         self.end = saved.end
         self.ticketPrice = saved.ticketPrice
         self.image = imageString
-        self.startDate = backendDateFormatter.date(from: saved.start)
-        self.endDate = backendDateFormatter.date(from: saved.end)
+        self.startDate = backendDateFormatter.date(from: saved.start) ?? Date()
+        self.endDate = backendDateFormatter.date(from: saved.end) ?? Date()
         if let location = saved.locations?.first {
             self.location = Location(saved: location)
         } else {
@@ -127,8 +127,8 @@ struct UserEvent: Equatable, Hashable {
         self.end = created.end
         self.ticketPrice = created.ticketPrice
         self.image = imageString
-        self.startDate = backendDateFormatter.date(from: created.start)
-        self.endDate = backendDateFormatter.date(from: created.end)
+        self.startDate = backendDateFormatter.date(from: created.start) ?? Date()
+        self.endDate = backendDateFormatter.date(from: created.end) ?? Date()
         if let location = created.locations?.first {
             self.location = Location(created: location)
         } else {
@@ -138,6 +138,35 @@ struct UserEvent: Equatable, Hashable {
             self.creator = attendingCreator
         } else {
             self.creator = Creator(id: "N/A", firstName: "N/A", lastName: "", profileImage: "N/A")
+        }
+        self.eventType = eventType
+    }
+    
+    init(event: FetchEventsQuery.Data.Event, eventType: EventType = .all) {
+        
+        var imageString: String = ""
+        if let images = event.eventImages?.first?.url {
+            imageString = images
+        }
+        
+        self.id = event.id
+        self.title = event.title
+        self.description = event.description
+        self.start = event.start
+        self.end = event.end
+        self.ticketPrice = event.ticketPrice
+        self.image = imageString
+        self.startDate = backendDateFormatter.date(from: event.start) ?? Date()
+        self.endDate = backendDateFormatter.date(from: event.end) ?? Date()
+        if let location = event.locations?.first {
+            self.location = Location(event: location)
+        } else {
+            self.location = Location(id: "N/A", name: "N/A", streetAddress: "N/A", streetAddress2: "N/A", city: "N/A", state: "N/A", zipcode: 00000, longitude: 0.0, latitude: 0.0)
+        }
+        if let creator = event.creator, let attendingCreator = Creator(creator: creator) {
+            self.creator = attendingCreator
+        } else {
+            self.creator = Creator(id: "N/A", firstName: nil, lastName: nil, profileImage: nil)
         }
         self.eventType = eventType
     }

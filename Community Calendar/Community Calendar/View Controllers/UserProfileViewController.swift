@@ -13,33 +13,38 @@ import MapKit
 class UserProfileViewController: UIViewController, ControllerDelegate {
  
     //MARK: - Properties
-    var user: FetchUserIdQuery.Data.User? {
-        didSet {
-            print("User Profile View Controller User: \(String(describing: user))")
-        }
-    }
-
-    var oktaUserInfo: [String]? {
-        didSet {
-            print("User Profile View Controller Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
-        }
-    }
-   
     var authController: AuthController? {
         didSet {
+            authController?.setupOktaOidc {
+                self.isUserLoggedIn()
+            }
             print("User Profile View Controller Auth Controller: \(String(describing: authController))")
         }
     }
+    
     var apolloController: ApolloController? {
         didSet {
+            self.isUserLoggedIn()
             print("User Profile View Controller Apollo Controller: \(String(describing: apolloController))")
         }
     }
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let activityView = UIActivityIndicatorView(style: .large)
+        activityView.color = .white
+        activityView.translatesAutoresizingMaskIntoConstraints = false
+        activityView.backgroundColor = .clear
+        return activityView
+    }()
+    
     let firstUnderlineView = UIView()
     let lastUnderlineView = UIView()
     let firstNameTextField = UITextField()
     let lastNameTextField = UITextField()
+    let loginBackgroungView = UIView()
+    let saveButton = UIButton()
     let cancelButton = UIButton()
+    let saveBackgroundView = UIView()
     let settingsLauncher = SettingsLauncher()
     var currentUserName: String?
     var isEditingUser: Bool = false
@@ -62,54 +67,53 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     @IBOutlet weak var numberOfSavedLabel: UILabel!
     @IBOutlet weak var eventsAttendingLabel: UILabel!
     @IBOutlet weak var numberOfAttendingLabel: UILabel!
-    @IBOutlet weak var saveButton: UIButton!
     
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubView()
+        configureViews()
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        authController = tabBar.authController
+        apolloController = tabBar.apolloController
         NotificationCenter.default.addObserver(self, selector: #selector(handleLogout), name: .handleLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(editUserProfile), name: .editProfile, object: nil)
-        
         isUserLoggedIn()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard let tabBar = tabBarController as? EventTabBarController else { return }
         
-        if tabBar.authController.accessToken == nil {
-            loginButton.isHidden = false
+        if tabBar.authController.isUserLoggedIn {
+            loginButton.isHidden = true
         } else {
-            loginButton.isHidden = true 
+            loginButton.isHidden = false
         }
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        cancelButton.addGradientToButton(color1: UIColor.coral, color2: UIColor.coralSubtleGradient)
+        saveButton.addGradientToButton(color1: UIColor.coral, color2: UIColor.coralSubtleGradient)
+        loginButton.addGradientToButton(color1: UIColor.coral, color2: UIColor.coralSubtleGradient)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        isUserLoggedIn()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        authController?.getUser(completion: { result in
-//            if let user = try? result.get() {
-//                let email = user.last
-//                if email != nil {
-//                    self.emailLabel.text = email
-//                }
-//            }
-//        })
-//        
-//        fetchCreatedEvents {
-//            
-//        }
-    }
     
     // MARK: - IBActions
-    @IBAction func loginButtonTapped(_ sender: Any) {
+    @IBAction func loginButtonTapped(_ sender: UIButton) {
+        sender.pulsate()
         loginUser()
     }
     
@@ -127,6 +131,12 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         editingUserProfile()
     }
     
+    @objc func saveButtonTapped(_ sender: UIButton) {
+        isEditingUser = false
+        editingUserProfile()
+        saveTapped()
+    }
+    
     @objc func handleLogout() {
         logoutUser()
     }
@@ -134,12 +144,6 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     @objc func editUserProfile() {
         isEditingUser = true
         editingUserProfile()
-    }
-    
-    @IBAction func saveTapped(_ sender: Any) {
-        isEditingUser = false
-        editingUserProfile()
-        saveTapped()
     }
     
     @IBAction func cameraButtonTapped(_ sender: Any) {

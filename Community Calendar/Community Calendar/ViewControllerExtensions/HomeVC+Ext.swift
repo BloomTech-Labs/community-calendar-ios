@@ -294,6 +294,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UIColl
         
         operations[event.id] = fetchOp
     }
+    
+    func passControllers(completion: @escaping () -> Void) {
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        apolloController = tabBar.apolloController
+        authController = tabBar.authController
+        completion()
+    }
 }
 
 

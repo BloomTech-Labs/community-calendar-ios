@@ -79,18 +79,17 @@
 		0EF6DDF523E1FE1600D8A91B /* SearchResults.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */; };
 		0EF6DDF823E200FC00D8A91B /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */; };
 		1A87B8EA24620E0900282274 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A87B8E824620E0900282274 /* UserProfileViewController.swift */; };
-		4571FCB524527A36001DE2A2 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCB424527A36001DE2A2 /* CalendarView.swift */; };
-		4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */; };
-		4571FCBB24527C61001DE2A2 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571FCBA24527C61001DE2A2 /* MonthView.swift */; };
 		4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */; };
 		4C133D4D246D354F0029EC17 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C133D4C246D354F0029EC17 /* SettingsLauncher.swift */; };
 		4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEB18245B40F300BEECEF /* Okta.plist */; };
+		4C2317BB247D08B900CBC034 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2317BA247D08B900CBC034 /* UIButton+Ext.swift */; };
 		4C2842F224693AF500178677 /* Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2842F124693AF500178677 /* Apollo.swift */; };
 		4C2B2FD7247097090059A4D8 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2B2FD6247097090059A4D8 /* EditProfileView.swift */; };
 		4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */; };
 		4C3674D424660B5E00C74C00 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D324660B5E00C74C00 /* UserProfileVC.swift */; };
 		4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D72466588D00C74C00 /* EventVC+CollectionView.swift */; };
 		4C3859CA2460C2DB00ADBBB4 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3859C92460C2DB00ADBBB4 /* AuthController.swift */; };
+		4C4458BD247B7A7E00F4C99B /* UIView+GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4458BC247B7A7E00F4C99B /* UIView+GradientLayer.swift */; };
 		4C468CE5246207C4004799E3 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 4C468CE4246207C4004799E3 /* Apollo */; };
 		4C468CE7246207C4004799E3 /* ApolloCodegenLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4C468CE6246207C4004799E3 /* ApolloCodegenLib */; };
 		4C468CE9246207C4004799E3 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 4C468CE8246207C4004799E3 /* ApolloWebSocket */; };
@@ -116,7 +115,6 @@
 		4CDBD11C2461C14E0026A539 /* UserUpdate.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4CDBD11B2461C14E0026A539 /* UserUpdate.graphql */; };
 		4CDCE11F247285BF00224141 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDCE11E247285BF00224141 /* Creator.swift */; };
 		4CE0D81B246E6AA700E048BC /* SettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0D81A246E6AA700E048BC /* SettingCollectionViewCell.swift */; };
-		4CE2E9352448E424005AA6B5 /* FeaturedEventLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */; };
 		4CE2E9372448F2EA005AA6B5 /* MyEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */; };
 		4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */; };
 		4CF915D0246AB7BC00C754BF /* ConcurrentOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF915CF246AB7BC00C754BF /* ConcurrentOperations.swift */; };
@@ -212,18 +210,17 @@
 		0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResults.storyboard; sourceTree = "<group>"; };
 		0EF6DDF723E200FC00D8A91B /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		1A87B8E824620E0900282274 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		4571FCB424527A36001DE2A2 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
-		4571FCBA24527C61001DE2A2 /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		4C133D4C246D354F0029EC17 /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
 		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
+		4C2317BA247D08B900CBC034 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		4C2842F124693AF500178677 /* Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apollo.swift; sourceTree = "<group>"; };
 		4C2B2FD6247097090059A4D8 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredEventDataSource.swift; sourceTree = "<group>"; };
 		4C3674D324660B5E00C74C00 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		4C3674D72466588D00C74C00 /* EventVC+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventVC+CollectionView.swift"; sourceTree = "<group>"; };
 		4C3859C92460C2DB00ADBBB4 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
+		4C4458BC247B7A7E00F4C99B /* UIView+GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+GradientLayer.swift"; sourceTree = "<group>"; };
 		4C5287CF24717A440081B533 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		4C6747D12453CEEB00AE768E /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		4C6747D32453D87400AE768E /* UIView+DropShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DropShadow.swift"; sourceTree = "<group>"; };
@@ -245,7 +242,6 @@
 		4CDBD11B2461C14E0026A539 /* UserUpdate.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UserUpdate.graphql; sourceTree = "<group>"; };
 		4CDCE11E247285BF00224141 /* Creator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
 		4CE0D81A246E6AA700E048BC /* SettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCollectionViewCell.swift; sourceTree = "<group>"; };
-		4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEventLayout.swift; sourceTree = "<group>"; };
 		4CE2E9362448F2EA005AA6B5 /* MyEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Decompression.swift"; sourceTree = "<group>"; };
 		4CF915CF246AB7BC00C754BF /* ConcurrentOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentOperations.swift; sourceTree = "<group>"; };
@@ -337,8 +333,6 @@
 				4CF915CE246AB7A700C754BF /* Operations */,
 				4C305A0F246A3DAD00AB9164 /* Data Source */,
 				4C3674D224660B1F00C74C00 /* ViewControllerExtensions */,
-				4571FCB1245279A8001DE2A2 /* Custom Calendar Layout */,
-				4CE2E9332448E3F7005AA6B5 /* Layouts */,
 				0EE3079D23AC52320045EFD1 /* Resources */,
 				0EE3079E23AC527E0045EFD1 /* View Controllers */,
 				0EE3079F23AC528D0045EFD1 /* Views */,
@@ -501,18 +495,10 @@
 				4C93BE9C2471259000A18404 /* ShiftableViewController.swift */,
 				4C93BE9E2471260F00A18404 /* ShiftableView.swift */,
 				4CB27D682475119A006FA7AD /* Array+Extension.swift */,
+				4C4458BC247B7A7E00F4C99B /* UIView+GradientLayer.swift */,
+				4C2317BA247D08B900CBC034 /* UIButton+Ext.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		4571FCB1245279A8001DE2A2 /* Custom Calendar Layout */ = {
-			isa = PBXGroup;
-			children = (
-				4571FCBA24527C61001DE2A2 /* MonthView.swift */,
-				4571FCB424527A36001DE2A2 /* CalendarView.swift */,
-				4571FCB824527B3C001DE2A2 /* WeekdaysView.swift */,
-			);
-			path = "Custom Calendar Layout";
 			sourceTree = "<group>";
 		};
 		4B1C6C772E89C0E95EBE07DE /* Frameworks */ = {
@@ -539,14 +525,6 @@
 				4CBB18132467B47200BDD233 /* HomeVC+Ext.swift */,
 			);
 			path = ViewControllerExtensions;
-			sourceTree = "<group>";
-		};
-		4CE2E9332448E3F7005AA6B5 /* Layouts */ = {
-			isa = PBXGroup;
-			children = (
-				4CE2E9342448E424005AA6B5 /* FeaturedEventLayout.swift */,
-			);
-			path = Layouts;
 			sourceTree = "<group>";
 		};
 		4CF915CE246AB7A700C754BF /* Operations */ = {
@@ -786,14 +764,15 @@
 				0E09806B23E2A526000110AB /* SearchController.swift in Sources */,
 				0E7DD81E23CA4BAC009843BE /* ImageNotification.swift in Sources */,
 				0E2E723323EA5A47006F94D3 /* UIButton+Extension.swift in Sources */,
-				4CE2E9352448E424005AA6B5 /* FeaturedEventLayout.swift in Sources */,
 				4CB27D692475119A006FA7AD /* Array+Extension.swift in Sources */,
 				0EB19D5823A82C5B00640A40 /* HomeViewController.swift in Sources */,
+				4C4458BD247B7A7E00F4C99B /* UIView+GradientLayer.swift in Sources */,
 				0EA9732023EB260500085435 /* EventViewController.swift in Sources */,
 				0EF6DDED23DFFB7800D8A91B /* DropDownTextField.swift in Sources */,
 				0EE307A923AC53470045EFD1 /* Event.swift in Sources */,
 				4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */,
 				4CE0D81B246E6AA700E048BC /* SettingCollectionViewCell.swift in Sources */,
+				4C2317BB247D08B900CBC034 /* UIButton+Ext.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
 				0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */,
 				0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */,
@@ -827,7 +806,6 @@
 				0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */,
 				0E9FDD7323A84FC100FD75A0 /* EventTableViewCell.swift in Sources */,
 				0EE2AC2723CE7233002B3EB4 /* CustomPopAnimator.swift in Sources */,
-				4571FCB924527B3C001DE2A2 /* WeekdaysView.swift in Sources */,
 				0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */,
 				4C93BE9F2471260F00A18404 /* ShiftableView.swift in Sources */,
 				4C3674D82466588D00C74C00 /* EventVC+CollectionView.swift in Sources */,
@@ -844,9 +822,7 @@
 				0E0817CE23E8B1B70010532D /* MessageTableViewCell.swift in Sources */,
 				0EA9731E23EB228500085435 /* EventTabBarController.swift in Sources */,
 				0EB19D5623A82C5B00640A40 /* SceneDelegate.swift in Sources */,
-				4571FCBB24527C61001DE2A2 /* MonthView.swift in Sources */,
 				0E2B119523ECE53E0072E72E /* UserDefaults+Extension.swift in Sources */,
-				4571FCB524527A36001DE2A2 /* CalendarView.swift in Sources */,
 				4C6747D42453D87400AE768E /* UIView+DropShadow.swift in Sources */,
 				4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */,
 				4C5287D024717A440081B533 /* DateHeader.swift in Sources */,

@@ -34,6 +34,18 @@ struct Location: Codable, Equatable, Hashable {
         self.latitude = latitude
     }
     
+    init(event: FetchEventsQuery.Data.Event.Location) {
+        self.id = event.id
+        self.name = event.name
+        self.streetAddress = event.streetAddress
+        self.streetAddress2 = event.streetAddress2
+        self.city = event.city
+        self.state = event.state
+        self.zipcode = event.zipcode
+        self.longitude = event.longitude
+        self.latitude = event.latitude
+    }
+    
     init(attending: FetchUserIdQuery.Data.User.Rsvp.Location) {
         self.id = attending.id
         self.name = attending.name

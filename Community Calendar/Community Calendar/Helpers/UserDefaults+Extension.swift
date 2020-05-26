@@ -10,8 +10,6 @@ import Foundation
 
 extension UserDefaults {
     static var searchPersistanceKey = "SearchController.filter"
-//    static var oktaID = "OktaID"
-//    static var oktaEmail = "OktaEmail"
     
     enum Keys: String, CaseIterable {
         case oktaID

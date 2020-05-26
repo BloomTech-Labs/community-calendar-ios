@@ -21,6 +21,19 @@ struct Creator: Equatable, Hashable {
         self.profileImage = profileImage
     }
     
+    init?(creator: FetchEventsQuery.Data.Event.Creator) {
+        guard
+            let firstName = creator.firstName,
+            let lastName = creator.lastName,
+            let profileImage = creator.profileImage
+            else { return nil }
+        
+        self.id = creator.id
+        self.firstName = firstName
+        self.lastName = lastName
+        self.profileImage = profileImage
+    }
+    
     init?(creator: FetchUserIdQuery.Data.User.Rsvp.Creator) {
         
         guard
