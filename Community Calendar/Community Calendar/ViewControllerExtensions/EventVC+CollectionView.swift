@@ -119,9 +119,9 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     }
     
     func sortEvents() {
-        var attendingEvents: [UserEvent] = []
-        var savedEvents: [UserEvent] = []
-        var createdEvents: [UserEvent] = []
+        var attendingEvents: [Event] = []
+        var savedEvents: [Event] = []
+        var createdEvents: [Event] = []
         for event in events {
             if event.eventType == .attending {
                 let createdEvent = event
@@ -140,6 +140,13 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
     }
     
     func populateDataSource() {
+        
+        if currentUser == nil || authController?.stateManager?.accessToken == nil {
+            createdCalDataSource.removeAll()
+            savedCalDataSource.removeAll()
+            attendingCalDataSource.removeAll()
+        }
+        
         guard
             let createdEvents = self.createdEvents,
             let savedEvents = self.savedEvents,
@@ -196,41 +203,8 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == myEventsCollectionView {
-            return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 9)
+            return CGSize(width: UIScreen.main.bounds.width, height: myEventsCollectionView.bounds.height / 4)
         }
         return CGSize()
-    }
-    
-    func getUsersEvents(completion: @escaping (Swift.Result<FetchUserIdQuery.Data.User, Error>) -> Void) {
-        if let oktaID = authController?.oktaID {
-            Apollo.shared.fetchUserID(oktaID: oktaID) { result in
-                if let user = try? result.get(), let createdEvents = user.createdEvents, let savedEvents = user.saved, let attendingEvents = user.rsvps, let firstName = user.firstName, let lastName = user.lastName, let profileImage = user.profileImage  {
-                    var currentUser = User(id: user.id, firstName: firstName, lastName: lastName, profileImage: profileImage, userEvent: [])
-                    
-                    let sortedCreated = createdEvents.sorted(by: { $0.startDate < $1.startDate })
-                    let sortedSaved = savedEvents.sorted(by: { $0.startDate < $1.startDate })
-                    let sortedAttending = attendingEvents.sorted(by: { $0.startDate < $1.startDate })
-                    
-                    for event in sortedAttending {
-                        let attendingEvent = UserEvent(attending: event)
-                        currentUser.userEvents?.append(attendingEvent)
-                    }
-                    
-                    for event in sortedSaved {
-                        let savedEvent = UserEvent(saved: event)
-                        currentUser.userEvents?.append(savedEvent)
-                    }
-                    
-                    for event in sortedCreated {
-                        let createdEvent = UserEvent(created: event)
-                        currentUser.userEvents?.append(createdEvent)
-                    }
-                    
-                    self.currentUser = currentUser
-            
-                    completion(.success(user))
-                }
-            }
-        }
     }
 }

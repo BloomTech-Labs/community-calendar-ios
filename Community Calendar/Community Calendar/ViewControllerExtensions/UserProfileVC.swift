@@ -112,11 +112,11 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
         lastNameTextField.isHidden = true
         
         
-        if let user = user {
-            updateViewsLogin(user: user)
-        } else {
-            updateViewsLogout()
-        }
+//        if let user = user {
+//            updateViewsLogin(user: user)
+//        } else {
+//            updateViewsLogout()
+//        }
     }
 
     func loginUser() {
@@ -161,11 +161,12 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
     
     func logoutUser() {
         guard let tabBar = tabBarController as? EventTabBarController else { return }
-        tabBar.authController.signOut(viewController: self, completion: {
-            tabBar.apolloController.defaults.reset()
-            tabBar.authController.accessToken = nil
+        authController?.signOut(viewController: self, completion: {
+            self.apolloController?.defaults.reset()
+            self.authController?.accessToken = nil
             print(tabBar.authController.accessToken as Any)
-            tabBar.apolloController.currentUserID = nil
+            self.apolloController?.currentUserID = nil
+            self.apolloController?.currentUser = nil
             print("After Log Out", tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) as Any)
             print("After Log Out", tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaEmail.rawValue) as Any)
             print("After Log Out", tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.graphQLID.rawValue) as Any)
@@ -250,14 +251,24 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
     }
     
     func isUserLoggedIn() {
-        guard let tabBar = tabBarController as? EventTabBarController else { return }
-        if let accessToken = tabBar.authController.stateManager?.accessToken, let oktaID = tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) {
-            tabBar.apolloController.apollo = tabBar.apolloController.configureApolloClient(accessToken: accessToken)
-            tabBar.apolloController.fetchUserID(oktaID: oktaID) { result in
-                if let user = try? result.get() {
-                    self.updateViewsLogin(user: user)
-                }
+        guard let apolloController = apolloController else { return }
+        if let user = apolloController.currentUser, let email = apolloController.defaults.string(forKey: UserDefaults.Keys.oktaEmail.rawValue) {
+            profileImageView.image = user.userImage
+            emailLabel.text = email
+            if let firstName = user.firstName, let lastName = user.lastName {
+                nameLabel.text = "\(firstName) \(lastName)"
             }
+            if let attending = user.attendingCount {
+                numberOfAttendingLabel.text = "\(attending)"
+            }
+            if let saved = user.savedCount {
+                numberOfSavedLabel.text = "\(saved)"
+            }
+            if let created = user.createdCount {
+                numberOfEventsCreatedLabel.text = "\(created)"
+            }
+        }else {
+            updateViewsLogout()
         }
     }
     

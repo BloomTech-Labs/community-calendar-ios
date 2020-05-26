@@ -13,30 +13,19 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Properties
     
-    var event: FetchEventsQuery.Data.Event? {
-        didSet {
-            updateViewsHomeVC()
-        }
-    }
-    
-    var userEvent: UserEvent? {
+    var event: Event? {
         didSet {
             updateViews()
+//            updateViewsHomeVC()
         }
     }
-//    var savedEvent: FetchUserIdQuery.Data.User.Saved? {
+    
+//    var userEvent: Event? {
 //        didSet {
-//
+//            updateViews()
 //        }
 //    }
-//    var createdEvent: FetchUserIdQuery.Data.User.CreatedEvent? {
-//        didSet {
-//
-//        }
-//    }
-    
-    
-//    var controller: Controller?
+
     var indexPath: IndexPath?
     let eventStore = EKEventStore()
     
@@ -109,7 +98,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     func updateViews() {
         guard
-            let event = userEvent,
+            let event = event,
             let urlString = event.image,
             let url = URL(string: urlString),
             let data = try? Data(contentsOf: url),
@@ -147,30 +136,36 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     private func updateViewsHomeVC() {
         guard
             let event = event,
-            let urlCreatorString = event.creator?.profileImage,
-            let urlCreator = URL(string: urlCreatorString),
-            let imageData = try? Data(contentsOf: urlCreator),
-            let urlString = event.eventImages?.first?.url,
+//            let urlCreatorString = event.creator.profileImage,
+//            let urlCreator = URL(string: urlCreatorString),
+//            let imageData = try? Data(contentsOf: urlCreator),
+            let urlString = event.image,
             let url = URL(string: urlString),
             let data = try? Data(contentsOf: url),
-            let streetAddress = event.locations?.first?.streetAddress,
-            let city = event.locations?.first?.city,
-            let state = event.locations?.first?.state,
-            let zipcode = event.locations?.first?.zipcode
+            let streetAddress = event.location?.streetAddress,
+            let city = event.location?.city,
+            let state = event.location?.state,
+            let zipcode = event.location?.zipcode
             else { return }
         DispatchQueue.main.async {
-            if let hostFirstName = event.creator?.firstName, let hostLastName = event.creator?.lastName {
+            if let urlCreatorString = event.creator.profileImage, let urlCreator = URL(string: urlCreatorString), let imageData = try? Data(contentsOf: urlCreator) {
+                self.hostImageView.image = UIImage(data: imageData)
+            }
+            
+            if let hostFirstName = event.creator.firstName, let hostLastName = event.creator.lastName {
                 self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
             } else {
                 self.hostNameLabel.text = "N/A"
             }
             self.eventImageView.image = UIImage(data: data)
-            self.hostImageView.image = UIImage(data: imageData)
-            self.dateLabel.text = featuredEventDateFormatter.string(from: event.startDate)
+            if let startDate = event.startDate, let endDate = event.endDate {
+                self.dateLabel.text = featuredEventDateFormatter.string(from: startDate)
+                self.timeLabel.text = "\(cellDateFormatter.string(from: startDate)) \n to \n \(cellDateFormatter.string(from: endDate))"
+            }
             self.titleLabel.text = event.title
             self.eventDescTextView.text = event.description
             self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
-            self.timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) \n to \n \(cellDateFormatter.string(from: event.endDate))"
+            
             
             self.addressLabel.text = "\(streetAddress), \(city), \(state) \(zipcode)"
             
@@ -236,7 +231,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func addToCalendar(event: UserEvent, startDate: Date, endDate: Date?) {
+    func addToCalendar(event: Event, startDate: Date, endDate: Date?) {
         let calendarEvent = EKEvent(eventStore: eventStore)
 
         calendarEvent.title = event.title
@@ -367,13 +362,13 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     
     @IBAction func showInMaps(_ sender: UIButton) {
-        if let event = event, let address = event.locations?.first?.streetAddress, let zip = event.locations?.first?.zipcode {
+        if let event = event, let address = event.location?.streetAddress, let zip = event.location?.zipcode {
             let baseURL = URL(string: "http://maps.apple.com/")!
             var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
             let addressQuery = URLQueryItem(name: "address", value: "\(address), \(zip)")
             components?.queryItems = [addressQuery]
             UIApplication.shared.open(components?.url ?? baseURL)
-        } else if event?.locations?.first == nil {
+        } else if event?.location == nil {
             print("Event has no location listed!")
         }
     }
@@ -387,7 +382,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
 
             if granted {
             
-                guard let event = self.userEvent, let startDate = self.userEvent?.startDate, let endDate = self.userEvent?.endDate else {
+                guard let event = self.event, let startDate = self.event?.startDate, let endDate = self.event?.endDate else {
                     var message = ""
                     if self.event?.startDate == nil && self.event?.endDate == nil {
                         message = "\(self.event?.title ?? "Event") has no start or end dates. It cannot be added to the calendar"

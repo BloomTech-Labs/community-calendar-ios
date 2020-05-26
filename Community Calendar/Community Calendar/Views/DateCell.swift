@@ -15,13 +15,13 @@ class DateCell: JTACDayCell {
     // MARK: - Properties
     var event: FetchUserIdQuery.Data.User.CreatedEvent? {
         didSet {
-            updateDetailView()
+//            updateDetailView()
         }
     }
     
     var viewType: ViewType? {
         didSet {
-            updateViews()
+//            updateViews()
         }
     }
     
@@ -46,83 +46,42 @@ class DateCell: JTACDayCell {
     
     // MARK: - View 1
     let detailView = UIView()
-    // MARK: - View 2
 
-//    let calendarView = CalenderView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
-//        constraintsDetailView()
-//        constraintCalendarView()
+        calendarCellConstraints()
+        configureDateCellViews()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-    }
-  
-    func updateViews() {
-        if viewType == .calendar {
-//            calendarView.isHidden = false
-            
-        } else if viewType == .detail {
-//            calendarView.isHidden = true
-        }
-    }
     
-    func updateDetailView() {
-//        guard
-//            let event = event,
-//            let urlString = event.eventImages?.first?.url,
-//            let url = URL(string: urlString),
-//            let data = try? Data(contentsOf: url),
-//            let city = event.locations?.first?.city,
-//            let state = event.locations?.first?.state,
-//            let serverDate = backendDateFormatter.date(from: event.start)
-//            else { return }
+    func calendarCellConstraints() {
+        self.backgroundColor = .clear   
+        dateLabel.anchor(top: contentView.topAnchor, leading: nil, trailing: nil, bottom: nil, centerX: contentView.centerXAnchor, centerY: nil, padding: .zero, size: .zero)
         
-        DispatchQueue.main.async {
-//            self.eventImageView.image = UIImage(data: data)
-//            self.eventNameLabel.text = event.title
-//            self.eventLocationLabel.text = "\(city), \(state)"
-//            let date = dateFormatter.string(from: serverDate)
-//            self.eventDateLabel.text = date
-//            self.eventDescriptionTextView.text = event.description
-        }
+        savedDot.anchor(top: dateLabel.bottomAnchor, leading: nil, trailing: nil, bottom: nil, centerX: contentView.centerXAnchor, centerY: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .zero)
+        
+        attendingDot.anchor(top: dateLabel.bottomAnchor, leading: nil, trailing: savedDot.leadingAnchor, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 2, left: 2, bottom: 0, right: -2), size: .zero)
+        
+        createdDot.anchor(top: dateLabel.bottomAnchor, leading: savedDot.trailingAnchor, trailing: nil, bottom: nil, centerX: nil, centerY: nil, padding: .init(top: 2, left: 2, bottom: 0, right: -2), size: .zero)
+        
+        selectedView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, centerX: nil, centerY: nil)
+        
+        NSLayoutConstraint.activate([
+            savedDot.widthAnchor.constraint(equalToConstant: contentView.bounds.height / 4.5),
+            savedDot.heightAnchor.constraint(equalToConstant: contentView.bounds.height / 4.5),
+            attendingDot.widthAnchor.constraint(equalToConstant: contentView.bounds.height / 4.5),
+            attendingDot.heightAnchor.constraint(equalToConstant: contentView.bounds.height / 4.5),
+            createdDot.widthAnchor.constraint(equalToConstant: contentView.bounds.height / 4.5),
+            createdDot.heightAnchor.constraint(equalToConstant: contentView.bounds.height / 4.5)
+        ])
     }
     
-    //MARK: - Clendar View
-//    func constraintCalendarView() {
-//
-//        detailView.addSubview(calendarView)
-//        calendarView.anchor(top: detailView.topAnchor, leading: detailView.leadingAnchor, trailing: detailView.trailingAnchor, bottom: detailView.bottomAnchor, centerX: nil, centerY: nil)
-//
-//    }
-    
-    func constraintsDetailView() {
+    func configureDateCellViews() {
+        let height = contentView.bounds.height / 4.5
         
-        // MARK: - Content View
-//        contentView.addSubview(calendarView)
-        contentView.backgroundColor = .white
-        
-        // MARK: - Detail View
-//        calendarView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, centerX: contentView.centerXAnchor, centerY: contentView.centerYAnchor, padding: .zero, size: .zero)
-//        
-//        NSLayoutConstraint.activate([
-//            calendarView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-//            calendarView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-//            calendarView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
-//            calendarView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-//            calendarView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40)
-//        ])
-        
-//        calendarView.blackShadow()
-//        calendarView.backgroundColor = .white
-//        calendarView.layer.cornerRadius = 12
-//        
-//        calendarView.addSubview(calendarView)
-//        calendarView.anchor(top: calendarView.topAnchor, leading: calendarView.leadingAnchor, trailing: calendarView.trailingAnchor, bottom: calendarView.bottomAnchor, centerX: nil, centerY: nil)
-
+        attendingDot.layer.cornerRadius = height / 2
+        savedDot.layer.cornerRadius = height / 2
+        createdDot.layer.cornerRadius = height / 2
     }
 }

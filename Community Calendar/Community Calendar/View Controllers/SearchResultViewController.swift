@@ -16,7 +16,7 @@ class SearchResultViewController: UIViewController {
     var operations = [String : Operation]()
     
     var controller: Controller?
-    var events: [FetchEventsQuery.Data.Event]? {
+    var events: [Event]? {
         didSet {
             updateViews()
         }
@@ -86,8 +86,8 @@ class SearchResultViewController: UIViewController {
     }
 
     private func fetchFilteredEvents() {
-        let results = Apollo.shared.events.filter {
-            $0.index.lowercased().contains(searchBar?.text?.lowercased() ?? "")
+        let results = events?.filter {
+            $0.title.lowercased().contains(searchBar?.text?.lowercased() ?? "")
         }
         self.events = results
     }

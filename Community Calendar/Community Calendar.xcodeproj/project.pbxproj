@@ -69,7 +69,6 @@
 		0EE2AC3123CFFB2C002B3EB4 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2AC3023CFFB2C002B3EB4 /* Functions.swift */; };
 		0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */; };
 		0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */; };
-		0EE307A923AC53470045EFD1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A723AC53470045EFD1 /* Event.swift */; };
 		0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */; };
 		0EF6DDE423DF479400D8A91B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE323DF479400D8A91B /* Location.swift */; };
 		0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE523DF47AF00D8A91B /* Tag.swift */; };
@@ -203,7 +202,6 @@
 		0EE2AC3023CFFB2C002B3EB4 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		0EE307A623AC53470045EFD1 /* Community_Calendar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Community_Calendar.xcdatamodel; sourceTree = "<group>"; };
-		0EE307A723AC53470045EFD1 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0EF6DDE323DF479400D8A91B /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		0EF6DDE523DF47AF00D8A91B /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		0EF6DDE723DF521600D8A91B /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
@@ -462,7 +460,6 @@
 			isa = PBXGroup;
 			children = (
 				0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */,
-				0EE307A723AC53470045EFD1 /* Event.swift */,
 				0EF6DDE323DF479400D8A91B /* Location.swift */,
 				0EF6DDE523DF47AF00D8A91B /* Tag.swift */,
 				0EF6DDE723DF521600D8A91B /* Filter.swift */,
@@ -791,7 +788,6 @@
 				0EB19D5823A82C5B00640A40 /* HomeViewController.swift in Sources */,
 				0EA9732023EB260500085435 /* EventViewController.swift in Sources */,
 				0EF6DDED23DFFB7800D8A91B /* DropDownTextField.swift in Sources */,
-				0EE307A923AC53470045EFD1 /* Event.swift in Sources */,
 				4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */,
 				4CE0D81B246E6AA700E048BC /* SettingCollectionViewCell.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,

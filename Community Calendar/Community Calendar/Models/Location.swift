@@ -9,6 +9,15 @@
 import Foundation
 import CoreLocation
 
+struct LocationFilter: Codable, Equatable {
+    let longitude: Double
+    let latitude: Double
+    let radius: Int
+    let name: String
+    let row: Int?
+}
+
+
 struct Location: Codable, Equatable, Hashable {
     
     let id: String
@@ -32,6 +41,18 @@ struct Location: Codable, Equatable, Hashable {
         self.zipcode = zipcode
         self.longitude = longitude
         self.latitude = latitude
+    }
+    
+    init(event: FetchEventsQuery.Data.Event.Location) {
+        self.id = event.id
+        self.name = event.name
+        self.streetAddress = event.streetAddress
+        self.streetAddress2 = event.streetAddress2
+        self.city = event.city
+        self.state = event.state
+        self.zipcode = event.zipcode
+        self.longitude = event.longitude
+        self.latitude = event.latitude
     }
     
     init(attending: FetchUserIdQuery.Data.User.Rsvp.Location) {
@@ -100,10 +121,3 @@ struct Location: Codable, Equatable, Hashable {
     
 }
 
-struct LocationFilter: Codable, Equatable {
-    let longitude: Double
-    let latitude: Double
-    let radius: Int
-    let name: String
-    let row: Int?
-}

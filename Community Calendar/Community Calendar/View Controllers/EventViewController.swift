@@ -48,12 +48,12 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    var events: [UserEvent] = [] {
+    var events: [Event] = [] {
         didSet {
             self.sortEvents()
         }
     }
-    var filteredEvents: [UserEvent] = [] {
+    var filteredEvents: [Event] = [] {
         didSet {
 //            self.myEventsCollectionView.reloadData()
         }
@@ -61,14 +61,7 @@ class EventViewController: UIViewController, ControllerDelegate {
     
     var currentUser: User? {
         didSet {
-            guard
-                let user = currentUser,
-                let events = user.userEvents
-                else { return }
-                
-            for event in events {
-                    self.events.append(event)
-            }
+            print("This is the current user: \(String(describing: currentUser?.firstName)) \(String(describing: currentUser?.lastName))")
         }
     }
     
@@ -78,18 +71,18 @@ class EventViewController: UIViewController, ControllerDelegate {
         }
     }
     
-    var createdEvents: [UserEvent]? {
+    var createdEvents: [Event]? {
         didSet {
             self.populateDataSource()
         }
     }
-    var attendingEvents: [UserEvent]? {
+    var attendingEvents: [Event]? {
         didSet {
             self.populateDataSource()
         }
     }
     
-    var savedEvents: [UserEvent]? {
+    var savedEvents: [Event]? {
         didSet {
             self.populateDataSource()
         }
@@ -125,53 +118,52 @@ class EventViewController: UIViewController, ControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupSubViews()
         guard let tabBar = tabBarController as? EventTabBarController else { return }
-        if tabBar.authController.accessToken != nil {
-            getUsersEvents { _ in
-                self.createdButtonTapped(UIButton())
-                self.myEventsCollectionView.reloadData()
-                self.calendarView.scrollToDate(Date())
-            }
-        }
+        apolloController = tabBar.apolloController
+        authController = tabBar.authController
+        setupSubViews()
+        configureViews()
+        self.calendarView.scrollToDate(Date())
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        checkCurrentuser()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let tabBar = tabBarController as? EventTabBarController else { return }
         
-        if tabBar.authController.accessToken == nil {
-            self.userEvents = nil
-            self.filteredEvents.removeAll()
-            self.myEventsCollectionView.reloadData()
-            self.calendarView.scrollToDate(Date())
-        } else {
-            if let accesstoken = tabBar.authController.accessToken {
-                tabBar.apolloController.apollo = tabBar.apolloController.configureApolloClient(accessToken: accesstoken)
-                getUsersEvents { _ in
-                    
-                    self.myEventsCollectionView.reloadData()
-                    self.calendarView.scrollToDate(Date())
+    }
+
+    func checkCurrentuser() {
+        if let user = apolloController?.currentUser, let userEvents = user.userEvents {
+            if self.events.count != userEvents.count {
+                self.events = userEvents
+                self.noEventsLabel.isHidden = true
+                self.noEventsLabel.text = ""
+                myEventsCollectionView.reloadData()
+            } else {
+                if let oktaID = apolloController?.defaults.string(forKey: UserDefaults.Keys.oktaID.rawValue) {
+                    apolloController?.fetchUserID(oktaID: oktaID, completion: { _ in
+                        guard let userEvents = self.apolloController?.currentUser?.userEvents else { return }
+                        self.events = userEvents
+                    })
                 }
             }
-            createdButtonTapped(UIButton())
+        } else if apolloController?.currentUser == nil || authController?.stateManager?.accessToken == nil {
+            self.noEventsLabel.isHidden = false
+            self.noEventsLabel.text = "Please sign in to view your events..."
+            self.events.removeAll()
+            self.filteredEvents.removeAll()
+            self.attendingEvents = nil
+            self.savedEvents = nil
+            self.createdEvents = nil
+            calendarView.reloadData()
             myEventsCollectionView.reloadData()
         }
-        
-//        if let tabBar = tabBarController as? EventTabBarController, let accessToken = tabBar.authController.stateManager?.accessToken {
-//            if tabBar.authController.accessToken != nil {
-//                tabBar.apolloController.apollo = tabBar.apolloController.configureApolloClient(accessToken: accessToken)
-//
-//            }
-//        }
     }
-//        if user == nil {
-//            if let accessToken = authController?.accessToken {
-//                authController?.getUser(completion: { result in
-//                                    })
-//            }
-//        }
-//    }
     
     @objc func dateTapped(_ sender: Any) {
         attendingButton.setAttributedTitle(createAttrText(with: "Attending", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
@@ -243,9 +235,9 @@ class EventViewController: UIViewController, ControllerDelegate {
         
     }
     
-    func removeDuplicates(array: [UserEvent], completion: @escaping ([UserEvent]) -> Void)  {
-        var set = Set<UserEvent>()
-        var result: [UserEvent] = []
+    func removeDuplicates(array: [Event], completion: @escaping ([Event]) -> Void)  {
+        var set = Set<Event>()
+        var result: [Event] = []
         for event in array {
             if set.contains(event) {
                 
@@ -308,47 +300,40 @@ class EventViewController: UIViewController, ControllerDelegate {
     }
     
     func setupSubViews() {
+        let insetWidth = UIScreen.main.bounds.width - 40
+        let width = UIScreen.main.bounds.width
+        let calendarViewHeight = UIScreen.main.bounds.height * 0.35
+        
+        calendarBackgroundView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, trailing: nil, bottom: nil, centerX: view.centerXAnchor, centerY: nil, padding: .init(top: 8, left: 0, bottom: -8, right: 0), size: .init(width: insetWidth, height: calendarViewHeight))
+        
+        calendarView.anchor(top: calendarBackgroundView.topAnchor, leading: calendarBackgroundView.leadingAnchor, trailing: calendarBackgroundView.trailingAnchor, bottom: calendarBackgroundView.bottomAnchor, centerX: nil, centerY: nil, padding: .zero, size: .zero)
+        
+        filterView.anchor(top: calendarBackgroundView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, centerX: view.centerXAnchor, centerY: nil, padding: .zero, size: .init(width: width, height: 40))
+        
+        filterButtonStackView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, centerX: filterView.centerXAnchor, centerY: filterView.centerYAnchor)
+        
+        myEventsCollectionView.anchor(top: filterView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: nil, centerY: nil, padding: .zero, size: .zero)
+    }
+    
+    func configureViews() {
         myEventsCollectionView.dataSource = self
         myEventsCollectionView.delegate = self
         calendarView.layer.borderColor = #colorLiteral(red: 0.1722870469, green: 0.1891334951, blue: 0.2275838256, alpha: 1)
         calendarView.backgroundColor = .white
         calendarView.layer.borderWidth = 1.0
-        calendarView.layer.cornerRadius = 12
-        calendarBackgroundView.layer.cornerRadius = 12
-        calendarBackgroundView.contactShadow()
-        calendarView.scrollingMode = .stopAtEachCalendarFrame
-        calendarView.allowsRangedSelection = true 
-        createdButtonTapped(UIButton())
-        //        let dynamicMargin = detailAndCalendarCollectionView.bounds.height / 5
-        filterView.translatesAutoresizingMaskIntoConstraints = false
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.layer.masksToBounds = true
+        calendarView.layer.masksToBounds = true 
+        calendarBackgroundView.layer.cornerRadius = calendarBackgroundView.bounds.height * 0.04
+        calendarView.layer.cornerRadius = calendarBackgroundView.bounds.height * 0.04
         
-        calendarView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2.3).isActive = true
         calendarView.scrollDirection = .horizontal
         calendarView.scrollingMode = .stopAtEachCalendarFrame
         calendarView.showsHorizontalScrollIndicator = false
-        
-        //        NSLayoutConstraint.activate([
-        //            filterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        //            filterView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -dynamicMargin),
-        //            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-        //            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-        //            filterButtonStackView.centerXAnchor.constraint(equalTo: filterView.centerXAnchor),
-        //            filterButtonStackView.centerYAnchor.constraint(equalTo: filterView.centerYAnchor),
-        //            filterButtonStackView.topAnchor.constraint(equalTo: filterView.topAnchor, constant: 0),
-        //            filterButtonStackView.bottomAnchor.constraint(equalTo: filterView.bottomAnchor, constant: 0)
-        //        ])
-        //
-        //        detailAndCalendarCollectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: filterView.topAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
-        //
-        //        myEventsCollectionView.anchor(top: filterView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, centerX: nil, centerY: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .zero)
-        
-        
-        //        if let flowLayout = calendarView.collectionViewLayout as? UICollectionViewFlowLayout {
-        //            flowLayout.scrollDirection = .horizontal
-        //            flowLayout.minimumLineSpacing = 0
-        //            calendarView.isPagingEnabled = true
-        //        }
+        calendarView.scrollingMode = .stopAtEachCalendarFrame
+        calendarView.allowsRangedSelection = true
+        createdButtonTapped(UIButton())
+        calendarBackgroundView.blackShadow()
+
     }
  
     func createAttrText(with title: String, color: UIColor, fontName: String) -> NSAttributedString {
@@ -365,7 +350,7 @@ class EventViewController: UIViewController, ControllerDelegate {
                 let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
             let event = filteredEvents[indexPath.item]
             if let passedEvent = events.first(where: { $0.id == event.id }) {
-                detailVC.userEvent = passedEvent
+                detailVC.event = passedEvent
             }
         }
     }
