@@ -16,6 +16,7 @@ class SearchResultViewController: UIViewController {
     var operations = [String : Operation]()
     
     var controller: Controller?
+    
     var events: [Event]? {
         didSet {
             updateViews()
@@ -27,6 +28,7 @@ class SearchResultViewController: UIViewController {
             fetchFilteredEvents()
         }
     }
+    
     var searchBar: UISearchBar?
     
     @IBOutlet private weak var eventResultsCollectionView: UICollectionView!
@@ -87,7 +89,7 @@ class SearchResultViewController: UIViewController {
 
     private func fetchFilteredEvents() {
         let results = events?.filter {
-            $0.title.lowercased().contains(searchBar?.text?.lowercased() ?? "")
+            $0.index.lowercased().contains(searchBar?.text?.lowercased() ?? "")
         }
         self.events = results
     }
