@@ -15,8 +15,15 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
 
     private static let url = URL(string: "https://apollo.ourcommunitycal.com/")!
     var apollo: ApolloClient = ApolloClient(url: ApolloController.url)
+    var currentUser: User? {
+        didSet {
+            print("Apollo Controller, Current User: \(String(describing: currentUser)), User Events Count: \(String(describing: currentUser?.userEvents?.count))")
+        }
+    }
     var currentUserID: GraphQLID?
-    var events = [FetchEventsQuery.Data.Event]()
+    var events = [Event]()
+    var userEvents = [Event]()
+    var events2 = [FetchEventsQuery.Data.Event]()
     var filteredEvents = [FetchEventsQuery.Data.Event]()
     var attendingEvents = [FetchUserIdQuery.Data.User.Rsvp]()
     var createdEvents = [FetchUserIdQuery.Data.User.CreatedEvent]()
@@ -38,8 +45,11 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
             case .success(let graphQLResult):
                 if let events = graphQLResult.data?.events {
                     let sortedEvents = events.sorted(by: { $0.start < $1.start })
-                    self.events = sortedEvents
-                    print(self.events.count)
+                    self.events2 = sortedEvents
+                    for event in sortedEvents {
+                        let newEvent = Event(event: event)
+                        self.events.append(newEvent)
+                    }
                     completion(.success(sortedEvents))
                 }
             }
@@ -54,12 +64,23 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                 completion(.failure(error))
             case .success(let graphQLResult):
                 if let user = graphQLResult.data?.user, let createdEvents = user.createdEvents, let savedEvents = user.saved, let attendingEvents = user.rsvps {
-                    let sortedCreated = createdEvents.sorted(by: { $0.startDate < $1.startDate })
-                    let sortedSaved = savedEvents.sorted(by: { $0.startDate < $1.startDate })
+                    self.currentUser = User(user: user)
                     let sortedAttending = attendingEvents.sorted(by: { $0.startDate < $1.startDate })
-                    self.attendingEvents = sortedAttending
-                    self.savedEvents = sortedSaved
-                    self.createdEvents = sortedCreated
+                    let sortedSaved = savedEvents.sorted(by: { $0.startDate < $1.startDate })
+                    let sortedCreated = createdEvents.sorted(by: { $0.startDate < $1.startDate })
+                    for event in sortedAttending {
+                        let attendingEvent = Event(attending: event)
+                        self.userEvents.append(attendingEvent)
+                    }
+                    for event in sortedSaved {
+                        let savedEvent = Event(saved: event)
+                        self.userEvents.append(savedEvent)
+                    }
+                    for event in sortedCreated {
+                        let createdEvent = Event(created: event)
+                        self.userEvents.append(createdEvent)
+                    }
+                    
                     self.currentUserID = user.id
                     completion(.success(user))
                 }

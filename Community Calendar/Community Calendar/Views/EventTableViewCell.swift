@@ -11,7 +11,7 @@ import UIKit
 class EventTableViewCell: UITableViewCell {
 
     // MARK: - Properties
-    var event: FetchEventsQuery.Data.Event? {
+    var event: Event? {
         didSet {
             updateViews()
         }
@@ -43,8 +43,8 @@ class EventTableViewCell: UITableViewCell {
         guard
             let event = event,
             let date = backendDateFormatter.date(from: event.start),
-            let city = event.locations?.first?.city,
-            let state = event.locations?.first?.state
+            let city = event.location?.city,
+            let state = event.location?.state
             else { return }
         
         DispatchQueue.main.async {
@@ -55,9 +55,6 @@ class EventTableViewCell: UITableViewCell {
     }
     
     func setupSubviews() {
-        districtNameLabel.textColor = .black
-        eventTitleLabel.textColor = .black
-        timeLabel.textColor = .black
         eventImageView.layer.cornerRadius = 7
         eventImageView.blackShadow()
         eventImageView.layer.masksToBounds = true

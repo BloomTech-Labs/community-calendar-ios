@@ -69,7 +69,6 @@
 		0EE2AC3123CFFB2C002B3EB4 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2AC3023CFFB2C002B3EB4 /* Functions.swift */; };
 		0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */; };
 		0EE307A823AC53470045EFD1 /* Community_Calendar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */; };
-		0EE307A923AC53470045EFD1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE307A723AC53470045EFD1 /* Event.swift */; };
 		0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E2D03C6715BC8FE7CFA243 /* Pods_Community_Calendar.framework */; };
 		0EF6DDE423DF479400D8A91B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE323DF479400D8A91B /* Location.swift */; };
 		0EF6DDE623DF47AF00D8A91B /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6DDE523DF47AF00D8A91B /* Tag.swift */; };
@@ -203,7 +202,6 @@
 		0EE2AC3023CFFB2C002B3EB4 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		0EE2AC3223D0FD76002B3EB4 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		0EE307A623AC53470045EFD1 /* Community_Calendar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Community_Calendar.xcdatamodel; sourceTree = "<group>"; };
-		0EE307A723AC53470045EFD1 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0EF6DDE323DF479400D8A91B /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		0EF6DDE523DF47AF00D8A91B /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		0EF6DDE723DF521600D8A91B /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
@@ -449,9 +447,9 @@
 			children = (
 				0EB19D5923A82C5B00640A40 /* Main.storyboard */,
 				0E09806623E20D2C000110AB /* Events.storyboard */,
+				0E09806823E20DB1000110AB /* EventDetail.storyboard */,
 				EF51CC4A23A83E4300FF4E62 /* Login.storyboard */,
 				0EE2AC2223CE3B6C002B3EB4 /* Filter.storyboard */,
-				0E09806823E20DB1000110AB /* EventDetail.storyboard */,
 				0EF6DDF423E1FE1600D8A91B /* SearchResults.storyboard */,
 				0EB19D6123A82C6200640A40 /* LaunchScreen.storyboard */,
 			);
@@ -462,7 +460,6 @@
 			isa = PBXGroup;
 			children = (
 				0EE307A523AC53470045EFD1 /* Community_Calendar.xcdatamodeld */,
-				0EE307A723AC53470045EFD1 /* Event.swift */,
 				0EF6DDE323DF479400D8A91B /* Location.swift */,
 				0EF6DDE523DF47AF00D8A91B /* Tag.swift */,
 				0EF6DDE723DF521600D8A91B /* Filter.swift */,
@@ -791,7 +788,6 @@
 				0EB19D5823A82C5B00640A40 /* HomeViewController.swift in Sources */,
 				0EA9732023EB260500085435 /* EventViewController.swift in Sources */,
 				0EF6DDED23DFFB7800D8A91B /* DropDownTextField.swift in Sources */,
-				0EE307A923AC53470045EFD1 /* Event.swift in Sources */,
 				4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */,
 				4CE0D81B246E6AA700E048BC /* SettingCollectionViewCell.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
@@ -1050,7 +1046,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V5X7HQSSM6;
+				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1058,7 +1054,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lambdaschool.Community-Calendar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_VERSION = 5.0;
@@ -1073,7 +1069,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V5X7HQSSM6;
+				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
 				INFOPLIST_FILE = "$(SRCROOT)/Community Calendar/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1081,7 +1077,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mazjap.Community-Calendar";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lambdaschool.Community-Calendar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_VERSION = 5.0;

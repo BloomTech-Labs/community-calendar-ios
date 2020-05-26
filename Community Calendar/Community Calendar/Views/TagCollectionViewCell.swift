@@ -17,6 +17,7 @@ class TagCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var tagButton: UIButton!
     @IBOutlet weak var tagBackgroundView: UIView!
     var isActive = false
+    
     var filterTag: Tag? {
         didSet {
             updateViews()

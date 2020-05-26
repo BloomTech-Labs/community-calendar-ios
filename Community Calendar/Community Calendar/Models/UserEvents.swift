@@ -12,11 +12,12 @@ enum EventType: Equatable, Hashable {
     case attending
     case saved
     case created
+    case all
 }
 
-struct UserEvent: Equatable, Hashable {
+struct Event: Equatable, Hashable {
     
-    static func == (lhs: UserEvent, rhs: UserEvent) -> Bool {
+    static func == (lhs: Event, rhs: Event) -> Bool {
         return lhs.id == rhs.id && lhs.title == rhs.title
     }
     
@@ -25,7 +26,6 @@ struct UserEvent: Equatable, Hashable {
         hasher.combine(title)
     }
     
-    
     let id: String
     let title: String
     let description: String
@@ -33,13 +33,15 @@ struct UserEvent: Equatable, Hashable {
     let end: String
     let ticketPrice: Double
     let location: Location?
+    let index: String
+    let tags: [Tag]
     let image: String?
     var startDate: Date?
     var endDate: Date?
     let creator: Creator
     let eventType: EventType
     
-    init(id: String, title: String, description: String, start: String, end: String, ticketPrice: Double, location: Location?, image: String?, creator: Creator, eventType: EventType) {
+    init(id: String, title: String, description: String, start: String, end: String, ticketPrice: Double, location: Location?, index: String, tags: [Tag], image: String?, creator: Creator, eventType: EventType) {
         
         self.id = id
         self.title = title
@@ -48,6 +50,8 @@ struct UserEvent: Equatable, Hashable {
         self.end = end
         self.ticketPrice = ticketPrice
         self.location = location
+        self.index = index
+        self.tags = tags
         self.image = image
         self.startDate = backendDateFormatter.date(from: start)
         self.endDate = backendDateFormatter.date(from: end)
@@ -57,6 +61,7 @@ struct UserEvent: Equatable, Hashable {
     
     init(attending: FetchUserIdQuery.Data.User.Rsvp, eventType: EventType = .attending) {
         
+        var tagArray: [Tag] = []
         var imageString: String = ""
         if let images = attending.eventImages?.first?.url {
             imageString = images
@@ -68,6 +73,14 @@ struct UserEvent: Equatable, Hashable {
         self.start = attending.start
         self.end = attending.end
         self.ticketPrice = attending.ticketPrice
+        if let tags = attending.tags {
+            for tag in tags {
+                let newTag = Tag(tag: tag)
+                tagArray.append(newTag)
+            }
+        }
+        self.tags = tagArray
+        self.index = attending.index
         self.image = imageString
         self.startDate = backendDateFormatter.date(from: attending.start)
         self.endDate = backendDateFormatter.date(from: attending.end)
@@ -86,6 +99,7 @@ struct UserEvent: Equatable, Hashable {
     
     init(saved: FetchUserIdQuery.Data.User.Saved, eventType: EventType = .saved) {
         
+        var tagArray: [Tag] = []
         var imageString: String = ""
         if let images = saved.eventImages?.first?.url {
             imageString = images
@@ -97,6 +111,14 @@ struct UserEvent: Equatable, Hashable {
         self.start = saved.start
         self.end = saved.end
         self.ticketPrice = saved.ticketPrice
+        if let tags = saved.tags {
+            for tag in tags {
+                let newTag = Tag(tag: tag)
+                tagArray.append(newTag)
+            }
+        }
+        self.tags = tagArray
+        self.index = saved.index
         self.image = imageString
         self.startDate = backendDateFormatter.date(from: saved.start)
         self.endDate = backendDateFormatter.date(from: saved.end)
@@ -115,6 +137,7 @@ struct UserEvent: Equatable, Hashable {
     
     init(created: FetchUserIdQuery.Data.User.CreatedEvent, eventType: EventType = .created) {
         
+        var tagArray: [Tag] = []
         var imageString: String = ""
         if let images = created.eventImages?.first?.url {
             imageString = images
@@ -126,6 +149,14 @@ struct UserEvent: Equatable, Hashable {
         self.start = created.start
         self.end = created.end
         self.ticketPrice = created.ticketPrice
+        if let tags = created.tags {
+            for tag in tags {
+                let newTag = Tag(tag: tag)
+                tagArray.append(newTag)
+            }
+        }
+        self.tags = tagArray
+        self.index = created.index
         self.image = imageString
         self.startDate = backendDateFormatter.date(from: created.start)
         self.endDate = backendDateFormatter.date(from: created.end)
@@ -138,6 +169,44 @@ struct UserEvent: Equatable, Hashable {
             self.creator = attendingCreator
         } else {
             self.creator = Creator(id: "N/A", firstName: "N/A", lastName: "", profileImage: "N/A")
+        }
+        self.eventType = eventType
+    }
+    
+    init(event: FetchEventsQuery.Data.Event, eventType: EventType = .all) {
+        
+        var tagArray: [Tag] = []
+        var imageString: String = ""
+        if let images = event.eventImages?.first?.url {
+            imageString = images
+        }
+        
+        self.id = event.id
+        self.title = event.title
+        self.description = event.description
+        self.start = event.start
+        self.end = event.end
+        self.ticketPrice = event.ticketPrice
+        if let tags = event.tags {
+            for tag in tags {
+//                let newTag = Tag(tag: tag)
+//                tagArray.append(newTag)
+            }
+        }
+        self.tags = tagArray
+        self.index = event.index
+        self.image = imageString
+        self.startDate = backendDateFormatter.date(from: event.start)
+        self.endDate = backendDateFormatter.date(from: event.end)
+        if let location = event.locations?.first {
+            self.location = Location(event: location)
+        } else {
+            self.location = Location(id: "N/A", name: "N/A", streetAddress: "N/A", streetAddress2: "N/A", city: "N/A", state: "N/A", zipcode: 00000, longitude: 0.0, latitude: 0.0)
+        }
+        if let creator = event.creator, let attendingCreator = Creator(creator: creator) {
+            self.creator = attendingCreator
+        } else {
+            self.creator = Creator(id: "N/A", firstName: nil, lastName: nil, profileImage: nil)
         }
         self.eventType = eventType
     }

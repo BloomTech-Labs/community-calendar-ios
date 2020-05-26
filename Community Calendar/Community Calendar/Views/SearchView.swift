@@ -124,7 +124,7 @@ class SearchView: UIView, ControllerDelegate {
     // MARK: - Private Functions
     private func searchBorderDesigns() {
         // Set filter button's border
-        filterButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.5), for: .normal)
+        filterButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.7), for: .normal)
         filterButton.layer.cornerRadius = 29 / 1.6
         filterButton.layer.borderWidth = 1
         filterButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
@@ -134,10 +134,6 @@ class SearchView: UIView, ControllerDelegate {
         nearbyButton.layer.cornerRadius = 5
         nearbyButton.layer.borderWidth = 1
         nearbyButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
-        
-        // Change text color
-        nearbyLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
-        recentSearchesLabel.textColor = UIColor(red: 0.129, green: 0.141, blue: 0.173, alpha: 1)
     }
     
     private func updateViews() {

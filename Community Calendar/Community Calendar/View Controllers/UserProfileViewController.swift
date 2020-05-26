@@ -13,25 +13,18 @@ import MapKit
 class UserProfileViewController: UIViewController, ControllerDelegate {
  
     //MARK: - Properties
-    var user: FetchUserIdQuery.Data.User? {
-        didSet {
-            print("User Profile View Controller User: \(String(describing: user))")
-        }
-    }
-
-    var oktaUserInfo: [String]? {
-        didSet {
-            print("User Profile View Controller Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
-        }
-    }
-   
     var authController: AuthController? {
         didSet {
+            authController?.setupOktaOidc {
+                self.isUserLoggedIn()
+            }
             print("User Profile View Controller Auth Controller: \(String(describing: authController))")
         }
     }
+    
     var apolloController: ApolloController? {
         didSet {
+            self.isUserLoggedIn()
             print("User Profile View Controller Apollo Controller: \(String(describing: apolloController))")
         }
     }
@@ -68,6 +61,9 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubView()
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        authController = tabBar.authController
+        apolloController = tabBar.apolloController
         NotificationCenter.default.addObserver(self, selector: #selector(handleLogout), name: .handleLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(editUserProfile), name: .editProfile, object: nil)
         
@@ -79,34 +75,24 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
         super.viewDidAppear(animated)
         guard let tabBar = tabBarController as? EventTabBarController else { return }
         
-        if tabBar.authController.accessToken == nil {
-            loginButton.isHidden = false
+        if tabBar.authController.isUserLoggedIn {
+            loginButton.isHidden = true
         } else {
-            loginButton.isHidden = true 
+            loginButton.isHidden = false
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        isUserLoggedIn()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        authController?.getUser(completion: { result in
-//            if let user = try? result.get() {
-//                let email = user.last
-//                if email != nil {
-//                    self.emailLabel.text = email
-//                }
-//            }
-//        })
-//        
-//        fetchCreatedEvents {
-//            
-//        }
-    }
     
     // MARK: - IBActions
     @IBAction func loginButtonTapped(_ sender: Any) {

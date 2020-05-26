@@ -11,7 +11,7 @@ import UIKit
 final class FilteredEventDataSource: NSObject, UITableViewDataSource {
     
     // MARK: - Properties
-    var events = [FetchEventsQuery.Data.Event]()
+    var events = [Event]()
     // MARK: - Initializer
     init?(for filter: FilterEventType) {
         super.init()

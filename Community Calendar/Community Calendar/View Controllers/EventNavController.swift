@@ -49,10 +49,10 @@ class EventNavController: UINavigationController, ControllerDelegate {
             else { return }
         for viewController in self.viewControllers {
             if var VC = viewController as? ControllerDelegate {
-                VC.apolloController = apolloController
-                VC.authController = authController
-                VC.user = user
-                VC.oktaUserInfo = oktaUserInfo
+//                VC.apolloController = apolloController
+//                VC.authController = authController
+//                VC.user = user
+//                VC.oktaUserInfo = oktaUserInfo
             }
         }
     }

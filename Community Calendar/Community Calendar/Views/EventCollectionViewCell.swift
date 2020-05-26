@@ -11,7 +11,7 @@ import UIKit
 class EventCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    var event: FetchEventsQuery.Data.Event? {
+    var event: Event? {
         didSet {
             updateViews()
         }
@@ -35,8 +35,8 @@ class EventCollectionViewCell: UICollectionViewCell {
 //            let urlString = event.eventImages?.first?.url,
 //            let url = URL(string: urlString),
 //            let data = try? Data(contentsOf: url),
-            let city = event.locations?.first?.city,
-            let state = event.locations?.first?.state,
+            let city = event.location?.city,
+            let state = event.location?.state,
             let date = backendDateFormatter.date(from: event.start)
             else { return }
         

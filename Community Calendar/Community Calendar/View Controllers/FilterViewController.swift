@@ -10,6 +10,7 @@
 
 import UIKit
 import CoreLocation
+import Foundation
 
 protocol FilterDelegate {
     func receive(filters: Filter)
@@ -29,9 +30,11 @@ class FilterViewController: UIViewController {
     var districtDoneButton = UIButton()
     var selectedFilters = [Tag]()
     var suggestedFilters = [Tag]()
+    var homeVC: HomeViewController?
     
     var controller: Controller?
-    var events: [FetchEventsQuery.Data.Event]? {
+    
+    var events: [Event]? {
         didSet {
             setDistrictList()
         }
@@ -60,9 +63,7 @@ class FilterViewController: UIViewController {
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUp()
-        
         tagsSearchBar.delegate = self
         tagsSearchBar.returnKeyType = .done
     }
@@ -85,15 +86,11 @@ class FilterViewController: UIViewController {
         setUpTextField(zipCodeTextField)
         dateTextField.placeholder = "\(filterDateFormatter.string(from: Date()))"
         setUpTextField(dateTextField)
-        
         setUpWithFilters()
-        
         setDistrictList()
         setUpPickerViews()
-        
         selectedTagsCollectionView.delegate = self
         selectedTagsCollectionView.dataSource = self
-        
         suggestedTagsCollectionView.delegate = self
         suggestedTagsCollectionView.dataSource = self
         
@@ -213,7 +210,7 @@ class FilterViewController: UIViewController {
         if let events = events {
             var districtList = [String]()
             for event in events {
-                if let location = event.locations?.first?.city {
+                if let location = event.location?.city {
                     districtList.append(location)
                 }
             }
@@ -243,7 +240,7 @@ class FilterViewController: UIViewController {
     // MARK: - IBActions
     @IBAction func exitTapped(_ sender: UIButton) {
         exitButton.setImage(UIImage(named: "x-light"), for: .normal)
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func clearTags(_ sender: UIButton) {
@@ -256,7 +253,6 @@ class FilterViewController: UIViewController {
         filter.zipCode = nil
         dateTextField.text = ""
         filter.dateRange = nil
-        
         reloadCollectionViewsData()
     }
     
@@ -268,7 +264,7 @@ class FilterViewController: UIViewController {
             filter.zipCode = zipCode
         }
         delegate?.receive(filters: filter)
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 }
 

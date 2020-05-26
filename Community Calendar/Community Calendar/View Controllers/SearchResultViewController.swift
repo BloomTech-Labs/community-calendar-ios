@@ -10,8 +10,15 @@ import UIKit
 import CoreLocation
 
 class SearchResultViewController: UIViewController {
+    
+    let photoFetchQueue = OperationQueue()
+    let cache = Cache<String, UIImage>()
+    var operations = [String : Operation]()
+    var apolloController: ApolloController?
+    
     var controller: Controller?
-    var events: [FetchEventsQuery.Data.Event]? {
+    
+    var events: [Event]? {
         didSet {
             updateViews()
         }
@@ -22,6 +29,7 @@ class SearchResultViewController: UIViewController {
             fetchFilteredEvents()
         }
     }
+    
     var searchBar: UISearchBar?
     
     @IBOutlet private weak var eventResultsCollectionView: UICollectionView!
@@ -62,7 +70,7 @@ class SearchResultViewController: UIViewController {
         guard let _ = events, isViewLoaded else { return }
         eventResultsCollectionView.reloadData()
         eventResultsTableView.reloadData()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         seperatorView.backgroundColor = .white
         setFilterLabel()
     }
@@ -81,8 +89,8 @@ class SearchResultViewController: UIViewController {
     }
 
     private func fetchFilteredEvents() {
-        let results = Apollo.shared.events.filter {
-            $0.title.lowercased().contains(searchBar?.text?.lowercased() ?? "")
+        let results = events?.filter {
+            $0.index.lowercased().contains(searchBar?.text?.lowercased() ?? "")
         }
         self.events = results
     }
@@ -118,7 +126,7 @@ class SearchResultViewController: UIViewController {
     }
     
     @IBAction func goBackPressed(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
         guard let toVC = navigationController?.topViewController as? HomeViewController else { return }
         toVC.setSearchBarText()
     }
@@ -160,8 +168,91 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = eventResultsCollectionView.dequeueReusableCell(withReuseIdentifier: "EventCollectionViewCell", for: indexPath) as? EventCollectionViewCell else { return UICollectionViewCell() }
         cell.event = events?[indexPath.item]
+        loadImageCV(forCell: cell, forItemAt: indexPath)
         return cell
     }
+    
+    func loadImageCV(forCell cell: EventCollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let event = events?[indexPath.item] else { return }
+        
+        if let cachedImage = cache.value(for: event.id) {
+            cell.eventImageView?.image = cachedImage
+            return
+        }
+        
+        let fetchOp = FilteredEventPhotoOperation(event: event)
+        let cacheOp = BlockOperation {
+            if let image = fetchOp.image {
+                self.cache.cache(value: image, for: event.id)
+            }
+        }
+        let completionOp = BlockOperation {
+            defer { self.operations.removeValue(forKey: event.id) }
+            
+            if let currentIndexPath = self.eventResultsCollectionView.indexPath(for: cell),
+                currentIndexPath != indexPath {
+                return
+            }
+            
+            if let image = fetchOp.image {
+                cell.eventImageView?.image = image
+            }
+        }
+        
+        cacheOp.addDependency(fetchOp)
+        completionOp.addDependency(fetchOp)
+        
+        photoFetchQueue.addOperation(fetchOp)
+        photoFetchQueue.addOperation(cacheOp)
+        OperationQueue.main.addOperation(completionOp)
+        
+        operations[event.id] = fetchOp
+    }
+    
+//    func loadImageTV(forCell cell: EventTableViewCell?, collectionCell: EventCollectionViewCell?, forItemAt indexPath: IndexPath) {
+//        guard let event = events?[indexPath.item] else { return }
+//
+//        var tableCell: EventTableViewCell?
+//        var collectionCell: EventCollectionViewCell?
+//
+//        if let x = cell, let y = collectionCell {
+//            tableCell = x
+//            collectionCell = y
+//        }
+//
+//        if let cachedImage = cache.value(for: event.id) {
+//            tableCell.eventImageView?.image = cachedImage
+//            return
+//        }
+//
+//        let fetchOp = FilteredEventPhotoOperation(event: event)
+//        let cacheOp = BlockOperation {
+//            if let image = fetchOp.image {
+//                self.cache.cache(value: image, for: event.id)
+//            }
+//        }
+//        let completionOp = BlockOperation {
+//            defer { self.operations.removeValue(forKey: event.id) }
+//
+//            if let currentIndexPath = self.eventResultsTableView.indexPath(for: cell),
+//                currentIndexPath != indexPath {
+//                return
+//            }
+//
+//            if let image = fetchOp.image {
+//                cell.eventImageView?.image = image
+//            }
+//        }
+//
+//        cacheOp.addDependency(fetchOp)
+//        completionOp.addDependency(fetchOp)
+//
+//        photoFetchQueue.addOperation(fetchOp)
+//        photoFetchQueue.addOperation(cacheOp)
+//        OperationQueue.main.addOperation(completionOp)
+//
+//        operations[event.id] = fetchOp
+//    }
 }
 
 extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
@@ -172,6 +263,7 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = eventResultsTableView.dequeueReusableCell(withIdentifier: "EventTableViewCell", for: indexPath) as? EventTableViewCell else { return UITableViewCell() }
         cell.event = events?[indexPath.row]
+        loadImageTV(forCell: cell, forItemAt: indexPath)
         return cell
     }
     
@@ -202,6 +294,43 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
         hideAction.backgroundColor = UIColor.blue
         let configuration = UISwipeActionsConfiguration(actions: [hideAction])
         return configuration
+    }
+    
+    func loadImageTV(forCell cell: EventTableViewCell, forItemAt indexPath: IndexPath) {
+        guard let event = events?[indexPath.item] else { return }
+        
+        if let cachedImage = cache.value(for: event.id) {
+            cell.eventImageView?.image = cachedImage
+            return
+        }
+        
+        let fetchOp = FilteredEventPhotoOperation(event: event)
+        let cacheOp = BlockOperation {
+            if let image = fetchOp.image {
+                self.cache.cache(value: image, for: event.id)
+            }
+        }
+        let completionOp = BlockOperation {
+            defer { self.operations.removeValue(forKey: event.id) }
+            
+            if let currentIndexPath = self.eventResultsTableView.indexPath(for: cell),
+                currentIndexPath != indexPath {
+                return
+            }
+            
+            if let image = fetchOp.image {
+                cell.eventImageView?.image = image
+            }
+        }
+        
+        cacheOp.addDependency(fetchOp)
+        completionOp.addDependency(fetchOp)
+        
+        photoFetchQueue.addOperation(fetchOp)
+        photoFetchQueue.addOperation(cacheOp)
+        OperationQueue.main.addOperation(completionOp)
+        
+        operations[event.id] = fetchOp
     }
 }
 

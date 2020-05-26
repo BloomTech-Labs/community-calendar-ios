@@ -15,9 +15,9 @@ class FilteredEventPhotoOperation: ConcurrentOperation {
     
     let session: URLSession
     
-    let event: FetchEventsQuery.Data.Event
+    let event: Event
     
-    init(event: FetchEventsQuery.Data.Event, session: URLSession = URLSession.shared) {
+    init(event: Event, session: URLSession = URLSession.shared) {
         self.event = event
         self.session = session
         super.init()
@@ -26,7 +26,7 @@ class FilteredEventPhotoOperation: ConcurrentOperation {
     override func start() {
         state = .isExecuting
         guard
-            let urlString = (event.eventImages?.first?.url),
+            let urlString = (event.image),
             let url = URL(string: urlString)
             else { return }
         

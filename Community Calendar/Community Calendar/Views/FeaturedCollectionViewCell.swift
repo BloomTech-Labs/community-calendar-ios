@@ -11,7 +11,7 @@ import UIKit
 class FeaturedCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    var event: FetchEventsQuery.Data.Event? {
+    var event: Event? {
         didSet {
             updateViews()
         }

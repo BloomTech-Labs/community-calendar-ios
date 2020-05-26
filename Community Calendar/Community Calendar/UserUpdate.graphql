@@ -18,6 +18,11 @@ query fetchUserID($oktaId: String) {
       start
       end
       ticketPrice
+      index
+      tags {
+        id
+        title
+      }
       locations{
         id
         name
@@ -47,6 +52,11 @@ query fetchUserID($oktaId: String) {
       start
       end
       ticketPrice
+      index
+      tags {
+        id
+        title
+      }
       locations {
         id
         name
@@ -76,6 +86,11 @@ query fetchUserID($oktaId: String) {
       start
       end
       ticketPrice
+      index
+      tags {
+        id
+        title
+      }
       locations {
         id
         name
