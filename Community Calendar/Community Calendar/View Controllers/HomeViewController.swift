@@ -13,20 +13,7 @@ import OktaOidc
 
 class HomeViewController: UIViewController, ControllerDelegate {
     
-    // MARK: - Properties
-    
-//    var user: FetchUserIdQuery.Data.User? {
-//        didSet {
-//            print("Home View Controller User: \(String(describing: user))")
-//        }
-//    }
-    
-//    var oktaUserInfo: [String]? {
-//        didSet {
-//            print("Home View Controller Okta ID: \(String(describing: oktaUserInfo?.first)), Okta Email: \(String(describing: oktaUserInfo?.last))")
-//        }
-//    }
-    
+    // MARK: - Properties    
     var apolloController: ApolloController? {
         didSet {
             self.apolloController?.fetchEvents(completion: { _ in
@@ -296,7 +283,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         let dates = Apollo.shared.todaysDateRange()
         guard let startDate = dates.first, let endDate = dates.last else { return }
         
-        filteredEvents = events?.filter({ ($0.startDate?.isBetween(startDate, and: endDate))! })
+        filteredEvents = events?.filter({ ($0.startDate.isBetween(startDate, and: endDate)) })
         dateLabel.text = todayDateFormatter.string(from: startDate)
         eventTableView.reloadData()
         eventCollectionView.reloadData()
@@ -312,7 +299,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         let dates = Apollo.shared.tomorrowsDateRange()
         guard let startDate = dates.first, let endDate = dates.last else { return }
         
-        filteredEvents = events?.filter({ ($0.startDate?.isBetween(startDate, and: endDate))! })
+        filteredEvents = events?.filter({ ($0.startDate.isBetween(startDate, and: endDate)) })
         dateLabel.text = todayDateFormatter.string(from: startDate)
         eventTableView.reloadData()
         eventCollectionView.reloadData()
@@ -329,7 +316,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         let dates = Apollo.shared.weekendDateRange()
         guard let startDate = dates.first, let endDate = dates.last else { return }
         
-        filteredEvents = events?.filter({ ($0.startDate?.isBetween(startDate, and: endDate))! })
+        filteredEvents = events?.filter({ ($0.startDate.isBetween(startDate, and: endDate)) })
         dateLabel.text = "\(todayDateFormatter.string(from: startDate)) - \(todayDateFormatter.string(from: endDate.addingTimeInterval(-1)))"
         eventTableView.reloadData()
         eventCollectionView.reloadData()
@@ -346,7 +333,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
         let dates = Apollo.shared.allEventsRange()
         guard let startDate = dates.first, let endDate = dates.last else { return }
         
-        filteredEvents = events?.filter({ ($0.startDate?.isBetween(startDate, and: endDate))! })
+        filteredEvents = events?.filter({ ($0.startDate.isBetween(startDate, and: endDate)) })
         dateLabel.text = todayDateFormatter.string(from: Date())
         eventTableView.reloadData()
         eventCollectionView.reloadData()

@@ -72,12 +72,9 @@ class MyEventCollectionViewCell: UICollectionViewCell {
     func configureViews() {
         imageBackgroundView.layer.cornerRadius = imageBackgroundView.bounds.height * 0.08
         eventImageView.layer.cornerRadius = imageBackgroundView.bounds.height * 0.08
-        imageBackgroundView.layer.masksToBounds = true
+        imageBackgroundView.layer.masksToBounds = false
         eventImageView.layer.masksToBounds = true
         eventImageView.contentMode = .scaleToFill
         imageBackgroundView.blackShadow()
-        eventNameLabel.textShadow()
-        eventDateLabel.textShadow()
-        eventLocationLabel.textShadow()
     }
 }

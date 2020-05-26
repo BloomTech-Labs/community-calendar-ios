@@ -15,6 +15,9 @@ extension UIColor {
     static let unselectedDayButton = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     static let tabBarTint = UIColor(red: 1.0, green: 0.4, blue: 0.41, alpha: 1.0)
     static let transparentLightGray = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.4)
+    static let coral = UIColor(displayP3Red: 0.7410163879, green: 0.4183317125, blue: 0.4147843719, alpha: 1)
+    static let coralSubtleGradient = UIColor(displayP3Red: 0.5843137255, green: 0.2235294118, blue: 0.2352941176, alpha: 1)
+    
 }
 
 extension UIColor {

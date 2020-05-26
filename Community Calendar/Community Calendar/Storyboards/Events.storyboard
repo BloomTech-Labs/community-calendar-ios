@@ -214,6 +214,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pFH-4U-hcx">
                                                         <rect key="frame" x="76" y="0.0" width="20" height="20"/>
                                                         <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="Kp3-o9-ohf"/>
                                                             <constraint firstAttribute="width" constant="20" id="hFB-8K-Vt6"/>
@@ -223,6 +224,9 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="4UN-60-P9i" appends="YES" id="gHq-zQ-Z4G"/>
+                                                        </connections>
                                                     </view>
                                                 </subviews>
                                             </stackView>
@@ -242,6 +246,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TxU-Qz-FGl">
                                                         <rect key="frame" x="52" y="0.0" width="20" height="20"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="6fx-aI-1ad"/>
                                                             <constraint firstAttribute="height" constant="20" id="yVi-kQ-xZq"/>
@@ -251,6 +256,9 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="5tQ-YK-5SJ" appends="YES" id="2WE-zd-C1m"/>
+                                                        </connections>
                                                     </view>
                                                 </subviews>
                                             </stackView>
@@ -270,6 +278,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1n-wp-mi0">
                                                         <rect key="frame" x="66" y="0.0" width="20" height="20"/>
                                                         <color key="backgroundColor" red="1" green="0.39878201479999997" blue="0.41116151210000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="DUd-wr-fPX"/>
                                                             <constraint firstAttribute="height" constant="20" id="rqs-wV-cuX"/>
@@ -279,6 +288,9 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="rr9-2T-OhV" appends="YES" id="rOQ-sL-cZs"/>
+                                                        </connections>
                                                     </view>
                                                 </subviews>
                                             </stackView>
@@ -377,19 +389,37 @@
                     <connections>
                         <outlet property="attendingButton" destination="EGz-UT-T1R" id="agd-Ia-Jyq"/>
                         <outlet property="attendingEventsIndicator" destination="pFH-4U-hcx" id="IgV-bY-LhQ"/>
+                        <outlet property="attendingGestureRecognizer" destination="4UN-60-P9i" id="QSX-BX-BxN"/>
                         <outlet property="calendarBackgroundView" destination="Vb5-wk-ghM" id="T9S-N0-b2S"/>
                         <outlet property="calendarView" destination="h6m-Uj-2mx" id="WBr-zt-39n"/>
                         <outlet property="createdButton" destination="qPw-iH-CFa" id="FTH-xL-cEA"/>
                         <outlet property="createdEventsIndicator" destination="C1n-wp-mi0" id="pTE-rk-Hbc"/>
+                        <outlet property="createdGestureRecognizer" destination="rr9-2T-OhV" id="F5m-HC-hhF"/>
                         <outlet property="filterButtonStackView" destination="R3B-jC-f5F" id="ZD9-KG-zsa"/>
                         <outlet property="filterView" destination="uJi-ZF-fFR" id="B2C-yq-Hrr"/>
                         <outlet property="myEventsCollectionView" destination="wcc-XP-aQD" id="JcM-BC-PJ2"/>
                         <outlet property="noEventsLabel" destination="tWk-nd-8aN" id="mPG-0L-s6X"/>
                         <outlet property="savedButton" destination="m1c-Wu-6qo" id="w1t-nO-9wS"/>
                         <outlet property="savedEventsIndicator" destination="TxU-Qz-FGl" id="Pox-Zg-M4f"/>
+                        <outlet property="savedGestureRecognizer" destination="5tQ-YK-5SJ" id="pXU-8Z-01Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U92-ZD-avV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="4UN-60-P9i">
+                    <connections>
+                        <action selector="attendingViewTapped:" destination="ZeL-Jq-9yj" id="Xx4-nI-mAv"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="5tQ-YK-5SJ">
+                    <connections>
+                        <action selector="savedViewTapped:" destination="ZeL-Jq-9yj" id="RAL-aA-PTo"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="rr9-2T-OhV">
+                    <connections>
+                        <action selector="createdViewTapped:" destination="ZeL-Jq-9yj" id="eD6-HZ-VTs"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="679.71014492753625" y="177.45535714285714"/>
         </scene>

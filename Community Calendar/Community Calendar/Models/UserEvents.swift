@@ -34,8 +34,8 @@ struct Event: Equatable, Hashable {
     let ticketPrice: Double
     let location: Location?
     let image: String?
-    var startDate: Date?
-    var endDate: Date?
+    var startDate: Date
+    var endDate: Date
     let creator: Creator
     let eventType: EventType
     
@@ -49,8 +49,8 @@ struct Event: Equatable, Hashable {
         self.ticketPrice = ticketPrice
         self.location = location
         self.image = image
-        self.startDate = backendDateFormatter.date(from: start)
-        self.endDate = backendDateFormatter.date(from: end)
+        self.startDate = backendDateFormatter.date(from: start) ?? Date()
+        self.endDate = backendDateFormatter.date(from: end) ?? Date()
         self.creator = creator
         self.eventType = eventType
     }
@@ -69,8 +69,8 @@ struct Event: Equatable, Hashable {
         self.end = attending.end
         self.ticketPrice = attending.ticketPrice
         self.image = imageString
-        self.startDate = backendDateFormatter.date(from: attending.start)
-        self.endDate = backendDateFormatter.date(from: attending.end)
+        self.startDate = backendDateFormatter.date(from: attending.start) ?? Date()
+        self.endDate = backendDateFormatter.date(from: attending.end) ?? Date()
         if let location = attending.locations?.first {
             self.location = Location(attending: location)
         } else {
@@ -98,8 +98,8 @@ struct Event: Equatable, Hashable {
         self.end = saved.end
         self.ticketPrice = saved.ticketPrice
         self.image = imageString
-        self.startDate = backendDateFormatter.date(from: saved.start)
-        self.endDate = backendDateFormatter.date(from: saved.end)
+        self.startDate = backendDateFormatter.date(from: saved.start) ?? Date()
+        self.endDate = backendDateFormatter.date(from: saved.end) ?? Date()
         if let location = saved.locations?.first {
             self.location = Location(saved: location)
         } else {
@@ -127,8 +127,8 @@ struct Event: Equatable, Hashable {
         self.end = created.end
         self.ticketPrice = created.ticketPrice
         self.image = imageString
-        self.startDate = backendDateFormatter.date(from: created.start)
-        self.endDate = backendDateFormatter.date(from: created.end)
+        self.startDate = backendDateFormatter.date(from: created.start) ?? Date()
+        self.endDate = backendDateFormatter.date(from: created.end) ?? Date()
         if let location = created.locations?.first {
             self.location = Location(created: location)
         } else {
@@ -156,8 +156,8 @@ struct Event: Equatable, Hashable {
         self.end = event.end
         self.ticketPrice = event.ticketPrice
         self.image = imageString
-        self.startDate = backendDateFormatter.date(from: event.start)
-        self.endDate = backendDateFormatter.date(from: event.end)
+        self.startDate = backendDateFormatter.date(from: event.start) ?? Date()
+        self.endDate = backendDateFormatter.date(from: event.end) ?? Date()
         if let location = event.locations?.first {
             self.location = Location(event: location)
         } else {

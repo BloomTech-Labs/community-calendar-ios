@@ -105,11 +105,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             let streetAddress = event.location?.streetAddress,
             let city = event.location?.city,
             let state = event.location?.state,
-            let zipcode = event.location?.zipcode,
-            let startDate = event.startDate,
-            let endDate = event.endDate
+            let zipcode = event.location?.zipcode
             else { return }
         
+        let startDate = event.startDate
+        let endDate = event.endDate
         DispatchQueue.main.async {
             if let urlCreatorString = event.creator.profileImage, let urlCreator = URL(string: urlCreatorString), let imageData = try? Data(contentsOf: urlCreator) {
                 self.hostImageView.image = UIImage(data: imageData)
@@ -158,10 +158,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
                 self.hostNameLabel.text = "N/A"
             }
             self.eventImageView.image = UIImage(data: data)
-            if let startDate = event.startDate, let endDate = event.endDate {
-                self.dateLabel.text = featuredEventDateFormatter.string(from: startDate)
-                self.timeLabel.text = "\(cellDateFormatter.string(from: startDate)) \n to \n \(cellDateFormatter.string(from: endDate))"
-            }
+//            if let startDate = event.startDate, let endDate = event.endDate {
+            self.dateLabel.text = featuredEventDateFormatter.string(from: event.startDate)
+            self.timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) \n to \n \(cellDateFormatter.string(from: event.endDate))"
+//              }
             self.titleLabel.text = event.title
             self.eventDescTextView.text = event.description
             self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
