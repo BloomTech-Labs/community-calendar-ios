@@ -36,6 +36,8 @@ You can find the deployed project on [Test flight](https://testflight.apple.com/
 
 The app is divided into three different tabs: home, where you can find events tailored for you and search for specific events by name, distance, interest, category, and more; events, where you will see your RSVP'd events along with a full list of events in your area; and profile, where you are able to log in or sign up, view your favorited events, set a profile picture, and edit your information like name, email, etc.
 
+<img src="header_1.png" alt="" width="250" />  <img src="header_2.png" alt="" width="250" />  <img src="header_3.png" alt="" width="250" /> <img src="header_4.png" alt="" width="250" /> <img src="header_5.png" alt="" width="250" /> 
+
 ### Features
 - Okta authentication
 - Open in maps

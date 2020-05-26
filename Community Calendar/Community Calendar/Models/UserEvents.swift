@@ -189,8 +189,8 @@ struct Event: Equatable, Hashable {
         self.ticketPrice = event.ticketPrice
         if let tags = event.tags {
             for tag in tags {
-                let newTag = Tag(tag: tag)
-                tagArray.append(newTag)
+//                let newTag = Tag(tag: tag)
+//                tagArray.append(newTag)
             }
         }
         self.tags = tagArray
