@@ -95,6 +95,23 @@ class SearchResultViewController: UIViewController {
         self.events = results
     }
     
+//    func jordansoldfetch() {
+//        guard let filter = filter, let eventController = eventController else { return }
+//        eventController.getEvents(by: filter) { result in
+//            switch result {
+//            case .success(let filteredEvents):
+//                self.events = filteredEvents
+//                if self.events?.count == 0 {
+//                    DispatchQueue.main.async {
+//                        self.noResultsLabel.isHidden = false
+//                    }
+//                }
+//            case .failure(let error):
+//                NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
+//            }
+//        }
+//    }
+    
     private func setFilterLabel() {
         guard let filter = filter, let filterLabel = filterLabel else { return }
         filterLabel.text = "All Events"

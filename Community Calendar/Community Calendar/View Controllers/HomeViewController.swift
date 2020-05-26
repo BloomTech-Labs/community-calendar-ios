@@ -393,13 +393,14 @@ class HomeViewController: UIViewController, ControllerDelegate {
                 resultsVC.searchBar = eventSearchBar
             }
             resultsVC.events = filteredEvents
-        }
-        else if segue.identifier == "ByDistanceSegue" {
+            currentFilter = nil
+        } else if segue.identifier == "ByDistanceSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
             if let filter = self.currentFilter {
                 resultsVC.filter = filter
             }
             resultsVC.events = filteredEvents
+            currentFilter = nil
         }
     }
 }
