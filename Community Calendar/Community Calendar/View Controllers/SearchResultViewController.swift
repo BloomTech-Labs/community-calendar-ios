@@ -14,6 +14,7 @@ class SearchResultViewController: UIViewController {
     let photoFetchQueue = OperationQueue()
     let cache = Cache<String, UIImage>()
     var operations = [String : Operation]()
+    var apolloController: ApolloController?
     
     var controller: Controller?
     

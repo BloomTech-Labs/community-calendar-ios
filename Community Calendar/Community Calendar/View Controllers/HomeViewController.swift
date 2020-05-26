@@ -71,11 +71,11 @@ class HomeViewController: UIViewController, ControllerDelegate {
     var testing = false
     var repeatCount = 1
     var shouldDismissFilterScreen = true
-    var unfilteredEvents: [FetchEventsQuery.Data.Event]? {        // Varible events' data source
-        didSet {
-            allUpcomingTapped(UIButton())
-        }
-    }
+//    var unfilteredEvents: [FetchEventsQuery.Data.Event]? {        // Varible events' data source
+//        didSet {
+//            allUpcomingTapped(UIButton())
+//        }
+//    }
     
     var currentFilter: Filter? {
         didSet {
@@ -388,14 +388,18 @@ class HomeViewController: UIViewController, ControllerDelegate {
             filterVC.delegate = self
         } else if segue.identifier == "ShowSearchResultsSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
-            resultsVC.filter = currentFilter
-            resultsVC.searchBar = eventSearchBar
-            resultsVC.events = events
-            currentFilter = nil
-        } else if segue.identifier == "ByDistanceSegue" {
+            if let filter = self.currentFilter {
+                resultsVC.filter = filter
+                resultsVC.searchBar = eventSearchBar
+            }
+            resultsVC.events = filteredEvents
+        }
+        else if segue.identifier == "ByDistanceSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
-//            resultsVC.events = unfilteredEvents
-            currentFilter = nil
+            if let filter = self.currentFilter {
+                resultsVC.filter = filter
+            }
+            resultsVC.events = filteredEvents
         }
     }
 }
