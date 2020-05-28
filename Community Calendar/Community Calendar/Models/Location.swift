@@ -81,35 +81,6 @@ struct Location: Codable, Equatable, Hashable {
         self.longitude = created.longitude
         self.latitude = created.latitude
     }
-    
-    
-//    init(location: GetEventsQuery.Data.Event.Location) {
-//        if let longString = location.longitude { self.longitude = Double(longString) }
-//        else { self.longitude = nil }
-//        if let latString = location.latitude { self.latitude = Double(latString) }
-//        else { self.latitude = nil }
-//        self.name = location.name
-//        self.state = location.state
-//        self.city = location.city
-//        self.streetAddress = location.streetAddress
-//        self.streetAddress2 = location.streetAddress2
-//        self.zipcode = location.zipcode
-//    }
-    
-//    init(location: GetEventsByFilterQuery.Data.Event.Location) {
-//        if let longString = location.longitude { self.longitude = Double(longString) }
-//        else { self.longitude = nil }
-//        if let latString = location.latitude { self.latitude = Double(latString) }
-//        else { self.latitude = nil }
-//        self.name = location.name
-//        self.state = location.state
-//        self.city = location.city
-//        self.streetAddress = location.streetAddress
-//        self.streetAddress2 = location.streetAddress2
-//        self.zipcode = location.zipcode
-//    }
-    
-    
 }
 
 struct LocationFilter: Codable, Equatable {

@@ -85,30 +85,30 @@ class Controller {
 //        }
 //    }
     
-    func fetchImage(for key: String) {
+//    func fetchImage(for key: String) {
 //        if let image = cache.fetch(key: key) {
 //            NotificationCenter.default.post(name: .imageWasLoaded, object: ImageNotification(image: image, url: key))
 //            return
 //        }
         
-        let imageURL = URL(string: key)!
-        URLSession.shared.dataTask(with: imageURL) { (data, _, error) in
-            if let error = error {
-                NSLog("\(#file):L\(#line): Unable to fetch image data inside \(#function) with error: \(error)")
-                return
-            }
-            
-            guard let data = data else {
-                NSLog("\(#file):L\(#line): No data returned while trying to fetch image data inside \(#function)")
-                return
-            }
-            
-            if let image = UIImage(data: data) {
-                self.cache.cache(value: image, for: key)
-                NotificationCenter.default.post(name: .imageWasLoaded, object: ImageNotification(image: image, url: key))
-            }
-        }.resume()
-    }
+//        let imageURL = URL(string: key)!
+//        URLSession.shared.dataTask(with: imageURL) { (data, _, error) in
+//            if let error = error {
+//                NSLog("\(#file):L\(#line): Unable to fetch image data inside \(#function) with error: \(error)")
+//                return
+//            }
+//
+//            guard let data = data else {
+//                NSLog("\(#file):L\(#line): No data returned while trying to fetch image data inside \(#function)")
+//                return
+//            }
+//
+//            if let image = UIImage(data: data) {
+//                self.cache.cache(value: image, for: key)
+//                NotificationCenter.default.post(name: .imageWasLoaded, object: ImageNotification(image: image, url: key))
+//            }
+//        }.resume()
+//    }
     
     func save(filteredSearch: Filter) {
         searchController.save(filteredSearch: [filteredSearch])

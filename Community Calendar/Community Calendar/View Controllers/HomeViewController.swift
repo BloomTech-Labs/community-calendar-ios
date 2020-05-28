@@ -58,7 +58,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     var testing = false
     var repeatCount = 1
     var shouldDismissFilterScreen = true
-    var unfilteredEvents: [FetchEventsQuery.Data.Event]? {        // Varible events' data source
+    var unfilteredEvents: [Event]? {        // Varible events' data source
         didSet {
             allUpcomingTapped(UIButton())
         }
@@ -205,23 +205,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
             eventSearchBar.searchTextField.placeholder = "Search"
         }
     }
-    
-    // MARK: - Data Functions
-    
-//    private func createMockData(eventList: [Event]) { // For testing without wifi
-//        print("let testData = [")
-//        for event in eventList {
-//            var addComma = ","
-//            if event == eventList.last! {
-//                addComma = ""
-//            }
-//            print("Event(title: \"\(event.title)\", description: \"\(event.description)\", startDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.startDate ?? Date()))\") ?? Date(), endDate: backendDateFormatter.date(from: \"\(backendDateFormatter.string(from: event.endDate ?? Date()))\") ?? Date(), creator: \"\(event.creator)\", urls: \(event.urls), images: \(event.images), rsvps: \(event.rsvps), locations: \(event.locations), tags: \(event.tags), ticketPrice: \(event.ticketPrice))\(addComma)")
-//        }
-//        print("]")
-//    }
-    
-    
-    
+
     // MARK: - Search/Filter Functions
     func shouldShowSearchView(_ bool: Bool, shouldAnimate: Bool = true) {
         searchView.shouldShowSearchView(bool, shouldAnimate: shouldAnimate)
@@ -374,11 +358,15 @@ class HomeViewController: UIViewController, ControllerDelegate {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
             resultsVC.filter = currentFilter
             resultsVC.searchBar = eventSearchBar
+            resultsVC.events = self.events
             currentFilter = nil
         } else if segue.identifier == "ByDistanceSegue" {
             guard let resultsVC = segue.destination as? SearchResultViewController else { return }
             resultsVC.events = unfilteredEvents
             currentFilter = nil
+        } else if segue.identifier == "SeeAllSegue" {
+            guard let resultsVC = segue.destination as? SearchResultViewController else { return }
+            resultsVC.events = events
         }
     }
 }
