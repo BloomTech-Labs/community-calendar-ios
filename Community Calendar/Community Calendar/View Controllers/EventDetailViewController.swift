@@ -310,10 +310,10 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - IBActions
     @IBAction func favoriteButtonTapped(_ sender: Any) {
-        favoriteButton.isSelected.toggle()
         guard let event = event else { return }
         
         if apolloController?.currentUser != nil {
+            favoriteButton.isSelected.toggle()
             apolloController?.saveEvent(eventID: event.id, completion: { result in
                 if let bool = try? result.get() {
                     if bool == false {
@@ -324,22 +324,24 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
                     }
                 }
             })
+        } else {
+            self.presentUserInfoAlert(title: "Error...", message: "Please Login to Favorite Events")
         }
     }
     
     @IBAction func attendEvent(_ sender: UIButton) {
-        attendButton.isSelected.toggle()
-        if attendButton.isSelected {
-            checkmarkImageView.isHidden = false
-        } else {
-            checkmarkImageView.isHidden = true
-        }
         guard
             let event = event,
             let apolloController = apolloController
             else { return }
         
         if apolloController.currentUser != nil {
+            attendButton.isSelected.toggle()
+            if attendButton.isSelected {
+                checkmarkImageView.isHidden = false
+            } else {
+                checkmarkImageView.isHidden = true
+            }
             apolloController.attendEvent(eventID: event.id, completion: { result in
                 if let bool = try? result.get() {
                     if bool == false {
@@ -350,6 +352,8 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
                     }
                 }
             })
+        } else {
+            self.presentUserInfoAlert(title: "Error...", message: "Please Login to RSVP to Events")
         }
         
 //        if attendButton.isSelected {
@@ -381,7 +385,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
 //                    }
 //                })
 //            } else {
-//                self.presentUserInfoAlert(title: "Error!", message: "Please Login to RSVP to Events")
+                
 //                attendButton.isSelected = false
 //                checkmarkImageView.isHidden = true
 //                attendButton.imageView?.image = nil
