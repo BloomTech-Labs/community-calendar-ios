@@ -14,7 +14,6 @@
 		0E09806D23E2A983000110AB /* RecentSearchesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */; };
 		0E2B119523ECE53E0072E72E /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B119423ECE53E0072E72E /* UserDefaults+Extension.swift */; };
 		0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B119623ED0FCB0072E72E /* SearchView.swift */; };
-		0E2E723123EA4082006F94D3 /* JWT+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E723023EA4082006F94D3 /* JWT+Extension.swift */; };
 		0E2E723323EA5A47006F94D3 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2E723223EA5A47006F94D3 /* UIButton+Extension.swift */; };
 		0E73088F23C69147006B5326 /* EventControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E73088E23C69147006B5326 /* EventControllerTests.swift */; };
 		0E7DD80923C8E844009843BE /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7DD80823C8E844009843BE /* EventDetailViewController.swift */; };
@@ -80,8 +79,8 @@
 		4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */; };
 		4C133D4D246D354F0029EC17 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C133D4C246D354F0029EC17 /* SettingsLauncher.swift */; };
 		4C1AEB19245B40F300BEECEF /* Okta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C1AEB18245B40F300BEECEF /* Okta.plist */; };
-		4C2317BB247D08B900CBC034 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2317BA247D08B900CBC034 /* UIButton+Ext.swift */; };
 		4C2842F224693AF500178677 /* Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2842F124693AF500178677 /* Apollo.swift */; };
+		4C298FB624804D55007940A9 /* EMTNeumorphicView in Frameworks */ = {isa = PBXBuildFile; productRef = 4C298FB524804D55007940A9 /* EMTNeumorphicView */; };
 		4C2B2FD7247097090059A4D8 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2B2FD6247097090059A4D8 /* EditProfileView.swift */; };
 		4C305A11246A3DC900AB9164 /* FilteredEventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */; };
 		4C3674D424660B5E00C74C00 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3674D324660B5E00C74C00 /* UserProfileVC.swift */; };
@@ -92,6 +91,7 @@
 		4C468CE7246207C4004799E3 /* ApolloCodegenLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4C468CE6246207C4004799E3 /* ApolloCodegenLib */; };
 		4C468CE9246207C4004799E3 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 4C468CE8246207C4004799E3 /* ApolloWebSocket */; };
 		4C5287D024717A440081B533 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5287CF24717A440081B533 /* DateHeader.swift */; };
+		4C5F492D248090DF00B6E1BA /* UIView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5F492C248090DF00B6E1BA /* UIView+Animations.swift */; };
 		4C6747D22453CEEB00AE768E /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D12453CEEB00AE768E /* DateCell.swift */; };
 		4C6747D42453D87400AE768E /* UIView+DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6747D32453D87400AE768E /* UIView+DropShadow.swift */; };
 		4C69DD63246B1510006E0300 /* FetchUserIDQuery+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C69DD62246B1510006E0300 /* FetchUserIDQuery+Ext.swift */; };
@@ -140,7 +140,6 @@
 		0E09806C23E2A983000110AB /* RecentSearchesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesTableViewCell.swift; sourceTree = "<group>"; };
 		0E2B119423ECE53E0072E72E /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		0E2B119623ED0FCB0072E72E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		0E2E723023EA4082006F94D3 /* JWT+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JWT+Extension.swift"; sourceTree = "<group>"; };
 		0E2E723223EA5A47006F94D3 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		0E73088C23C69147006B5326 /* Community Calendar Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Community Calendar Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E73088E23C69147006B5326 /* EventControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventControllerTests.swift; sourceTree = "<group>"; };
@@ -209,7 +208,6 @@
 		4576D26B245FB57A0032ACB2 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		4C133D4C246D354F0029EC17 /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
 		4C1AEB18245B40F300BEECEF /* Okta.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Okta.plist; sourceTree = "<group>"; };
-		4C2317BA247D08B900CBC034 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		4C2842F124693AF500178677 /* Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apollo.swift; sourceTree = "<group>"; };
 		4C2B2FD6247097090059A4D8 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		4C305A10246A3DC900AB9164 /* FilteredEventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredEventDataSource.swift; sourceTree = "<group>"; };
@@ -218,6 +216,7 @@
 		4C3859C92460C2DB00ADBBB4 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		4C4458BC247B7A7E00F4C99B /* UIView+GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+GradientLayer.swift"; sourceTree = "<group>"; };
 		4C5287CF24717A440081B533 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
+		4C5F492C248090DF00B6E1BA /* UIView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animations.swift"; sourceTree = "<group>"; };
 		4C6747D12453CEEB00AE768E /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		4C6747D32453D87400AE768E /* UIView+DropShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DropShadow.swift"; sourceTree = "<group>"; };
 		4C69DD62246B1510006E0300 /* FetchUserIDQuery+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchUserIDQuery+Ext.swift"; sourceTree = "<group>"; };
@@ -265,6 +264,7 @@
 			files = (
 				0EE4C32623A9795700774B82 /* Pods_Community_Calendar.framework in Frameworks */,
 				4C468CE9246207C4004799E3 /* ApolloWebSocket in Frameworks */,
+				4C298FB624804D55007940A9 /* EMTNeumorphicView in Frameworks */,
 				4C468CE7246207C4004799E3 /* ApolloCodegenLib in Frameworks */,
 				4C468CE5246207C4004799E3 /* Apollo in Frameworks */,
 			);
@@ -479,7 +479,6 @@
 				0EE2AC2C23CFFA4A002B3EB4 /* UIColor+Extension.swift */,
 				0EE2AC2A23CFFA0D002B3EB4 /* UIDevice+Extension.swift */,
 				0EF6DDEE23E0D94E00D8A91B /* Date+Extension.swift */,
-				0E2E723023EA4082006F94D3 /* JWT+Extension.swift */,
 				4CE2E9382448FD83005AA6B5 /* UIImage+Decompression.swift */,
 				0E2E723223EA5A47006F94D3 /* UIButton+Extension.swift */,
 				0EA9732523EB39B500085435 /* String+Extension.swift */,
@@ -490,7 +489,7 @@
 				4C93BE9E2471260F00A18404 /* ShiftableView.swift */,
 				4CB27D682475119A006FA7AD /* Array+Extension.swift */,
 				4C4458BC247B7A7E00F4C99B /* UIView+GradientLayer.swift */,
-				4C2317BA247D08B900CBC034 /* UIButton+Ext.swift */,
+				4C5F492C248090DF00B6E1BA /* UIView+Animations.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -580,6 +579,7 @@
 				4C468CE4246207C4004799E3 /* Apollo */,
 				4C468CE6246207C4004799E3 /* ApolloCodegenLib */,
 				4C468CE8246207C4004799E3 /* ApolloWebSocket */,
+				4C298FB524804D55007940A9 /* EMTNeumorphicView */,
 			);
 			productName = "Community Calendar";
 			productReference = 0EB19D5023A82C5B00640A40 /* Community Calendar.app */;
@@ -615,6 +615,7 @@
 			mainGroup = 0EB19D4723A82C5B00640A40;
 			packageReferences = (
 				4C468CE3246207C4004799E3 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				4C298FB424804D55007940A9 /* XCRemoteSwiftPackageReference "EMTNeumorphicView" */,
 			);
 			productRefGroup = 0EB19D5123A82C5B00640A40 /* Products */;
 			projectDirPath = "";
@@ -764,7 +765,6 @@
 				0EF6DDED23DFFB7800D8A91B /* DropDownTextField.swift in Sources */,
 				4576D26C245FB57A0032ACB2 /* EditProfileViewController.swift in Sources */,
 				4CE0D81B246E6AA700E048BC /* SettingCollectionViewCell.swift in Sources */,
-				4C2317BB247D08B900CBC034 /* UIButton+Ext.swift in Sources */,
 				0E9FDD7923A8600700FD75A0 /* Variables.swift in Sources */,
 				0E2B119723ED0FCC0072E72E /* SearchView.swift in Sources */,
 				0EE2AC3323D0FD77002B3EB4 /* TagCollectionViewCell.swift in Sources */,
@@ -776,7 +776,6 @@
 				4CF915D0246AB7BC00C754BF /* ConcurrentOperations.swift in Sources */,
 				4C6747D22453CEEB00AE768E /* DateCell.swift in Sources */,
 				0E9FDD7723A8574B00FD75A0 /* EventCollectionViewCell.swift in Sources */,
-				0E2E723123EA4082006F94D3 /* JWT+Extension.swift in Sources */,
 				4C3674D424660B5E00C74C00 /* UserProfileVC.swift in Sources */,
 				0EA9732223EB2E8700085435 /* EventNavController.swift in Sources */,
 				0EF6DDE423DF479400D8A91B /* Location.swift in Sources */,
@@ -818,6 +817,7 @@
 				4C6747D42453D87400AE768E /* UIView+DropShadow.swift in Sources */,
 				4CE2E9392448FD83005AA6B5 /* UIImage+Decompression.swift in Sources */,
 				4C5287D024717A440081B533 /* DateHeader.swift in Sources */,
+				4C5F492D248090DF00B6E1BA /* UIView+Animations.swift in Sources */,
 				4CBB181224678D4400BDD233 /* UIViewController+UserInfoAlert.swift in Sources */,
 				4C6D26D42472E3DD00D86284 /* Event.swift in Sources */,
 				4CE2E9372448F2EA005AA6B5 /* MyEventCollectionViewCell.swift in Sources */,
@@ -1090,6 +1090,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4C298FB424804D55007940A9 /* XCRemoteSwiftPackageReference "EMTNeumorphicView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hirokimu/EMTNeumorphicView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
 		4C468CE3246207C4004799E3 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
@@ -1101,6 +1109,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4C298FB524804D55007940A9 /* EMTNeumorphicView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C298FB424804D55007940A9 /* XCRemoteSwiftPackageReference "EMTNeumorphicView" */;
+			productName = EMTNeumorphicView;
+		};
 		4C468CE4246207C4004799E3 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4C468CE3246207C4004799E3 /* XCRemoteSwiftPackageReference "apollo-ios" */;

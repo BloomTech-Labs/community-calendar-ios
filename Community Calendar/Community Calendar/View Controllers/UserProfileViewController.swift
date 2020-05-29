@@ -113,7 +113,7 @@ class UserProfileViewController: UIViewController, ControllerDelegate {
     
     // MARK: - IBActions
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        sender.pulsate()
+        sender.loginSpring()
         loginUser()
     }
     

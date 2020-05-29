@@ -116,3 +116,12 @@ mutation UpdateProfileImage($profileImage:String, $id:ID!) {
     profileImage
   }
 }
+
+mutation AttendEvent($eventID:ID!) {
+  rsvpEvent(event: {id:$eventID})
+}
+
+mutation SaveEvent($eventID:ID!) {
+  saveEvent(event: {id:$eventID})
+}
+

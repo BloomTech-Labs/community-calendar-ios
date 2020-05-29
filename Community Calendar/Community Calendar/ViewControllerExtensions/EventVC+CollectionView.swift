@@ -299,9 +299,9 @@ extension EventViewController: JTACMonthViewDataSource, JTACMonthViewDelegate, U
         savedButton.setAttributedTitle(createAttrText(with: "Saved", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         createdButton.setAttributedTitle(createAttrText(with: "Created", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         if let date = self.dateSelected {
-            let range = Apollo.shared.selectedDate(date: date)
+            let range = apolloController?.selectedDate(date: date)
             filteredEvents = []
-            if let start = range.first, let end = range.last {
+            if let start = range?.first, let end = range?.last {
                 let selectedEvents = events.filter({ ($0.startDate.isBetween(start, and: end))})
                 removeDuplicates(array: selectedEvents) { reducedEvents in
                     self.filteredEvents = reducedEvents

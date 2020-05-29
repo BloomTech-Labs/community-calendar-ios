@@ -85,48 +85,36 @@ class EventTabBarController: UITabBarController {
 //                    self.oktaUserInfo?.append(oktaID)
 //                    self.oktaUserInfo?.append(userEmail)
                     self.apolloController.apollo = self.apolloController.configureApolloClient(accessToken: accessToken)
-                    self.apolloController.fetchUserID(oktaID: oktaID) { result in
-                        guard let user = try? result.get() else {
-                            print("Unable to get currently logged in user at load of Tab Bar Controller")
-                            
-                            completion()
-                            return
-                        }
-//                        self.user = user
-                        
-                        self.authController.refreshAccessToken { _ in
-                            completion()
-                        }
-                    }
-                }
+//                    self.apolloController.fetchUserID(oktaID: oktaID) { result in
+//                        guard let user = try? result.get() else {
+//                            print("Unable to get currently logged in user at load of Tab Bar Controller")
+//
+//                            completion()
+//                            return
+//                        }
+////                        self.user = user
+//
+//                        self.authController.refreshAccessToken { _ in
+//                            completion()
+//                        }
+//                    }
+//                }
 //            }
-//        }
+        }
     }
     
     func fetchAllEventData() {
         apolloController.fetchEvents { _ in
-            
-        }
-        Apollo.shared.fetchTodaysEvents { _ in
-            
-        }
-        Apollo.shared.fetchTomorrowsEvents { _ in
-            
-        }
-        Apollo.shared.fetchWeekendEvents { _ in
-            
-        }
-        Apollo.shared.fetchAllEvents { _ in
-            
+
         }
         authController.stateManager?.getUser({ response, _  in
             if let response = response {
                 let oktaID = response["sub"] as! String
-                Apollo.shared.fetchUserID(oktaID: oktaID) { result in
+                self.apolloController.fetchUserID(oktaID: oktaID) { result in
                     if let user = try? result.get(), let accessToken = self.authController.stateManager?.accessToken {
                         let userID = user.id
-                        Apollo.shared.getUserCreatedEvents(graphQLID: userID, accessToken: accessToken) { _ in
-                            
+                        self.apolloController.getUserCreatedEvents(graphQLID: userID, accessToken: accessToken) { _ in
+
                         }
                     }
                 }

@@ -80,7 +80,7 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                         let createdEvent = Event(created: event)
                         self.userEvents.append(createdEvent)
                     }
-                    
+
                     self.currentUserID = user.id
                     completion(.success(user))
                 }
@@ -293,6 +293,37 @@ class ApolloController: NSObject, HTTPNetworkTransportDelegate, URLSessionDelega
                     print(allEvents.count)
                     completion(.success(allEvents))
                 }
+            }
+        }
+    }
+    
+    func attendEvent(eventID: String, completion: @escaping (Swift.Result<Bool, Error>) -> Void) {
+        apollo.perform(mutation: AttendEventMutation(eventID: eventID)) { result in
+            switch result {
+            case .failure(let error):
+                print("Error RSVP'n to event: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let result = graphQLResult.data?.rsvpEvent {
+                    print(result)
+                    completion(.success(result))
+                }
+            }
+        }
+    }
+    
+    func saveEvent(eventID: String, completion: @escaping (Swift.Result<Bool, Error>) -> Void) {
+        apollo.perform(mutation: SaveEventMutation(eventID: eventID)) { result in
+            switch result {
+            case .failure(let error):
+                print("Error Saving Event: \(error)")
+                completion(.failure(error))
+            case .success(let graphQLResult):
+                if let result = graphQLResult.data?.saveEvent {
+                    print(result)
+                    completion(.success(result))
+                }
+
             }
         }
     }

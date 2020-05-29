@@ -12,11 +12,11 @@ import CoreLocation
 class SearchView: UIView, ControllerDelegate {
     
     //MARK: - Properties
-    var user: FetchUserIdQuery.Data.User? {
-        didSet {
-            print("Search View User: \(String(describing: user))")
-        }
-    }
+//    var user: FetchUserIdQuery.Data.User? {
+//        didSet {
+//            print("Search View User: \(String(describing: user))")
+//        }
+//    }
     
     var oktaUserInfo: [String]? {
         didSet {

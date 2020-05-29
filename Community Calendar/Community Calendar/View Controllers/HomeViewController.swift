@@ -30,6 +30,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     
     var events: [Event]? {
         didSet {
+            print("This is the event ID: \(events?.first?.id as Any)")
             print("These are the Home View Controllers events count: \(String(describing: self.events?.count))")
             self.filteredEvents = self.events
 //            self.featuredCollectionView.reloadData()
@@ -98,15 +99,19 @@ class HomeViewController: UIViewController, ControllerDelegate {
     // MARK: - Lifecycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        guard let tabBar = tabBarController as? EventTabBarController else { return }
+        apolloController = tabBar.apolloController
+        authController = tabBar.authController
         searchView.homeVC = self
         searchView.setUp()
         setUp()
+        
+        
         passControllers {
 //            self.events = self.apolloController?.events
 //            self.apolloController?.fetchEvents(completion: { result in
 //                if let fetchedEvents = try? result.get() {
-////                    self.events = fetchedEvents
+//                    self.events = fetchedEvents
 //                    self.featuredCollectionView.reloadData()
 //                    self.eventCollectionView.reloadData()
 //                    self.eventTableView.reloadData()
@@ -126,6 +131,7 @@ class HomeViewController: UIViewController, ControllerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -264,8 +270,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         filter = .today
         
-        let dates = Apollo.shared.todaysDateRange()
-        guard let startDate = dates.first, let endDate = dates.last else { return }
+        let dates = apolloController?.todaysDateRange()
+        guard let startDate = dates?.first, let endDate = dates?.last else { return }
         
         filteredEvents = events?.filter({ ($0.startDate.isBetween(startDate, and: endDate)) })
         dateLabel.text = todayDateFormatter.string(from: startDate)
@@ -280,8 +286,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         filter = .tomorrow
     
-        let dates = Apollo.shared.tomorrowsDateRange()
-        guard let startDate = dates.first, let endDate = dates.last else { return }
+        let dates = apolloController?.tomorrowsDateRange()
+        guard let startDate = dates?.first, let endDate = dates?.last else { return }
         
         filteredEvents = events?.filter({ ($0.startDate.isBetween(startDate, and: endDate)) })
         dateLabel.text = todayDateFormatter.string(from: startDate)
@@ -297,8 +303,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .unselectedDayButton, fontName: PoppinsFont.light.rawValue), for: .normal)
         filter = .weekend
         
-        let dates = Apollo.shared.weekendDateRange()
-        guard let startDate = dates.first, let endDate = dates.last else { return }
+        let dates = apolloController?.weekendDateRange()
+        guard let startDate = dates?.first, let endDate = dates?.last else { return }
         
         filteredEvents = events?.filter({ ($0.startDate.isBetween(startDate, and: endDate)) })
         dateLabel.text = "\(todayDateFormatter.string(from: startDate)) - \(todayDateFormatter.string(from: endDate.addingTimeInterval(-1)))"
@@ -314,8 +320,8 @@ class HomeViewController: UIViewController, ControllerDelegate {
         allUpcomingButton.setAttributedTitle(createAttrText(with: "All upcoming", color: .selectedButton, fontName: PoppinsFont.semiBold.rawValue), for: .normal)
         filter = .all
         
-        let dates = Apollo.shared.allEventsRange()
-        guard let startDate = dates.first, let endDate = dates.last else { return }
+        let dates = apolloController?.allEventsRange()
+        guard let startDate = dates?.first, let endDate = dates?.last else { return }
         
         filteredEvents = events?.filter({ ($0.startDate.isBetween(startDate, and: endDate)) })
         dateLabel.text = todayDateFormatter.string(from: Date())
@@ -335,17 +341,19 @@ class HomeViewController: UIViewController, ControllerDelegate {
                 let indexPath = featuredCollectionView.indexPathsForSelectedItems?.first else { return }
             detailVC.indexPath = indexPath
             detailVC.event = events?[indexPath.item]
+            detailVC.apolloController = self.apolloController
         } else if segue.identifier == "ShowEventsTableDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventTableView.indexPathForSelectedRow else { return }
-
             detailVC.indexPath = indexPath
             detailVC.event = filteredEvents?[indexPath.row]
+            detailVC.apolloController = self.apolloController
         } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventCollectionView.indexPathsForSelectedItems?.first else { return }
             detailVC.indexPath = indexPath
             detailVC.event = filteredEvents?[indexPath.row]
+            detailVC.apolloController = self.apolloController
         } else if segue.identifier == "CustomShowFilterSegue" {
             shouldDismissFilterScreen = false
             guard let filterVC = segue.destination as? FilterViewController else { return }

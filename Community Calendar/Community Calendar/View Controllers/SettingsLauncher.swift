@@ -88,13 +88,8 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
             
             
             settingsCollectionView.frame = CGRect(x: x, y: 0, width: width, height: window.frame.height)
-            
-//            settingsCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
+
             window.addSubview(settingsCollectionView)
-            
-            //            window.addSubview(editProfileView)
-            //            editViewConstraints()
-            //            setupSubviews()
             
             blackView.frame = CGRect(x: 0, y: 0, width: window.frame.width, height: window.frame.height)
             blackView.alpha = 0
@@ -104,7 +99,7 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
                 
                 self.settingsCollectionView.frame = CGRect(x: -7, y: 0, width: width, height: window.frame.height)
                 self.settingsCollectionView.settingsShadow()
-//                self.settingsCollectionView.frame = CGRect(x: 0, y: y, width: self.settingsCollectionView.frame.width, height: self.settingsCollectionView.frame.height)
+
             }, completion: nil)
         }
     }
@@ -120,12 +115,7 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
                 let width = window.frame.width / 2.5
                 
                 self.settingsCollectionView.frame = CGRect(x: -width, y: 0, width: width, height: window.frame.height)
-                
-                
-//                self.settingsCollectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.settingsCollectionView.frame.width, height: self.settingsCollectionView.frame.height)
-                
-//                self.editProfileView.frame = CGRect(x: window.frame.width, y: window.frame.height - self.height, width: window.frame.width, height: self.height)
-                
+    
             }
         }) { _ in
             self.settingsCollectionView.removeFromSuperview()

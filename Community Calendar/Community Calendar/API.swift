@@ -3727,3 +3727,101 @@ public final class UpdateProfileImageMutation: GraphQLMutation {
     }
   }
 }
+
+public final class AttendEventMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation AttendEvent($eventID: ID!) {
+      rsvpEvent(event: {id: $eventID})
+    }
+    """
+
+  public let operationName: String = "AttendEvent"
+
+  public var eventID: GraphQLID
+
+  public init(eventID: GraphQLID) {
+    self.eventID = eventID
+  }
+
+  public var variables: GraphQLMap? {
+    return ["eventID": eventID]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("rsvpEvent", arguments: ["event": ["id": GraphQLVariable("eventID")]], type: .nonNull(.scalar(Bool.self))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(rsvpEvent: Bool) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "rsvpEvent": rsvpEvent])
+    }
+
+    public var rsvpEvent: Bool {
+      get {
+        return resultMap["rsvpEvent"]! as! Bool
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "rsvpEvent")
+      }
+    }
+  }
+}
+
+public final class SaveEventMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation SaveEvent($eventID: ID!) {
+      saveEvent(event: {id: $eventID})
+    }
+    """
+
+  public let operationName: String = "SaveEvent"
+
+  public var eventID: GraphQLID
+
+  public init(eventID: GraphQLID) {
+    self.eventID = eventID
+  }
+
+  public var variables: GraphQLMap? {
+    return ["eventID": eventID]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("saveEvent", arguments: ["event": ["id": GraphQLVariable("eventID")]], type: .nonNull(.scalar(Bool.self))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(saveEvent: Bool) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "saveEvent": saveEvent])
+    }
+
+    public var saveEvent: Bool {
+      get {
+        return resultMap["saveEvent"]! as! Bool
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "saveEvent")
+      }
+    }
+  }
+}

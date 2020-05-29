@@ -12,7 +12,7 @@ extension FetchUserIdQuery.Data.User.Rsvp {
     public var startDate: Date {
         backendDateFormatter.date(from: start) ?? Date()
     }
-    
+
     public var endDate: Date {
         backendDateFormatter.date(from: end) ?? Date()
     }

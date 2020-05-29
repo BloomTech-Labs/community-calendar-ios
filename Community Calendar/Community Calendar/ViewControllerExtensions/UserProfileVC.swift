@@ -145,7 +145,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
                     guard let userInfo = try? result.get() else {
                         print("No Okta Auth User Info")
                         DispatchQueue.main.async {
-                            self.loginButton.isHidden = false 
+                            self.loginButton.isHidden = false
                         }
                         return
                     }
@@ -221,7 +221,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
             let lastName = user.lastName
             else { return }
         self.currentUserName = "\(firstName) \(lastName)"
-        
+
         DispatchQueue.main.async {
             if let tabBar = self.tabBarController as? EventTabBarController, let email = tabBar.apolloController.defaults.string(forKey: UserDefaults.Keys.oktaEmail.rawValue) {
                 self.emailLabel.text = email
@@ -231,7 +231,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
             self.settingsLauncher.firstName = firstName
             self.settingsLauncher.lastName = lastName
             self.imageBackgroundView.isHidden = false
-            
+
             self.nameLabel.text = self.currentUserName
             self.emailLabel.isHidden = false
             self.profileImageView.isHidden = false
@@ -241,7 +241,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UITextF
             self.eventsCountStackView.isHidden = false
             self.menuButton.isHidden = false
             self.nameLabel.isHidden = false
-            
+
             if let createdEvents = user.createdEvents {
                 let createdCount = createdEvents.count
                 self.numberOfEventsCreatedLabel.text = "\(createdCount)"

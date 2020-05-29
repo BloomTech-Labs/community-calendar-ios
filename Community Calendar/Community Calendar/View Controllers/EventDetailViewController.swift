@@ -8,6 +8,7 @@
 
 import UIKit
 import EventKit
+import EMTNeumorphicView
 
 class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
@@ -17,6 +18,12 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         didSet {
             updateViews()
 //            updateViewsHomeVC()
+        }
+    }
+    
+    var apolloController: ApolloController? {
+        didSet {
+            print("Detail View Controller: \(String(describing: apolloController))")
         }
     }
     
@@ -33,9 +40,9 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var eventImageView: UIImageView!
-    @IBOutlet weak var attendButton: UIButton!
-    @IBOutlet weak var openInMapsButton: UIButton!
-    @IBOutlet weak var addToCalendarButton: UIButton!
+    @IBOutlet weak var attendButton: EMTNeumorphicButton!
+    @IBOutlet weak var openInMapsButton: EMTNeumorphicButton!
+    @IBOutlet weak var addToCalendarButton: EMTNeumorphicButton!
     @IBOutlet weak var hostImageView: UIImageView!
     @IBOutlet weak var hostShadowView: UIView!
     @IBOutlet weak var hostNameLabel: UILabel!
@@ -45,7 +52,11 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet var descLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var descLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var favoriteButton: EMTNeumorphicButton!
+    @IBOutlet weak var favoriteButtonView: UIView!
+    @IBOutlet weak var ticketView: UIView!
+    @IBOutlet weak var checkmarkImageView: UIImageView!
     
     // MARK: - Lifecycle Functions
     
@@ -53,6 +64,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
 //        observeImage()
         setUp()
+        configureButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,16 +74,16 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Functions
     private func setUp() {
         scrollView.delegate = self
+        setupSubviews()
         configureViews()
-        updateViewsHomeVC()
-        fetchProfileImage()
     }
     
-    func fetchProfileImage() {
-//        if let controller = controller, let event = event,
-//            let key = event.profileImageURL {
-//            controller.fetchImage(for: key)
-//        }
+    func setupSubviews() {
+        checkmarkImageView.anchor(top: nil, leading: attendButton.centerXAnchor, trailing: nil, bottom: nil, centerX: nil, centerY: attendButton.centerYAnchor, padding: .init(top: 0, left: 25, bottom: 0, right: 0), size: .init(width: attendButton.bounds.height - 8, height: attendButton.bounds.height - 8))
+        
+        checkmarkImageView.contentMode = .scaleAspectFit
+        checkmarkImageView.isHidden = true
+        checkmarkImageView.image = UIImage(named: "checkmark")
     }
     
     func configureViews() {
@@ -94,6 +106,112 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         titleLabel.font = UIFont(name: PoppinsFont.medium.rawValue, size: 20)
         eventDescTextView.textColor = .black
         timeLabel.textColor = .black
+    }
+    
+    func configureButtons() {
+        favoriteButton.setImage(UIImage(named: "coral-heart-outline"), for: .normal)
+        favoriteButton.setImage(UIImage(named: "coral-heart"), for: .selected)
+        favoriteButton.contentVerticalAlignment = .fill
+        favoriteButton.contentHorizontalAlignment = .fill
+        favoriteButton.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+        favoriteButton.layer.cornerRadius = 12
+
+        favoriteButton.neumorphicLayer?.edged = true
+        favoriteButton.neumorphicLayer?.elementColor = UIColor.white.cgColor
+        favoriteButton.neumorphicLayer?.elementBackgroundColor = UIColor.white.cgColor
+        favoriteButton.neumorphicLayer?.depthType = .convex
+        favoriteButton.neumorphicLayer?.elementDepth = 10
+        favoriteButton.neumorphicLayer?.darkShadowOpacity = 1.0
+        favoriteButton.neumorphicLayer?.lightShadowOpacity = 0.2
+
+        
+        favoriteButton.backgroundColor = .white
+        favoriteButtonView.layer.cornerRadius = 20
+        ticketView.layer.cornerRadius = 20
+        favoriteButtonView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        ticketView.layer.maskedCorners = [.layerMaxXMinYCorner]
+        
+        attendButton.contentVerticalAlignment = .fill
+        attendButton.contentHorizontalAlignment = .fill
+        attendButton.imageEdgeInsets = UIEdgeInsets(top: 14, left: 12, bottom: 10, right: 12)
+        attendButton.layer.cornerRadius = 12
+        attendButton.setTitle("Attend", for: .normal)
+
+        attendButton.neumorphicLayer?.edged = false
+        attendButton.neumorphicLayer?.elementColor = UIColor.white.cgColor
+        attendButton.neumorphicLayer?.elementBackgroundColor = UIColor.white.cgColor
+        attendButton.neumorphicLayer?.depthType = .convex
+        attendButton.neumorphicLayer?.elementDepth = 4
+        attendButton.neumorphicLayer?.darkShadowOpacity = 1.0
+        attendButton.neumorphicLayer?.lightShadowOpacity = 0.2
+        attendButton.layer.borderColor = UIColor.white.cgColor
+        attendButton.titleLabel?.textAlignment = .center
+        attendButton.setTitle("Attend", for: .normal)
+        
+        attendButton.backgroundColor = .white
+        
+        openInMapsButton.contentVerticalAlignment = .fill
+        openInMapsButton.contentHorizontalAlignment = .fill
+        openInMapsButton.imageEdgeInsets = UIEdgeInsets(top: 14, left: 12, bottom: 10, right: 12)
+        openInMapsButton.layer.cornerRadius = 12
+
+        
+
+        openInMapsButton.neumorphicLayer?.edged = false
+        openInMapsButton.neumorphicLayer?.elementColor = #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
+        openInMapsButton.neumorphicLayer?.elementBackgroundColor = UIColor.lightGray.cgColor
+        openInMapsButton.neumorphicLayer?.depthType = .convex
+        openInMapsButton.neumorphicLayer?.elementDepth = 4
+        openInMapsButton.neumorphicLayer?.darkShadowOpacity = 1.0
+        openInMapsButton.neumorphicLayer?.lightShadowOpacity = 0.2
+//        openInMapsButton.layer.borderColor = UIColor.white.cgColor
+        openInMapsButton.titleLabel?.textAlignment = .center
+        openInMapsButton.setTitle("Open in Maps", for: .normal)
+       
+        addToCalendarButton.contentVerticalAlignment = .fill
+        addToCalendarButton.contentHorizontalAlignment = .fill
+        addToCalendarButton.imageEdgeInsets = UIEdgeInsets(top: 14, left: 12, bottom: 10, right: 12)
+        addToCalendarButton.layer.cornerRadius = 12
+        
+        
+        addToCalendarButton.neumorphicLayer?.edged = false
+        addToCalendarButton.neumorphicLayer?.elementColor = #colorLiteral(red: 0.1799933612, green: 0.1916823089, blue: 0.2126363814, alpha: 1)
+        addToCalendarButton.neumorphicLayer?.elementBackgroundColor = UIColor.white.cgColor
+        addToCalendarButton.neumorphicLayer?.depthType = .convex
+        addToCalendarButton.neumorphicLayer?.elementDepth = 4
+        addToCalendarButton.neumorphicLayer?.darkShadowOpacity = 1.0
+        addToCalendarButton.neumorphicLayer?.lightShadowOpacity = 0.2
+        addToCalendarButton.titleLabel?.textAlignment = .center
+        
+    }
+    
+    @IBAction func favoriteButtonTapped(_ sender: Any) {
+        favoriteButton.isSelected.toggle()
+        guard let event = event else { return }
+        if favoriteButton.isSelected {
+            if apolloController?.currentUser != nil {
+                apolloController?.saveEvent(eventID: event.id, completion: { result in
+                    if let bool = try? result.get() {
+                        print("Saved Event Bool: \(bool)")
+                    }
+                })
+            } else {
+                self.presentUserInfoAlert(title: "Error!", message: "Please Login to Save Events.")
+                favoriteButton.isSelected = false
+                
+            }
+        } else {
+            if apolloController?.currentUser != nil {
+                apolloController?.saveEvent(eventID: event.id, completion: { result in
+                    if let bool = try? result.get() {
+                        print("Saved Event Bool: \(bool)")
+                    }
+                })
+            } else {
+                self.presentUserInfoAlert(title: "Error!", message: "Please Login to Save Events.")
+                favoriteButton.isSelected = false
+            }
+        }
     }
     
     func updateViews() {
@@ -133,45 +251,45 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    private func updateViewsHomeVC() {
-        guard
-            let event = event,
-//            let urlCreatorString = event.creator.profileImage,
-//            let urlCreator = URL(string: urlCreatorString),
-//            let imageData = try? Data(contentsOf: urlCreator),
-            let urlString = event.image,
-            let url = URL(string: urlString),
-            let data = try? Data(contentsOf: url),
-            let streetAddress = event.location?.streetAddress,
-            let city = event.location?.city,
-            let state = event.location?.state,
-            let zipcode = event.location?.zipcode
-            else { return }
-        DispatchQueue.main.async {
-            if let urlCreatorString = event.creator.profileImage, let urlCreator = URL(string: urlCreatorString), let imageData = try? Data(contentsOf: urlCreator) {
-                self.hostImageView.image = UIImage(data: imageData)
-            }
-            
-            if let hostFirstName = event.creator.firstName, let hostLastName = event.creator.lastName {
-                self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
-            } else {
-                self.hostNameLabel.text = "N/A"
-            }
-            self.eventImageView.image = UIImage(data: data)
-//            if let startDate = event.startDate, let endDate = event.endDate {
-            self.dateLabel.text = featuredEventDateFormatter.string(from: event.startDate)
-            self.timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) \n to \n \(cellDateFormatter.string(from: event.endDate))"
-//              }
-            self.titleLabel.text = event.title
-            self.eventDescTextView.text = event.description
-            self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
-            
-            
-            self.addressLabel.text = "\(streetAddress), \(city), \(state) \(zipcode)"
-            
-            let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
-            height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)
-        }
+//    private func updateViewsHomeVC() {
+//        guard
+//            let event = event,
+////            let urlCreatorString = event.creator.profileImage,
+////            let urlCreator = URL(string: urlCreatorString),
+////            let imageData = try? Data(contentsOf: urlCreator),
+//            let urlString = event.image,
+//            let url = URL(string: urlString),
+//            let data = try? Data(contentsOf: url),
+//            let streetAddress = event.location?.streetAddress,
+//            let city = event.location?.city,
+//            let state = event.location?.state,
+//            let zipcode = event.location?.zipcode
+//            else { return }
+//        DispatchQueue.main.async {
+//            if let urlCreatorString = event.creator.profileImage, let urlCreator = URL(string: urlCreatorString), let imageData = try? Data(contentsOf: urlCreator) {
+//                self.hostImageView.image = UIImage(data: imageData)
+//            }
+//
+//            if let hostFirstName = event.creator.firstName, let hostLastName = event.creator.lastName {
+//                self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
+//            } else {
+//                self.hostNameLabel.text = "N/A"
+//            }
+//            self.eventImageView.image = UIImage(data: data)
+////            if let startDate = event.startDate, let endDate = event.endDate {
+//            self.dateLabel.text = featuredEventDateFormatter.string(from: event.startDate)
+//            self.timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) \n to \n \(cellDateFormatter.string(from: event.endDate))"
+////              }
+//            self.titleLabel.text = event.title
+//            self.eventDescTextView.text = event.description
+//            self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
+//
+//
+//            self.addressLabel.text = "\(streetAddress), \(city), \(state) \(zipcode)"
+//
+//            let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
+//            height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)
+//        }
 //            "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))".lowercased()
 //        dateLabel.text =
 //            todayDateFormatter.string(from: startDate)
@@ -196,7 +314,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
 //                eventImageView.image = UIImage(named: "lambda")
 //            }
 //        }
-    }
+//    }
     
 //    func checkForRSVP() {
 //        if let bool = controller?.checkUserRsvps(with: event?.id) {
@@ -317,9 +435,55 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func attendEvent(_ sender: UIButton) {
-        attendButton.backgroundColor = #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
-        attendButton.setTitle("Attending", for: .normal)
-        attendButton.setTitleColor(UIColor.white, for: .normal)
+        attendButton.isSelected.toggle()
+        guard let event = event else { return }
+        
+        if attendButton.isSelected {
+            checkmarkImageView.isHidden = false
+            checkmarkImageView.springIn()
+            if apolloController?.currentUser != nil {
+                apolloController?.attendEvent(eventID: event.id, completion: { result in
+                    if let bool = try? result.get() {
+                        print(bool)
+                    }
+                })
+            } else {
+                self.presentUserInfoAlert(title: "Error!", message: "Please Login to RSVP to Events.")
+                attendButton.isSelected = false
+                checkmarkImageView.isHidden = true
+                //                attendButton.imageView?.image = nil
+            }
+            
+            attendButton.setTitleColor(UIColor.black, for: .normal)
+            attendButton.neumorphicLayer?.elementBackgroundColor = UIColor.white.cgColor
+            attendButton.neumorphicLayer?.lightShadowOpacity = 0.3
+        } else {
+            if apolloController?.currentUser != nil {
+                apolloController?.attendEvent(eventID: event.id, completion: { result in
+                    if let bool = try? result.get() {
+                        print(bool)
+                    }
+                })
+            } else {
+                self.presentUserInfoAlert(title: "Error!", message: "Please Login to RSVP to Events")
+                attendButton.isSelected = false
+                checkmarkImageView.isHidden = true
+                attendButton.imageView?.image = nil
+            }
+            checkmarkImageView.isHidden = true
+            attendButton.imageView?.image = nil
+            attendButton.setTitleColor(UIColor.black, for: .normal)
+            attendButton.neumorphicLayer?.elementBackgroundColor = UIColor.white.cgColor
+            attendButton.neumorphicLayer?.elementColor = UIColor.white.cgColor
+            attendButton.neumorphicLayer?.elementDepth = 5
+            attendButton.neumorphicLayer?.lightShadowOpacity = 0.3
+        }
+    }
+        
+//        attendButton.backgroundColor = #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
+        
+//        attendButton.setTitle("Attending", for: .normal)
+//        attendButton.setTitleColor(UIColor.white, for: .normal)
 //        self.dismiss(animated: true, completion: nil)
 //        guard
 //            let controller = controller,
@@ -350,7 +514,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
 //        }
 //        controller.myEvents.append(event)
 //        self.performSegue(withIdentifier: "EventsSegue", sender: self)
-    }
+//    }
     
     @IBAction func showMore(_ sender: UIButton) {
         let height = event?.description.height(with: view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
@@ -362,6 +526,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     
     
     @IBAction func showInMaps(_ sender: UIButton) {
+        
         if let event = event, let address = event.location?.streetAddress, let zip = event.location?.zipcode {
             let baseURL = URL(string: "http://maps.apple.com/")!
             var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
@@ -374,6 +539,7 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func showInCalendar(_ sender: Any) {
+        addToCalendarButton.isSelected.toggle()
         eventStore.requestAccess(to: .event) { (granted, error) in
             if let error = error {
                 NSLog("\(#file):L\(#line): Unable to request access to calendar in \(#function) with error: \(error)")

@@ -13,11 +13,11 @@ import JTAppleCalendar
 class DateCell: JTACDayCell {
     
     // MARK: - Properties
-    var event: FetchUserIdQuery.Data.User.CreatedEvent? {
-        didSet {
-//            updateDetailView()
-        }
-    }
+//    var event: FetchUserIdQuery.Data.User.CreatedEvent? {
+//        didSet {
+////            updateDetailView()
+//        }
+//    }
     
     var viewType: ViewType? {
         didSet {
@@ -25,11 +25,11 @@ class DateCell: JTACDayCell {
         }
     }
     
-    var user: FetchUserIdQuery.Data.User? {
-        didSet {
-//            self.calendarView.user = self.user
-        }
-    }
+//    var user: FetchUserIdQuery.Data.User? {
+//        didSet {
+////            self.calendarView.user = self.user
+//        }
+//    }
     
     @IBOutlet weak var attendingDot: UIView!
     @IBOutlet weak var createdDot: UIView!
