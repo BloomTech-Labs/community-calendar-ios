@@ -17,7 +17,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
     var event: Event? {
         didSet {
             updateViews()
-//            updateViewsHomeVC()
         }
     }
     
@@ -27,11 +26,12 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-//    var userEvent: Event? {
-//        didSet {
-//            updateViews()
-//        }
-//    }
+    var userEvents: [Event]? {
+        didSet {
+            print("DetailVC User Events Array Count: \(String(describing: self.userEvents?.count))")
+            
+        }
+    }
 
     var indexPath: IndexPath?
     let eventStore = EKEventStore()
@@ -65,10 +65,13 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
 //        observeImage()
         setUp()
         configureButtons()
+        updateUserEventViews()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
 //        checkForRSVP()
+        updateUserEventViews()
     }
     
     // MARK: - Functions
@@ -164,7 +167,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         openInMapsButton.neumorphicLayer?.elementDepth = 4
         openInMapsButton.neumorphicLayer?.darkShadowOpacity = 1.0
         openInMapsButton.neumorphicLayer?.lightShadowOpacity = 0.2
-//        openInMapsButton.layer.borderColor = UIColor.white.cgColor
         openInMapsButton.titleLabel?.textAlignment = .center
         openInMapsButton.setTitle("Open in Maps", for: .normal)
        
@@ -185,34 +187,6 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    @IBAction func favoriteButtonTapped(_ sender: Any) {
-        favoriteButton.isSelected.toggle()
-        guard let event = event else { return }
-        if favoriteButton.isSelected {
-            if apolloController?.currentUser != nil {
-                apolloController?.saveEvent(eventID: event.id, completion: { result in
-                    if let bool = try? result.get() {
-                        print("Saved Event Bool: \(bool)")
-                    }
-                })
-            } else {
-                self.presentUserInfoAlert(title: "Error!", message: "Please Login to Save Events.")
-                favoriteButton.isSelected = false
-                
-            }
-        } else {
-            if apolloController?.currentUser != nil {
-                apolloController?.saveEvent(eventID: event.id, completion: { result in
-                    if let bool = try? result.get() {
-                        print("Saved Event Bool: \(bool)")
-                    }
-                })
-            } else {
-                self.presentUserInfoAlert(title: "Error!", message: "Please Login to Save Events.")
-                favoriteButton.isSelected = false
-            }
-        }
-    }
     
     func updateViews() {
         guard
@@ -248,100 +222,35 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
             
             let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
             height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)
+            
         }
     }
     
-//    private func updateViewsHomeVC() {
-//        guard
-//            let event = event,
-////            let urlCreatorString = event.creator.profileImage,
-////            let urlCreator = URL(string: urlCreatorString),
-////            let imageData = try? Data(contentsOf: urlCreator),
-//            let urlString = event.image,
-//            let url = URL(string: urlString),
-//            let data = try? Data(contentsOf: url),
-//            let streetAddress = event.location?.streetAddress,
-//            let city = event.location?.city,
-//            let state = event.location?.state,
-//            let zipcode = event.location?.zipcode
-//            else { return }
-//        DispatchQueue.main.async {
-//            if let urlCreatorString = event.creator.profileImage, let urlCreator = URL(string: urlCreatorString), let imageData = try? Data(contentsOf: urlCreator) {
-//                self.hostImageView.image = UIImage(data: imageData)
-//            }
-//
-//            if let hostFirstName = event.creator.firstName, let hostLastName = event.creator.lastName {
-//                self.hostNameLabel.text = "\(hostFirstName) \(hostLastName)"
-//            } else {
-//                self.hostNameLabel.text = "N/A"
-//            }
-//            self.eventImageView.image = UIImage(data: data)
-////            if let startDate = event.startDate, let endDate = event.endDate {
-//            self.dateLabel.text = featuredEventDateFormatter.string(from: event.startDate)
-//            self.timeLabel.text = "\(cellDateFormatter.string(from: event.startDate)) \n to \n \(cellDateFormatter.string(from: event.endDate))"
-////              }
-//            self.titleLabel.text = event.title
-//            self.eventDescTextView.text = event.description
-//            self.priceLabel.attributedText = event.ticketPrice == 0.0 ? (NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 1, green: 0.404, blue: 0.408, alpha: 1)])) : (NSAttributedString(string: "$\(event.ticketPrice)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
-//
-//
-//            self.addressLabel.text = "\(streetAddress), \(city), \(state) \(zipcode)"
-//
-//            let height = event.description.height(with: self.view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)
-//            height < 100 ? (self.descLabelHeightConstraint.constant = height) : (self.descLabelHeightConstraint.constant = 100.0)
-//        }
-//            "\(cellDateFormatter.string(from: startDate))\n-\n\(cellDateFormatter.string(from: endDate))".lowercased()
-//        dateLabel.text =
-//            todayDateFormatter.string(from: startDate)
+    func updateUserEventViews() {
+        guard
+            let event = self.event,
+            let apolloController = self.apolloController
+            else { return }
         
-//        timeLabel.text = "No time given"
+        let filteredUserEvents = apolloController.userEvents.filter({ $0.id == event.id })
         
-        
-        
-        
-//        checkForRSVP()
-        
-        
-//        if let imageURL = event.images.first, !imageURL.isEmpty {
-//            if controller?.cache.fetch(key: imageURL) == nil {
-//                eventImageView.image = nil
-//            }
-//            controller?.fetchImage(for: imageURL)
-//        } else {
-//            if let indexPath = indexPath {
-//                eventImageView.image = UIImage(named: "placeholder\(indexPath.row % 6)")
-//            } else {
-//                eventImageView.image = UIImage(named: "lambda")
-//            }
-//        }
-//    }
-    
-//    func checkForRSVP() {
-//        if let bool = controller?.checkUserRsvps(with: event?.id) {
-//            updateRSVP(with: bool)
-//        } else {
-//            updateRSVP(with: false)
-//        }
-//        
-//        guard let event = event,
-//            let controller = controller, let userToken = controller.userToken else { return }
-//        do {
-//            let decodedToken = try decode(jwt: userToken)
-//            guard let userId = decodedToken.ccId else { return }
-//            controller.fetchUserRsvps(with: userId) { ids, error  in
-//                if let error = error {
-//                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-//                    return
-//                }
-//                if let ids = ids, ids.contains(event.id) {
-//                    self.updateRSVP(with: true)
-//                }
-//            }
-//        } catch {
-//            NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(error)")
-//        }
-//    }
-    
+        if filteredUserEvents.count > 0 {
+            for event in filteredUserEvents {
+                if event.eventType == .attending {
+                    self.attendButton.isSelected = true
+                    self.checkmarkImageView.isHidden = false
+                } else if event.eventType == .saved {
+                    self.favoriteButton.isSelected = true
+                }
+            }
+        }
+        if attendButton.isSelected {
+            checkmarkImageView.isHidden = false
+        } else {
+            checkmarkImageView.isHidden = true
+        }
+    }
+ 
     func updateRSVP(with bool: Bool) {
         DispatchQueue.main.async {
             self.attendButton.attrText(bool ? "Unattend" : "Attend")
@@ -399,122 +308,93 @@ class EventDetailViewController: UIViewController, UIScrollViewDelegate {
         self.present(alert, animated: true)
     }
     
-//    @objc
-//    func receiveImage(_ notification: Notification) {
-//        guard let imageNot = notification.object as? ImageNotification else {
-//            assertionFailure("Object type could not be inferred: \(notification.object as Any)")
-//            return
-//        }
-//        if let eventImageUrl = event?.images.first {
-//            if imageNot.url == eventImageUrl  {
-//                DispatchQueue.main.async {
-//                    self.eventImageView.image = imageNot.image
-//                }
-//            } else if let profileImage = event?.profileImageURL, profileImage == imageNot.url {
-//                DispatchQueue.main.async {
-//                    self.hostImageView.image = imageNot.image
-//                }
-//            }
-//        }
-//    }
-    
-//    func observeImage() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(receiveImage), name: .imageWasLoaded, object: nil)
-//    }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "EventsSegue" {
-//            guard let eventVC = segue.destination as? EventViewController else { return }
-////            eventVC.controller = controller
-//        }
-//    }
-    
     // MARK: - IBActions
-    @IBAction func followHost(_ sender: UIButton) {
+    @IBAction func favoriteButtonTapped(_ sender: Any) {
+        favoriteButton.isSelected.toggle()
+        guard let event = event else { return }
         
+        if apolloController?.currentUser != nil {
+            apolloController?.saveEvent(eventID: event.id, completion: { result in
+                if let bool = try? result.get() {
+                    if bool == false {
+                        self.apolloController?.userEvents.removeAll(where: { $0.id == self.event?.id && event.eventType == .saved })
+                    } else {
+                        let newEvent = Event(id: event.id, title: event.title, description: event.description, start: event.start, end: event.end, ticketPrice: event.ticketPrice, location: event.location, image: event.image, creator: event.creator, eventType: .saved)
+                        self.apolloController?.userEvents.append(newEvent)
+                    }
+                }
+            })
+        }
     }
     
     @IBAction func attendEvent(_ sender: UIButton) {
         attendButton.isSelected.toggle()
-        guard let event = event else { return }
-        
         if attendButton.isSelected {
             checkmarkImageView.isHidden = false
-            checkmarkImageView.springIn()
-            if apolloController?.currentUser != nil {
-                apolloController?.attendEvent(eventID: event.id, completion: { result in
-                    if let bool = try? result.get() {
-                        print(bool)
-                    }
-                })
-            } else {
-                self.presentUserInfoAlert(title: "Error!", message: "Please Login to RSVP to Events.")
-                attendButton.isSelected = false
-                checkmarkImageView.isHidden = true
-                //                attendButton.imageView?.image = nil
-            }
-            
-            attendButton.setTitleColor(UIColor.black, for: .normal)
-            attendButton.neumorphicLayer?.elementBackgroundColor = UIColor.white.cgColor
-            attendButton.neumorphicLayer?.lightShadowOpacity = 0.3
         } else {
-            if apolloController?.currentUser != nil {
-                apolloController?.attendEvent(eventID: event.id, completion: { result in
-                    if let bool = try? result.get() {
-                        print(bool)
-                    }
-                })
-            } else {
-                self.presentUserInfoAlert(title: "Error!", message: "Please Login to RSVP to Events")
-                attendButton.isSelected = false
-                checkmarkImageView.isHidden = true
-                attendButton.imageView?.image = nil
-            }
             checkmarkImageView.isHidden = true
-            attendButton.imageView?.image = nil
-            attendButton.setTitleColor(UIColor.black, for: .normal)
-            attendButton.neumorphicLayer?.elementBackgroundColor = UIColor.white.cgColor
-            attendButton.neumorphicLayer?.elementColor = UIColor.white.cgColor
-            attendButton.neumorphicLayer?.elementDepth = 5
-            attendButton.neumorphicLayer?.lightShadowOpacity = 0.3
         }
-    }
+        guard
+            let event = event,
+            let apolloController = apolloController
+            else { return }
         
-//        attendButton.backgroundColor = #colorLiteral(red: 1, green: 0.3987820148, blue: 0.4111615121, alpha: 1)
+        if apolloController.currentUser != nil {
+            apolloController.attendEvent(eventID: event.id, completion: { result in
+                if let bool = try? result.get() {
+                    if bool == false {
+                        self.apolloController?.userEvents.removeAll(where: { $0.id == self.event?.id && event.eventType == .attending })
+                    } else {
+                        let newEvent = Event(id: event.id, title: event.title, description: event.description, start: event.start, end: event.end, ticketPrice: event.ticketPrice, location: event.location, image: event.image, creator: event.creator, eventType: .attending)
+                        self.apolloController?.userEvents.append(newEvent)
+                    }
+                }
+            })
+        }
         
-//        attendButton.setTitle("Attending", for: .normal)
-//        attendButton.setTitleColor(UIColor.white, for: .normal)
-//        self.dismiss(animated: true, completion: nil)
-//        guard
-//            let controller = controller,
-//            let event = event
-//            else { return }
-//        controller.rsvpToEvent(with: event.id) { bool, error in
-//            if let error = error {
-//                var presentLogin = false
-//                switch error {
-//                case .ql(let errors):
-////                    for qlrr in errors {
-////                        if let errorMessage = qlrr.message, errorMessage.contains("No token was found in header") {
-//                            presentLogin = true
-////                        }
-////                    }
-//                case .rr(let singleError):
-//                    NSLog("\(#file):L\(#line): Configuration failed inside \(#function) with error: \(singleError)")
-//                }
-//                if presentLogin {
-//                    self.loginAlert(with: "rsvp to an event")
-//                }
+//        if attendButton.isSelected {
+//            checkmarkImageView.isHidden = false
+//            checkmarkImageView.springIn()
+//            if apolloController.currentUser != nil {
+//                apolloController.attendEvent(eventID: event.id, completion: { result in
+//                    if let bool = try? result.get() {
+//                        print(bool)
+//                        let newEvent = Event(id: event.id, title: event.title, description: event.description, start: event.start, end: event.end, ticketPrice: event.ticketPrice, location: event.location, image: event.image, creator: event.creator, eventType: .attending)
+//                        apolloController.userEvents.append(newEvent)
+//                    }
+//                })
+//            } else {
+//                self.presentUserInfoAlert(title: "Error!", message: "Please Login to RSVP to Events.")
+//                attendButton.isSelected = false
+//                checkmarkImageView.isHidden = true
 //            }
-//            guard let bool = bool else {
-//                // TODO: Handle error
-//                return
+//
+//            attendButton.setTitleColor(UIColor.black, for: .normal)
+//            attendButton.neumorphicLayer?.elementBackgroundColor = UIColor.white.cgColor
+//            attendButton.neumorphicLayer?.lightShadowOpacity = 0.3
+//        } else {
+//            if apolloController.currentUser != nil {
+//                apolloController.attendEvent(eventID: event.id, completion: { result in
+//                    if let bool = try? result.get() {
+//                        print(bool)
+//                        apolloController.userEvents.removeAll(where: { $0.id == self.event?.id && event.eventType == .attending })
+//                    }
+//                })
+//            } else {
+//                self.presentUserInfoAlert(title: "Error!", message: "Please Login to RSVP to Events")
+//                attendButton.isSelected = false
+//                checkmarkImageView.isHidden = true
+//                attendButton.imageView?.image = nil
 //            }
-//            self.updateRSVP(with: bool)
+//            checkmarkImageView.isHidden = true
+//            attendButton.imageView?.image = nil
+//            attendButton.setTitleColor(UIColor.black, for: .normal)
+//            attendButton.neumorphicLayer?.elementBackgroundColor = UIColor.white.cgColor
+//            attendButton.neumorphicLayer?.elementColor = UIColor.white.cgColor
+//            attendButton.neumorphicLayer?.elementDepth = 5
+//            attendButton.neumorphicLayer?.lightShadowOpacity = 0.3
 //        }
-//        controller.myEvents.append(event)
-//        self.performSegue(withIdentifier: "EventsSegue", sender: self)
-//    }
+    }
     
     @IBAction func showMore(_ sender: UIButton) {
         let height = event?.description.height(with: view.frame.width - 32, font: UIFont(name: PoppinsFont.light.rawValue, size: 12)!)

@@ -104,6 +104,7 @@ class EventViewController: UIViewController, ControllerDelegate {
         setupSubViews()
         configureViews()
         self.calendarView.scrollToDate(Date())
+        attendingButtonTapped(UIButton())
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -114,7 +115,8 @@ class EventViewController: UIViewController, ControllerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        attendingButtonTapped(UIButton())
+        guard let userEvents = self.apolloController?.userEvents else { return }
+        self.events = userEvents
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -151,9 +153,11 @@ class EventViewController: UIViewController, ControllerDelegate {
                 let detailVC = segue.destination as? EventDetailViewController,
                 let indexPath = myEventsCollectionView.indexPathsForSelectedItems?.first else { return }
             let event = filteredEvents[indexPath.item]
-            if let passedEvent = events.first(where: { $0.id == event.id }) {
-                detailVC.event = passedEvent
-            }
+            detailVC.event = event
+            detailVC.apolloController = apolloController
+//            if let passedEvent = events.first(where: { $0.id == event.id }) {
+//                detailVC.event = passedEvent
+//            }
         }
     }
 }

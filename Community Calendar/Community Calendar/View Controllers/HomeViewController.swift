@@ -342,18 +342,21 @@ class HomeViewController: UIViewController, ControllerDelegate {
             detailVC.indexPath = indexPath
             detailVC.event = events?[indexPath.item]
             detailVC.apolloController = self.apolloController
+            detailVC.userEvents = self.events
         } else if segue.identifier == "ShowEventsTableDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventTableView.indexPathForSelectedRow else { return }
             detailVC.indexPath = indexPath
             detailVC.event = filteredEvents?[indexPath.row]
             detailVC.apolloController = self.apolloController
+            detailVC.userEvents = self.events
         } else if segue.identifier == "ShowEventsCollectionDetailSegue" {
             guard let detailVC = segue.destination as? EventDetailViewController,
             let indexPath = eventCollectionView.indexPathsForSelectedItems?.first else { return }
             detailVC.indexPath = indexPath
             detailVC.event = filteredEvents?[indexPath.row]
             detailVC.apolloController = self.apolloController
+            detailVC.userEvents = self.events
         } else if segue.identifier == "CustomShowFilterSegue" {
             shouldDismissFilterScreen = false
             guard let filterVC = segue.destination as? FilterViewController else { return }
