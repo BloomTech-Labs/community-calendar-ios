@@ -22,35 +22,11 @@ There is a disconnect between event organizers and community members. From the p
 
   
 
-|
-[Hayden Hastings][hayden-gh]|
-[Jordan Christensen][jordan-gh]|
-[Michael McGrath][michael-gh]|
-[Aaron Cleveland][aaron-gh]|
-[Austin Potts][austin-gh]|
-
+|[Hayden Hastings][hayden-gh]|[Jordan Christensen][jordan-gh]|[Michael McGrath][michael-gh]|[Aaron Cleveland][aaron-gh]|[Austin Potts][austin-gh]|
 | :---: | :---: | :---: | :---: | :---: |
-
-|
-[<img src="https://avatars3.githubusercontent.com/u/25404401?s=400&v=4" width="300" />][hayden-gh]|
-[<img src="https://avatars2.githubusercontent.com/u/24785257?s=460&v=4" width="300" />][jordan-gh]|
-[<img src="https://avatars0.githubusercontent.com/u/58450971?s=400&v=4" width="300" />][michael-gh]|
-[<img src="https://avatars2.githubusercontent.com/u/22284649?s=400&v=4" width="300" />][aaron-gh]|
-[<img src="https://avatars2.githubusercontent.com/u/46381171?s=400&v=4" width="300" />][austin-gh]|
-
-|
-[<img src="https://github.com/favicon.ico" width="15">][hayden-gh]|
-[<img src="https://github.com/favicon.ico" width="15">][jordan-gh]|
-[<img src="https://github.com/favicon.ico" width="15">][michael-gh]|
-[<img src="https://github.com/favicon.ico" width="15">][aaron-gh]|
-[<img src="https://github.com/favicon.ico" width="15">][austin-gh]|
-
-| 
-[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][hayden-li]| 
-[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][jordan-li]|
-[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][michael-li]|
-[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][aaron-li]|
-[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][austin-li]|
+|[<img src="https://avatars3.githubusercontent.com/u/25404401?s=400&v=4" width="300" />][hayden-gh]|[<img src="https://avatars2.githubusercontent.com/u/24785257?s=460&v=4" width="300" />][jordan-gh]|[<img src="https://avatars0.githubusercontent.com/u/58450971?s=400&v=4" width="300" />][michael-gh]|[<img src="https://avatars2.githubusercontent.com/u/22284649?s=400&v=4" width="300" />][aaron-gh]|[<img src="https://avatars2.githubusercontent.com/u/46381171?s=400&v=4" width="300" />][austin-gh]|
+|[<img src="https://github.com/favicon.ico" width="15">][hayden-gh]|[<img src="https://github.com/favicon.ico" width="15">][jordan-gh]|[<img src="https://github.com/favicon.ico" width="15">][michael-gh]|[<img src="https://github.com/favicon.ico" width="15">][aaron-gh]|[<img src="https://github.com/favicon.ico" width="15">][austin-gh]|
+| [<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][hayden-li]| [<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][jordan-li]|[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][michael-li]|[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][aaron-li]|[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][austin-li]|
 
   
 
