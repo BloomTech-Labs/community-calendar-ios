@@ -22,15 +22,11 @@ There is a disconnect between event organizers and community members. From the p
 
   
 
-|[Hayden Hastings](https://github.com/hayden32)|[Jordan Christensen](https://github.com/mazjap)|[Michael McGrath](https://github.com/maybemichael)|[Aaron Cleveland](https://github.com/amclv)|[Austin Potts](https://github.com/AustinPotts)|
-
-| :---: | :---: | :---: | :---: | :---: | :---: |
-
-|[<img src="https://media-exp1.licdn.com/dms/image/C5603AQFfbY6C4mi2nQ/profile-displayphoto-shrink_200_200/0?e=1586390400&v=beta&t=fHYR7ScNMtfizzKoOJX9Htz6HTKbSjasYjggnGXjHMw" width = "300" />](https://github.com/Hayden32)|[<img src="https://avatars0.githubusercontent.com/u/24785257?s=460&v=4" width = "300" />](https://github.com/mazjap)|[<img src="https://" width = "300" />](https://github.com/maybemichael)|[<img src="https://" width = "300" />](https://github.com/amclv)|[<img src="https://media-exp1.licdn.com/dms/image/C4D03AQHtFWAF5fp4MA/profile-displayphoto-shrink_200_200/0?e=1593043200&v=beta&t=aqZRukcym_qqRfHPPVQ8QCyawRXAc2QhfGzAEUPzY9M" width = "300" />](https://github.com/AustinPotts)|
-
-|[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Hayden32)|[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/mazjap)|[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/maybemichael)|[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/amclv)|[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/AustinPotts)|
-
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/hayden-hastings/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jordan-a-christensen/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/austin-potts-9355a817a/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/alexander-supe/)|
+|[Hayden Hastings][hayden-gh]|[Jordan Christensen][jordan-gh]|[Michael McGrath][michael-gh]|[Aaron Cleveland][aaron-gh]|[Austin Potts][austin-gh]|
+| :---: | :---: | :---: | :---: | :---: |
+|[<img src="https://avatars3.githubusercontent.com/u/25404401?s=400&v=4" width="300" />][hayden-gh]|[<img src="https://avatars2.githubusercontent.com/u/24785257?s=460&v=4" width="300" />][jordan-gh]|[<img src="https://avatars0.githubusercontent.com/u/58450971?s=400&v=4" width="300" />][michael-gh]|[<img src="https://avatars2.githubusercontent.com/u/22284649?s=400&v=4" width="300" />][aaron-gh]|[<img src="https://avatars2.githubusercontent.com/u/46381171?s=400&v=4" width="300" />][austin-gh]|
+|[<img src="https://github.com/favicon.ico" width="15">][hayden-gh]|[<img src="https://github.com/favicon.ico" width="15">][jordan-gh]|[<img src="https://github.com/favicon.ico" width="15">][michael-gh]|[<img src="https://github.com/favicon.ico" width="15">][aaron-gh]|[<img src="https://github.com/favicon.ico" width="15">][austin-gh]|
+| [<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][hayden-li]| [<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][jordan-li]|[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][michael-li]|[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][aaron-li]|[<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15">][austin-li]|
 
   
 
@@ -224,7 +220,19 @@ See [Android Documentation](https://github.com/Lambda-School-Labs/community-cale
 
 These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
 
-  
+
+[hayden-gh]: https://github.com/Hayden32
+[jordan-gh]: https://github.com/mazjap
+[michael-gh]: https://github.com/maybemichael
+[aaron-gh]: https://github.com/amclv
+[austin-gh]: https://github.com/AustinPotts
+
+[hayden-li]: https://www.linkedin.com/in/hayden-hastings/
+[jordan-li]: https://www.linkedin.com/in/jordan-a-christensen/
+[michael-li]: https://www.linkedin.com/in/maybemichael/
+[aaron-li]: https://www.linkedin.com/in/alexander-supe/
+[austin-li]: https://www.linkedin.com/in/austin-potts-9355a817a/
+
 
 [swift-image]:  https://img.shields.io/badge/swift-5-green.svg
 
